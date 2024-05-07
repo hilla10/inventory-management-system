@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #d4d4d4;
+  font-family: 'Poppins', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+.header {
+  background-color: #1d1678cc;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navbar .list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.navbar .list .item a {
+  font-size: 0.97rem;
+  color: #fff;
+  font-weight: 400;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar .list .item a:hover {
+  color: #7bc9ff;
+}
+
+.navbar .list .active a {
+  border-bottom: 2px #fff solid;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.78rem 1.4rem;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  background-color: #00adb5;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #00adb5;
+  color: #fff;
+  transition: all 0.3s ease-in;
+}
+
+.btn-primary:hover {
+  background-color: #046e74;
+  color: #efefef;
+}
+
+.container {
+  max-width: 500px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 20px auto;
+  border-radius: 5px;
+}
+
+.table {
+  width: 90%;
+  max-width: 900px;
+  margin: 100px auto 20px;
+  background: #fff;
+  border-collapse: collapse;
+  /* display: none; */
+}
+
+.table thead th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: 700;
+  padding: 10px;
+  text-align: center;
+}
+
+.table tbody td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.fa-solid {
+  color: rgb(190, 0, 0);
+  font-size: 18px;
+}
+
+form {
+  padding-top: 2.5rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  padding: 2px;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'] {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 400px;
+}
+
+.wide-select {
+  width: 430px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+button[type='submit'] {
+  border-radius: 4px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button[type='submit']:hover {
+  background-color: #0062cc;
+}
+
+tr .deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.active {
+  display: block;
+}
