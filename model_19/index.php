@@ -9,10 +9,26 @@
     <div class="container mt-5">
 
 
+        <h2 class="my-3">All ሞዴል 19 ገቢ</h2>
    
 <div class="box1 d-flex justify-content-between ">
 
-    <h2 class="my-3">All ሞዴል 19 ገቢ</h2>
+    <form method="GET" action="">
+           <div class="d-flex justify-content-center align-items-center gap-5">
+             <div class="form-group">
+                <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <select name="order" id="order" class="form-select ">
+                      <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                </select>
+             </div>
+           
+            <button type="submit" class="btn btn-primary my-3">Search</button>
+           </div>
+        </form>
     <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal7">Add model_19</button>
 </div>
         <table class="table table-hover table-bordered table-striped">
@@ -33,7 +49,20 @@
             <tbody>
                 <?php
 
-                    $query = "SELECT * FROM  `model_19`";
+                // Check if the user selected an ordering option
+        if (isset($_GET['order']) && ($_GET['order'] == 'asc' || $_GET['order'] == 'desc')) {
+            $order = $_GET['order'];
+        } else {
+            $order = 'asc'; // Default ordering is ascending
+        }
+
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $_GET['search'];
+            $query = "SELECT * FROM `model_19` WHERE `item-type` LIKE '%$search%' ORDER BY `item-type` $order";
+        } else {
+            $query = "SELECT * FROM `model_19` ORDER BY `item-type` $order";
+        }
+
 
                     $result = mysqli_query($connection, $query);
 

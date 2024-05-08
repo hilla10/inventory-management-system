@@ -4,15 +4,32 @@
 <div class="box1 d-flex justify-content-between ">
 
     <h2 class="my-3">All Bin Card</h2>
+
+     <form method="GET" action="">
+           <div class="d-flex justify-content-center align-items-center gap-5">
+             <div class="form-group">
+                <input type="text" name="search" id="search" placeholder="Search item by Date" class="form-control">
+            </div>
+           
+            <div class="form-group">
+                <select name="order" id="order" class="form-select ">
+                      <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                </select>
+             </div>
+
+            <button type="submit" class="btn btn-primary my-3">Search</button>
+           </div>
+        </form>
+
    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal3">Add Bin</button>
 </div>
         <table class="table table-hover table-bordered table-striped">
          
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>ቀን</th>
                     <th>የተጠቃ.ቁጥር</th>
+                    <th>ቀን</th>
                     <th>ገቢ</th>
                     <th>ወጪ</th>
                     <th>ከወጪ ቀሪ</th>
@@ -24,7 +41,22 @@
             <tbody>
                 <?php
 
-                    $query = "SELECT * FROM  `bin`";
+
+            // Check if the user selected an ordering option
+        if (isset($_GET['order']) && ($_GET['order'] == 'asc' || $_GET['order'] == 'desc')) {
+            $order = $_GET['order'];
+        } else {
+            $order = 'asc'; // Default ordering is ascending
+        }
+
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $_GET['search'];
+            $query = "SELECT * FROM `bin` WHERE `date` LIKE '%$search%' ORDER BY `date` $order";
+        } else {
+            $query = "SELECT * FROM `bin` ORDER BY `date` $order";
+        }
+
+
 
                     $result = mysqli_query($connection, $query);
 
@@ -41,7 +73,6 @@
                         <tr>
                             <td><?php echo $row['id']?></td>
                             <td><?php echo $row['date']?></td>
-                            <td><?php echo $row['number']?></td>
                             <td><?php echo $row['income']?></td>
                             <td><?php echo $row['cost']?></td>
                             <td><?php echo $row['remain']?></td>

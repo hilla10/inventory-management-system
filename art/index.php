@@ -18,10 +18,28 @@
 
     <div class="container mt-5">
 
+        <h2 class="my-3">All Items</h2>
    
 <div class="box1 d-flex justify-content-between ">
 
-    <h2 class="my-3">All Items</h2>
+    
+    <form method="GET" action="">
+           <div class="d-flex justify-content-center align-items-center gap-5">
+             <div class="form-group">
+                <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <select name="order" id="order" class="form-select ">
+                      <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                </select>
+             </div>
+           
+            <button type="submit" class="btn btn-primary my-3">Search</button>
+           </div>
+        </form>
+        
     <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal">Add Items</button>
 </div>
         <table class="table table-hover table-bordered table-striped">
@@ -42,8 +60,21 @@
             </thead>
             <tbody>
                 <?php
+                
+            // Check if the user selected an ordering option
+        if (isset($_GET['order']) && ($_GET['order'] == 'asc' || $_GET['order'] == 'desc')) {
+            $order = $_GET['order'];
+        } else {
+            $order = 'asc'; // Default ordering is ascending
+        }
 
-                    $query = "SELECT * FROM  `art_department`";
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $_GET['search'];
+            $query = "SELECT * FROM `art_department` WHERE `inventory-list` LIKE '%$search%' ORDER BY `inventory-list` $order";
+        } else {
+            $query = "SELECT * FROM `art_department` ORDER BY `inventory-list` $order";
+        }
+
 
                     $result = mysqli_query($connection, $query);
 
@@ -61,12 +92,12 @@
                         <tr>
                             <td><?php echo $row['ordinary-number']?></td>
                             <td><?php echo $row['inventory-list']?></td>
-                            <td><?php echo $row['description']?></td>
+                            <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['description']?></td>
                             <td><?php echo $row['measure']?></td>
                             <td><?php echo $row['quantity']?></td>
                             <td><?php echo $row['price']?></td>
                             <td><?php echo $row['total-price']?></td>
-                            <td><?php echo $row['examination']?></td>
+                            <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']?></td>
                             <td><a href="update.php?ordinary-number=<?php echo $row['ordinary-number']?>" class="btn btn-success">Update</a></td>
                             <td><a href="delete.php?ordinary-number=<?php echo $row['ordinary-number']?>" class="btn btn-danger">Delete</a></td>
                         </tr>

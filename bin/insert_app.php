@@ -3,19 +3,16 @@
 
 if(isset($_POST['add_bin'])) {
     $date = $_POST['date'];
-    $number = $_POST['number'];
     $income = $_POST['income'];
     $cost = $_POST['cost'];
     $remain = $_POST['remain'];
     $short = $_POST['short'];
     
-    if(empty($date) || empty($number) || empty($income) || empty($cost) || empty($remain) || empty($short)) {
+    if(empty($date) || empty($income) || empty($cost) || empty($remain) || empty($short)) {
         header('location: index.php?message= Some fields are empty.');
     } elseif($date === "" || empty($date)) {
          header('location: index.php?message=You need to fill the inventory list');
-    }elseif($number === "" || empty($number)) {
-         header('location: index.php?message=You need to fill the number');
-    }  elseif($income === "" || empty($income)) {
+    } elseif($income === "" || empty($income)) {
          header('location: index.php?message=You need to fill the income');
     }  elseif($cost === "" || empty($cost)) {
          header('location: index.php?message=You need to fill the cost');
@@ -25,7 +22,7 @@ if(isset($_POST['add_bin'])) {
          header('location: index.php?message=You need to fill the short');
     } else {
 
-        $query =  "INSERT INTO bin (`date`, `number`, income, cost, remain, `short`) VALUES ('$date', '$number', '$income', '$cost', '$remain', '$short')";
+        $query =  "INSERT INTO bin (`date`,  income, cost, remain, `short`) VALUES ('$date', '$income', '$cost', '$remain', '$short')";
 
 
         $result = mysqli_query($connection, $query);

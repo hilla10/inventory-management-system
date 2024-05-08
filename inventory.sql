@@ -95,7 +95,6 @@ CREATE TABLE Purchase (
 CREATE TABLE bin (
   id INT PRIMARY KEY AUTO_INCREMENT,
   `date` DATE,
-  `number` INT,
   income INT,
   cost INT,
   remain INT,

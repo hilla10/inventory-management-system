@@ -28,14 +28,13 @@
         }
 
    $date = $_POST['date'];
-    $number = $_POST['number'];
     $income = $_POST['income'];
     $cost = $_POST['cost'];
     $remain = $_POST['remain'];
     $short = $_POST['short'];
     
 
-        $query = "UPDATE `bin` set `date` = '$date', `number` = '$number', `income` = '$income', `cost` = '$cost', `remain` = '$remain', `short` = '$short' WHERE `id` = '$new_id'";
+        $query = "UPDATE `bin` set `date` = '$date',`income` = '$income', `cost` = '$cost', `remain` = '$remain', `short` = '$short' WHERE `id` = '$new_id'";
 
           $result = mysqli_query($connection, $query);
 
@@ -56,10 +55,6 @@
 
             <div class="form-group mb-2">
                      <input type="date" class="form-control" id="date" name="date" placeholder="ቀን" value="<?php echo $row['date'] ?>">
-            </div>
-
-            <div class="form-group mb-2">
-                     <input type="number" class="form-control" id="number" name="number" placeholder="የተጠቃ.ቁጥር" value="<?php echo $row['number'] ?>">
             </div>
 
             <div class="form-group mb-2">

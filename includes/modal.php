@@ -64,10 +64,6 @@
                 <input type="date" class="form-control" id="date" name="date" placeholder="ቀን">
               </div>
               <div class="form-group my-2">
-             
-                <input type="number" class="form-control" id="email" name="number" placeholder="የተጠቃ.ቁጥር">
-              </div>
-              <div class="form-group my-2">
               
                 <input type="number" class="form-control" id="Phone" name="income" placeholder=" ገቢ">
            
@@ -270,10 +266,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <div class="form-group mb-2">
-                <input type="number" class="form-control" id="ordinary-number" name="ordinary-number" placeholder="ተራ ቁጥር">
-            </div>
-
               <div class="form-group mb-2">
              
                 <input type="text" class="form-control" id="item-type" name="item-type" placeholder="የእቃው አይነት">
