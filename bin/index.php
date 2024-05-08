@@ -1,24 +1,28 @@
 <?php include('../includes/dbcon.php'); ?>
 <?php include('header.php'); ?>
    
-<div class="box1 d-flex justify-content-between ">
+<div class="box1 d-flex justify-content-between align-items-center">
 
     <h2 class="my-3">All Bin Card</h2>
 
      <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-center gap-5">
-             <div class="form-group">
-                <input type="text" name="search" id="search" placeholder="Search item by Date" class="form-control">
-            </div>
-           
-            <div class="form-group">
-                <select name="order" id="order" class="form-select ">
-                      <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+           <div class="d-flex justify-content-center align-items-end">
+            <div>
+                <div class="form-group mb-2">
+                    <select name="order" id="order" class="form-select ">
+                        <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
                         <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
-                </select>
-             </div>
+                    </select>
+                </div>
 
-            <button type="submit" class="btn btn-primary my-3">Search</button>
+                <div class="form-group mb-2">
+                   <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
+               </div>
+               
+
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
            </div>
         </form>
 
@@ -55,8 +59,6 @@
         } else {
             $query = "SELECT * FROM `bin` ORDER BY `date` $order";
         }
-
-
 
                     $result = mysqli_query($connection, $query);
 

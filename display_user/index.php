@@ -9,30 +9,36 @@
     <div class="box1 d-flex justify-content-between align-items-center">
         <h2 class="my-3">All User</h2>
         <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-center gap-5">
-             <div class="form-group">
-                <input type="text" name="search" id="search" placeholder="Search user" class="form-control">
-            </div>
-            <div class="form-group">
-                <select name="field">
-                    <option value="username" <?php if(isset($_GET['field']) && $_GET['field'] == 'username') echo 'selected'; ?>>Username</option>
-                    <option value="gender" <?php if(isset($_GET['field']) && $_GET['field'] == 'gender') echo 'selected'; ?>>Gender</option>
-                    <option value="age" <?php if(isset($_GET['field']) && $_GET['field'] == 'age') echo 'selected'; ?>>Age</option>
-                    <option value="email" <?php if(isset($_GET['field']) && $_GET['field'] == 'email') echo 'selected'; ?>>Email</option>
-                    <option value="Phone" <?php if(isset($_GET['field']) && $_GET['field'] == 'Phone') echo 'selected'; ?>>Phone</option>
-                    <option value="options" <?php if(isset($_GET['field']) && $_GET['field'] == 'options') echo 'selected'; ?>>Options</option>
-                </select>
-            </div>
+           <div class="d-flex justify-content-center align-items-end">
+                <div>
+                <div class="d-flex gap-4">
+                    <div class="form-group mb-2">
+                        <select name="field" class="form-select">
+                            <option value="select field">select field</option>
+                            <option value="username" <?php if(isset($_GET['field']) && $_GET['field'] == 'username') echo 'selected'; ?>>Username</option>
+                            <option value="gender" <?php if(isset($_GET['field']) && $_GET['field'] == 'gender') echo 'selected'; ?>>Gender</option>
+                            <option value="age" <?php if(isset($_GET['field']) && $_GET['field'] == 'age') echo 'selected'; ?>>Age</option>
+                            <option value="email" <?php if(isset($_GET['field']) && $_GET['field'] == 'email') echo 'selected'; ?>>Email</option>
+                            <option value="Phone" <?php if(isset($_GET['field']) && $_GET['field'] == 'Phone') echo 'selected'; ?>>Phone</option>
+                            <option value="options" <?php if(isset($_GET['field']) && $_GET['field'] == 'options') echo 'selected'; ?>>Options</option>
+                        </select>
+                    </div>
 
-             <div class="form-group">
-                    <select name="order" id="order" class="form-select ">
-                        <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
-                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
-                    </select>
+                    <div class="form-group mb-2">
+                            <select name="order" id="order" class="form-select ">
+                                
+                            <option value="select order">select order</option>
+                                <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                                <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                            </select>
+                        </div>
                 </div>
-
-            <button type="submit" class="btn btn-primary my-3">Search</button>
-           </div>
+                        <div class="form-group input-box">
+                        <input type="text" name="search" id="search" placeholder="Search user" class="form-control search">
+                    </div>
+                </div>
+        <button type="submit" class="btn btn-primary my-4 ms-1">Search</button>
+    </div>
         </form>
         <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
     </div>

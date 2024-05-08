@@ -13,26 +13,33 @@
         
            <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
 
-            <div class="form-group mb-2">
-                <input type="text" class="form-control" id="inventory-list" name="inventory-list" placeholder="የእቃው ዝርዝር">
+            <div class="form-group input-box mb-2">
+                <input type="text" class="form-control" id="inventory-list" name="inventory-list">
+                <span>የእቃው ዝርዝር</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="text" class="form-control" id="description" name="description" placeholder=" መግለጫ">
+            <div class="form-group input-box mb-2">
+                <input type="text" class="form-control" id="description" name="description">
+                <span>መግለጫ</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="number" class="form-control" id="measure" name="measure" placeholder="መለኪያ">
+            <div class="form-group input-box mb-2">
+                <input type="number" class="form-control" id="measure" name="measure">
+                <span>መለኪያ</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="ብዛት">
+            <div class="form-group input-box mb-2">
+                <input type="number" class="form-control" id="quantity" name="quantity">
+                <span>ብዛት</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="number" class="form-control" id="price" name="price" placeholder="የአንዱ ዋጋ">
+            <div class="form-group input-box mb-2">
+                <input type="number" class="form-control" id="price" name="price">
+                <span>የአንዱ ዋጋ</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="number" class="form-control" id="total-price" name="total-price" placeholder="ጠቅላላ ዋጋ">
+            <div class="form-group input-box mb-2">
+                <input type="number" class="form-control" id="total-price" name="total-price" >
+                <span>ጠቅላላ ዋጋ</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="text" class="form-control" id="examination" name="examination" placeholder="ምርመራ">
+            <div class="form-group input-box mb-2">
+                <input type="text" class="form-control" id="examination" name="examination" >
+                <span>ምርመራ</span>
             </div>
       
       </div>
@@ -59,28 +66,31 @@
       <div class="modal-body">
          <h2 class="fs-3 text-center py-3">ቢን ካርድ</h2>
 
-             <div class="form-group my-2">
-          
-                <input type="date" class="form-control" id="date" name="date" placeholder="ቀን">
+             <div class="form-group input-box my-2">
+                <input type="date" class="form-control" id="date" name="date">
+                <span>ቀን</span>
               </div>
-              <div class="form-group my-2">
-              
-                <input type="number" class="form-control" id="Phone" name="income" placeholder=" ገቢ">
+              <div class="form-group input-box my-2">
+                <input type="number" class="form-control" id="Phone" name="income">
+                <span>ገቢ</span>
            
               </div>
-              <div class="form-group my-2">
+              <div class="form-group input-box my-2">
                 
-                <input type="number" class="form-control" id="age" name="cost" placeholder="ወጪ">
+                <input type="number" class="form-control" id="age" name="cost">
+                <span>ወጪ</span>
               </div>
           
-              <div class="form-group my-2">
+              <div class="form-group input-box my-2">
               
-                <input type="number" class="form-control" id="Phone" name="remain" placeholder="ከወጪ ቀሪ">
+                <input type="number" class="form-control" id="Phone" name="remain">
+                <span>ከወጪ ቀሪ</span>
            
               </div>
-              <div class="form-group my-2">
+              <div class="form-group input-box my-2">
               
-                <input type="number" class="form-control" id="Phone" name="short" placeholder="አጭር ፈር">
+                <input type="number" class="form-control" id="Phone" name="short">
+                <span>አጭር ፈር</span>
            
               </div>
       </div>
@@ -108,42 +118,42 @@
 
                         <h2 class="fs-3 text-center py-3">ዋናው መመዝገቢያ ቅጽ</h2>
 
-                        <div class="form-group">
+                        <div class="form-group input-box">
 
-                            <input type="text" class="form-control" name="username"
-                                placeholder="ስሞትን ያስገቡ| Enter your name|">
+                            <input type="text" class="form-control" name="username">
+                                <span>ስሞትን ያስገቡ| Enter your name|</span>
                         </div>
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
                             <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
-                            <select name="gender" class="form-select">
+                            <select name="gender" class="select-option">
                                 <option value="male">ወንድ</option>
                                 <option value="female">ሴት</option>
                             </select>
                         </div>
 
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" name="age"
-                                placeholder="አድሜ ያስገቡ |Enter your age|">
+                            <input type="number" class="form-control" name="age">
+                            <span>አድሜ ያስገቡ |Enter your age|</span>
                         </div>
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="email" class="form-control" name="email"
-                                placeholder="ኢሜል ያስገቡ|Enter your email|">
+                            <input type="email" class="form-control" name="email">
+                            <span>ኢሜል ያስገቡ|Enter your email|</span>
                                
                         </div>
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" name="Phone"
-                                placeholder=" ስልክ ቁጥር ያስገቡ |Enter your phone.no|">
+                            <input type="number" class="form-control" name="Phone">
+                                <span>ስልክ ቁጥር ያስገቡ |Enter your phone.no|</span>
                         </div>
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
                             <label for="position" class="py-2">ያሉበትን ሁኔታ ይምረጡ:|Enter your position|</label>
-                            <select name="position" class="form-select">
+                            <select name="position" class="select-option">
                                 <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
                                 <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
                                 <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
@@ -151,17 +161,17 @@
                             </select>
                         </div>
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="password" class="form-control" name="passwords"
-                                placeholder=" የይለፍ ቃል |Enter your password|">
+                            <input type="password" class="form-control" name="passwords">
+                            <span>የይለፍ ቃል |Enter your password|</span>
   
                         </div>
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="password" class="form-control" name="confirm"
-                                placeholder=" የይለፍ ቃል አረጋግጥ| Confirm your password|">
+                            <input type="password" class="form-control" name="confirm">
+                                <span>የይለፍ ቃል አረጋግጥ| Confirm your password|</span>
  
                         </div>
                         <div class="modal-footer">
@@ -189,29 +199,31 @@
 
                         <h2 class="fs-3 text-center py-3">የዲፓርትመንት ምዝገባ ቅጽ</h2>
 
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="text" class="form-control" id="username" name="username"
-                                placeholder="ስሞትን ያስገቡ">
+                            <input type="text" class="form-control" id="username" name="username">
+                            <span>ስሞትን ያስገቡ</span>
                         </div>
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="email" class="form-control" id="email" name="email" placeholder="ኢሜል ያስገቡ">
+                            <input type="email" class="form-control" id="email" name="email">
+                            <span>ኢሜል ያስገቡ</span>
                         </div>
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" id="age" name="age" placeholder="አድሜ ያስገቡ">
+                            <input type="number" class="form-control" id="age" name="age">
+                            <span>አድሜ ያስገቡ</span>
                         </div>
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" id="Phone" name="phone"
-                                placeholder=" ስልክ ቁጥር ያስገቡ">
+                            <input type="number" class="form-control" id="Phone" name="phone">
+                            <span>ስልክ ቁጥር ያስገቡ</span>
                         </div>
-                        <div class="form-group mb-2">
+                        <div class="form-group input-box mb-2">
 
-                            <div class="form-group mb-2">
+                            <div class="form-group input-box mb-2">
                                 <label for="position" class="py-2">ያሉበትን ሁኔታ ይምረጡ:</label>
-                                <select name="position" class="form-select">
+                                <select name="position" class="select-option">
                                     <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
                                     <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
                                     <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
@@ -242,9 +254,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-           <div class="form-group">
+           <div class="form-group input-box">
             <label for="username" class="py-2">Enter username to delete</label>
-            <input type="text" class="form-control" name="username" placeholder="ስሞትን ያስገቡ| Enter your name|">
+            <input type="text" class="form-control" name="username">
+            <span>ስሞትን ያስገቡ| Enter your name|</span>
           </div>
       </div>
       <div class="modal-footer">
@@ -266,28 +279,33 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
              
-                <input type="text" class="form-control" id="item-type" name="item-type" placeholder="የእቃው አይነት">
+                <input type="text" class="form-control" id="item-type" name="item-type">
+                <span>የእቃው አይነት</span>
               </div>
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
                 
-                <input type="text" class="form-control" id="model" name="model" placeholder="ሞዴል">
+                <input type="text" class="form-control" id="model" name="model">
+                <span>ሞዴል</span>
               </div>
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
              
-                <input type="number" class="form-control" id="serie" name="serie" placeholder=" ሴሪ">
+                <input type="number" class="form-control" id="serie" name="serie">
+                <span>ሴሪ</span>
               </div>
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
               
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder=" ብዛት">
-           
+                <input type="number" class="form-control" id="quantity" name="quantity">
+                <span>ብዛት</span>
               </div>
-             <div class="form-group mb-2">
-                <input type="number" class="form-control" id="price" name="price" placeholder="የአንዱ ዋጋ">
+             <div class="form-group input-box mb-2">
+                <input type="number" class="form-control" id="price" name="price">
+                <span>የአንዱ ዋጋ</span>
             </div>
-            <div class="form-group mb-2">
-                <input type="number" class="form-control" id="total-price" name="total-price" placeholder="ጠቅላላ ዋጋ">
+            <div class="form-group input-box mb-2">
+                <input type="number" class="form-control" id="total-price" name="total-price">
+                <span>ጠቅላላ ዋጋ</span>
             </div>
       </div>
       <div class="modal-footer">
@@ -309,24 +327,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <div class="form-group mb-2">
+          <div class="form-group input-box mb-2">
               
-                <input type="number" class="form-control" id="quantity" name="quantity" placeholder=" ብዛት">
+                <input type="number" class="form-control" id="quantity" name="quantity">
+                <span>ብዛት</span>
            
               </div>
 
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
              
-                <input type="text" class="form-control" id="item-type" name="item-type" placeholder="የእቃው አይነት">
+                <input type="text" class="form-control" id="item-type" name="item-type">
+                <span>የእቃው አይነት</span>
               </div>
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
                 
-                <input type="text" class="form-control" id="model" name="model" placeholder="ሞዴል">
+                <input type="text" class="form-control" id="model" name="model">
+                <span>ሞዴል</span>
               </div>
           
-              <div class="form-group mb-2">
+              <div class="form-group input-box mb-2">
                 
-                <input type="text" class="form-control" id="update"  name="update" placeholder="ማሻሻያ አምድ">
+                <input type="text" class="form-control" id="update"  name="update">
+                <span>ማሻሻያ አምድ</span>
               </div>
 
       </div>

@@ -1,49 +1,76 @@
-<?php include('../includes/header.php'); ?>
 <?php include('../includes/dbcon.php'); ?>
+<?php include('../includes/header.php'); ?>
 
-
- <div class="d-flex py-3 text-center bg-dark text-light justify-content-between">
-     <h1 class="col-md-6">It Department</h1>
-      <button type="button" class="btn btn-danger m-2 me-3" data-bs-toggle="modal" data-bs-target="#Modal4">
-     Delete User
+<nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+        <img src="../logo.png" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-   <button type="button" class="btn btn-success m-2 me-3" data-bs-toggle="modal" data-bs-target="#Modal2">
-  Add Department
-</button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto ">
+        <li class="nav-item">
+          <a class="nav-link link-light link-opacity-50-hover" href="#"  data-bs-toggle="modal" data-bs-target="#Modal2">Add Department</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</a>
+        </li>
+        <li class="nav-item">
+            <a href="../display_user/index.php" class="nav-link link-light link-opacity-50-hover">See All User</a>
+        </li>
+        <li class="nav-item">
+            <a href="../display_department/index.php" class="nav-link link-light link-opacity-50-hover">See All Department</a>
+        </li>
 
- <button type="button" class="btn btn-success m-2 me-3" data-bs-toggle="modal" data-bs-target="#Modal1">
-  Add User
-</button>
+      </ul>
+      <div class="d-flex">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">  
+        <li class="nav-item"> 
+            <button type="button" class="btn btn-danger m-2 me-3" data-bs-toggle="modal" data-bs-target="#Modal4">
+                Delete User
+            </button>
+        </li>
 
-   <a href="../login/logout_process.php" class="btn btn-danger m-2 me-3">Logout</a>
+        <li class="nav-item">
+               <a href="../login/logout_process.php" class="btn btn-danger m-2 me-3">Logout</a>
+        </li>
+    </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+ <div class=" py-3 text-center">
+     <h1>It Department</h1>
 
  </div>
 
     <div class="container mt-5">
 
-    <div class="d-flex justify-content-center m-2">
-            <a href="../display_user/index.php" class="btn btn-success me-5">See All User</a>
-    <a href="../display_department/index.php" class="btn btn-primary ">See All Department</a>
-    </div>
-   
-<div class="box1 d-flex justify-content-between ">
+<div class="box1 d-flex justify-content-between align-items-center">
 
     <h2 class="my-3">All Items</h2>
 
     <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-center gap-5">
-             <div class="form-group">
-                <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
-            </div>
-           
-               <div class="form-group">
-            <select name="order" id="order" class="form-select ">
-                 <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+           <div class="d-flex justify-content-center align-items-end">
+            <div>
+                <div class="form-group mb-2">
+                    <select name="order" id="order" class="form-select ">
+                        <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
                         <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
-            </select>
-        </div>
+                    </select>
+                </div>
 
-            <button type="submit" class="btn btn-primary my-3">Search</button>
+                <div class="form-group mb-2">
+                   <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
+               </div>
+               
+
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
            </div>
         </form>
     

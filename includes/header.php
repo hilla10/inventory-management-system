@@ -7,6 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css" type="text/css">
     <title>ወጪ</title>
+    
 </head>
-<body style=" font-family: 'Noto Serif Ethiopic', serif;" class="vh-100 vw-100">
+<body  class="body text-light" >
+
+ 
