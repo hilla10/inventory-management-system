@@ -28,13 +28,13 @@
       <div class="d-flex">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">  
         <li class="nav-item"> 
-            <button type="button" class="btn btn-danger m-2 me-3" data-bs-toggle="modal" data-bs-target="#Modal4">
+            <button type="button" class="btn btn-danger mb-md-3 me-3" data-bs-toggle="modal" data-bs-target="#Modal4">
                 Delete User
             </button>
         </li>
 
         <li class="nav-item">
-               <a href="../login/logout_process.php" class="btn btn-danger m-2 me-3">Logout</a>
+               <a href="../login/logout_process.php" class="btn btn-danger  me-3">Logout</a>
         </li>
     </ul>
       </div>

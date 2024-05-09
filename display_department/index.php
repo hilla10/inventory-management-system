@@ -106,7 +106,9 @@ include('../includes/header.php');
                         <td><?php echo $row['phone'] ?></td>
                         <td><?php echo $row['position'] ?></td>
                         <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
-                        <td><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">Delete</a></td>
+                        <td>
+                            <a  href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">Delete</a>
+                        </td>
                     </tr>
                     <?php
                 }

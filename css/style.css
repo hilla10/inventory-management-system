@@ -60,8 +60,9 @@ form .input-box input::placeholder {
   transition: transform 0.5s ease;
 }
 
-.input-box input:active ~ span,
-.input-box input:focus ~ span {
+.input-box input:valid ~ span,
+.input-box input:focus ~ span,
+.input-box input:active ~ span {
   color: #00dfc4;
   transform: translate(16px, -36px);
   font-size: 0.75em;
@@ -70,8 +71,8 @@ form .input-box input::placeholder {
   box-shadow: 0 -2px 0.2rem rgba(220, 210, 248, 0.945);
 }
 
-form .input-box input:active,
-form .input-box input:focus {
+form .input-box input:focus,
+form .input-box input:active {
   border: 1px groove #00dfc4;
   box-shadow: 0 0 0.5rem 0.15rem rgba(220, 210, 248, 0.945);
   background: transparent;
@@ -79,11 +80,20 @@ form .input-box input:focus {
 }
 
 .bg-dark-blue {
-  height: 100px;
   background-color: #6b0069;
 }
 
 .navbar-brand img {
   width: 80px;
   height: 80px;
+}
+
+.login-card {
+  background-color: #00dfc588;
+}
+
+.btn-outline {
+  border: 2px solid rgba(252, 238, 52, 0.699);
+  background-color: transparent;
+  color: #181414;
 }

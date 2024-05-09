@@ -7,45 +7,45 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Item</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         
            <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
 
             <div class="form-group input-box mb-2">
-                <input type="text" class="form-control" id="inventory-list" name="inventory-list">
+                <input required type="text" class="form-control" id="inventory-list" name="inventory-list">
                 <span>የእቃው ዝርዝር</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="text" class="form-control" id="description" name="description">
+                <input required type="text" class="form-control" id="description" name="description">
                 <span>መግለጫ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="measure" name="measure">
+                <input required type="number" class="form-control" id="measure" name="measure">
                 <span>መለኪያ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="quantity" name="quantity">
+                <input required type="number" class="form-control" id="quantity" name="quantity">
                 <span>ብዛት</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="price" name="price">
+                <input required type="number" class="form-control" id="price" name="price">
                 <span>የአንዱ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="total-price" name="total-price" >
+                <input required type="number" class="form-control" id="total-price" name="total-price" >
                 <span>ጠቅላላ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="text" class="form-control" id="examination" name="examination" >
+                <input required type="text" class="form-control" id="examination" name="examination" >
                 <span>ምርመራ</span>
             </div>
       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-success" name="add_item" value="አስገባ"></input>
+        <input required type="submit" class="btn btn-success" name="add_item" value="አስገባ"></input>
       </div>
     </div>
   </div>
@@ -61,42 +61,42 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Bin Card</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
          <h2 class="fs-3 text-center py-3">ቢን ካርድ</h2>
 
              <div class="form-group input-box my-2">
-                <input type="date" class="form-control" id="date" name="date">
+                <input required type="date" class="form-control" id="date" name="date">
                 <span>ቀን</span>
               </div>
               <div class="form-group input-box my-2">
-                <input type="number" class="form-control" id="Phone" name="income">
+                <input required type="number" class="form-control" id="Phone" name="income">
                 <span>ገቢ</span>
            
               </div>
               <div class="form-group input-box my-2">
                 
-                <input type="number" class="form-control" id="age" name="cost">
+                <input required type="number" class="form-control" id="age" name="cost">
                 <span>ወጪ</span>
               </div>
           
               <div class="form-group input-box my-2">
               
-                <input type="number" class="form-control" id="Phone" name="remain">
+                <input required type="number" class="form-control" id="Phone" name="remain">
                 <span>ከወጪ ቀሪ</span>
            
               </div>
               <div class="form-group input-box my-2">
               
-                <input type="number" class="form-control" id="Phone" name="short">
+                <input required type="number" class="form-control" id="Phone" name="short">
                 <span>አጭር ፈር</span>
            
               </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-success" name="add_bin" value="አስገባ"></input>
+          <input required type="submit" class="btn btn-success" name="add_bin" value="አስገባ"></input>
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Add User</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
 
@@ -120,7 +120,7 @@
 
                         <div class="form-group input-box">
 
-                            <input type="text" class="form-control" name="username">
+                            <input required type="text" class="form-control" name="username">
                                 <span>ስሞትን ያስገቡ| Enter your name|</span>
                         </div>
                         <div class="form-group input-box mb-2">
@@ -134,20 +134,20 @@
 
                         <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" name="age">
+                            <input required type="number" class="form-control" name="age">
                             <span>አድሜ ያስገቡ |Enter your age|</span>
                         </div>
 
                         <div class="form-group input-box mb-2">
 
-                            <input type="email" class="form-control" name="email">
+                            <input required type="email" class="form-control" name="email">
                             <span>ኢሜል ያስገቡ|Enter your email|</span>
                                
                         </div>
 
                         <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" name="Phone">
+                            <input required type="number" class="form-control" name="Phone">
                                 <span>ስልክ ቁጥር ያስገቡ |Enter your phone.no|</span>
                         </div>
 
@@ -163,20 +163,20 @@
 
                         <div class="form-group input-box mb-2">
 
-                            <input type="password" class="form-control" name="passwords">
+                            <input required type="password" class="form-control" name="passwords">
                             <span>የይለፍ ቃል |Enter your password|</span>
   
                         </div>
 
                         <div class="form-group input-box mb-2">
 
-                            <input type="password" class="form-control" name="confirm">
+                            <input required type="password" class="form-control" name="confirm">
                                 <span>የይለፍ ቃል አረጋግጥ| Confirm your password|</span>
  
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
+                            <input required type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
                         </div>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Department</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
 
@@ -201,22 +201,22 @@
 
                         <div class="form-group input-box mb-2">
 
-                            <input type="text" class="form-control" id="username" name="username">
+                            <input required type="text" class="form-control" id="username" name="username">
                             <span>ስሞትን ያስገቡ</span>
                         </div>
                         <div class="form-group input-box mb-2">
 
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input required type="email" class="form-control" id="email" name="email">
                             <span>ኢሜል ያስገቡ</span>
                         </div>
                         <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" id="age" name="age">
+                            <input required type="number" class="form-control" id="age" name="age">
                             <span>አድሜ ያስገቡ</span>
                         </div>
                         <div class="form-group input-box mb-2">
 
-                            <input type="number" class="form-control" id="Phone" name="phone">
+                            <input required type="number" class="form-control" id="Phone" name="phone">
                             <span>ስልክ ቁጥር ያስገቡ</span>
                         </div>
                         <div class="form-group input-box mb-2">
@@ -235,7 +235,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
+                        <input required type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
                     </div>
                 </div>
             </div>
@@ -254,15 +254,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-           <div class="form-group input-box">
-            <label for="username" class="py-2">Enter username to delete</label>
-            <input type="text" class="form-control" name="username">
-            <span>ስሞትን ያስገቡ| Enter your name|</span>
+           <div class="form-group input-box my-2">
+            <!-- <label for="username" class="pb-5">Enter username to delete</label> -->
+            <input required type="text" class="form-control" name="username">
+            <span>ስሞትን ያስገቡ| Enter your name to delete|</span>
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-success" name="delete_user" value="አስገባ"></input>
+          <input required type="submit" class="btn btn-success" name="delete_user" value="አስገባ"></input>
       </div>
     </div>
   </div>
@@ -276,41 +276,41 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 19</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
               <div class="form-group input-box mb-2">
              
-                <input type="text" class="form-control" id="item-type" name="item-type">
+                <input required type="text" class="form-control" id="item-type" name="item-type">
                 <span>የእቃው አይነት</span>
               </div>
               <div class="form-group input-box mb-2">
                 
-                <input type="text" class="form-control" id="model" name="model">
+                <input required type="text" class="form-control" id="model" name="model">
                 <span>ሞዴል</span>
               </div>
               <div class="form-group input-box mb-2">
              
-                <input type="number" class="form-control" id="serie" name="serie">
+                <input required type="number" class="form-control" id="serie" name="serie">
                 <span>ሴሪ</span>
               </div>
               <div class="form-group input-box mb-2">
               
-                <input type="number" class="form-control" id="quantity" name="quantity">
+                <input required type="number" class="form-control" id="quantity" name="quantity">
                 <span>ብዛት</span>
               </div>
              <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="price" name="price">
+                <input required type="number" class="form-control" id="price" name="price">
                 <span>የአንዱ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="total-price" name="total-price">
+                <input required type="number" class="form-control" id="total-price" name="total-price">
                 <span>ጠቅላላ ዋጋ</span>
             </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
+          <input required type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
       </div>
     </div>
   </div>
@@ -324,37 +324,37 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 20</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
           <div class="form-group input-box mb-2">
               
-                <input type="number" class="form-control" id="quantity" name="quantity">
+                <input required type="number" class="form-control" id="quantity" name="quantity">
                 <span>ብዛት</span>
            
               </div>
 
               <div class="form-group input-box mb-2">
              
-                <input type="text" class="form-control" id="item-type" name="item-type">
+                <input required type="text" class="form-control" id="item-type" name="item-type">
                 <span>የእቃው አይነት</span>
               </div>
               <div class="form-group input-box mb-2">
                 
-                <input type="text" class="form-control" id="model" name="model">
+                <input required type="text" class="form-control" id="model" name="model">
                 <span>ሞዴል</span>
               </div>
           
               <div class="form-group input-box mb-2">
                 
-                <input type="text" class="form-control" id="update"  name="update">
+                <input required type="text" class="form-control" id="update"  name="update">
                 <span>ማሻሻያ አምድ</span>
               </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
+          <input required type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
       </div>
     </div>
   </div>
