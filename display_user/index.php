@@ -2,7 +2,7 @@
 <?php include('../includes/header.php'); ?>
 
 <div class=" py-3 text-center bg-dark text-light">
-    <h1 class="col-md-8">Display All User</h1>
+    <h1>Display All User</h1>
 </div>
 
 <div class="container mt-5">
@@ -14,7 +14,7 @@
                 <div class="d-flex gap-4">
                     <div class="form-group mb-2">
                         <select name="field" class="form-select">
-                            <option value="select field">select field</option>
+                            <option value="select field">Select field</option>
                             <option value="username" <?php if(isset($_GET['field']) && $_GET['field'] == 'username') echo 'selected'; ?>>Username</option>
                             <option value="gender" <?php if(isset($_GET['field']) && $_GET['field'] == 'gender') echo 'selected'; ?>>Gender</option>
                             <option value="age" <?php if(isset($_GET['field']) && $_GET['field'] == 'age') echo 'selected'; ?>>Age</option>
@@ -26,8 +26,6 @@
 
                     <div class="form-group mb-2">
                             <select name="order" id="order" class="form-select ">
-                                
-                            <option value="select order">select order</option>
                                 <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
                                 <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
                             </select>
@@ -59,21 +57,30 @@
         <tbody>
             <?php
             $userCount = 0;
+            $errors = [];
             // Check if the user selected an ordering option
             if (isset($_GET['order']) && ($_GET['order'] == 'asc' || $_GET['order'] == 'desc')) {
                 $order = $_GET['order'];
             } else {
                 $order = 'asc'; // Default ordering is ascending
             }
-            
-            if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field'])) {
+            if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
                 $search = $_GET['search'];
                 $field = $_GET['field'];
-                $query = "SELECT * FROM `register` WHERE $field LIKE '%$search%' ORDER BY username $order";
+                $query = "SELECT * FROM `register` WHERE `$field` LIKE '%$search%' ORDER BY username $order";
             } else {
+                // Display a message if the user didn't select a field or selected "select field" and clicked the submit button
+                if (isset($_GET['search']) && !empty($_GET['search'])) {
+                    $errors[] = "Please select a valid field to search the user.";
+                }
                 $query = "SELECT * FROM `register` ORDER BY username $order";
             }
-            
+
+            if(!empty($errors)) {
+                $message = implode(" ", $errors);
+                header('location: index.php?message=' . urldecode($message));
+            }
+
             $result = mysqli_query($connection, $query);
 
             if (!$result) {

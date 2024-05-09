@@ -2,34 +2,37 @@
 <?php include('../includes/header.php'); ?>
 
  <div class=" py-3 text-center bg-dark text-light">
-     <h1 >የግዥ መጠየቂያ ፎርም
-      </h1>
+     <h1 >ሞዴል 20 ወጪ ፎርም</h1>
 
  </div>
 
     <div class="container mt-5">
 
 
-        <h2 class="my-3">All ሞዴል 20 ወጪ</h2>
-   
-<div class="box1 d-flex justify-content-between ">
+        
+        <div class="box1 d-flex justify-content-between ">
+    <h2 class="my-3">All ሞዴል 20 ወጪ</h2>
 
      <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-center gap-5">
-             <div class="form-group">
-                <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
+           <div class="d-flex justify-content-center align-items-end">
+            <div>
+                <div class="form-group mb-2">
+                    <select name="order" id="order" class="form-select ">
+                        <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2 input-box">
+                   <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
+               </div>
+               
             </div>
 
-            <div class="form-group">
-                <select name="order" id="order" class="form-select ">
-                      <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
-                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
-                </select>
-             </div>
-           
-            <button type="submit" class="btn btn-primary my-3">Search</button>
+            <button type="submit" class="btn btn-primary mb-4 ms-1">Search</button>
            </div>
         </form>
+
     <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal6">Add model_20</button>
 </div>
         <table class="table table-hover table-bordered table-striped">

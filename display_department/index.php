@@ -3,48 +3,45 @@ include('../includes/dbcon.php');
 include('../includes/header.php');
 ?>
 
-<div class="d-flex py-3 text-center bg-dark text-light justify-content-between">
-    <h1 class="col-md-8">Display All Department</h1>
+<div class="py-3 text-center bg-dark text-light ">
+    <h1>Display All Department</h1>
 </div>
 
 <div class="container mt-5">
-    <h2 class="my-3">All Department</h2>
-
-    <div class="box1 d-flex justify-content-between align-items-center">
+     <div class="box1 d-flex justify-content-between align-items-center">
+        <h2 class="my-3">All Department</h2>
         <form method="GET" action="">
-            <div class="d-flex justify-content-center align-items-end">
+           <div class="d-flex justify-content-center align-items-end">
                 <div>
-                    <div class="d-flex gap-4">
-                        <div class="form-group mb-2">
-                    <select name="field" class="form-select">
-                        <option value="username" <?php if(isset($_GET['field']) && $_GET['field'] == 'username') echo 'selected'; ?>>Username</option>
-                        <option value="email" <?php if(isset($_GET['field']) && $_GET['field'] == 'email') echo 'selected'; ?>>Email</option>
-                        <option value="age" <?php if(isset($_GET['field']) && $_GET['field'] == 'age') echo 'selected'; ?>>Age</option>
-                        <option value="Phone" <?php if(isset($_GET['field']) && $_GET['field'] == 'Phone') echo 'selected'; ?>>Phone</option>
-                        <option value="position" <?php if(isset($_GET['field']) && $_GET['field'] == 'position') echo 'selected'; ?>>Position</option>
-                    </select>
-                </div>
-
-                <div class="form-group mb-2">
-                    <select name="order" id="order" class="form-select ">
-                        <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
-                        <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
-                    </select>
-                </div>
-
+                <div class="d-flex gap-4">
+                    <div class="form-group mb-2">
+                        <select name="field" class="form-select">
+                            <option value="select field">Select field</option>
+                            <option value="username" <?php if(isset($_GET['field']) && $_GET['field'] == 'username') echo 'selected'; ?>>Username</option>
+                            <option value="gender" <?php if(isset($_GET['field']) && $_GET['field'] == 'gender') echo 'selected'; ?>>Gender</option>
+                            <option value="age" <?php if(isset($_GET['field']) && $_GET['field'] == 'age') echo 'selected'; ?>>Age</option>
+                            <option value="email" <?php if(isset($_GET['field']) && $_GET['field'] == 'email') echo 'selected'; ?>>Email</option>
+                            <option value="Phone" <?php if(isset($_GET['field']) && $_GET['field'] == 'Phone') echo 'selected'; ?>>Phone</option>
+                            <option value="options" <?php if(isset($_GET['field']) && $_GET['field'] == 'options') echo 'selected'; ?>>Options</option>
+                        </select>
                     </div>
-              <div class="form-group input-box">
+
+                    <div class="form-group mb-2">
+                            <select name="order" id="order" class="form-select ">
+                                <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                                <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                            </select>
+                        </div>
+                </div>
+                        <div class="form-group input-box">
                         <input type="text" name="search" id="search" placeholder="Search user" class="form-control search">
                     </div>
                 </div>
-                
-                
-                <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
-            </div>
-        </form>
-        <button class="btn btn-primary my-3 py-2" data-bs-toggle="modal" data-bs-target="#Modal2">Add Department</button>
+        <button type="submit" class="btn btn-primary my-4 ms-1">Search</button>
     </div>
-
+        </form>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
+    </div>
     <table class="table table-hover table-bordered table-striped">
         <thead>
             <tr>
@@ -60,6 +57,9 @@ include('../includes/header.php');
         </thead>
         <tbody>
             <?php
+            
+            $errors = [];
+
             // Check if the user selected an ordering option
             if (isset($_GET['order']) && ($_GET['order'] == 'asc' || $_GET['order'] == 'desc')) {
                 $order = $_GET['order'];
@@ -67,13 +67,23 @@ include('../includes/header.php');
                 $order = 'asc'; // Default ordering is ascending
             }
 
-            if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field'])) {
+             if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
                 $search = $_GET['search'];
                 $field = $_GET['field'];
                 $query = "SELECT * FROM `department_registration` WHERE $field LIKE '%$search%' ORDER BY username $order";
-            } else {
-                $query = "SELECT * FROM `department_registration`  ORDER BY username $order";
+            }  else {
+                // Display a message if the user didn't select a field or selected "select field" and clicked the submit button
+                if (isset($_GET['search']) && !empty($_GET['search'])) {
+                    $errors[] = "Please select a valid field to search the user.";
+                }
+                $query = "SELECT * FROM `department_registration` ORDER BY username $order";
             }
+
+            if(!empty($errors)) {
+                $message = implode(" ", $errors);
+                header('location: index.php?message=' . urldecode($message));
+            }
+
 
 
             $result = mysqli_query($connection, $query);
@@ -105,9 +115,12 @@ include('../includes/header.php');
         </tbody>
     </table>
     <div class="text-uppercase fs-4 fw-bold text-end">Department Count : <span class="text-primary"><?php echo $departmentCount; ?></span></div>
-</div>
+
+<!-- message -->
+<?php include('../includes/message.php'); ?>
 
 <!-- Modal -->
 <?php include('../includes/modal.php'); ?>
-<?php include('../includes/message.php'); ?>
+
+<!-- footer -->
 <?php include('../includes/footer.php'); ?>

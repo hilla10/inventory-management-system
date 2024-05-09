@@ -22,13 +22,13 @@
                     </select>
                 </div>
 
-                <div class="form-group mb-2">
+                <div class="form-group mb-2 input-box">
                    <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                </div>
                
             </div>
 
-            <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
+            <button type="submit" class="btn btn-primary mb-4 ms-1">Search</button>
            </div>
         </form>
         

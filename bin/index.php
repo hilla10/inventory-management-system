@@ -3,7 +3,7 @@
    
 <div class="box1 d-flex justify-content-between align-items-center">
 
-    <h2 class="my-3">All Bin Card</h2>
+    <h2 class="my-3 text-light">All Bin Card</h2>
 
      <form method="GET" action="">
            <div class="d-flex justify-content-center align-items-end">
