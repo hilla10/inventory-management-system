@@ -1,15 +1,16 @@
 
 
+
 -- Table structure for table `register`
 
 CREATE TABLE register (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  username VARCHAR(255),
+  username VARCHAR(50),
   gender VARCHAR(10),
   age INT,
-  email VARCHAR(255),
+  email VARCHAR(50),
   Phone VARCHAR(20),
-  options VARCHAR(255),
+  options VARCHAR(50),
   passwords VARCHAR(255)
 );
 
@@ -17,9 +18,9 @@ CREATE TABLE register (
 
 CREATE TABLE `user` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `user_name` VARCHAR(255),
+  `user_name` VARCHAR(50),
   `password` VARCHAR(255),
-  `option` VARCHAR(255)
+  `option` VARCHAR(50)
 );
 
 
@@ -27,26 +28,26 @@ CREATE TABLE `user` (
 
 CREATE TABLE art_department (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(255),
-  `description` VARCHAR(255),
+  `inventory-list` VARCHAR(50),
+  `description` VARCHAR(50),
   measure INT,
   quantity INT,
   price INT,
   `total-price` INT,
-  examination VARCHAR(255)
+  examination VARCHAR(50)
 );
 
 -- Table structure for table `business department`
 
 CREATE TABLE business_department (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(255),
-  `description` VARCHAR(255),
+  `inventory-list` VARCHAR(50),
+  `description` VARCHAR(50),
   measure INT,
   quantity INT,
   price INT,
   `total-price` INT,
-  examination VARCHAR(255)
+  examination VARCHAR(50)
 );
 
 
@@ -54,13 +55,13 @@ CREATE TABLE business_department (
 
 CREATE TABLE auto_department (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(255),
-  `description` VARCHAR(255),
+  `inventory-list` VARCHAR(50),
+  `description` VARCHAR(50),
   measure INT,
   quantity INT,
   price INT,
   `total-price` INT,
-  examination VARCHAR(255)
+  examination VARCHAR(50)
 );
 
 
@@ -68,26 +69,26 @@ CREATE TABLE auto_department (
 
 CREATE TABLE it_department (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(255),
-  `description` VARCHAR(255),
+  `inventory-list` VARCHAR(50),
+  `description` VARCHAR(50),
   measure INT,
   quantity INT,
   price INT,
   `total-price` INT,
-  examination VARCHAR(255)
+  examination VARCHAR(50)
 );
 
 -- Table structure for table `purchase`
 
 CREATE TABLE Purchase (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(255),
-  `description` VARCHAR(255),
+  `inventory-list` VARCHAR(50),
+  `description` VARCHAR(50),
   measure INT,
   quantity INT,
   price INT,
   `total-price` INT,
-  examination VARCHAR(255)
+  examination VARCHAR(50)
 );
 
 -- Table structure for table `bin`
@@ -105,11 +106,11 @@ CREATE TABLE bin (
 
 CREATE TABLE department_registration (
   id INT PRIMARY KEY AUTO_INCREMENT,
- username VARCHAR(255),
-email VARCHAR(255),
+ username VARCHAR(50),
+email VARCHAR(50),
 age INT,
 phone VARCHAR(20),
-position VARCHAR(255)
+position VARCHAR(50)
 );
 
 
@@ -118,9 +119,9 @@ position VARCHAR(255)
 CREATE TABLE model_20 (
  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
 quantity INT,
-`item-type` VARCHAR(255),
-model VARCHAR(255),
-`update` VARCHAR(255)
+`item-type` VARCHAR(50),
+model VARCHAR(50),
+`update` VARCHAR(50)
 );
 
 
@@ -128,8 +129,8 @@ model VARCHAR(255),
 
 CREATE TABLE model_19 (
 `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-`item-type` VARCHAR(255),
-model VARCHAR(255),
+`item-type` VARCHAR(50),
+model VARCHAR(50),
 serie INT,
 quantity INT,
 price INT,

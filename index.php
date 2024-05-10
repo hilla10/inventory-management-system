@@ -26,7 +26,7 @@
               </div>
              
               <div class="form-group mb-2">
-                <label for="position" class="pb-2 text-light">ያሉበትን ሁኔታ ይምረጡ:</label>
+                <label for="options" class="pb-2 text-light">ያሉበትን ሁኔታ ይምረጡ:</label>
               <select name="options" class="form-select">
                   <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
                   <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
