@@ -23,6 +23,9 @@ CREATE TABLE `user` (
   `option` VARCHAR(50)
 );
 
+INSERT INTO `user` (`user_name`, `password`, `option`)
+VALUES ('admin', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'it head');
+
 
 -- Table structure for table `art department`
 
