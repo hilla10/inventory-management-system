@@ -1,6 +1,26 @@
 <?php include('../includes/dbcon.php'); ?>
 <?php include('../includes/header.php'); ?>
 
+<?php
+session_start();
+
+// Check if the user is logged in and has the appropriate role
+if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
+
+    // Redirect to specific pages based on the role
+    if ($_SESSION['options'] === 'business head') {
+        header('Location: ../business/index.php');
+        exit();
+    } elseif ($_SESSION['options'] === 'art head') {
+        header('Location: ../art/index.php');
+        exit();
+    } elseif ($_SESSION['options'] === 'auto head') {
+        header('Location: ../auto/index.php');
+        exit();
+    }
+}
+?>
+
 <div class=" py-3 text-center bg-dark text-light">
     <h1>Display All User</h1>
 </div>

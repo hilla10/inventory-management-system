@@ -1,5 +1,26 @@
-<?php include('../includes/dbcon.php'); ?>
-<?php 
+<?php
+session_start();
+
+// Perform form validation and user registration process
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    // Check if the user is authenticated
+    if (!isset($_SESSION['authenticated'])) {
+        // If not authenticated, redirect to the login page or any other appropriate page
+        header("Location: ./index.php");
+        exit();
+    }
+
+}
+
+ include('../includes/dbcon.php');
+ include('../includes/header.php');
+
+
+echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-items-center\">
+    <h2 class=\"pe-2 text-success fw-semibold\">Loading page... Redirecting</h2>
+    <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
+</div>";
+
 
 if(isset($_POST['add_department'])) {
     // Validate and sanitize fields

@@ -1,6 +1,6 @@
+<?php include("dbcon.php");?>
+<?php session_start();?>
 <?php 
-include("dbcon.php");
-session_start();
 
 if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($connection, $_POST['username']);
@@ -29,32 +29,28 @@ if (isset($_POST['login'])) {
             if (password_verify($password, $storedHashedPassword)) {
                 // Password is correct, proceed with login
                 $_SESSION['username'] = $username;
-                if ($options === 'it head') {
-                    echo '<script>window.location.href="../it/";</script>';
-                } elseif ($options === 'business head') {
-                    echo '<script>window.location.href="../business/";</script>';
-                } elseif ($options === 'art head') {
-                    echo '<script>window.location.href="../art/";</script>';
-                } elseif ($options === 'auto head') {
-                    echo '<script>window.location.href="../auto/";</script>';
-                }
+                $_SESSION['options'] = $options;
+              
+            // Redirect the user based on their role
+            if ($options === 'it head') {
+                header("Location: ../it/");
+                exit();
+            } elseif ($options === 'business head') {
+                header("Location: ../business/");
+                exit();
+            } elseif ($options === 'art head') {
+                header("Location: ../art/");
+                exit();
+            } elseif ($options === 'auto head') {
+                header("Location: ../auto/");
+                exit();
+            }
             } else {
-                // Debugging statement
-                echo "Entered password: " . $password . "<br>";
-            echo "Entered password: " . $hashedPassword . "<br>";
-                echo "Stored hashed password: " . $storedHashedPassword . "<br>";
-                echo "Password verification result: " . (password_verify($password, $storedHashedPassword) ? 'true' : 'false') . "<br>";
-
-                // echo '<script>window.location.href="../index.php?message=Sorry, your username or password is invalid";</script>';
+               
+                 header('location:../index.php?message=Sorry, your username or password is invalid');
             }
         } else {
-            // Debugging statement
-            echo "Entered password: " . $password . "<br>";
-            echo "Entered password: " . $hashedPassword . "<br>";
-            echo "Stored hashed password: " . $storedHashedPassword . "<br>";
-            echo "Password verification result: " . (password_verify($password, $storedHashedPassword) ? 'true' : 'false') . "<br>";
-            
-            echo '<script>window.location.href="../index.php?message=Sorry, your username or password is invalid";</script>';
+           header('location:../index.php?message=Sorry, your username or password is invalid');
         }
     }
 }

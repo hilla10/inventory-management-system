@@ -1,11 +1,12 @@
 <?php include('../includes/header.php'); ?>
+<?php include("../includes/auth.php"); ?>
 <?php include('../includes/dbcon.php'); ?>
 
 
 <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue">
   <div class="container">
     <a class="navbar-brand" href="../auto/index.php">
-        <img src="../logo.png" alt="logo">
+        <img src="../img/EPTC_logo.png" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

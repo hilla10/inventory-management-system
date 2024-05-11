@@ -3,9 +3,10 @@
 
 <?php
 
-echo "<div class=\"d-flex flex-column w-100 h-100 justify-content-center align-items-center\">
-    <h2 class=\"pe-2 text-success fw-semibold\">Redirecting to index.php</h2>
-    <img src=\"../loading/loading.svg\" style=\"height: 120px; width: 120px;\">
+
+echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-items-center\">
+    <h2 class=\"pe-2 text-success fw-semibold\">Loading page... Redirecting</h2>
+    <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
 </div>";
 
 error_reporting(E_ALL);
