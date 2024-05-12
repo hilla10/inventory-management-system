@@ -3,6 +3,14 @@
 
  <div class=" py-3 text-center bg-dark text-light">
      <h1 >ሞዴል 20 ወጪ ፎርም</h1>
+         <?php
+        $title = "ሞዴል 20 ወጪ ፎርም"; // Set the default title
+
+        if (isset($title) && !empty($title)) {
+            echo "<script>document.title = '" . $title . "'</script>";
+        }
+?>
+
 
  </div>
 

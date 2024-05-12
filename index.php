@@ -9,6 +9,13 @@
     <form method="post" action="./login/login_process.php">
         <div class="container">
             <h1 class="text-center text-light fw-semibold p-2">Login Form</h1>
+<?php
+        $title = "Login Form"; // Set the default title
+
+        if (isset($title) && !empty($title)) {
+            echo "<script>document.title = '" . $title . "'</script>";
+        }
+?>
        
 <?php
 

@@ -45,6 +45,13 @@
 
  <div class=" py-3 text-center">
      <h1>It Department</h1>
+     <?php
+        $title = "It Department"; // Set the default title
+
+        if (isset($title) && !empty($title)) {
+            echo "<script>document.title = '" . $title . "'</script>";
+        }
+?>
 
  </div>
 

@@ -23,6 +23,13 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
 
 <div class=" py-3 text-center bg-dark text-light">
     <h1>Display All User</h1>
+        <?php
+        $title = "Display All User"; // Set the default title
+
+if (isset($title) && !empty($title)) {
+    echo "<script>document.title = '" . $title . "'</script>";
+}
+?>
 </div>
 
 <div class="container mt-5">

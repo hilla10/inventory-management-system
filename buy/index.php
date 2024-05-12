@@ -3,6 +3,13 @@
 
  <div class="py-3 text-center bg-dark text-light">
      <h1>የግዥ መጠየቂያ ፎርም</h1>
+      <?php
+        $title = "የግዥ መጠየቂያ ፎርም"; // Set the default title
+
+if (isset($title) && !empty($title)) {
+    echo "<script>document.title = '" . $title . "'</script>";
+}
+?>
  </div>
 
     <div class="container mt-5">

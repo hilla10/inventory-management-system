@@ -4,6 +4,13 @@
 <div class="box1 d-flex justify-content-between align-items-center">
 
     <h2 class="my-3 text-light">All Bin Card</h2>
+     <?php
+        $title = "All Bin Card"; // Set the default title
+
+if (isset($title) && !empty($title)) {
+    echo "<script>document.title = '" . $title . "'</script>";
+}
+?>
 
      <form method="GET" action="">
            <div class="d-flex justify-content-center align-items-end">

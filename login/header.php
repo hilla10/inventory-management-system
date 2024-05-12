@@ -27,6 +27,6 @@
 }
 
     </style>
-    <title>Login</title>
+    <title><?php echo $title; ?></title>
 </head>
-<body style=" font-family: 'Open Sans', sans-serif; overflow: hidden;" class="body">
+<body style=" font-family: 'Open Sans', sans-serif;" class="body">

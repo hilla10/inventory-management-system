@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
-    <title>ወጪ</title>
+  <title><?php echo $title; ?></title>
     
 </head>
 <body  class="body text-light">

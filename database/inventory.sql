@@ -9,7 +9,7 @@ CREATE TABLE register (
   gender VARCHAR(10),
   age INT,
   email VARCHAR(50) UNIQUE NOT NULL,
-  Phone VARCHAR(20),
+  Phone VARCHAR(20) UNIQUE,
   options VARCHAR(50),
   passwords VARCHAR(255)
 );

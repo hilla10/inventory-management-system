@@ -91,9 +91,3 @@ form .input-box input:active {
 .login-card {
   background-color: #00dfc588;
 }
-
-.btn-outline {
-  border: 2px solid rgba(252, 238, 52, 0.699);
-  background-color: transparent;
-  color: #181414;
-}

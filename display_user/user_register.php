@@ -75,22 +75,59 @@ if (isset($_POST['add_user'])) {
     // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+  // Check if the email or phone already exists in the database
+    $stmtCheckEmail = $connection->prepare("SELECT email FROM register WHERE email = ?");
+    $stmtCheckEmail->bind_param("s", $email);
+    $stmtCheckEmail->execute();
+    $stmtCheckEmail->store_result();
+
+    $stmtCheckPhone = $connection->prepare("SELECT Phone FROM register WHERE Phone = ?");
+    $stmtCheckPhone->bind_param("s", $phone);
+    $stmtCheckPhone->execute();
+    $stmtCheckPhone->store_result();
+
+    if ($stmtCheckEmail->num_rows > 0) {
+        $message = "The email address is already registered.";
+        header('location: index.php?message=' . urlencode($message));
+        exit;
+    } elseif ($stmtCheckPhone->num_rows > 0) {
+        $message = "The phone number is already registered.";
+        header('location: index.php?message=' . urlencode($message));
+        exit;
+    }
+
     // Insert the input values into the register table
     $stmtRegister = $connection->prepare("INSERT INTO register (username, gender, age, email, Phone, options, passwords) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmtRegister->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
-    $stmtRegister->execute();
 
     // Insert the input values into the user table
     $stmtUser = $connection->prepare("INSERT INTO user (user_name, email, `option`, `password`) VALUES (?, ?, ?, ?)");
     $stmtUser->bind_param("ssss", $name, $email, $position, $hashedPassword);
-    $stmtUser->execute();
 
-    // Check if the queries were successful
-    if ($stmtRegister->affected_rows > 0 && $stmtUser->affected_rows > 0) {
-        header('Refresh: 3; URL=index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));
-        exit;
-    } else {
-        die("Query Failed" . mysqli_error($connection));
+    try {
+        // Execute the register table insert statement
+        $stmtRegister->execute();
+
+        // Check if the query was successful
+        if ($stmtRegister->affected_rows > 0) {
+            // Execute the user table insert statement
+            $stmtUser->execute();
+
+            // Check if the query was successful
+            if ($stmtUser->affected_rows > 0) {
+                header('Refresh: 3; URL=index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));
+                exit;
+            } else {
+                // Rollback the register table insert if the user table insert failed
+                $stmtRegister->rollback();
+                die("Failed to insert into the user table.");
+            }
+        } else {
+            die("Failed to insert into the register table.");
+        }
+    } catch (mysqli_sql_exception $exception) {
+        die("Query Failed: " . $exception->getMessage());
     }
 }
+
 ?>
