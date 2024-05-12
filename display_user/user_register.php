@@ -1,18 +1,22 @@
-<?php include('../includes/dbcon.php')?>
-<?php include('../includes/header.php'); ?>
-
 <?php
+// Include the database connection file
+include('../includes/dbcon.php');
 
+// Include the header file
+include('../includes/header.php');
 
+// Display a loading message while the page is loading
 echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-items-center\">
     <h2 class=\"pe-2 text-success fw-semibold\">Loading page... Redirecting</h2>
     <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
 </div>";
 
+// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
+// Check if the form for adding a user is submitted
 if (isset($_POST['add_user'])) {
     // Validate and sanitize fields
     $name = trim($_POST['username']);
