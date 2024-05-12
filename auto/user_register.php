@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Include the file that establishes the database connection
+require_once '../includes/dbcon.php';
+
+
 // Perform form validation and user registration process
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     // Check if the user is authenticated
@@ -89,11 +93,11 @@ if (isset($_POST['add_user'])) {
     $stmtRegister->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
     $stmtRegister->execute();
 
-    // Insert the input values into the user table
-    $stmtUser = $connection->prepare("INSERT INTO user (user_name, `option`, `password`) VALUES (?, ?, ?)");
-    $stmtUser->bind_param("sss", $name, $position, $hashedPassword);
+        // Insert the input values into the user table
+    $stmtUser = $connection->prepare("INSERT INTO user (user_name, email, `option`, `password`) VALUES (?, ?, ?, ?)");
+    $stmtUser->bind_param("ssss", $name, $email, $position, $hashedPassword);
     $stmtUser->execute();
-
+    
     // Check if the queries were successful
     if ($stmtRegister->affected_rows > 0 && $stmtUser->affected_rows > 0) {
         header('Refresh: 5; URL=index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));

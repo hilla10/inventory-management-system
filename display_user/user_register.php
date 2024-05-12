@@ -77,8 +77,8 @@ if (isset($_POST['add_user'])) {
     $stmtRegister->execute();
 
     // Insert the input values into the user table
-    $stmtUser = $connection->prepare("INSERT INTO user (user_name, `option`, `password`) VALUES (?, ?, ?)");
-    $stmtUser->bind_param("sss", $name, $position, $hashedPassword);
+    $stmtUser = $connection->prepare("INSERT INTO user (user_name, email, `option`, `password`) VALUES (?, ?, ?, ?)");
+    $stmtUser->bind_param("ssss", $name, $email, $position, $hashedPassword);
     $stmtUser->execute();
 
     // Check if the queries were successful

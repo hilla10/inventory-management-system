@@ -22,7 +22,7 @@
 ?>
 
               <div class="form-group mb-2 input-box">
-                <input type="text" class="form-control" name="username" placeholder="ስሞትን ያስገቡ">
+                <input type="text" class="form-control" name="username_or_email" placeholder="ስሞትን ወይም የኢሜል አድራሻዎን ያስገቡ">
               </div>
              
               <div class="form-group mb-2">

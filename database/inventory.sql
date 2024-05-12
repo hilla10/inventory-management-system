@@ -8,7 +8,7 @@ CREATE TABLE register (
   username VARCHAR(50),
   gender VARCHAR(10),
   age INT,
-  email VARCHAR(50),
+  email VARCHAR(50) UNIQUE NOT NULL,
   Phone VARCHAR(20),
   options VARCHAR(50),
   passwords VARCHAR(255)
@@ -19,12 +19,13 @@ CREATE TABLE register (
 CREATE TABLE `user` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `user_name` VARCHAR(50),
+  `email` VARCHAR(50) UNIQUE NOT NULL,
   `password` VARCHAR(255),
   `option` VARCHAR(50)
 );
 
-INSERT INTO `user` (`user_name`, `password`, `option`)
-VALUES ('admin', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'it head');
+INSERT INTO `user` (`user_name`, `email`, `password`, `option`)
+VALUES ('admin', 'admin@admin123', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'it head');
 
 
 -- Table structure for table `art department`
@@ -110,7 +111,7 @@ CREATE TABLE bin (
 CREATE TABLE department_registration (
   id INT PRIMARY KEY AUTO_INCREMENT,
  username VARCHAR(50),
-email VARCHAR(50),
+email VARCHAR(50) UNIQUE,
 age INT,
 phone VARCHAR(20),
 position VARCHAR(50)
