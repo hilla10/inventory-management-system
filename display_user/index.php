@@ -67,6 +67,8 @@ if (isset($title) && !empty($title)) {
         </form>
         <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
     </div>
+    
+
     <table class="table table-hover table-bordered table-striped">
         <thead>
             <tr>
@@ -136,7 +138,8 @@ if (isset($title) && !empty($title)) {
 
     <div class="text-uppercase fs-4 fw-bold text-end">User Count : <span class="text-primary"><?php echo $userCount; ?></span></div>
 
-    <?php include('../includes/message.php'); ?>
+         <!-- message -->
+  <?php include('../includes/message.php'); ?>
 
     <!-- Modal -->
     <?php include('../includes/modal.php'); ?>

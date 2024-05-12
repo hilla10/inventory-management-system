@@ -30,6 +30,9 @@ if (isset($_POST['login'])) {
               
                 // Redirect the user based on their role
                 $options = $row['option'];
+                     
+                echo "Options: " . $options;
+
                 if ($options === 'it head') {
                     header("Location: ../it/");
                     exit();

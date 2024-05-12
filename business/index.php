@@ -142,6 +142,7 @@ if (isset($title) && !empty($title)) {
 
          <div class="text-uppercase fs-4 fw-bold text-end">Item Count : <span class="text-primary"><?php echo $itemCount; ?></span></div>
 
+         <!-- message -->
   <?php include('../includes/message.php'); ?>
 
         <!-- Modal -->

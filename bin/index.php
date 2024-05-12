@@ -35,6 +35,10 @@ if (isset($title) && !empty($title)) {
 
    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal3">Add Bin</button>
 </div>
+
+         <!-- message -->
+  <?php include('../includes/message.php'); ?>
+    
         <table class="table table-hover table-bordered table-striped">
          
             <thead>
@@ -101,9 +105,11 @@ if (isset($title) && !empty($title)) {
 
         <div class="text-uppercase fs-4 fw-bold text-end">Bin Count : <span class="text-primary"><?php echo $binCount; ?></span></div>
 
- <?php include('../includes/message.php'); ?>
-
+         <!-- message -->
+  <?php include('../includes/message.php'); ?>
+  
      <!-- Modal -->
 <?php include('../includes/modal.php'); ?>
 
+<!-- footer -->
   <?php include('../includes/footer.php'); ?>
