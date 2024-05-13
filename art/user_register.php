@@ -13,7 +13,7 @@ echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-
 
 // Enable error reporting
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 
 // Check if the form for adding a user is submitted

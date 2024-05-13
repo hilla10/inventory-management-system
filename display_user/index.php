@@ -1,7 +1,7 @@
-<?php include('../includes/dbcon.php'); ?>
-<?php include('../includes/header.php'); ?>
 
 <?php
+include('../includes/dbcon.php');
+include('../includes/header.php'); 
 session_start();
 
 // Check if the user is logged in and has the appropriate role

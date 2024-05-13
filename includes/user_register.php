@@ -1,9 +1,9 @@
 <?php
 // Include the database connection file
-include('../includes/dbcon.php');
+include('dbcon.php');
 
 // Include the header file
-include('../includes/header.php');
+include('header.php');
 
 // Display a loading message while the page is loading
 echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-items-center\">
@@ -68,7 +68,7 @@ if (isset($_POST['add_user'])) {
     // If there are errors, redirect back to the form with an error message
     if (!empty($errors)) {
         $message = implode(" ", $errors);
-        header('location: index.php?message=' . urlencode($message));
+        header('location: ../index.php?message=' . urlencode($message));
         exit;
     }
 
@@ -88,11 +88,11 @@ if (isset($_POST['add_user'])) {
 
     if ($stmtCheckEmail->num_rows > 0) {
         $message = "The email address is already registered.";
-        header('location: index.php?message=' . urlencode($message));
+        header('location: ../index.php?message=' . urlencode($message));
         exit;
     } elseif ($stmtCheckPhone->num_rows > 0) {
         $message = "The phone number is already registered.";
-        header('location: index.php?message=' . urlencode($message));
+        header('location: ../index.php?message=' . urlencode($message));
         exit;
     }
 
@@ -115,8 +115,7 @@ if (isset($_POST['add_user'])) {
 
             // Check if the query was successful
             if ($stmtUser->affected_rows > 0) {
-                header('Refresh: 3; URL=index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));
-                header('Location: ../display_user/index.php');
+                header('Refresh: 3; URL=../index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));
                 exit;
             } else {
                 // Rollback the register table insert if the user table insert failed

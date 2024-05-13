@@ -128,6 +128,8 @@ if (isset($_POST['add_user'])) {
     } catch (mysqli_sql_exception $exception) {
         die("Query Failed: " . $exception->getMessage());
     }
-}
+} 
+
+
 
 ?>

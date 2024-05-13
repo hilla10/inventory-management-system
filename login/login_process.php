@@ -1,14 +1,17 @@
-<?php include("dbcon.php");?>
-<?php session_start();?>
 
-<?php 
+<?php
+
+include("dbcon.php");
+session_start();
+
 if (isset($_POST['login'])) {
     $usernameOrEmail = mysqli_real_escape_string($connection, $_POST['username_or_email']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
+    $option = mysqli_real_escape_string($connection, $_POST['options']);
 
-    $query = "SELECT * FROM `user` WHERE `user_name` = ? OR `email` = ?";
+    $query = "SELECT * FROM `user` WHERE (`user_name` = ? OR `email` = ?) AND `option` = ?";
     $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $usernameOrEmail, $usernameOrEmail);
+    mysqli_stmt_bind_param($stmt, "sss", $usernameOrEmail, $usernameOrEmail, $option);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -25,17 +28,18 @@ if (isset($_POST['login'])) {
             // Verify the entered password with the stored hashed password
             if (password_verify($password, $storedHashedPassword)) {
                 // Password is correct, proceed with login
+                 $_SESSION['loggedin'] = true;
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['options'] = $row['option'];
-              
+
                 // Redirect the user based on their role
                 $options = $row['option'];
-                     
+
                 echo "Options: " . $options;
 
                 if ($options === 'it head') {
-                    header("Location: ../it/");
-                    exit();
+                        header("Location: ../it/");
+                        exit();
                 } elseif ($options === 'business head') {
                     header("Location: ../business/");
                     exit();
@@ -47,10 +51,10 @@ if (isset($_POST['login'])) {
                     exit();
                 }
             } else {
-                header('location:../index.php?message=Sorry, your username/email or password is invalid');
+                header('location:../index.php?message=Sorry, your username/email, roll or password is invalid');
             }
         } else {
-            header('location:../index.php?message=Sorry, your username/email or password is invalid');
+            header('location:../index.php?message=Sorry, your username/email, roll or password is invalid');
         }
     }
 }
