@@ -16,8 +16,7 @@ CREATE TABLE register (
   email VARCHAR(50) UNIQUE NOT NULL,
   Phone VARCHAR(20) UNIQUE,
   options VARCHAR(50),
-  passwords VARCHAR(255),
-  FOREIGN KEY (username) REFERENCES user(user_name) -- ON DELETE CASCADE;
+  passwords VARCHAR(255)
 );
 
 
@@ -32,10 +31,7 @@ CREATE TABLE `user` (
   `user_name` VARCHAR(50),
   `email` VARCHAR(50) UNIQUE NOT NULL,
   `password` VARCHAR(255),
-  `option` VARCHAR(50),
-  FOREIGN KEY (`option`) REFERENCES department_registration(position),
-  INDEX (`user_name`),
-  -- CONSTRAINT fk_register_user FOREIGN KEY (id) REFERENCES register(id) ON DELETE CASCADE
+  `option` VARCHAR(50)
 );
 
 

@@ -8,7 +8,7 @@ define("PASSWORD", "");
 $connection = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 
 if(!$connection) {
-    die("Connection Failed");
+    die("Connection Failed: " .mysqli_connect_error());
 }
 
 ?>
