@@ -47,11 +47,12 @@ if (isset($title) && !empty($title)) {
 
     <div class="container mt-5">
 
-        <div class="box1 d-flex justify-content-between align-items-center">
-        <h2 class="my-3">All Items</h2>
+       <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
+        
+        <h2 class="my-3 text-center">All Items</h2>
    
      <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-end">
+          <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-md-end">
             <div>
                 <div class="form-group mb-2">
                     <select name="order" id="order" class="form-select ">
@@ -74,7 +75,7 @@ if (isset($title) && !empty($title)) {
     <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal">Add Items</button>
 </div>
 
-    
+    <div class="table-responsive">
         <table class="table table-hover table-bordered table-striped">
          
             <thead>
@@ -130,7 +131,15 @@ if (isset($title) && !empty($title)) {
                             <td><?php echo $row['total-price']?></td>
                             <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']?></td>
                             <td><a href="update.php?ordinary-number=<?php echo $row['ordinary-number']?>" class="btn btn-success">Update</a></td>
-                            <td><a href="delete.php?ordinary-number=<?php echo $row['ordinary-number']?>" class="btn btn-danger">Delete</a></td>
+                             <td>
+                                <a href="delete.php?ordinary-number=<?php echo $row['ordinary-number']?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
+                                </td>
+
+                                <script>
+                                function confirmDelete() {
+                                return confirm("Are you sure you want to delete the record?");
+                                }
+                                </script>
                         </tr>
                             <?php
                         }
@@ -140,7 +149,7 @@ if (isset($title) && !empty($title)) {
 
             </tbody>
         </table>
-        
+    </div>
          <div class="text-uppercase fs-4 fw-bold text-end">Item Count : <span class="text-primary"><?php echo $itemCount; ?></span></div>
 
          <!-- message -->

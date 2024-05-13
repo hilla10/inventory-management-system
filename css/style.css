@@ -91,3 +91,11 @@ form .input-box input:active {
 .login-card {
   background-color: #00dfc588;
 }
+
+
+/* media query */
+@media screen and (max-width: 924px) {
+  .table {
+    width: 50% !important;
+  }
+}

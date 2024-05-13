@@ -15,12 +15,12 @@ if (isset($title) && !empty($title)) {
     <div class="container mt-5">
 
 
-<div class="box1 d-flex justify-content-between align-items-center">
+<div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
 
-    <h2 class="my-3">All Items</h2>
+    <h2 class="my-3 text-center">All Items</h2>
 
          <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-end">
+           <div class="d-flex justify-content-center align-items-sm-end flex-sm-row align-items-center flex-column">
             <div>
                 <div class="form-group mb-2">
                     <select name="order" id="order" class="form-select ">
@@ -41,6 +41,7 @@ if (isset($title) && !empty($title)) {
         
     <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal">Add Items</button>
 </div>
+<div class="table-responsive">
         <table class="table table-hover table-bordered table-striped">
          
             <thead>
@@ -108,7 +109,7 @@ if (isset($title) && !empty($title)) {
 
             </tbody>
         </table>
-
+</div>
         <div class="text-uppercase fs-4 fw-bold text-end">Item Count : <span class="text-primary"><?php echo $itemCount; ?></span></div>
 
 <?php include('../includes/message.php'); ?>

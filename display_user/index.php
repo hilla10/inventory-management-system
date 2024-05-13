@@ -33,10 +33,12 @@ if (isset($title) && !empty($title)) {
 </div>
 
 <div class="container mt-5">
-    <div class="box1 d-flex justify-content-between align-items-center">
-        <h2 class="my-3">All User</h2>
+    
+<div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
+
+        <h2 class="my-3 text-center">All User</h2>
         <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-end">
+           <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-md-end">
                 <div>
                 <div class="d-flex gap-4">
                     <div class="form-group mb-2">
@@ -62,13 +64,13 @@ if (isset($title) && !empty($title)) {
                         <input type="text" name="search" id="search" placeholder="Search user" class="form-control search">
                     </div>
                 </div>
-        <button type="submit" class="btn btn-primary my-4 ms-1">Search</button>
+        <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
         <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
     </div>
     
-
+<div class="table-responsive">
     <table class="table table-hover table-bordered table-striped">
         <thead>
             <tr>
@@ -127,7 +129,13 @@ if (isset($title) && !empty($title)) {
                         <td><?php echo $row['Phone'] ?></td>
                         <td><?php echo $row['options'] ?></td>
                         <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
-                        <td><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger">Delete</a></td>
+                        <td><a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger"  onclick="return confirmDelete()">Delete</a></td>
+                        
+                                <script>
+                                function confirmDelete() {
+                                return confirm("Are you sure you want to delete the record?");
+                                }
+                                </script>
                     </tr>
                 <?php
                 }
@@ -135,6 +143,7 @@ if (isset($title) && !empty($title)) {
             ?>
         </tbody>
     </table>
+</div>
 
     <div class="text-uppercase fs-4 fw-bold text-end">User Count : <span class="text-primary"><?php echo $userCount; ?></span></div>
 

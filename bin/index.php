@@ -1,9 +1,9 @@
 <?php include('../includes/dbcon.php'); ?>
 <?php include('header.php'); ?>
    
-<div class="box1 d-flex justify-content-between align-items-center">
+<div class="box1 d-md-flex justify-content-between align-items-center">
 
-    <h2 class="my-3 text-light">All Bin Card</h2>
+    <h2 class="my-3 text-light text-center">All Bin Card</h2>
      <?php
         $title = "All Bin Card"; // Set the default title
 
@@ -13,7 +13,7 @@ if (isset($title) && !empty($title)) {
 ?>
 
      <form method="GET" action="">
-           <div class="d-flex justify-content-center align-items-end">
+           <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
             <div>
                 <div class="form-group mb-2">
                     <select name="order" id="order" class="form-select ">
@@ -39,6 +39,7 @@ if (isset($title) && !empty($title)) {
          <!-- message -->
   <?php include('../includes/message.php'); ?>
     
+  <div class="table-responsive">
         <table class="table table-hover table-bordered table-striped">
          
             <thead>
@@ -92,7 +93,15 @@ if (isset($title) && !empty($title)) {
                             <td><?php echo $row['short']?></td>
                             
                             <td><a href="update.php?id=<?php echo $row['id']?>" class="btn btn-success">Update</a></td>
-                            <td><a href="delete.php?id=<?php echo $row['id']?>" class="btn btn-danger">Delete</a></td>
+                             <td>
+                                <a href="delete.php?id=<?php echo $row['id']?>" class="btn btn-danger"  onclick="return confirmDelete()">Delete</a>
+                                </td>
+
+                                <script>
+                                function confirmDelete() {
+                                return confirm("Are you sure you want to delete the record?");
+                                }
+                                </script>
                         </tr>
                             <?php
                         }
@@ -102,7 +111,7 @@ if (isset($title) && !empty($title)) {
 
             </tbody>
         </table>
-
+    </div>
         <div class="text-uppercase fs-4 fw-bold text-end">Bin Count : <span class="text-primary"><?php echo $binCount; ?></span></div>
 
          <!-- message -->
