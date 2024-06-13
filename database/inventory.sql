@@ -44,7 +44,7 @@ ALTER TABLE `user` MODIFY `id` INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT =
 -- insert data into `user` table
 
 INSERT INTO `user` (`user_name`, `email`, `password`, `option`)
-VALUES ('admin', 'admin@admin123', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'it head');
+VALUES ('admin', 'admin@gmail.com', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'it head');
 
 -- Table structure for table `department_registration`
 CREATE TABLE department_registration ( 
