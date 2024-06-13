@@ -1,5 +1,5 @@
 <?php include('login/header.php'); ?>
-<?php include('../includes/dbcon.php'); ?>
+<?php include('includes/dbcon.php'); ?>
 
 <div class="container w-50" style="margin-top: 5rem;">
     <div class="card border-primary-subtle rounded-3 border-2 mt-5 shadow login-card" style="background: #175374;">
