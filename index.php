@@ -1,4 +1,5 @@
 <?php include('login/header.php'); ?>
+<?php include('../includes/dbcon.php'); ?>
 
 <div class="container w-50" style="margin-top: 5rem;">
     <div class="card border-primary-subtle rounded-3 border-2 mt-5 shadow login-card" style="background: #175374;">
@@ -38,7 +39,8 @@
                     </div>
 
                     <div class="form-group mb-2  input-box">
-                        <input type="password" class="form-control" name="password" placeholder="የይለፍ ቃል">
+                        <input type="password" class="form-control psw" name="password" placeholder="የይለፍ ቃል">
+                       <i class="fa-solid fa-eye-slash showHideBtn"></i>
                     </div>
 
                     <div>
@@ -58,10 +60,13 @@
 
 <script>
     // Handle click event on the register button
-    document.getElementById('registerBtn').addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent the default form submission behavior
-        // Manually open the modal using its ID
-        var myModal = new bootstrap.Modal(document.getElementById('Modal5'));
-        myModal.show();
-    });
+document.getElementById('registerBtn').addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent the default form submission behavior
+  // Manually open the modal using its ID
+  var myModal = new bootstrap.Modal(document.getElementById('Modal5'));
+  myModal.show();
+});
 </script>
+
+
+

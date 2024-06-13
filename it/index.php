@@ -116,6 +116,8 @@
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
             $query = "SELECT * FROM `it_department` WHERE `inventory-list` LIKE '%$search%' ORDER BY `inventory-list` $order";
+
+            
         } else {
             $query = "SELECT * FROM `it_department` ORDER BY `inventory-list` $order";
         }

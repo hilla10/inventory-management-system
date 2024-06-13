@@ -163,3 +163,46 @@ quantity INT,
 price INT,
 `total-price` INT
 );
+
+-- Table structure for table `inventory`
+CREATE TABLE inventory (
+  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
+  `department` VARCHAR(50),
+  `inventory-list` VARCHAR(50),
+  `description` VARCHAR(50),
+  measure INT,
+  quantity INT,
+  price INT,
+  `total-price` INT,
+  examination VARCHAR(50)
+);
+
+-- Table structure for table `bin`
+CREATE TABLE bin (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  `date` DATE,
+  income INT,
+  cost INT,
+  remain INT,
+  short INT
+);
+
+-- Table structure for table `model_20`
+CREATE TABLE model_20 (
+  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
+  quantity INT,
+  `item-type` VARCHAR(50),
+  model VARCHAR(50),
+  `update` VARCHAR(50)
+);
+
+-- Table structure for table `model_19`
+CREATE TABLE model_19 (
+  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
+  `item-type` VARCHAR(50),
+  model VARCHAR(50),
+  serie INT,
+  quantity INT,
+  price INT,
+  `total-price` INT
+);

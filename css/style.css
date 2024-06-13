@@ -92,6 +92,26 @@ form .input-box input:active {
   background-color: #00dfc588;
 }
 
+.showHideBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #f0d6d6;
+  transition: color 0.3s ease;
+  z-index: 99;
+}
+
+.fa-eye {
+  color: #fe8402;
+}
+
+.showHideBtn:hover,
+.showHideBtn:focus {
+  color: #fe8402;
+}
 
 /* media query */
 @media screen and (max-width: 924px) {

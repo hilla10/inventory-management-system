@@ -163,14 +163,15 @@
 
                         <div class="form-group input-box mb-2">
 
-                            <input required type="password" class="form-control" name="passwords">
+                            <input required type="password" class="form-control psw" name="passwords">
+                            <i class="fa-solid fa-eye-slash showHideBtn"></i>
                             <span>የይለፍ ቃል |Enter your password|</span>
-  
                         </div>
 
                         <div class="form-group input-box mb-2">
 
-                            <input required type="password" class="form-control" name="confirm">
+                            <input required type="password" class="form-control psw" name="confirm">
+                            <i class="fa-solid fa-eye-slash showHideBtn"></i>
                                 <span>የይለፍ ቃል አረጋግጥ| Confirm your password|</span>
  
                         </div>
@@ -244,14 +245,17 @@
 
                         <div class="form-group input-box mb-2">
 
-                            <input required type="password" class="form-control" name="passwords">
+                            <input required type="password" class="form-control psw" name="passwords">
+                            <i class="fa-solid fa-eye-slash showHideBtn"></i>
+
                             <span>የይለፍ ቃል |Enter your password|</span>
   
                         </div>
 
                         <div class="form-group input-box mb-2">
 
-                            <input required type="password" class="form-control" name="confirm">
+                            <input required type="password" class="form-control psw" name="confirm">
+                            <i class="fa-solid fa-eye-slash showHideBtn"></i>
                                 <span>የይለፍ ቃል አረጋግጥ| Confirm your password|</span>
  
                         </div>
@@ -440,3 +444,4 @@
   </div>
 </div>
 </form>
+
