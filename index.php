@@ -15,14 +15,8 @@
                     }
                     ?>
 
-                    <?php
-                    if (isset($_GET['message'])) {
-                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
-                        echo '<strong class="text-dark">' . $_GET['message'] . '</strong>';
-                        header('Refresh: 2; URL=index.php');
-                        exit;
-                    }
-                    ?>
+                    <?php include('includes/message.php'); ?>
+                   
 
                     <div class="form-group mb-2 input-box">
                         <input type="text" class="form-control" name="username_or_email" placeholder="ስሞትን ወይም የኢሜል አድራሻዎን ያስገቡ">
@@ -31,6 +25,7 @@
                     <div class="form-group mb-2">
                         <label for="options" class="pb-2 text-light">ያሉበትን ሁኔታ ይምረጡ:</label>
                         <select name="options" class="form-select">
+                            <option value="admin">Admin</option>
                             <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
                             <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
                             <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
@@ -55,7 +50,6 @@
     </div>
 
 <?php include('includes/modal.php'); ?>
-<?php include('includes/message.php'); ?>
 <?php include('includes/footer.php'); ?>
 
 <script>

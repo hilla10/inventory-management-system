@@ -9,19 +9,19 @@ if(isset($_POST['add_model'])) {
     $update = $_POST['update'];
     
     if( empty($quantity) || empty($itemType)|| empty($model) || empty($update)) {
-        header('location: index.php?message= Some fields are empty.');
+        header('location: index.php?error_msg= Some fields are empty.');
           exit();
     } elseif($quantity === "" || empty($quantity)) {
-         header('location: index.php?message=You need to fill the quantity');
+         header('location: index.php?error_msg=You need to fill the quantity');
          exit();
     } elseif($itemType === "" || empty($itemType)) {
-         header('location: index.php?message=You need to fill the itemType');
+         header('location: index.php?error_msg=You need to fill the itemType');
          exit();
     } elseif($model === "" || empty($model)) {
-         header('location: index.php?message=You need to fill the model');
+         header('location: index.php?error_msg=You need to fill the model');
          exit();
     } elseif($update === "" || empty($update)) {
-         header('location: index.php?message=You need to fill the update');
+         header('location: index.php?error_msg=You need to fill the update');
          exit();
     } else {
 

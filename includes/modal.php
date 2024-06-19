@@ -1,7 +1,8 @@
 
+
 <!-- modal for item -->
 
-<form action="insert_app.php" method="post">
+<form action="../includes/insert_app.php" method="post">
 <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -17,6 +18,53 @@
                 <input required type="text" class="form-control" id="inventory-list" name="inventory-list">
                 <span>የእቃው ዝርዝር</span>
             </div>
+
+            <div class="form-group input-box mb-2">
+                      <label for="gender" class="py-2">Select Department:</label>
+                     <select name="department" id="department" class="select-option">
+                            <?php
+                            // Include the database connection
+                            include('dbcon.php');
+
+                            // Function to fetch departments from database
+                            function fetchDepartmentsAndDisplay($connection)
+                            {
+                                $departments = [];
+
+                                $query = "SELECT `name` FROM departments";
+                                $result = mysqli_query($connection, $query);
+
+                                if ($result) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $departments[] = $row['name'];
+                                    }
+                                    mysqli_free_result($result);
+                                }
+
+                                return $departments;
+                            }
+
+                            // Fetch departments
+                            $departments = fetchDepartmentsAndDisplay($connection);
+
+                            // Output options for select dropdown
+                            foreach ($departments as $dept) {
+                                echo '<option value="' . htmlspecialchars($dept) . '">' . htmlspecialchars($dept) . '</option>';
+                            }
+
+                            // Close database connection
+                            mysqli_close($connection);
+                            ?>
+                        </select>
+            </div>
+             <div class="form-group input-box mb-2">
+                    <label for="item-type" class="py-2">Enter item type</label>
+                    <select name="item-type" class="select-option">
+                        <option value="consumable">አላቂ እቃ</option>
+                        <option value="non-consumable">የማያልቅ እቃ</option>
+                    </select>
+              </div>  
+
             <div class="form-group input-box mb-2">
                 <input required type="text" class="form-control" id="description" name="description">
                 <span>መግለጫ</span>
@@ -53,6 +101,8 @@
 </form>
 
 
+
+
   
  <!-- modal for bin card -->
  <form action="insert_app.php" method="post">
@@ -68,7 +118,6 @@
 
              <div class="form-group input-box my-2">
                 <input required type="date" class="form-control" id="date" name="date">
-                <span>ቀን</span>
               </div>
               <div class="form-group input-box my-2">
                 <input required type="number" class="form-control" id="Phone" name="income">
@@ -270,88 +319,84 @@
     </form>
 
 <!-- modal for department register -->
-
-   <form action="department_register.php" method="post">
-        <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Department</h1>
-                        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+<form action="department_register.php" method="post">
+    <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Department</h1>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="fs-3 text-center py-3">የዲፓርትመንት ምዝገባ ቅጽ</h2>
+                    <div class="form-group input-box mb-2">
+                        <input required type="text" class="form-control" id="username" name="username">
+                        <span>ስሞትን ያስገቡ</span>
                     </div>
-                    <div class="modal-body">
-
-                        <h2 class="fs-3 text-center py-3">የዲፓርትመንት ምዝገባ ቅጽ</h2>
-
+                    <div class="form-group input-box mb-2">
+                        <input required type="email" class="form-control" id="email" name="email">
+                        <span>ኢሜል ያስገቡ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input required type="number" class="form-control" id="age" name="age">
+                        <span>አድሜ ያስገቡ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input required type="number" class="form-control" id="Phone" name="phone">
+                        <span>ስልክ ቁጥር ያስገቡ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
                         <div class="form-group input-box mb-2">
-
-                            <input required type="text" class="form-control" id="username" name="username">
-                            <span>ስሞትን ያስገቡ</span>
-                        </div>
-                        <div class="form-group input-box mb-2">
-
-                            <input required type="email" class="form-control" id="email" name="email">
-                            <span>ኢሜል ያስገቡ</span>
-                        </div>
-                        <div class="form-group input-box mb-2">
-
-                            <input required type="number" class="form-control" id="age" name="age">
-                            <span>አድሜ ያስገቡ</span>
-                        </div>
-                        <div class="form-group input-box mb-2">
-
-                            <input required type="number" class="form-control" id="Phone" name="phone">
-                            <span>ስልክ ቁጥር ያስገቡ</span>
-                        </div>
-                        <div class="form-group input-box mb-2">
-
-                            <div class="form-group input-box mb-2">
-                                <label for="position" class="py-2">ያሉበትን ሁኔታ ይምረጡ:</label>
-                                <select name="position" class="select-option">
-                                    <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
-                                    <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
-                                    <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
-                                    <option value="auto head">የአውቶ ዲፓርትመንት ሄድ</option>
-                                </select>
-
-                            </div>
+                            <label for="position" class="py-2">ያሉበትን ሁኔታ ይምረጡ:</label>
+                            <select name="position" class="select-option">
+                                <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
+                                <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
+                                <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
+                                <option value="auto head">የአውቶ ዲፓርትመንት ሄድ</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input required type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input required type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+
 
     
 
- <!-- modal for deleting user -->
- <form action="delete_user.php" method="post">
- <div class="modal fade" id="Modal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Bin Card</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-           <div class="form-group input-box my-2">
-            <!-- <label for="username" class="pb-5">Enter username to delete</label> -->
-            <input required type="text" class="form-control" name="username">
-            <span>ስሞትን ያስገቡ| Enter your name to delete|</span>
+<!-- Modal for deleting user -->
+<form action="../includes/delete_user.php" method="post">
+  <div class="modal fade" id="Modal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group input-box my-2">
+            <input required type="text" class="form-control" id="email" name="email">
+            <span>Enter your email to delete</span>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input required type="submit" class="btn btn-success" name="delete_user" value="አስገባ"></input>
+            <div class="form-group input-box my-2">
+                <input required type="password" class="form-control psw" name="password">
+                <i class="fa-solid fa-eye-slash showHideBtn"></i>
+                <span>Enter your password</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-danger" name="delete_user" value="Delete User">
+        </div>
       </div>
     </div>
   </div>
-</div>
 </form>
+
 
 <!-- modal for Model 19 -->
 <form action="insert_app.php" method="post">

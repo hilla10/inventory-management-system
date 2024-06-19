@@ -11,25 +11,25 @@ if(isset($_POST['add_model'])) {
     $totalPrice = $_POST['total-price'];
     
     if( empty($quantity) || empty($itemType)|| empty($model) || empty($serie)  || empty($price) || empty($totalPrice) ) {
-        header('location: index.php?message= Some fields are empty.');
+        header('location: index.php?error_msg= Some fields are empty.');
           exit();
     } elseif($quantity === "" || empty($quantity)) {
-         header('location: index.php?message=You need to fill the quantity');
+         header('location: index.php?error_msg=You need to fill the quantity');
          exit();
     } elseif($itemType === "" || empty($itemType)) {
-         header('location: index.php?message=You need to fill the itemType');
+         header('location: index.php?error_msg=You need to fill the itemType');
          exit();
     } elseif($model === "" || empty($model)) {
-         header('location: index.php?message=You need to fill the model');
+         header('location: index.php?error_msg=You need to fill the model');
          exit();
     } elseif($serie === "" || empty($serie)) {
-         header('location: index.php?message=You need to fill the serie');
+         header('location: index.php?error_msg=You need to fill the serie');
          exit();
     } elseif($price === "" || empty($price)) {
-         header('location: index.php?message=You need to fill the price');
+         header('location: index.php?error_msg=You need to fill the price');
          exit();
     } elseif($totalPrice === "" || empty($totalPrice)) {
-         header('location: index.php?message=You need to fill the total Price');
+         header('location: index.php?error_msg=You need to fill the total Price');
          exit();
     } else {
 

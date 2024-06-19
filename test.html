@@ -1,0 +1,101 @@
+<?php include('dbcon.php'); ?>
+
+<?php
+// PHP
+// Determine the current page
+$currentUrl = $_SERVER['REQUEST_URI'];
+
+if (strpos($currentUrl, '/admin/') !== false) {
+    $currentPage = 'admin';
+} elseif (strpos($currentUrl, '/it/') !== false) {
+    $currentPage = 'it';
+} elseif (strpos($currentUrl, '/art/') !== false) {
+    $currentPage = 'art';
+}elseif (strpos($currentUrl, '/auto/') !== false) {
+    $currentPage = 'auto';
+}elseif (strpos($currentUrl, '/business/') !== false) {
+    $currentPage = 'business';
+}elseif (strpos($currentUrl, '/bin/') !== false) {
+    $currentPage = 'bin';
+}elseif (strpos($currentUrl, '/business/') !== false) {
+    $currentPage = 'business';
+}elseif (strpos($currentUrl, '/model_19/') !== false) {
+    $currentPage = 'model_19';
+}elseif (strpos($currentUrl, '/model_20/') !== false) {
+    $currentPage = 'model_20';
+}
+
+if(isset($_POST['add_item'])) {
+    $inventoryList = $_POST['inventory-list'];
+    $department = trim(strtoupper($_POST['department']));
+    $itemType = trim(strtoupper($_POST['item-type']));
+    $description = $_POST['description'];
+    $measure = $_POST['measure'];
+    $quantity = $_POST['quantity'];
+    $price = $_POST['price'];
+    $totalPrice = $_POST['total-price'];
+    $examination = $_POST['examination'];
+
+    $errors = [];
+    if (empty($inventoryList)) {
+        $errors[] = 'You need to fill the inventory list';
+    }
+    if (empty($department)) {
+        $errors[] = 'You need to fill the Department';
+    }
+    if (empty($description)) {
+        $errors[] = 'You need to fill the description';
+    }
+    if (empty($measure)) {
+        $errors[] = 'You need to fill the measure';
+    }
+    if(empty($quantity)) {
+     $errors[] = 'You need to fill the quantity';
+    }
+    if(empty($totalPrice)) {
+     $errors[] = 'You need to fill the totalPrice';
+    }
+    if(empty($price)) {
+     $errors[] = 'You need to fill the price';
+    }
+    if(empty($examination)) {
+          $errors[] = 'You need to fill the examination';
+    }
+    if(empty($inventoryList) || empty($department) || empty($description) || empty($measure) || empty($quantity) || empty($price) || empty($totalPrice) || empty($examination)) {
+     $errors[] = 'Some fields are empty.';
+    }
+    
+    if (!empty($errors)) {
+     $errorMessage = implode(', ', $errors);
+     header("location: ../{$currentPage}/index.php?message={errorMessage}");
+
+     exit;
+    }  elseif ($department !== 'IT') {
+        header('location: ../it/index.php?message=Department must be "it" or "IT".');
+
+    } elseif ($department !== 'ART') {
+        header('location: ../art/index.php?message=Department must be "art" or "ART".');
+
+    }elseif ($department !== 'AUTO') {
+        header('location: ../auto/index.php?message=Department must be "auto" or "AUTO".');
+
+    }elseif ($department !== 'BUSINESS') {
+        header('location: ../business/index.php?message=Department must be "business" or "BUSINESS".');
+
+    } else {
+
+        $query =  "INSERT INTO inventory (`inventory-list`,department, `item-type`, `description`, measure, quantity, price, `total-price`, examination) VALUES ('$inventoryList','$department', $itemType, '$description', '$measure', '$quantity', '$price', '$totalPrice', '$examination')";
+
+
+        $result = mysqli_query($connection, $query);
+
+        if(!$result) {
+            die("Query Failed" . mysqli_error($connection));
+        } else {
+            header('location: ../{$currentPage}/index.php?insert_msg=Your data has been added successfully');
+        }
+
+    }
+}
+
+?>

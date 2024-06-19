@@ -1,47 +1,38 @@
 <?php
-if (isset($_GET['message'])) {
-    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
-    echo '<strong class="text-dark">' . $_GET['message'] . '</strong>';
-    echo '</div>';
-    // Remove the message from the URL
-    $redirectUrl = 'index.php';
-    echo '<meta http-equiv="refresh" content="3;URL=' . $redirectUrl . '">';
-    exit;
-}
-?>
 
-<?php
+// Check if the function does not already exist before declaring it
+if (!function_exists('displayMessage')) {
+    // Function to display messages
+    function displayMessage($type, $message) {
+        echo '<div class="alert alert-' . $type . ' alert-dismissible fade show m-auto text-center w-50" role="alert">';
+        echo '<strong class="text-light">' . htmlspecialchars($message) . '</strong>';
+        echo '</div>';
+        // Remove the message from the URL
+        $redirectUrl = 'index.php';
+        echo '<meta http-equiv="refresh" content="3;URL=' . $redirectUrl . '">';
+        exit;
+    }
+}
+
+
+// Check for messages in the URL
+if (isset($_GET['success_msg'])) {
+    displayMessage('warning', $_GET['success_msg']);
+}
+
 if (isset($_GET['insert_msg'])) {
-    echo '<div id="message" class="alert alert-success alert-dismissible fade show" role="alert">';
-    echo '<strong class="text-dark">' . $_GET['insert_msg'] . '</strong>';
-    echo '</div>';
-    // Remove the message from the URL
-    $redirectUrl = 'index.php';
-    echo '<meta http-equiv="refresh" content="3;URL=' . $redirectUrl . '">';
-    exit;
+    displayMessage('success', $_GET['insert_msg']);
 }
-?>
 
-<?php
+if (isset($_GET['error_msg'])) {
+    displayMessage('danger', $_GET['error_msg']);
+}
+
 if (isset($_GET['update_msg'])) {
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-    echo '<strong class="text-dark">' . $_GET['update_msg'] . '</strong>';
-    echo '</div>';
-    // Remove the message from the URL
-    $redirectUrl = 'index.php';
-    echo '<meta http-equiv="refresh" content="3;URL=' . $redirectUrl . '">';
-    exit;
+    displayMessage('success', $_GET['update_msg']);
 }
-?>
 
-<?php
 if (isset($_GET['delete_msg'])) {
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-    echo '<strong class="text-dark">' . $_GET['delete_msg'] . '</strong>';
-    echo '</div>';
-    // Remove the message from the URL
-    $redirectUrl = 'index.php';
-    echo '<meta http-equiv="refresh" content="3;URL=' . $redirectUrl . '">';
-    exit;
+    displayMessage('success', $_GET['delete_msg']);
 }
 ?>

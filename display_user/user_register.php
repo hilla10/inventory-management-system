@@ -68,7 +68,7 @@ if (isset($_POST['add_user'])) {
     // If there are errors, redirect back to the form with an error message
     if (!empty($errors)) {
         $message = implode(" ", $errors);
-        header('location: index.php?message=' . urlencode($message));
+        header('location: index.php?error_msg=' . urlencode($message));
         exit;
     }
 
@@ -88,11 +88,11 @@ if (isset($_POST['add_user'])) {
 
     if ($stmtCheckEmail->num_rows > 0) {
         $message = "The email address is already registered.";
-        header('location: index.php?message=' . urlencode($message));
+        header('location: index.php?error_msg=' . urlencode($message));
         exit;
     } elseif ($stmtCheckPhone->num_rows > 0) {
         $message = "The phone number is already registered.";
-        header('location: index.php?message=' . urlencode($message));
+        header('location: index.php?error_msg=' . urlencode($message));
         exit;
     }
 

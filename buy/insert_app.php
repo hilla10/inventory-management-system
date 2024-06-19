@@ -12,21 +12,21 @@ if(isset($_POST['add_item'])) {
     $examination = $_POST['examination'];
     
     if(empty($inventoryList) || empty($description) || empty($measure) || empty($quantity) || empty($price) || empty($totalPrice) || empty($examination)) {
-        header('location: index.php?message= Some fields are empty.');
+        header('location: index.php?error_msg= Some fields are empty.');
     } elseif($inventoryList === "" || empty($inventoryList)) {
-         header('location: index.php?message=You need to fill the inventory list');
+         header('location: index.php?error_msg=You need to fill the inventory list');
     }elseif($description === "" || empty($description)) {
-         header('location: index.php?message=You need to fill the description');
+         header('location: index.php?error_msg=You need to fill the description');
     }  elseif($measure === "" || empty($measure)) {
-         header('location: index.php?message=You need to fill the measure');
+         header('location: index.php?error_msg=You need to fill the measure');
     }  elseif($quantity === "" || empty($quantity)) {
-         header('location: index.php?message=You need to fill the quantity');
+         header('location: index.php?error_msg=You need to fill the quantity');
     }  elseif($price === "" || empty($price)) {
-         header('location: index.php?message=You need to fill the price');
+         header('location: index.php?error_msg=You need to fill the price');
     }  elseif($totalPrice === "" || empty($totalPrice)) {
-         header('location: index.php?message=You need to fill the totalPrice');
+         header('location: index.php?error_msg=You need to fill the totalPrice');
     } elseif($examination === "" || empty($examination)) {
-         header('location: index.php?message=You need to fill the examination');
+         header('location: index.php?error_msg=You need to fill the examination');
     } else {
 
         $query =  "INSERT INTO Purchase (`inventory-list`, `description`, `measure`, `quantity`, `price`, `total-price`, examination) VALUES ('$inventoryList', '$description', '$measure', '$quantity', '$price', '$totalPrice', '$examination')";

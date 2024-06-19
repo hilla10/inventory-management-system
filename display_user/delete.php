@@ -1,27 +1,38 @@
 
-<?php include('../includes/dbcon.php'); ?>
 
-    <?php
+<?php
+// Include database connection
+include('../includes/dbcon.php');
+include("../includes/auth.php");
 
-    if(isset($_GET['id'])) {
-        $id = $_GET['id'];
+if(isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-        $queryRegister = "DELETE FROM `register` WHERE `id` = '$id'";
+    // Fetch email before deleting
+    $query_fetch_email = "SELECT email FROM register WHERE id = ?";
+    $stmt_fetch_email = mysqli_prepare($connection, $query_fetch_email);
+    mysqli_stmt_bind_param($stmt_fetch_email, 'i', $id);
+    mysqli_stmt_execute($stmt_fetch_email);
+    mysqli_stmt_bind_result($stmt_fetch_email, $deleted_email);
+    mysqli_stmt_fetch($stmt_fetch_email);
+    mysqli_stmt_close($stmt_fetch_email);
 
-        $queryUser = "DELETE FROM `user` WHERE `id` = '$id'";
+    // Delete the record from register
+    $query_delete = "DELETE FROM register WHERE id = ?";
+    $stmt_delete = mysqli_prepare($connection, $query_delete);
+    mysqli_stmt_bind_param($stmt_delete, 'i', $id);
+    $result_delete = mysqli_stmt_execute($stmt_delete);
+    mysqli_stmt_close($stmt_delete);
 
-        $resultRegister = mysqli_query($connection, $queryRegister);
+    if (!$result_delete) {
+        die("Query Failed" . mysqli_error($connection));
+    } else {
+        // Construct success message
+        $delete_msg = "You have deleted the record with email: $deleted_email";
 
-        $resultUser = mysqli_query($connection, $queryUser);
-
-        if(!$resultRegister && !$resultUser) {
-            die("Query Failed" . mysqli_error($connection));
-        } 
-
-        else {
-            header('location:index.php?delete_msg=You have deleted the record');
-        }
+        // Redirect with message
+        header("location:index.php?delete_msg=" . urlencode($delete_msg));
+        exit;
     }
-
-
+}
 ?>

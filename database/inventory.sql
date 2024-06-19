@@ -44,7 +44,7 @@ ALTER TABLE `user` MODIFY `id` INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT =
 -- insert data into `user` table
 
 INSERT INTO `user` (`user_name`, `email`, `password`, `option`)
-VALUES ('admin', 'admin@gmail.com', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'it head');
+VALUES ('admin', 'admin@gmail.com', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'admin');
 
 -- Table structure for table `department_registration`
 CREATE TABLE department_registration ( 
@@ -60,115 +60,12 @@ CREATE TABLE department_registration (
 ALTER TABLE `department_registration` MODIFY `id` INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 100;
 
 
--- Table structure for table `art department`
-
-CREATE TABLE art_department (
-  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(50),
-  `description` VARCHAR(50),
-  measure INT,
-  quantity INT,
-  price INT,
-  `total-price` INT,
-  examination VARCHAR(50)
-);
-
-
-
--- Table structure for table `business department`
-
-CREATE TABLE business_department (
-  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(50),
-  `description` VARCHAR(50),
-  measure INT,
-  quantity INT,
-  price INT,
-  `total-price` INT,
-  examination VARCHAR(50)
-);
-
-
--- Table structure for table `auto department`
-
-CREATE TABLE auto_department (
-  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(50),
-  `description` VARCHAR(50),
-  measure INT,
-  quantity INT,
-  price INT,
-  `total-price` INT,
-  examination VARCHAR(50)
-);
-
-
--- Table structure for table `it department`
-
-CREATE TABLE it_department (
-  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(50),
-  `description` VARCHAR(50),
-  measure INT,
-  quantity INT,
-  price INT,
-  `total-price` INT,
-  examination VARCHAR(50)
-);
-
--- Table structure for table `purchase`
-
-CREATE TABLE Purchase (
-  `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `inventory-list` VARCHAR(50),
-  `description` VARCHAR(50),
-  measure INT,
-  quantity INT,
-  price INT,
-  `total-price` INT,
-  examination VARCHAR(50)
-);
-
--- Table structure for table `bin`
-
-CREATE TABLE bin (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  `date` DATE,
-  income INT,
-  cost INT,
-  remain INT,
-  short INT
-);
-
-
--- Table structure for table `model 20`
-
-CREATE TABLE model_20 (
- `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-quantity INT,
-`item-type` VARCHAR(50),
-model VARCHAR(50),
-`update` VARCHAR(50)
-);
-
-
--- Table structure for table `model 19`
-
-CREATE TABLE model_19 (
-`ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-`item-type` VARCHAR(50),
-model VARCHAR(50),
-serie INT,
-quantity INT,
-price INT,
-`total-price` INT
-);
-
 -- Table structure for table `inventory`
 CREATE TABLE inventory (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
   `department` VARCHAR(50),
   `inventory-list` VARCHAR(50),
+  `item-type` VARCHAR(50),
   `description` VARCHAR(50),
   measure INT,
   quantity INT,
@@ -176,6 +73,15 @@ CREATE TABLE inventory (
   `total-price` INT,
   examination VARCHAR(50)
 );
+
+
+-- Table structure for table `departments`
+CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(50) NOT NULL
+);
+
+INSERT INTO departments (`name`) VALUES   ('IT'), ('ART'), ('AUTO'), ('BUSINESS');
 
 -- Table structure for table `bin`
 CREATE TABLE bin (

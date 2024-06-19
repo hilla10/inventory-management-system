@@ -1,25 +1,109 @@
-<?php include('../includes/dbcon.php'); ?>
-<?php include('../includes/header.php'); ?>
+<?php
+// Include necessary files
+include('../includes/dbcon.php');
+include('../includes/header.php');
 
- <div class=" py-3 text-center bg-dark text-light">
-     <h1 >ሞዴል 20 ወጪ ፎርም</h1>
-         <?php
-        $title = "ሞዴል 20 ወጪ ፎርም"; // Set the default title
+// Start the session (if not already started in included files)
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Include insert_app.php to access determineCurrentPage() function
+include('../includes/insert_app.php');
+
+// Determine the current page
+$currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
+
+// Store the current page URL in a session variable
+$_SESSION['currentPage'] = $currentPage;
+
+// Access user role from session
+$userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
+echo $_SESSION['currentPage'];
+?>
+
+   
+   <header class="main-header">
+
+      <div>
+        <?php   if ($userRole == 'admin') {
+                echo "<a href=\"../admin/index.php\" class=\"logo";
+                echo "\" aria-current=\"page\">";
+                echo " <img src=\"../img/EPTC_logo\" alt=\"logo\">";
+                echo "</a>";
+            } else {
+                echo "<a href=\"index.php\" class=\"logo";
+                echo "\" aria-current=\"page\">";
+                echo " <img src=\"../img/EPTC_logo\" alt=\"logo\">";
+                echo "</a>";
+            }
+        ?>
+        <nav class="navbar navbar-static-top">
+
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <i class="fa-solid fa-bars-staggered"></i>
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        </nav>
+    </div>
+    
+    
+    <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="container">
+        <div class="collapse navbar-collapse d-flex justify-content-between text-center" id="navbarNav">
+          <div class=" py-2 mx-auto">
+     <h1 class="text-center fs-3 text-light" >All ሞዴል 20 ገቢ</h1>
+     <?php
+        $title = "All ሞዴል 20 ገቢ"; // Set the default title
 
         if (isset($title) && !empty($title)) {
             echo "<script>document.title = '" . $title . "'</script>";
         }
 ?>
 
-
  </div>
 
+            <div class="d-flex">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li>
+                        <div class="dropdown nav-item">
+                            <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?php
+                                        if ($userRole == 'admin') {
+                                            echo 'Admin';
+                                        } elseif ($userRole == 'it head') {
+                                            echo 'IT Head';
+                                        }
+                                ?>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                            </ul>       
+                        </div>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+</header>
+
+<div class="d-flex justify-content-between">
+ <?php include('../includes/navigation.php'); ?>
+    <div class="flex-grow-1 main-content">
     <div class="container mt-5">
 
 
         <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
 
-    <h2 class="my-3 text-center">All ሞዴል 20 ወጪ</h2>
 
      <form method="GET" action="">
            <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-end">
@@ -31,7 +115,7 @@
                     </select>
                 </div>
 
-                <div class="form-group mb-2 input-box">
+                <div class="form-group mb-2 input-box outline">
                    <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                </div>
                
@@ -114,7 +198,9 @@
         </table>
 </div>
         <div class="text-uppercase fs-4 fw-bold text-end">model_20 Count : <span class="text-primary"><?php echo $modelCount; ?></span></div>
-
+</div>
+</div>
+</div>
   <?php include('../includes/message.php'); ?>
     
      <!-- Modal -->

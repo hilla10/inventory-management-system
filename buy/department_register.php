@@ -10,17 +10,17 @@ if(isset($_POST['add_user'])) {
 
     
     if(empty($username) || empty($email) || empty($age) || empty($phone) || empty($position)) {
-        header('location: index.php?message= Some fields are empty.');
+        header('location: index.php?error_msg= Some fields are empty.');
     } elseif($username === "" || empty($username)) {
-         header('location: index.php?message=You need to fill the username');
+         header('location: index.php?error_msg=You need to fill the username');
     }elseif($email === "" || empty($email)) {
-         header('location: index.php?message=You need to fill the email');
+         header('location: index.php?error_msg=You need to fill the email');
     }  elseif($age === "" || empty($age)) {
-         header('location: index.php?message=You need to fill the age');
+         header('location: index.php?error_msg=You need to fill the age');
     }  elseif($phone === "" || empty($phone)) {
-         header('location: index.php?message=You need to fill the phone');
+         header('location: index.php?error_msg=You need to fill the phone');
     }  elseif($position === "" || empty($position)) {
-         header('location: index.php?message=You need to fill the position');
+         header('location: index.php?error_msg=You need to fill the position');
     } else {
 
         $query =  "INSERT INTO department_registration (`username`, `email`, `age`, `phone`, `position`) VALUES ('$username', '$email', '$age', '$phone', '$position')";

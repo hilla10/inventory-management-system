@@ -1,5 +1,4 @@
 <?php include('../includes/header.php'); ?>
-<?php include("../includes/auth.php"); ?>
 <?php include('../includes/dbcon.php'); ?>
 
     <?php
@@ -8,7 +7,7 @@
     if (isset($_GET['ordinary-number'])) {
         $ordinary_number = $_GET['ordinary-number'];
 
-        $query = "SELECT * FROM  `it_department` WHERE `ordinary-number` = '$ordinary_number'";
+        $query = "SELECT * FROM  `inventory` WHERE `department` = 'IT' AND `ordinary-number` = '$ordinary_number'";
 
         $result = mysqli_query($connection, $query);
 
@@ -17,6 +16,7 @@
         } else {
             $row = mysqli_fetch_assoc($result);
         }
+        
     }
     ?>
 
@@ -36,7 +36,7 @@
     $totalPrice = $_POST['total-price'];
     $examination = $_POST['examination'];
 
-        $query = "UPDATE `it_department` set `inventory-list` = '$inventoryList', `description` = '$description', `measure` = '$measure', `quantity` = '$quantity', `quantity` = '$quantity', `price` = '$price', `total-price` = '$totalPrice', `examination` = '$examination' WHERE `ordinary-number` = '$new_number'";
+        $query = "UPDATE `inventory` set `inventory-list` = '$inventoryList', `description` = '$description', `measure` = '$measure', `quantity` = '$quantity', `quantity` = '$quantity', `price` = '$price', `total-price` = '$totalPrice', `examination` = '$examination' WHERE `department` = 'IT' AND `ordinary-number` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
 

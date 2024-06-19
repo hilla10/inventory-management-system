@@ -1,7 +1,7 @@
 
 <?php
 
-include("dbcon.php");
+include("../includes/dbcon.php");
 session_start();
 
 if (isset($_POST['login'])) {
@@ -36,10 +36,12 @@ if (isset($_POST['login'])) {
                 $options = $row['option'];
 
                 echo "Options: " . $options;
-
-                if ($options === 'it head') {
-                        header("Location: ../it/");
-                        exit();
+                if($options === 'admin') {
+                    header("Location: ../admin/");
+                    exit();
+                }elseif ($options === 'it head') {
+                    header("Location: ../it/");
+                    exit();
                 } elseif ($options === 'business head') {
                     header("Location: ../business/");
                     exit();
@@ -51,10 +53,10 @@ if (isset($_POST['login'])) {
                     exit();
                 }
             } else {
-                header('location:../index.php?message=Sorry, your username/email, roll or password is invalid');
+                header('location:../index.php?error_msg=Sorry, your username/email, roll or password is invalid');
             }
         } else {
-            header('location:../index.php?message=Sorry, your username/email, roll or password is invalid');
+            header('location:../index.php?error_msg=Sorry, your username/email, roll or password is invalid');
         }
     }
 }

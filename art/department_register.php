@@ -67,7 +67,7 @@ if(isset($_POST['add_department'])) {
 
     if (!empty($errors)) {
         $message = implode(" ", $errors);
-        header('location: index.php?message=' . urlencode($message));
+        header('location: index.php?error_msg=' . urlencode($message));
         exit;
     }
 
