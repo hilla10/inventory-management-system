@@ -32,85 +32,103 @@
 <body  class="body text-light">
 
 
+
 <?php
-// Include necessary files
-include('../includes/dbcon.php');
-// include('../includes/header.php');
+// Include the database connection file
+include('dbcon.php');
+
+// Include the header file
+// include('header.php');
+
+// Start the session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 
-// Display loading message
+
+// Access user role from session
+$userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
+// Access the stored current page URL
+$currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
+
+// Display a loading message while the page is loading
 echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-items-center\">
     <h2 class=\"pe-2 text-success fw-semibold\">Loading page... Redirecting</h2>
     <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
 </div>";
 
-// Error reporting and form handling
+// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Check if the form for adding a user is submitted
 if(isset($_POST['add_department'])) {
-    // Sanitize and validate input fields
-    $name = trim($_POST['username']);
-    $email = $_POST['email'];
-    $age = $_POST['age'];
-    $phone = $_POST['phone'];
-    $position = $_POST['position'];
+    // Validate and sanitize fields
+     $name = trim($_POST['username']); 
+     $email = $_POST['email'];
+     $age = $_POST['age'];
+     $phone = $_POST['phone'];
+     $position = $_POST['position'];
 
+       // Perform additional validation if needed
     $errors = [];
-
-    if(empty($name) || empty($email) || empty($age) || empty($phone) || empty($position)) {
-        $errors[] = "Some fields are empty.";
+    if(empty($name) ||  empty($email) || empty($age) || empty($phone) || empty($position)) {
+          $errors[] = "Some fields are empty.";
     }
 
-    if(empty($name)) {
+    elseif (empty($name)) {
         $errors[] = "You need to fill in the username.";
     }
-
-    if(empty($email)) {
+ 
+    elseif (empty($email)) {
         $errors[] = "You need to fill in the email.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Please enter a valid email address.";
-
-        // Additional DNS check if needed
+        // Extract domain from email
         $domain = explode('@', $email)[1];
+
+        // Check if domain has valid DNS records
         if (!checkdnsrr($domain, 'MX')) {
-            $errors[] = "Please enter a valid email address with valid domain.";
+            $errors[] = "Please enter a valid email address.";
         }
+
+    }elseif(empty($age)) {
+          $errors[] = "You need to fill the age.";
     }
 
-    if(empty($age)) {
-        $errors[] = "You need to fill the age.";
+     elseif(empty($phone)) {
+          $errors[] = "You need to fill the phone.";
     }
 
-    if(empty($phone)) {
-        $errors[] = "You need to fill the phone.";
+     elseif(empty($position)) {
+          $errors[] = "You need to fill the position.";
     }
+    
 
-    if(empty($position)) {
-        $errors[] = "You need to fill the position.";
-    }
-
-    // If there are errors, redirect with error message
     if (!empty($errors)) {
         $message = implode(" ", $errors);
-        header('Location: index.php?message=' . urlencode($message));
+        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+        header('Location: ' . $redirectUrl);
         exit;
     }
+         $stmt =  $connection->prepare("INSERT INTO department_registration (username, email, age, phone, position) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssiss", $name, $email, $age, $phone, $position );
+        $stmt->execute();
 
-    // Prepare and execute SQL statement for insertion
-    $stmt = $connection->prepare("INSERT INTO department_registration (username, email, age, phone, position) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssiss", $name, $email, $age, $phone, $position);
-    $stmt->execute();
-
-    // Check for successful insertion
-    if($stmt->affected_rows > 0) {
-        header('Refresh: 3; URL=index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));
+        if($stmt->affected_rows > 0) {
+              $connection->commit();
+                $message = "Congratulations! You have successfully registered.";
+                $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
+                header('Refresh: 3; URL=' . $redirectUrl);
+                exit;
         exit;
-    } else {
-        die("Query Failed: " . mysqli_error($connection));
-    }
-}
+            
+        } else {
+            die("Query Failed" . mysqli_error($connection));
+        }
 
+    }
 
 ?>
 

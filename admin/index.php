@@ -21,6 +21,33 @@ $_SESSION['currentPage'] = $currentPage;
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 echo $_SESSION['currentPage'];
+
+
+// Query to get the total number of items in the inventory
+$query = "SELECT COUNT(*) as total_items FROM `inventory`";
+$result = mysqli_query($connection, $query);
+$row = mysqli_fetch_assoc($result);
+$totalItems = $row['total_items'];
+
+// Query to get the total number of consumable items
+$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item-type` = 'consumable'";
+$resultConsumableItems = mysqli_query($connection, $queryConsumableItems);
+$rowConsumableItems = mysqli_fetch_assoc($resultConsumableItems);
+$totalConsumableItems = $rowConsumableItems['total_consumable_items'];
+
+// Query to get the total number of non-consumable items
+$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item-type` = 'non-consumable'";
+$resultNonConsumableItems = mysqli_query($connection, $queryNonConsumableItems);
+$rowNonConsumableItems = mysqli_fetch_assoc($resultNonConsumableItems);
+$totalNonConsumableItems = $rowNonConsumableItems['total_non_consumable_items'];
+
+
+// Query to get the total number of items in the inventory
+$queryDepartments = "SELECT COUNT(*) as total_departments FROM `departments`";
+$resultDepartments = mysqli_query($connection, $queryDepartments);
+$rowDepartments = mysqli_fetch_assoc($resultDepartments);
+$totalDepartments = $rowDepartments['total_departments'];
+
 ?>
 
    <header class="main-header">
@@ -49,11 +76,11 @@ echo $_SESSION['currentPage'];
             <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
                     <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal2">Add Department</a>
+                        data-bs-target="#Modal9">Add Department</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal1">Add User</a>
+                        data-bs-target="#Modal8">Add User</a>
                 </li>
                
 
@@ -97,7 +124,16 @@ echo $_SESSION['currentPage'];
         <?php include('../includes/navigation.php'); ?>
 
         <div class="flex-grow-1 main-content">
+ <div class=" py-2 text-center">
+            <h1 class="sr-only">Dashboard</h1>
+            <?php  $title = "Dashboard"; // Set the default title
 
+       if (isset($title) && !empty($title)) {
+    echo "<script>document.title = '" . $title . "'</script>";
+}
+?>
+
+        </div>
             <div class="content-wrapper" >
 
                 <section class="content-header">
@@ -110,78 +146,75 @@ echo $_SESSION['currentPage'];
                         <li class="active">Dashboard</li>
                     </ol>
                 </section>
-
                 <section class="content">
 
-                    <div class="row">
-                        <div class="col-lg-3 col-xs-6">
+                    <div class=" grid">
+                        <div>
 
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3>286</h3>
-                                    <p>Total Products</p>
+                                   <h3><?php echo $totalItems; ?></h3>
+                                    <p>Total Items</p>
                                 </div>
                                 <div class="icon">
                                    <i class="fa-solid fa-bag-shopping"></i>
                                 </div>
-                                <a href="https://demo.codersfolder.com/imsv2/products/" class="small-box-footer">More
+                                <a href="../more_info/all_items.php" class="small-box-footer">More
                                     info
                                     <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-xs-6">
+                        <div>
 
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <h3>78</h3>
-                                    <p>Total Paid Orders</p>
+                                    <h3><?php echo $totalConsumableItems ?></h3>
+                                    <p>Total Consumable Items</p>
                                 </div>
                                 <div class="icon">
                                    <i class="fa-solid fa-bag-shopping"></i>
                                 </div>
-                                <a href="https://demo.codersfolder.com/imsv2/orders/" class="small-box-footer">More info
+                                <a href="../more_info/consumable_items.php" class="small-box-footer">More info
                                     <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-xs-6">
+                        <div>
 
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-                                    <h3>2</h3>
-                                    <p>Total Users</p>
+                                    <h3><?php echo $totalNonConsumableItems ?></h3>
+                                    <p>Total Non-Consumable Items</p>
                                 </div>
                                 <div class="icon">
                                      <i class="fa-solid fa-bag-shopping"></i>
                                 </div>
-                                <a href="https://demo.codersfolder.com/imsv2/users/" class="small-box-footer">More info
+                                <a href="../more_info/non_consumable_items.php" class="small-box-footer">More info
                                     <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-xs-6">
+                        <!-- <div>
 
                             <div class="small-box bg-red">
                                 <div class="inner">
-                                    <h3>8</h3>
-                                    <p>Total Stores</p>
+                                    <h3><?php echo $totalDepartments ?></h3>
+                                    <p>Total Departments</p>
                                 </div>
                                 <div class="icon">
                                      <i class="fa-solid fa-bag-shopping"></i>
                                 </div>
-                                <a href="https://demo.codersfolder.com/imsv2/stores/" class="small-box-footer">More info
+                                <a href="../more_info/departments.php" class="small-box-footer">More info
                                     <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                    
 
                 </section>
 
-<!-- Message -->
-<?php include('../includes/message.php'); ?>
 
             </div>
         </div>
@@ -189,8 +222,16 @@ echo $_SESSION['currentPage'];
     </div>
 
 
-<!-- Modal -->
-<?php include('../includes/modal.php'); ?>
+<!-- message -->
+<?php include('../includes/message.php'); ?>
 
-<!-- footer -->
+    <!-- Modal -->
+    <?php include('../includes/modal.php'); ?>
+    
+    <?php include('../includes/user_register.php'); ?>
+    
+
+    <?php include('../includes/update.php'); ?>
+
+
 <?php include('../includes/footer.php'); ?>

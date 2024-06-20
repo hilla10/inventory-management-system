@@ -115,8 +115,6 @@ echo $_SESSION['currentPage'];
 
         </div>
         
-<!-- message -->
-<?php include('../includes/message.php'); ?>
 
         <div class="container mt-4">
 
@@ -163,6 +161,7 @@ echo $_SESSION['currentPage'];
                             <th>ተራ ቁጥር</th>
                             <th>ዲፖርትመንት</th>
                             <th>የእቃው ዝርዝር</th>
+                            <th>የእቃው አይነት</th>
                             <th>መግለጫ</th>
                             <th>መለኪያ</th>
                             <th>ብዛት</th>
@@ -213,13 +212,14 @@ echo $_SESSION['currentPage'];
                             <td><?php echo $row['ordinary-number']?></td>
                             <td><?php echo $row['department']?></td>
                             <td><?php echo $row['inventory-list']?></td>
+                            <td><?php echo $row['item-type']?></td>
                             <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['description']?></td>
                             <td><?php echo $row['measure']?></td>
                             <td><?php echo $row['quantity']?></td>
                             <td><?php echo $row['price']?></td>
                             <td><?php echo $row['total-price']?></td>
                             <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']?></td>
-                            <td><a href="update.php?ordinary-number=<?php echo $row['ordinary-number']?>"
+                            <td><a href="../includes/update.php?ordinary-number=<?php echo $row['ordinary-number']?>&department=<?php echo $row['department']; ?>"
                                     class="btn btn-success">Update</a></td>
                            <td>
                                 <a href="../includes/delete.php?ordinary-number=<?php echo $row['ordinary-number']; ?>&department=<?php echo $row['department']; ?>"
@@ -250,8 +250,14 @@ echo $_SESSION['currentPage'];
     </div>
 </div>
 
+<!-- message -->
+<?php include('../includes/message.php'); ?>
+
 <!-- Modal -->
 <?php include('../includes/modal.php'); ?>
 
+<?php include('../includes/update.php'); ?>
+
+<?php include('../includes/user_register.php'); ?>
 
 <?php include('../includes/footer.php'); ?>

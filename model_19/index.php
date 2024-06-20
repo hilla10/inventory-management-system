@@ -67,10 +67,9 @@ echo $_SESSION['currentPage'];
 ?>
 
  </div>
-
-            <div class="d-flex">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    
+ <div class="d-flex">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+         
                     <li>
                         <div class="dropdown nav-item">
                             <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -95,6 +94,8 @@ echo $_SESSION['currentPage'];
 </nav>
 
 </header>
+
+
 
 <div class="d-flex justify-content-between">
 
@@ -126,8 +127,9 @@ echo $_SESSION['currentPage'];
            </div>
         </form>
         
-    <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal">Add Items</button>
+    <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal7">Add Items</button>
 </div>
+
 <div class="table-responsive">
         <table class="table table-hover table-bordered table-striped">
          

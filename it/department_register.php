@@ -67,7 +67,7 @@ if(isset($_POST['add_department'])) {
 
     if (!empty($errors)) {
         $message = implode(" ", $errors);
-        header('location: index.php?error_msg=' . urlencode($message));
+        header('location: index.php?message=' . urlencode($message));
         exit;
     }
 
@@ -77,6 +77,7 @@ if(isset($_POST['add_department'])) {
 
         if($stmt->affected_rows > 0) {
               header('Refresh: 5; URL=index.php?insert_msg=' . urlencode("Congratulations! You have successfully registered."));
+              header('location: ../display_department/index.php');
         exit;
             
         } else {

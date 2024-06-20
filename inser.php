@@ -1,206 +1,227 @@
-<?php include('../includes/dbcon.php'); ?>
-<?php 
-
-if(isset($_POST['add_item'])) {
-    $inventoryList = $_POST['inventory-list'];
-    $department = trim(strtoupper($_POST['department']));
-    $itemType = trim(strtoupper($_POST['item-type']));
-    $description = $_POST['description'];
-    $measure = $_POST['measure'];
-    $quantity = $_POST['quantity'];
-    $price = $_POST['price'];
-    $totalPrice = $_POST['total-price'];
-    $examination = $_POST['examination'];
-    
-    if(empty($inventoryList) || empty($department) || empty($description) || empty($measure) || empty($quantity) || empty($price) || empty($totalPrice) || empty($examination)) {
-        header('location: index.php?message= Some fields are empty.');
-    } elseif($inventoryList === "" || empty($inventoryList)) {
-         header('location: index.php?message=You need to fill the inventory list');
-    } elseif($department === "" || empty($department)) {
-         header('location: index.php?message=You need to fill the Department');
-    }elseif($description === "" || empty($description)) {
-         header('location: index.php?message=You need to fill the description');
-    }  elseif($measure === "" || empty($measure)) {
-         header('location: index.php?message=You need to fill the measure');
-    }  elseif($quantity === "" || empty($quantity)) {
-         header('location: index.php?message=You need to fill the quantity');
-    }  elseif($price === "" || empty($price)) {
-         header('location: index.php?message=You need to fill the price');
-    }  elseif($totalPrice === "" || empty($totalPrice)) {
-         header('location: index.php?message=You need to fill the totalPrice');
-    } elseif($examination === "" || empty($examination)) {
-         header('location: index.php?message=You need to fill the examination');
-    }  elseif ($department !== 'IT') {
-        header('location: index.php?message=Department must be "it" or "IT".');
-    } else {
-
-        $query =  "INSERT INTO inventory (`inventory-list`,department, `item-type`, `description`, measure, quantity, price, `total-price`, examination) VALUES ('$inventoryList','$department', $itemType, '$description', '$measure', '$quantity', '$price', '$totalPrice', '$examination')";
-
-
-        $result = mysqli_query($connection, $query);
-
-        if(!$result) {
-            die("Query Failed" . mysqli_error($connection));
-        } else {
-            header('location: index.php?insert_msg=Your data has been added successfully');
-        }
-
-    }
-}
-
-?>
-
-
-
-
-
-
-
-
-
-
-
 <?php
-// Include the database connection
-include('dbcon.php');
+// Include necessary files
+include('../includes/dbcon.php');
+include("../includes/auth.php");
+include('../includes/header.php');
 
-// Start the session
+// Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Include insert_app.php to access determineCurrentPage() function
+include('../includes/insert_app.php');
 
-// Access the stored current page URL
-$currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
+// Determine the current page
+$currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
 
-// Handle form submission
-if (isset($_POST['add_item'])) {
-    $formData = $_POST;
-    $errors = validateFormData($formData);
 
-    if (empty($errors)) {
-        $result = insertInventoryItem($formData, $currentPage);
-        if ($result) {
-            // Successful insertion
-            $department = trim(strtoupper($formData['department']));
-            $redirectUrl = '../' . $currentPage . '?insert_msg=Your data has been added successfully';
-            header('Location: ' . $redirectUrl);
-            exit;
-        } else {
-            $errors[] = 'An error occurred while inserting the data. Please try again.';
-        }
-    }
+// Store the current page URL in a session variable
+$_SESSION['currentPage'] = $currentPage;
 
-    // Handle errors
-    if (!empty($errors)) {
-        $errorMessage = implode(', ', $errors);
-        $redirectUrl = '../' . $currentPage . '?message=' . urlencode($errorMessage);
-        header('Location: ' . $redirectUrl);
-        exit;
-    }
-}
+// Access user role from session
+$userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
+echo $_SESSION['currentPage'];
 
-/**
- * Determine the current page based on the URL.
- *
- * @param string $currentUrl The current URL.
- * @return string The current page.
- */
-function determineCurrentPage($currentUrl)
-{
-    $path = parse_url($currentUrl, PHP_URL_PATH);
-    // Remove any double slashes to ensure correct path segmentation
-    $path = str_replace('//', '/', $path);
-    $segments = explode('/', trim($path, '/'));
-    foreach ($segments as $key => $segment) {
-        if (in_array($segment, ['admin', 'it', 'art', 'auto', 'business', 'bin', 'model_19', 'model_20'])) {
-            return implode('/', array_slice($segments, $key)); // Return the path from the department segment onward
-        }
-    }
-    return ''; // Handle cases where no valid department segment is found
-}
+// Query to get the total number of items in the inventory
+$query = "SELECT COUNT(*) as total_items FROM `inventory`";
+$result = mysqli_query($connection, $query);
+$row = mysqli_fetch_assoc($result);
+$totalItems = $row['total_items'];
 
-/**
- * Validate the form data.
- *
- * @param array $formData The form data.
- * @return array The validation errors.
- */
-function validateFormData($formData)
-{
-    $errors = [];
+// Query to get the total number of consumable items
+$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item-type` = 'consumable'";
+$resultConsumableItems = mysqli_query($connection, $queryConsumableItems);
+$rowConsumableItems = mysqli_fetch_assoc($resultConsumableItems);
+$totalConsumableItems = $rowConsumableItems['total_consumable_items'];
 
-    $inventoryList = trim($formData['inventory-list']);
-    $department = trim(strtoupper($formData['department']));
-    $itemType = trim(strtoupper($formData['item-type']));
-    $description = trim($formData['description']);
-    $measure = trim($formData['measure']);
-    $quantity = trim($formData['quantity']);
-    $price = trim($formData['price']);
-    $totalPrice = trim($formData['total-price']);
-    $examination = trim($formData['examination']);
+// Query to get the total number of non-consumable items
+$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item-type` = 'non-consumable'";
+$resultNonConsumableItems = mysqli_query($connection, $queryNonConsumableItems);
+$rowNonConsumableItems = mysqli_fetch_assoc($resultNonConsumableItems);
+$totalNonConsumableItems = $rowNonConsumableItems['total_non_consumable_items'];
 
-    // Validation rules
-    if (empty($inventoryList)) {
-        $errors[] = 'You need to fill the inventory list';
-    }
-    if (empty($department)) {
-        $errors[] = 'You need to fill the Department';
-    } elseif (!in_array($department, ['IT', 'ART', 'AUTO', 'BUSINESS'])) {
-        $errors[] = 'Department must be like "IT", "ART", "AUTO", or "BUSINESS"';
-    }
-    if (empty($description)) {
-        $errors[] = 'You need to fill the description';
-    }
-    if (empty($measure)) {
-        $errors[] = 'You need to fill the measure';
-    }
-    if (empty($quantity)) {
-        $errors[] = 'You need to fill the quantity';
-    }
-    if (empty($totalPrice)) {
-        $errors[] = 'You need to fill the total price';
-    }
-    if (empty($price)) {
-        $errors[] = 'You need to fill the price';
-    }
-    if (empty($examination)) {
-        $errors[] = 'You need to fill the examination';
-    }
 
-    return $errors;
-}
+// Query to get the total number of items in the inventory
+$queryDepartments = "SELECT COUNT(*) as total_departments FROM `departments`";
+$resultDepartments = mysqli_query($connection, $queryDepartments);
+$rowDepartments = mysqli_fetch_assoc($resultDepartments);
+$totalDepartments = $rowDepartments['total_departments'];
 
-/**
- * Insert the inventory item into the database.
- *
- * @param array $formData The form data.
- * @param string $currentPage The current page.
- * @return bool True if the insertion was successful, false otherwise.
- */
-function insertInventoryItem($formData, $currentPage)
-{
-    global $connection;
-
-    $inventoryList = $formData['inventory-list'];
-    $department = $formData['department'];
-    $itemType = $formData['item-type'];
-    $description = $formData['description'];
-    $measure = $formData['measure'];
-    $quantity = $formData['quantity'];
-    $price = $formData['price'];
-    $totalPrice = $formData['total-price'];
-    $examination = $formData['examination'];
-
-    $query = "INSERT INTO inventory (`inventory-list`, department, `item-type`, `description`, measure, quantity, price, `total-price`, examination) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, 'sssssssss', $inventoryList, $department, $itemType, $description, $measure, $quantity, $price, $totalPrice, $examination);
-
-    $result = mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-
-    return $result;
-}
 ?>
+
+   <header class="main-header">
+
+      <div>
+          <a href="index.php" class="logo">
+        <img src="../img/EPTC_logo" alt="logo">
+        </a>
+
+        <nav class="navbar navbar-static-top">
+
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <i class="fa-solid fa-bars-staggered"></i>
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        </nav>
+      </div>
+      <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="container">
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto ">
+                <li class="nav-item">
+                    <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
+                        data-bs-target="#Modal2">Add Department</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
+                        data-bs-target="#Modal1">Add User</a>
+                </li>
+               
+
+            </ul>
+            <div class="d-flex">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+       <li class="nav-item">
+                        <button type="button" class="btn btn-danger mb-3 mb-lg-0  me-3" data-bs-toggle="modal"
+                            data-bs-target="#Modal4">
+                            Delete User
+                        </button>
+                    </li>
+                    <li>
+                        <div class="dropdown nav-item">
+                            <a class="btn btn-info  dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?php
+                                        if ($userRole == 'admin') {
+                                            echo 'Admin';
+                                        } elseif ($userRole == 'it head') {
+                                            echo 'IT Head';
+                                        }
+                                ?>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                            </ul>       
+                        </div>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+    </header>
+    
+   <div class="d-flex justify-content-between ">
+
+
+        <?php include('../includes/navigation.php'); ?>
+
+        <div class="flex-grow-1 main-content">
+
+            <div class="content-wrapper" >
+
+                <section class="content-header">
+                    <h1>
+                        Dashboard
+                        <small>Control panel</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </section>
+
+                <section class="content">
+
+                    <div class="row">
+                        <div class="col-lg-3 col-xs-6">
+
+                            <div class="small-box bg-aqua">
+                                <div class="inner">
+                                   <h3><?php echo $totalItems; ?></h3>
+                                    <p>Total Items</p>
+                                </div>
+                                <div class="icon">
+                                   <i class="fa-solid fa-bag-shopping"></i>
+                                </div>
+                                <a href="../more_info/all_items.php" class="small-box-footer">More
+                                    info
+                                    <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xs-6">
+
+                            <div class="small-box bg-green">
+                                <div class="inner">
+                                    <h3><?php echo $totalConsumableItems ?></h3>
+                                    <p>Total Consumable Items</p>
+                                </div>
+                                <div class="icon">
+                                   <i class="fa-solid fa-bag-shopping"></i>
+                                </div>
+                                <a href="https://demo.codersfolder.com/imsv2/orders/" class="small-box-footer">More info
+                                    <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xs-6">
+
+                            <div class="small-box bg-yellow">
+                                <div class="inner">
+                                    <h3><?php echo $totalNonConsumableItems ?></h3>
+                                    <p>Total Non-Consumable Items</p>
+                                </div>
+                                <div class="icon">
+                                     <i class="fa-solid fa-bag-shopping"></i>
+                                </div>
+                                <a href="https://demo.codersfolder.com/imsv2/users/" class="small-box-footer">More info
+                                    <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xs-6">
+
+                            <div class="small-box bg-red">
+                                <div class="inner">
+                                    <h3><?php echo $totalDepartments ?></h3>
+                                    <p>Total Departments</p>
+                                </div>
+                                <div class="icon">
+                                     <i class="fa-solid fa-bag-shopping"></i>
+                                </div>
+                                <a href="https://demo.codersfolder.com/imsv2/stores/" class="small-box-footer">More info
+                                    <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                   
+
+                </section>
+
+<!-- Message -->
+<?php include('../includes/message.php'); ?>
+
+            </div>
+        </div>
+        
+    </div>
+
+
+<!-- Modal -->
+<?php include('../includes/modal.php'); ?>
+
+<?php include('../includes/update.php'); ?>
+
+<?php include('../includes/user_register.php'); ?>
+
+<!-- footer -->
+<?php include('../includes/footer.php'); ?>

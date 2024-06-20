@@ -98,6 +98,9 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
 </nav>
 </header>
 
+
+
+
 <div class="d-flex justify-content-between">
 
     <?php include('../includes/navigation.php'); ?>
@@ -115,10 +118,6 @@ if (isset($title) && !empty($title)) {
 }
 ?>
 </div>
-
-<!-- message -->
-<?php include('../includes/message.php'); ?>
-
 <div class="container mt-5">
     
 <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
@@ -152,7 +151,7 @@ if (isset($title) && !empty($title)) {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal2">Add Department</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal9">Add Department</button>
     </div>
     
 <div class="table-responsive">
@@ -243,6 +242,15 @@ if (isset($title) && !empty($title)) {
     </div>
     </div>
 <!-- Modal -->
+
+<div class="p-3 w-100 mx-auto">
+    
+</div>
+
+
+<!-- message -->
+<?php include('../includes/message.php'); ?>
+
 <?php include('../includes/modal.php'); ?>
 
 <!-- footer -->

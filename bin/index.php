@@ -131,8 +131,6 @@ echo $_SESSION['currentPage'];
    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal3">Add Bin</button>
 </div>
 
-         <!-- message -->
-  <?php include('../includes/message.php'); ?>
     
   <div class="table-responsive">
         <table class="table table-hover table-bordered table-striped">
@@ -211,6 +209,10 @@ echo $_SESSION['currentPage'];
    </div>
    </div>
 </div>
+
+<!-- message -->
+<?php include('../includes/message.php'); ?>
+
      <!-- Modal -->
 <?php include('../includes/modal.php'); ?>
 

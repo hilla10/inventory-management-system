@@ -282,6 +282,14 @@ form .input-box input:active {
   outline-offset: -2px !important;
 }
 
+.table > :not(:first-child) {
+  border-top: 1px solid currentColor !important;
+}
+
+.table > :not(caption) > * > * {
+  background-color: #fff !important;
+}
+
 .content-header {
   padding: 60px 15px 0 15px;
   display: flex;
@@ -336,10 +344,6 @@ form .input-box input:active {
   height: calc(100vh - 54px);
 }
 
-table {
-  /* table-layout: fixed; */
-}
-
 .content {
   min-height: 250px;
   padding: 15px;
@@ -378,6 +382,14 @@ table {
 .label-danger,
 .modal-danger .modal-body {
   background-color: #dd4b39 !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .small-box > .inner {
@@ -562,6 +574,8 @@ table {
 
 .accordion {
   padding: 10px 0;
+  border: none !important;
+  outline: none !important;
 }
 
 .accordion-header {
@@ -584,7 +598,7 @@ table {
 }
 
 .accordion-item {
-  border: none;
+  border: none !important;
 }
 
 .accordion-content {

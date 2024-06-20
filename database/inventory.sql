@@ -78,7 +78,7 @@ CREATE TABLE inventory (
 -- Table structure for table `departments`
 CREATE TABLE departments (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(50) NOT NULL
+    `name` VARCHAR(50) UNIQUE NOT NULL
 );
 
 INSERT INTO departments (`name`) VALUES   ('IT'), ('ART'), ('AUTO'), ('BUSINESS');

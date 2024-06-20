@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  sidebarToggle.addEventListener('click', () => {
+  sidebarToggle.addEventListener('click', (e) => {
+    e.preventDefault();
     if (window.innerWidth > 768) {
       toggleSidebar();
       mainSidebar.classList.remove('hidden');

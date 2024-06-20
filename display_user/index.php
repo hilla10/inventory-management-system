@@ -120,8 +120,6 @@ if (isset($title) && !empty($title)) {
 ?>
 </div>
 
-<?php include('../includes/message.php'); ?>
-
 <div class="container mt-5">
     
 <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
@@ -156,7 +154,7 @@ if (isset($title) && !empty($title)) {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal8">Add User</button>
     </div>
     
 <div class="table-responsive">
@@ -240,6 +238,9 @@ if (isset($title) && !empty($title)) {
 </div>
 </div>
 </div>
+
+<!-- message -->
+<?php include('../includes/message.php'); ?>
 
     <!-- Modal -->
     <?php include('../includes/modal.php'); ?>
