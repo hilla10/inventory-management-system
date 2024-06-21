@@ -82,7 +82,7 @@
                 <span>የአንዱ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input required type="number" class="form-control" id="total-price" name="total-price" >
+                <input type="number" class="form-control" id="total-price" name="total-price" >
                 <span>ጠቅላላ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
@@ -321,15 +321,15 @@
               </div>
               <div class="form-group input-box mb-2">
               
-                <input required type="number" class="form-control" id="quantity" name="quantity">
+                <input required type="number" class="form-control quantity" id="quantity" name="quantity">
                 <span>ብዛት</span>
               </div>
              <div class="form-group input-box mb-2">
-                <input required type="number" class="form-control" id="price" name="price">
+                <input required type="number" class="form-control price" id="price" name="price">
                 <span>የአንዱ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input required type="number" class="form-control" id="total-price" name="total-price">
+                <input required type="number" class="form-control total-price" id="total-price" name="total-price" >
                 <span>ጠቅላላ ዋጋ</span>
             </div>
       </div>

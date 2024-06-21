@@ -89,5 +89,27 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Calculate total price for items
+  const quantity = document.getElementById('quantity');
+  const price = document.getElementById('price');
+  const calculateTotalPrice = () => {
+    const totalPrice = quantity.value * price.value;
+    document.getElementById('total-price').value = totalPrice.toFixed(2);
+  };
 
+  quantity.addEventListener('input', calculateTotalPrice);
+  price.addEventListener('input', calculateTotalPrice);
+
+  // calculate total price for model 19
+
+  const modelQuantity = document.querySelector('.quantity');
+  const modelPrice = document.querySelector('.price');
+
+  const calculateModelTotalPrice = () => {
+    const totalPrice = modelQuantity.value * modelPrice.value;
+    document.querySelector('.total-price').value = totalPrice.toFixed(2);
+  };
+
+  modelPrice.addEventListener('input', calculateModelTotalPrice);
+  modelQuantity.addEventListener('input', calculateModelTotalPrice);
 });

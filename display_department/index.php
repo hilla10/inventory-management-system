@@ -9,7 +9,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Include insert_app.php to access determineCurrentPage() function
-include('../includes/insert_app.php');
+include('../includes/determineFnc.php');
 
 // Determine the current page
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
@@ -151,24 +151,10 @@ if (isset($title) && !empty($title)) {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal9">Add Department</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal2">Add Department</button>
     </div>
     
-<div class="table-responsive">
-    <table class="table table-hover table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ተራ ቁጥር</th>
-                <th>ስም</th>
-                <th>ኢሜል</th>
-                <th>አድሜ</th>
-                <th>ስልክ ቁጥር</th>
-                <th>ያሉበትን ሁኔታ</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
+   
             <?php
             
             $errors = [];
@@ -204,13 +190,31 @@ if (isset($title) && !empty($title)) {
             if (!$result) {
                 die("Query Failed" . mysqli_error($connection));
             } else {
-                // Initialize the counter variable
-                $departmentCount = 0;
+                if (mysqli_num_rows($result) > 0) {
+                    $departmentCount = 0;
+                
+                ?>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ተራ ቁጥር</th>
+                        <th>ስም</th>
+                        <th>ኢሜል</th>
+                        <th>አድሜ</th>
+                        <th>ስልክ ቁጥር</th>
+                        <th>ያሉበትን ሁኔታ</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                while ($row = mysqli_fetch_assoc($result)) {
-                    // Increment the counter for each item
-                    $departmentCount++;
-                    ?>
+<?php
+        while ($row = mysqli_fetch_assoc($result)) {
+            // Increment the counter for each item
+            $departmentCount++;
+            ?>
                     <tr>
                         <td><?php echo $row['id'] ?></td>
                         <td><?php echo $row['username'] ?></td>
@@ -230,22 +234,23 @@ if (isset($title) && !empty($title)) {
                                 </script>
                     </tr>
                     <?php
-                }
-            }
-            ?>
+        }
+        ?>
+            
+            
         </tbody>
     </table>
     </div>
     <div class="text-uppercase fs-4 fw-bold text-end">Department Count : <span class="text-primary"><?php echo $departmentCount; ?></span></div>
-
+<?php
+            } else {
+                 echo "<div class='alert alert-info text-center w-70 m-3'><strong class='fs-3 text-light'>No items found in the database.</strong></div>";
+            }
+        }
+?>
     </div>
     </div>
     </div>
-<!-- Modal -->
-
-<div class="p-3 w-100 mx-auto">
-    
-</div>
 
 
 <!-- message -->

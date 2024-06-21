@@ -9,15 +9,15 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include insert_app.php to access determineCurrentPage() function
-include('../includes/insert_app.php');
+
+// Determine the current page
+include ('../includes/determineFnc.php');
 
 // Determine the current page
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
 
 // Store the current page URL in a session variable
 $_SESSION['currentPage'] = $currentPage;
-
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 echo $_SESSION['currentPage'];
@@ -76,11 +76,11 @@ $totalDepartments = $rowDepartments['total_departments'];
             <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
                     <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal9">Add Department</a>
+                        data-bs-target="#Modal2">Add Department</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal8">Add User</a>
+                        data-bs-target="#Modal1">Add User</a>
                 </li>
                
 
@@ -135,6 +135,10 @@ $totalDepartments = $rowDepartments['total_departments'];
 
         </div>
             <div class="content-wrapper" >
+
+            <div class="notification">
+                
+            </div>
 
                 <section class="content-header">
                     <h1>
@@ -227,11 +231,5 @@ $totalDepartments = $rowDepartments['total_departments'];
 
     <!-- Modal -->
     <?php include('../includes/modal.php'); ?>
-    
-    <?php include('../includes/user_register.php'); ?>
-    
-
-    <?php include('../includes/update.php'); ?>
-
 
 <?php include('../includes/footer.php'); ?>

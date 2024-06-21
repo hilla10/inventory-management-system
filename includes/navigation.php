@@ -162,7 +162,7 @@ if (strpos($currentUrl, '/admin/') !== false) {
                           </li>
                           
                         <li class="item1">  <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal8">
+                        data-bs-target="#Modal1">
                                 <i class="fa-solid fa-user-plus"></i>
                                 Add User
                             </a>
@@ -201,7 +201,7 @@ if (strpos($currentUrl, '/admin/') !== false) {
                             } ?>
                           </li>
                         <li class="item1">  <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal9">
+                        data-bs-target="#Modal2">
                                 Add Department
                             </a>
                           </li>

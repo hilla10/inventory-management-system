@@ -54,8 +54,6 @@ if (isset($_POST['add_item'])) {
     }
 }
 
-
-
 /**
  * Fetch the list of departments from the database.
  *
@@ -87,7 +85,7 @@ function determineCurrentPage($currentUrl)
     $path = parse_url($currentUrl, PHP_URL_PATH);
     // Remove any double slashes to ensure correct path segmentation
     $path = str_replace('//', '/', $path);
-   $segments = explode('/', trim($path, '/'));
+    $segments = explode('/', trim($path, '/'));
     $allowedDepartments = fetchDepartments();
 
     foreach ($segments as $key => $segment) {
@@ -95,7 +93,7 @@ function determineCurrentPage($currentUrl)
             return implode('/', array_slice($segments, $key)); // Return the path from the department segment onward
         }
     }
-    return '';// Handle cases where no valid department segment is found
+    return ''; // Handle cases where no valid department segment is found
 }
 
 /**
@@ -115,10 +113,10 @@ function validateFormData($formData)
     $measure = trim($formData['measure']);
     $quantity = trim($formData['quantity']);
     $price = trim($formData['price']);
-    $totalPrice = trim($formData['total-price']);
+    // $totalPrice = trim($formData['total-price']);
     $examination = trim($formData['examination']);
 
-     $allowedDepartments = fetchDepartments();
+    $allowedDepartments = fetchDepartments();
 
     // Validation rules
     if (empty($inventoryList)) {
@@ -138,9 +136,9 @@ function validateFormData($formData)
     if (empty($quantity)) {
         $errors[] = 'You need to fill the quantity';
     }
-    if (empty($totalPrice)) {
-        $errors[] = 'You need to fill the total price';
-    }
+    // if (empty($totalPrice)) {
+    //     $errors[] = 'You need to fill the total price';
+    // }
     if (empty($price)) {
         $errors[] = 'You need to fill the price';
     }

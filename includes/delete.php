@@ -14,6 +14,19 @@ if (isset($_GET['ordinary-number']) && isset($_GET['department'])) {
     $ordinary_number = $_GET['ordinary-number'];
     $department = $_GET['department'];
 
+    // Fetch the details of the record to be deleted (optional but recommended)
+    $query_fetch = "SELECT * FROM `inventory` WHERE `ordinary-number` = ? AND `department` = ?";
+    $stmt_fetch = mysqli_prepare($connection, $query_fetch);
+    mysqli_stmt_bind_param($stmt_fetch, 'ss', $ordinary_number, $department);
+    mysqli_stmt_execute($stmt_fetch);
+    $result_fetch = mysqli_stmt_get_result($stmt_fetch);
+    
+    // Get the record details
+    $deleted_record = '';
+    if ($row = mysqli_fetch_assoc($result_fetch)) {
+        $deleted_record = ' (Ordinary Number: ' . $row['ordinary-number'] . ', Inventory List: ' . $row['inventory-list'] . ')';
+    }
+
     // Prepare the SQL statement to prevent SQL injection
     $query = "DELETE FROM `inventory` WHERE `ordinary-number` = ? AND `department` = ?";
     $stmt = mysqli_prepare($connection, $query);
@@ -25,7 +38,7 @@ if (isset($_GET['ordinary-number']) && isset($_GET['department'])) {
 
         if ($result) {
             // Successful deletion
-            $delete_msg = 'You have deleted the record';
+            $delete_msg = 'You have deleted the record' . $deleted_record;
             $redirectUrl = '../' . $currentPage . '?delete_msg=' . urlencode($delete_msg);
             header('Location: ' . $redirectUrl);
             exit;

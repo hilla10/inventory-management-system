@@ -4,19 +4,21 @@ include('../includes/dbcon.php');
 include("../includes/auth.php");
 include('../includes/header.php');
 
+
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include insert_app.php to access determineCurrentPage() function
-include('../includes/insert_app.php');
 
 // Determine the current page
+include ('../includes/determineFnc.php');
+
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
 
 // Store the current page URL in a session variable
 $_SESSION['currentPage'] = $currentPage;
+
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
@@ -75,6 +77,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
 
 <div class="d-flex justify-content-between">
    <?php include('../includes/navigation.php'); ?>
+   
    <div class="flex-grow-1 main-content">
       <div class="m-5 pt-5">
          <div class="box1 d-flex flex-md-row flex-column justify-content-center align-items-center pb-3">

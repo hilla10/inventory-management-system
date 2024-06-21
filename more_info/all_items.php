@@ -9,10 +9,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include insert_app.php to access determineCurrentPage() function
-include('../includes/insert_app.php');
-
 // Determine the current page
+include ('../includes/determineFnc.php');
+
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
 
 // Store the current page URL in a session variable
@@ -72,6 +71,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
       </div>
    </nav>
 </header>
+
 
 <div class="d-flex justify-content-between">
    <?php include('../includes/navigation.php'); ?>
@@ -149,7 +149,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                      <td><?php echo $row['price']?></td>
                      <td><?php echo $row['total-price']?></td>
                      <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']?></td>
-                     <td><a href="../includes/update.php?ordinary-number=<?php echo $row['ordinary-number']?>" class="btn btn-success">Update</a></td>
+                     <td><a href="../includes/update.php?ordinary-number=<?php echo $row['ordinary-number']?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
                      <td><a href="../includes/delete.php?ordinary-number=<?php echo $row['ordinary-number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary-number']; ?>', '<?php echo htmlspecialchars($row['inventory-list']); ?>')">Delete</a></td>
                   </tr>
                   <?php } ?>

@@ -99,7 +99,9 @@ CREATE TABLE model_20 (
   quantity INT,
   `item-type` VARCHAR(50),
   model VARCHAR(50),
-  `update` VARCHAR(50)
+  `update` VARCHAR(50),
+  status ENUM('pending', 'approved', 'declined') DEFAULT 'pending',
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table structure for table `model_19`

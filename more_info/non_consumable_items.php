@@ -9,14 +9,15 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include insert_app.php to access determineCurrentPage() function
-include('../includes/insert_app.php');
 
 // Determine the current page
+include ('../includes/determineFnc.php');
+
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
 
 // Store the current page URL in a session variable
 $_SESSION['currentPage'] = $currentPage;
+
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';

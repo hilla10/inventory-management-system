@@ -10,7 +10,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 // Include insert_app.php to access determineCurrentPage() function
-include('../includes/insert_app.php');
+include('../includes/determineFnc.php');
 
 // Determine the current page
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
@@ -154,25 +154,10 @@ if (isset($title) && !empty($title)) {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal8">Add User</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
     </div>
     
-<div class="table-responsive">
-    <table class="table table-hover table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ተራ ቁጥር</th>
-                <th>ስም</th>
-                <th>ጾታ</th>
-                <th>አድሜ</th>
-                <th>ኢሜል</th>
-                <th> ስልክ ቁጥር </th>
-                <th>ያሉበትን ሁኔታ</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
+
             <?php
             $userCount = 0;
             $errors = [];
@@ -204,6 +189,28 @@ if (isset($title) && !empty($title)) {
             if (!$result) {
                 die("Query failed" . mysqli_error($connection));
             } else {
+
+                if (mysqli_num_rows($result) > 0) {
+                     $userCount = 0;
+
+                     ?>
+                     <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ተራ ቁጥር</th>
+                                    <th>ስም</th>
+                                    <th>ጾታ</th>
+                                    <th>አድሜ</th>
+                                    <th>ኢሜል</th>
+                                    <th> ስልክ ቁጥር </th>
+                                    <th>ያሉበትን ሁኔታ</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                     <?php 
                 while ($row = mysqli_fetch_assoc($result)) {
                     $userCount++;
                     ?>
@@ -228,13 +235,20 @@ if (isset($title) && !empty($title)) {
                     </tr>
                 <?php
                 }
-            }
+            
             ?>
         </tbody>
     </table>
 </div>
 
     <div class="text-uppercase fs-4 fw-bold text-end">User Count : <span class="text-primary"><?php echo $userCount; ?></span></div>
+    <?php 
+    } else {
+  echo "<div class='alert alert-info text-center w-70 m-3'><strong class='fs-3 text-light'>No items found in the database.</strong></div>";
+
+        }
+    }
+    ?>
 </div>
 </div>
 </div>
