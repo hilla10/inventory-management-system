@@ -1,5 +1,4 @@
 
-
 <!-- modal for item -->
 
 <form action="../includes/insert_app.php" method="post">
@@ -345,47 +344,44 @@
 
 <!-- modal for Model 20 -->
 <form action="insert_app.php" method="post">
- <div class="modal fade" id="Modal6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 20</h1>
-        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <div class="form-group input-box mb-2">
-              
-                <input required type="number" class="form-control" id="quantity" name="quantity">
-                <span>ብዛት</span>
-           
-              </div>
-
-              <div class="form-group input-box mb-2">
-             
-                <input required type="text" class="form-control" id="item-type" name="item-type">
-                <span>የእቃው አይነት</span>
-              </div>
-              <div class="form-group input-box mb-2">
-                
-                <input required type="text" class="form-control" id="model" name="model">
-                <span>ሞዴል</span>
-              </div>
-          
-              <div class="form-group input-box mb-2">
-                
-                <input required type="text" class="form-control" id="update"  name="update">
-                <span>ማሻሻያ አምድ</span>
-              </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input required type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
-      </div>
+    <div class="modal fade" id="Modal6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 20</h1>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group input-box mb-2">
+                        <input required type="text" class="form-control" id="requested-by" name="requested-by">
+                        <span>ስሞትን ያስገቡ| Enter your name|</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input required type="number" class="form-control" id="quantity" name="quantity">
+                        <span>ብዛት</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input required type="text" class="form-control" id="item-type" name="item-type">
+                        <span>የእቃው አይነት</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input required type="text" class="form-control" id="model" name="model">
+                        <span>ሞዴል</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control" id="update" name="update">
+                        <span>ማሻሻያ አምድ</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ዝጋብ</button>
+                    <input required type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </form>
+
 
 
   <!-- modal for user register for login page -->
@@ -596,5 +592,7 @@
     </div>
   </div>
 </form>
+
+
 
 

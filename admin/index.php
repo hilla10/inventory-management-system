@@ -9,7 +9,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
 // Determine the current page
 include ('../includes/determineFnc.php');
 
@@ -94,22 +93,20 @@ $totalDepartments = $rowDepartments['total_departments'];
                             Delete User
                         </button>
                     </li>
-                    <li>
-                        <div class="dropdown nav-item">
-                            <a class="btn btn-info  dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php
-                                        if ($userRole == 'admin') {
-                                            echo 'Admin';
-                                        } elseif ($userRole == 'it head') {
-                                            echo 'IT Head';
-                                        }
-                                ?>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
-                            </ul>       
-                        </div>
-                    </li>
+                   <li>
+                            <div class="dropdown nav-item">
+                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                    <?php
+                                    if ($userRole == 'admin') {
+                                        echo 'Admin';
+                                    }
+                                    ?>
+                                </button>
+                                <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
                    
                 </ul>
             </div>
@@ -124,7 +121,6 @@ $totalDepartments = $rowDepartments['total_departments'];
         <?php include('../includes/navigation.php'); ?>
 
         <div class="flex-grow-1 main-content">
- <div class=" py-2 text-center">
             <h1 class="sr-only">Dashboard</h1>
             <?php  $title = "Dashboard"; // Set the default title
 
@@ -133,12 +129,15 @@ $totalDepartments = $rowDepartments['total_departments'];
 }
 ?>
 
-        </div>
             <div class="content-wrapper" >
 
-            <div class="notification">
-                
-            </div>
+<div class="mx-auto w-100 text-center">
+    <!-- Button trigger modal -->
+<a href="../request/index.php" class="btn btn-primary mx-auto my-3 text-center">
+  See Notifications
+</a>
+</div>
+
 
                 <section class="content-header">
                     <h1>

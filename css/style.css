@@ -297,6 +297,12 @@ form .input-box input:active {
   align-items: center;
 }
 
+.vh {
+  /* height: calc(100vh - 100px); */
+  height: 100vh;
+  margin-top: 6rem;
+}
+
 .content-header > h1 {
   margin: 0;
   font-size: 24px;

@@ -1,4 +1,3 @@
-
 <?php
 
 include("../includes/dbcon.php");
@@ -28,18 +27,41 @@ if (isset($_POST['login'])) {
             // Verify the entered password with the stored hashed password
             if (password_verify($password, $storedHashedPassword)) {
                 // Password is correct, proceed with login
-                 $_SESSION['loggedin'] = true;
+                $_SESSION['loggedin'] = true;
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['options'] = $row['option'];
+
+                // Fetch the current time
+                $currentVisitTime = date("Y-m-d H:i:s");
+
+                // Retrieve and store the last visit time from the database
+                $lastVisitQuery = "SELECT last_visit FROM `user` WHERE email = ?";
+                $lastVisitStmt = mysqli_prepare($connection, $lastVisitQuery);
+                mysqli_stmt_bind_param($lastVisitStmt, "s", $row['email']);
+                mysqli_stmt_execute($lastVisitStmt);
+                $lastVisitResult = mysqli_stmt_get_result($lastVisitStmt);
+
+                if ($lastVisitResult) {
+                    $lastVisitRow = mysqli_fetch_assoc($lastVisitResult);
+                    $_SESSION['lastVisitTime'] = $lastVisitRow['last_visit'];
+                } else {
+                    $_SESSION['lastVisitTime'] = null;
+                }
+
+                // Update the last visit time in the database
+                $updateVisitQuery = "UPDATE `user` SET last_visit = ? WHERE email = ?";
+                $updateVisitStmt = mysqli_prepare($connection, $updateVisitQuery);
+                mysqli_stmt_bind_param($updateVisitStmt, "ss", $currentVisitTime, $row['email']);
+                mysqli_stmt_execute($updateVisitStmt);
 
                 // Redirect the user based on their role
                 $options = $row['option'];
 
                 echo "Options: " . $options;
-                if($options === 'admin') {
+                if ($options === 'admin') {
                     header("Location: ../admin/");
                     exit();
-                }elseif ($options === 'it head') {
+                } elseif ($options === 'it head') {
                     header("Location: ../it/");
                     exit();
                 } elseif ($options === 'business head') {

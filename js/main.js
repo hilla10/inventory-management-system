@@ -112,4 +112,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   modelPrice.addEventListener('input', calculateModelTotalPrice);
   modelQuantity.addEventListener('input', calculateModelTotalPrice);
+
+  // Get dropdown toggle button and dropdown menu
+  var dropdownToggle = document.getElementById('dropdownMenuButton');
+  var dropdownMenu = dropdownToggle.nextElementSibling;
+
+  // Toggle dropdown menu on button click
+  dropdownToggle.addEventListener('click', function () {
+    dropdownMenu.classList.toggle('show');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function (event) {
+    if (
+      !dropdownToggle.contains(event.target) &&
+      !dropdownMenu.contains(event.target)
+    ) {
+      dropdownMenu.classList.remove('show');
+    }
+  });
 });

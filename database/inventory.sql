@@ -31,7 +31,8 @@ CREATE TABLE `user` (
   `user_name` VARCHAR(50),
   `email` VARCHAR(50) UNIQUE NOT NULL,
   `password` VARCHAR(255),
-  `option` VARCHAR(50)
+  `option` VARCHAR(50),
+  `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -53,7 +54,8 @@ CREATE TABLE department_registration (
   email VARCHAR(50) UNIQUE,
   age INT,
   phone VARCHAR(20),
-  position VARCHAR(50)
+  position VARCHAR(50),
+  `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- AUTO_INCREMENT for table `department_registration`
@@ -71,7 +73,8 @@ CREATE TABLE inventory (
   quantity INT,
   price INT,
   `total-price` INT,
-  examination VARCHAR(50)
+  examination VARCHAR(50),
+  `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -100,9 +103,11 @@ CREATE TABLE model_20 (
   `item-type` VARCHAR(50),
   model VARCHAR(50),
   `update` VARCHAR(50),
-  status ENUM('pending', 'approved', 'declined') DEFAULT 'pending',
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   requested_by VARCHAR(100),
+  `status` ENUM('pending', 'approved', 'declined') DEFAULT 'pending',
+    `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- Table structure for table `model_19`
 CREATE TABLE model_19 (

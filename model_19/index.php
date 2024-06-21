@@ -62,18 +62,16 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                 </div>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li>
+                         <li>
                             <div class="dropdown nav-item">
-                                <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
-                                    } elseif ($userRole == 'it head') {
-                                        echo 'IT Head';
                                     }
                                     ?>
-                                </a>
-                                <ul class="dropdown-menu">
+                                </button>
+                                <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>

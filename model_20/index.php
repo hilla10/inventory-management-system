@@ -62,20 +62,18 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                 </div>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li>
+                       <li>
                             <div class="dropdown nav-item">
-                                <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
-                                    } elseif ($userRole == 'it head') {
-                                        echo 'IT Head';
                                     }
                                     ?>
-                                </a>
-                                <ul class="dropdown-menu">
+                                </button>
+                                <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
-                                </ul>       
+                                </ul>
                             </div>
                         </li>
                     </ul>
@@ -85,9 +83,13 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
     </nav>
 </header>
 
+  
+
 <div class="d-flex justify-content-between">
     <?php include('../includes/navigation.php'); ?>
     <div class="flex-grow-1 main-content">
+
+
         <div class="container mt-5">
             <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
                 <form method="GET" action="">
@@ -108,6 +110,8 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                 </form>
                 <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal6">Add model_20</button>
             </div>
+
+             
 
             <?php
             // Query to fetch data from model_20 table
