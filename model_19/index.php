@@ -19,6 +19,8 @@ $_SESSION['currentPage'] = $currentPage;
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
+
+
 ?>
 
 <header class="main-header">
@@ -85,35 +87,95 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 
 <div class="d-flex justify-content-between">
     <?php include('../includes/navigation.php'); ?>
+    <?php  $title = "ሞዴል 19 ገቢ"; // Set the default title
+            if (isset($title) && !empty($title)) {
+                echo "<script>document.title = '" . $title . "'</script>";
+            }
+            ?>
     <div class="flex-grow-1 main-content">
-        <div class="container mt-5">
-            <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
+        <div class="container content-wrapper">
+              <section class="content-header">
+                    <h1>
+                        Model 19
+                        <small>Control panel</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">model_19</li>
+                    </ol>
+                    </section>
+            <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center mt-2">
                 <form method="GET" action="">
-                    <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-end">
-                        <div>
+                    <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-md-end  gap-3">
+                        <div class="d-flex gap-3">
                             <div class="form-group mb-2">
-                                <select name="order" id="order" class="form-select">
-                                    <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
-                                    <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
+                                <select name="order" id="order" class="form-select" onchange="this.form.submit()">
+                                    <option value="asc" <?php if (isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
+                                    <option value="desc" <?php if (isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
                                 </select>
                             </div>
-                            <div class="form-group mb-2 input-box outline">
+
+                            <div class="form-group mb-2">
                                 <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-4 ms-1">Search</button>
+                        <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
                 <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal7">Add Items</button>
             </div>
 
             <?php
-            // Check if there are items to display
-            $query = "SELECT * FROM `model_19`";
-            $result = mysqli_query($connection, $query);
+            // Pagination parameters
+            $itemsPerPage = 5;
 
-            if (mysqli_num_rows($result) > 0) {
+            // Ensure $currentPage is numeric and set a default if not
+            $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+            // Calculate offset for LIMIT in SQL query
+            $offset = ($currentPage - 1) * $itemsPerPage;
+
+            // Modify query to include LIMIT and OFFSET
+            if (isset($_GET['order']) && ($_GET['order'] == 'asc' || $_GET['order'] == 'desc')) {
+                $order = $_GET['order'];
+            } else {
+                $order = 'asc'; // Default ordering is ascending
+            }
+
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $search = $_GET['search'];
+                $query = "SELECT * FROM `inventory` 
+                          WHERE `department` = 'IT' 
+                          AND `inventory-list` LIKE '%$search%'
+                          ORDER BY `inventory-list` $order 
+                          LIMIT $itemsPerPage OFFSET $offset";
+            } else {
+                $query = "SELECT * FROM `model_19` 
+                          ORDER BY `ordinary-number` $order 
+                          LIMIT $itemsPerPage OFFSET $offset";
+            }
+
+            $result = mysqli_query($connection, $query);
+            // Count total number of rows without LIMIT for pagination
+            $countQuery = "SELECT COUNT(*) AS total FROM `model_19`";
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $countQuery .= " AND `inventory-list` LIKE '%$search%'";
+            }
+            $countResult = mysqli_query($connection, $countQuery);
+
+            if (!$countResult) {
+                die("Count query failed: " . mysqli_error($connection));
+            }
+
+            $rowCount = mysqli_fetch_assoc($countResult)['total'];
+            if (!$result) {
+                die("Query failed: " . mysqli_error($connection));
+            } else {
+                if (mysqli_num_rows($result) > 0) {
+                    // Initialize the counter variable
+                    $itemCount = 0;
             ?>
+
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered table-striped">
                         <thead>
@@ -150,13 +212,82 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                         </tbody>
                     </table>
                 </div>
-                <div class="text-uppercase fs-4 fw-bold text-end">Model_19 Count: <span class="text-primary"><?php echo mysqli_num_rows($result); ?></span></div>
+                 <div class="d-flex justify-content-between bg-light align-items-center p-2 rounded-2">
+                        <?php
+                    // Calculate start and end item numbers
+                    $startItem = ($currentPage - 1) * $itemsPerPage + 1;
+                    $endItem = min($startItem + $itemsPerPage - 1, $rowCount);
+
+                    // Display start and end item numbers and total count
+                    echo "<div class=' fs-6 fw-bold '>Showing <span class=\"text-primary fs-5\">$startItem</span> to <span class=\"text-primary fs-5\">$endItem</span> of <span class=\"text-primary fs-5\">$rowCount</span> entries</div>";
+                    ?>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end m-auto">
+                            <?php
+                            // Count total number of rows without LIMIT for pagination
+                            $countQuery = "SELECT COUNT(*) AS total FROM `model_19`";
+                            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                                $countQuery .= " AND `inventory-list` LIKE '%$search%'";
+                            }
+                            $countResult = mysqli_query($connection, $countQuery);
+                            $rowCount = mysqli_fetch_assoc($countResult)['total'];
+
+                            // Calculate total pages
+                            $totalPages = ceil($rowCount / $itemsPerPage);
+
+                            // Previous page link
+                            if ($currentPage > 1) {
+                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage - 1);
+                                if (isset($_GET['order'])) {
+                                    echo "&order={$_GET['order']}";
+                                }
+                                if (isset($_GET['search'])) {
+                                    echo "&search={$_GET['search']}";
+                                }
+                                echo "'>Previous</a></li>";
+                            }
+
+                            // Page links
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                echo "<li class='page-item";
+                                if ($i == $currentPage) {
+                                    echo " active";
+                                }
+                                echo "'><a class='page-link' href='?page=$i";
+                                if (isset($_GET['order'])) {
+                                    echo "&order={$_GET['order']}";
+                                }
+                                if (isset($_GET['search'])) {
+                                    echo "&search={$_GET['search']}";
+                                }
+                                echo "'>$i</a></li>";
+                            }
+
+                            // Next page link
+                            if ($currentPage < $totalPages) {
+                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage + 1);
+                                if (isset($_GET['order'])) {
+                                    echo "&order={$_GET['order']}";
+                                }
+                                if (isset($_GET['search'])) {
+                                    echo "&search={$_GET['search']}";
+                                }
+                                echo "'>Next</a></li>";
+                            }
+                            ?>
+                        </ul>
+                    </nav>
+                    <!-- End Pagination -->
+                    </div>
+
             <?php
-            } else {
-                // No items found message
-                
-                      echo "<div class='alert alert-info text-center w-70 m-3'><strong class='fs-3 text-light'>No items found in the database.</strong></div>";
-                
+                } else {
+                    // No items found message
+            
+                    echo "<div class='alert alert-info text-center w-70 m-3'><strong class='fs-3 text-light'>No items found in the database.</strong></div>";
+                }
             }
             ?>
 

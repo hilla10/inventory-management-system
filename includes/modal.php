@@ -521,26 +521,32 @@
         <div class="modal-content bg-modal-color">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
-                <!-- <button type="button" class="btn-close btn-light text-white" ></button> -->
                 <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close"></i>
             </div>
             <div class="modal-body w-100">
-                <div class="text-center">
-                <div id="notificationContent">
+                <div id="notificationContent" class="pb-2">
+                    
+            <ul class="my-3 ms-3 ps-0">
                     <?php if ($pendingCount > 0) {
                         ?>
-                        <a href="../request/index.php" class="btn btn-primary mx-auto my-3 text-center">
-                        See Notifications
+                    <?php foreach ($pendingRequestsNotifications as $request): ?>
+                        <li class="py-3"><a href="../request/index.php" class="list__group-link list__group-link-rq"><?php echo $request; ?></a></li>
+                       
                         </a>
-
+                            <?php endforeach; ?>
                         <?php 
                         } else {
-                        echo "<div clas=\"text-center text-light fs-3 text-light\">There is no message</div>";
+                        echo "<div class=\"text-center text-light fs-3 text-light\">There is no message</div>";
                         } 
                         ?>
+                        </ul>
                 </div>
-            </div>
-
+                <div class="border"></div>
+            <ul class="my-3 ms-3 ps-0">
+                    <?php foreach ($lowStockNotifications as $notification): ?>
+                        <li class="py-3"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link list__group-link-nt"><?php echo $notification; ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
     </div>
