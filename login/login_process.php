@@ -40,7 +40,6 @@ if (isset($_POST['login'])) {
                 mysqli_stmt_bind_param($lastVisitStmt, "s", $row['email']);
                 mysqli_stmt_execute($lastVisitStmt);
                 $lastVisitResult = mysqli_stmt_get_result($lastVisitStmt);
-
                 if ($lastVisitResult) {
                     $lastVisitRow = mysqli_fetch_assoc($lastVisitResult);
                     $_SESSION['lastVisitTime'] = $lastVisitRow['last_visit'];

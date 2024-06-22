@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const sidebarToggle = document.querySelector('.sidebar-toggle');
   const mainSidebar = document.querySelector('.main-sidebar');
   const mainContent = document.querySelector('.main-content');
-  const footer = document.querySelector('.footer');
 
   function toggleSidebar() {
     mainSidebar.classList.toggle('display-icon');

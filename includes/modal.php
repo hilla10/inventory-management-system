@@ -1,4 +1,6 @@
 
+
+
 <!-- modal for item -->
 
 <form action="../includes/insert_app.php" method="post">
@@ -223,7 +225,7 @@
 
 
 <!-- modal for user register admin page-->
-  <form action="user_register.php" method="post">
+  <!-- <form action="user_register.php" method="post">
     <div class="modal fade" id="Modal8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -291,7 +293,7 @@
             </div>
         </div>
     </div>
-</form>
+</form> -->
 
 <!-- modal for Model 19 -->
 <form action="insert_app.php" method="post">
@@ -381,7 +383,6 @@
         </div>
     </div>
 </form>
-
 
 
   <!-- modal for user register for login page -->
@@ -515,7 +516,38 @@
     </div>
 </form>
 
-<!-- modal for department register for admin page-->
+<div class="modal fade" id="Modal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" roll="dialog">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-modal-color">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
+                <!-- <button type="button" class="btn-close btn-light text-white" ></button> -->
+                <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body w-100">
+                <div class="text-center">
+                <div id="notificationContent">
+                    <?php if ($pendingCount > 0) {
+                        ?>
+                        <a href="../request/index.php" class="btn btn-primary mx-auto my-3 text-center">
+                        See Notifications
+                        </a>
+
+                        <?php 
+                        } else {
+                        echo "<div clas=\"text-center text-light fs-3 text-light\">There is no message</div>";
+                        } 
+                        ?>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal for department register for admin page
 <form action="department_register.php" method="post">
     <div class="modal fade" id="Modal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -561,7 +593,7 @@
             </div>
         </div>
     </div>
-</form>
+</form> -->
 
     
 
@@ -592,7 +624,4 @@
     </div>
   </div>
 </form>
-
-
-
 

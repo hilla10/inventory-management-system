@@ -303,6 +303,53 @@ form .input-box input:active {
   margin-top: 6rem;
 }
 
+.message_count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: rgb(224, 37, 37);
+  color: #fff;
+  /* padding: 5px; */
+  width: 30px;
+  height: 20px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action {
+  font-size: .8rem !important;
+}
+
+.bg-modal-color {
+  background:#0e008f60 !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.fa-close {
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s ease-in-out;
+}
+
+ .fa-close:focus,.fa-close:hover  {
+  box-shadow: 0 0 0 .25rem rgba(1, 162, 255, 0.623);
+  opacity: 1;
+  color: #ff00d4;
+}
+
+
 .content-header > h1 {
   margin: 0;
   font-size: 24px;

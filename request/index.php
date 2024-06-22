@@ -1,5 +1,3 @@
-
-
 <?php
 // Include necessary files
 include('../includes/dbcon.php');
@@ -23,7 +21,31 @@ $_SESSION['currentPage'] = $currentPage;
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 
 // Access last visit time from session (assuming it's set during login)
-$lastVisitTime = isset($_SESSION['lastVisitTime']) ? $_SESSION['lastVisitTime'] : 'null';
+$lastVisitTime = isset($_SESSION['lastVisitTime']) ? $_SESSION['lastVisitTime'] : '';
+
+// Query to count pending model_20 items
+$countQuery = "SELECT COUNT(*) AS pending_count FROM model_20 WHERE status = 'pending'";
+$countResult = mysqli_query($connection, $countQuery);
+
+// Check for query errors
+if (!$countResult) {
+    die("Database query failed: " . mysqli_error($connection));
+}
+
+// Fetch the count
+$pendingCount = 0;
+if ($row = mysqli_fetch_assoc($countResult)) {
+    $pendingCount = $row['pending_count'];
+}
+
+// Free result set
+mysqli_free_result($countResult);
+
+
+// Function to convert timestamp to milliseconds (like JavaScript's Date.getTime())
+function convertToMilliseconds($timestamp) {
+    return strtotime($timestamp) * 1000;
+}
 
 // Handle status update if action is provided (approve or decline)
 if (isset($_GET['action']) && isset($_GET['id'])) {
@@ -118,7 +140,7 @@ function updateItemStatus($itemId, $status) {
                                     }
                                     ?>
                                 </button>
-                                <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
@@ -130,7 +152,6 @@ function updateItemStatus($itemId, $status) {
     </nav>
 </header>
 
-
 <div class="d-flex justify-content-between">
     <?php include('../includes/navigation.php'); ?>
     <div class="flex-grow-1 main-content">
@@ -140,6 +161,11 @@ function updateItemStatus($itemId, $status) {
                 // Query to fetch all model_20 items
                 $query = "SELECT * FROM model_20";
                 $result = mysqli_query($connection, $query);
+
+                // Check for query errors
+                if (!$result) {
+                    die("Database query failed: " . mysqli_error($connection));
+                }
 
                 // Check if there are any items
                 if (mysqli_num_rows($result) > 0) {
@@ -159,41 +185,46 @@ function updateItemStatus($itemId, $status) {
                             </thead>
                             <tbody>
                                 <?php
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    // Determine if the item is new based on status and last visit time
-                                    $isNew = $lastVisitTime === 'null' || (strtotime($row['timestamp']) > strtotime($lastVisitTime));
+                               while ($row = mysqli_fetch_assoc($result)) {
+                                        // Convert timestamps to milliseconds for comparison
+                                        $rowTimestampMilliseconds = convertToMilliseconds($row['timestamp']);
+                                        $lastVisitTimeMilliseconds = convertToMilliseconds($lastVisitTime);
 
-                                    // Check if item has been approved or declined
-                                    $isApprovedOrDeclined = $row['status'] == 'approved' || $row['status'] == 'declined';
-                                    ?>
-                                    <tr>
-                                        <td>
-                                            <?php echo $row['ordinary-number']; ?>
-                                            <?php if ($isNew && !$isApprovedOrDeclined) { ?>
-                                                <span class="badge bg-danger">New</span>
-                                            <?php } ?>
-                                        </td>
-                                        <td><?php echo $row['quantity']; ?></td>
-                                        <td><?php echo $row['item-type']; ?></td>
-                                        <td><?php echo $row['model']; ?></td>
-                                        <td><?php echo $row['update']; ?></td>
-                                        <td><?php echo $row['requested_by']; ?></td>
-                                        <td><?php echo $row['status']; ?></td>
-                                        <td>
-                                            <!-- Always show links/buttons to approve or decline -->
-                                            <a class="btn btn-success" href="index.php?action=approve&id=<?php echo $row['ordinary-number']; ?>">Approve</a> |
-                                            <a class="btn btn-danger" href="index.php?action=decline&id=<?php echo $row['ordinary-number']; ?>">Decline</a>
-                                        </td>
-                                        <td>
-                                            <?php if ($row['status'] == 'approved' || $row['status'] == 'declined') { ?>
-                                                <a href="../includes/delete_request.php?id=<?php echo $row['ordinary-number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
-                                            <?php } else { ?>
-                                                <button class="btn btn-danger" disabled="true">Delete</button>
-                                            <?php } ?>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
+                                        // Determine if the item is new based on status and last visit time
+                                       // Determine if the item is new based on status and last visit time
+                        $isNew = !$lastVisitTime || ($rowTimestampMilliseconds > $lastVisitTimeMilliseconds) || ($row['status'] == 'pending');
+
+
+                                        // Output row with condition for new item
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $row['ordinary-number']; ?>
+                                                <?php if ($isNew) { ?>
+                                                    <span class="badge bg-danger">New</span>
+                                                <?php } ?>
+                                            </td>
+                                            <td><?php echo $row['quantity']; ?></td>
+                                            <td><?php echo $row['item-type']; ?></td>
+                                            <td><?php echo $row['model']; ?></td>
+                                            <td><?php echo $row['update']; ?></td>
+                                            <td><?php echo $row['requested_by']; ?></td>
+                                            <td><?php echo $row['status']; ?></td>
+                                            <td>
+                                                <!-- Always show links/buttons to approve or decline -->
+                                                <a class="btn btn-success action" href="index.php?action=approve&id=<?php echo $row['ordinary-number']; ?>">Approve</a> |
+                                                <a class="btn btn-danger  action" href="index.php?action=decline&id=<?php echo $row['ordinary-number']; ?>">Decline</a>
+                                            </td>
+                                            <td>
+                                                <?php if ($row['status'] == 'approved' || $row['status'] == 'declined') { ?>
+                                                    <a href="../includes/delete_request.php?id=<?php echo $row['ordinary-number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
+                                                <?php } else { ?>
+                                                    <button class="btn btn-danger" disabled="true">Delete</button>
+                                                <?php } ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
                                 ?>
                             </tbody>
                         </table>
