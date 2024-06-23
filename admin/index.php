@@ -39,17 +39,47 @@ $resultNonConsumableItems = mysqli_query($connection, $queryNonConsumableItems);
 $rowNonConsumableItems = mysqli_fetch_assoc($resultNonConsumableItems);
 $totalNonConsumableItems = $rowNonConsumableItems['total_non_consumable_items'];
 
-// Query to get the count of pending items and the users who requested them
+// Query to get the total number of bin cards items
+$queryBinCard = "SELECT COUNT(*) as total_bin FROM `bin`";
+$resultBinCard = mysqli_query($connection, $queryBinCard);
+$rowBinCard = mysqli_fetch_assoc($resultBinCard);
+$totalBinCard = $rowBinCard['total_bin'];
+
+// Query to get the total number of Model 19 items
+$queryModel19 = "SELECT COUNT(*) as total_model_19 FROM `model_19`";
+$resultModel19 = mysqli_query($connection, $queryModel19);
+$rowModel19 = mysqli_fetch_assoc($resultModel19);
+$totalModel19 = $rowModel19['total_model_19'];
+
+// Query to get the total number of Model 20 items
+$queryModel20 = "SELECT COUNT(*) as total_model_20 FROM `model_20`";
+$resultModel20 = mysqli_query($connection, $queryModel20);
+$rowModel20 = mysqli_fetch_assoc($resultModel20);
+$totalModel20 = $rowModel20['total_model_20'];
+
+// Query to get the count of pending items and the users who requested them model 19
 $queryPendingRequests = "SELECT requested_by FROM model_20 WHERE status = 'pending'";
 $resultPendingRequests = mysqli_query($connection, $queryPendingRequests);
+
+// Query to get the count of pending items and the users who requested them model 20
+$queryPendingAdded = "SELECT added_by FROM model_19 WHERE status = 'pending'";
+$resultPendingAdded = mysqli_query($connection, $queryPendingAdded);
 
 if (!$resultPendingRequests) {
     die("Database query failed: " . mysqli_error($connection));
 }
 
-// Initialize variables for pending requests notifications
+if (!$resultPendingAdded) {
+    die("Database query failed: " . mysqli_error($connection));
+}
+
+// Initialize variables for pending requests notifications model 20
 $pendingRequestsNotifications = [];
 $pendingCount = 0;
+
+// Initialize variables for pending added notifications model 19
+$pendingAddedNotifications = [];
+$pendingAddedCount = 0;
 
 // Fetch the pending requests notifications
 while ($rowPendingRequests = mysqli_fetch_assoc($resultPendingRequests)) {
@@ -58,8 +88,16 @@ while ($rowPendingRequests = mysqli_fetch_assoc($resultPendingRequests)) {
     $pendingCount++;
 }
 
+// Fetch the pending requests notifications
+while ($rowPendingAdded = mysqli_fetch_assoc($resultPendingAdded)) {
+    $addedBy = $rowPendingAdded['added_by'];
+    $pendingAddedNotifications[] = "New item Added by: $addedBy.";
+    $pendingAddedCount++;
+}
+
 // Free result set
 mysqli_free_result($resultPendingRequests);
+mysqli_free_result($resultPendingAdded);
 
 // Query to get the count of low stock items in each department
 $queryLowStockItems = "
@@ -91,7 +129,7 @@ while ($rowLowStockItems = mysqli_fetch_assoc($resultLowStockItems)) {
 mysqli_free_result($resultLowStockItems);
 
 // Total notification count
-$totalNotifications = $pendingCount + $totalLowStockCount;
+$totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
 ?>
 
 <header class="main-header">
@@ -244,20 +282,50 @@ $totalNotifications = $pendingCount + $totalLowStockCount;
                         </div>
                     </div>
 
-                    <!-- <div>
+                    <div>
 
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3><?php echo $totalDepartments ?></h3>
-                                <p>Total Departments</p>
+                                <h3><?php echo $totalBinCard ?></h3>
+                                <p>Total Bin Card</p>
                             </div>
                             <div class="icon">
-                                <i class="fa-solid fa-bag-shopping"></i>
+                                <i class="fas fa-archive"></i>
                             </div>
-                            <a href="../more_info/departments.php" class="small-box-footer">More info
+                            <a href="../bin/" class="small-box-footer">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                    </div> -->
+                    </div>
+
+                    <div>
+
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3><?php echo $totalModel19 ?></h3>
+                                <p>Total Model 19</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <a href="../model_19/" class="small-box-footer">More info
+                                <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3><?php echo $totalModel20 ?></h3>
+                                <p>Total Model 20</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <a href="../model_20/" class="small-box-footer">More info
+                                <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
 
                 </div>
 

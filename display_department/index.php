@@ -172,18 +172,27 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
             } else {
                 $order = 'asc'; // Default ordering is ascending
             }
+       
+// Handle form submission for sorting
+$field = isset($_GET['field']) ? $_GET['field'] : ''; // Default empty if not set
+$order = isset($_GET['order']) ? $_GET['order'] : 'desc'; // Default descending order if not set
 
-            if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
-                $search = $_GET['search'];
-                $field = $_GET['field'];
-                $query = "SELECT * FROM `department_registration` WHERE `$field` LIKE '%$search%' ORDER BY username $order LIMIT $departmentPerPage OFFSET $offset";
-            } else {
-                // Display a message if the user didn't select a field or selected "select field" and clicked the submit button
-                if (isset($_GET['search']) && !empty($_GET['search'])) {
-                    $errors[] = "Please select a valid field to search the user.";
-                }
-                $query = "SELECT * FROM `department_registration` ORDER BY username $order LIMIT $departmentPerPage OFFSET $offset";
-            }
+// Validate and sanitize input for security
+if (!empty($field) && $field != 'select field') {
+    $field = mysqli_real_escape_string($connection, $_GET['field']);
+    $order = mysqli_real_escape_string($connection, $_GET['order']);
+
+    // Modify query to include sorting
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = mysqli_real_escape_string($connection, $_GET['search']);
+        $query = "SELECT * FROM `department_registration` WHERE `$field` LIKE '%$search%' ORDER BY `$field` $order LIMIT $departmentPerPage OFFSET $offset";
+    } else {
+        $query = "SELECT * FROM `department_registration` ORDER BY `$field` $order LIMIT $departmentPerPage OFFSET $offset";
+    }
+} else {
+    // Default query if no valid sorting parameters are provided
+    $query = "SELECT * FROM `department_registration` ORDER BY `id` DESC LIMIT $departmentPerPage OFFSET $offset";
+}
 
             if(!empty($errors)) {
                 $message = implode(" ", $errors);
@@ -193,9 +202,11 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
             $result = mysqli_query($connection, $query);
   // Count total number of rows without LIMIT for pagination
             $countQuery = "SELECT COUNT(*) AS total FROM `department_registration`";
-            if (isset($_GET['search']) && !empty($_GET['search'])) {
-                $countQuery .= " AND `email` LIKE '%$search%'";
-            }
+              if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
+    $search = $_GET['search'];
+    $field = $_GET['field'];
+    $countQuery .= " WHERE `$field` LIKE '%$search%'";
+}
             $countResult = mysqli_query($connection, $countQuery);
 
             if (!$countResult) {
@@ -216,6 +227,7 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
                     <tr>
                         <th>ተራ ቁጥር</th>
                         <th>ስም</th>
+                         <th>ጾታ</th>
                         <th>ኢሜል</th>
                         <th>አድሜ</th>
                         <th>ስልክ ቁጥር</th>
@@ -234,6 +246,7 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
                     <tr>
                         <td><?php echo $row['id'] ?></td>
                         <td><?php echo $row['username'] ?></td>
+                        <td><?php echo $row['gender'] ?></td>
                         <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['email'] ?></td>
                        <td><?php echo $row['age'] ?></td>
                         <td><?php echo $row['phone'] ?></td>
@@ -273,9 +286,13 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
                             <?php
                             // Count total number of rows without LIMIT for pagination
                             $countQuery = "SELECT COUNT(*) AS total FROM `department_registration` ";
-                            if (isset($_GET['search']) && !empty($_GET['search'])) {
-                                $countQuery .= " AND `email` LIKE '%$search%'";
-                            }
+                          // Check if search parameters are set and construct the WHERE clause accordingly
+                        if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
+                            $search = mysqli_real_escape_string($connection, $_GET['search']);
+                            $field = mysqli_real_escape_string($connection, $_GET['field']);
+                            $countQuery .= " WHERE `$field` LIKE '%$search%'";
+                        }
+
                             $countResult = mysqli_query($connection, $countQuery);
                             $rowCount = mysqli_fetch_assoc($countResult)['total'];
 

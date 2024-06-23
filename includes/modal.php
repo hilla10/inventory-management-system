@@ -79,11 +79,11 @@
                 <span>ብዛት</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input required type="number" class="form-control" id="price" name="price">
+                <input required type="number" class="form-control" id="price" name="price" step="0.1">
                 <span>የአንዱ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="total-price" name="total-price" >
+                <input type="number" class="form-control" id="total-price" name="total-price" disabled>
                 <span>ጠቅላላ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
@@ -119,30 +119,30 @@
                 <input required type="date" class="form-control" id="date" name="date">
               </div>
               <div class="form-group input-box my-2">
-                <input required type="number" class="form-control" id="Phone" name="income">
+                <input required type="number" class="form-control" id="income" name="income">
                 <span>ገቢ</span>
            
               </div>
               <div class="form-group input-box my-2">
                 
-                <input required type="number" class="form-control" id="age" name="cost">
+                <input required type="number" class="form-control" id="cost" name="cost">
                 <span>ወጪ</span>
               </div>
           
               <div class="form-group input-box my-2">
               
-                <input required type="number" class="form-control" id="Phone" name="remain">
+                <input disabled type="number" class="form-control" id="remain" name="remain" required>
                 <span>ከወጪ ቀሪ</span>
            
               </div>
               <div class="form-group input-box my-2">
               
-                <input required type="number" class="form-control" id="Phone" name="short">
+                <input required type="number" class="form-control" id="short" name="short">
                 <span>አጭር ፈር</span>
            
               </div>
-      </div>
-      <div class="modal-footer">
+        </div>
+        <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <input required type="submit" class="btn btn-success" name="add_bin" value="አስገባ"></input>
       </div>
@@ -305,6 +305,10 @@
         <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+         <div class="form-group input-box mb-2">
+                        <input required type="text" class="form-control" id="added-by" name="added-by">
+                        <span>ስሞትን ያስገቡ| Enter your name|</span>
+                    </div>
               <div class="form-group input-box mb-2">
              
                 <input required type="text" class="form-control" id="item-type" name="item-type">
@@ -516,7 +520,8 @@
     </div>
 </form>
 
-<div class="modal fade" id="Modal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" roll="dialog">
+<!-- notification modal -->
+<div class="modal fade" id="Modal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content bg-modal-color">
             <div class="modal-header">
@@ -524,29 +529,42 @@
                 <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close"></i>
             </div>
             <div class="modal-body w-100">
-                <div id="notificationContent" class="pb-2">
+                <?php if($totalNotifications > 0): ?>
+                    <!-- Display pending requests notifications -->
+                    <?php if ($pendingCount > 0): ?>
+                        <div id="notificationContent" class="pb-2">
+                            <p class="text-light">Requested Items</p>
+                            <ul class="my-3 ms-3 ps-0">
+                                <?php foreach ($pendingRequestsNotifications as $request): ?>
+                                    <li class="py-3"><a href="../request/index.php" class="list__group-link list__group-link-rq"><?php echo $request; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="border"></div>
+                    <?php endif; ?>
                     
-            <ul class="my-3 ms-3 ps-0">
-                    <?php if ($pendingCount > 0) {
-                        ?>
-                    <?php foreach ($pendingRequestsNotifications as $request): ?>
-                        <li class="py-3"><a href="../request/index.php" class="list__group-link list__group-link-rq"><?php echo $request; ?></a></li>
-                       
-                        </a>
-                            <?php endforeach; ?>
-                        <?php 
-                        } else {
-                        echo "<div class=\"text-center text-light fs-3 text-light\">There is no message</div>";
-                        } 
-                        ?>
-                        </ul>
-                </div>
-                <div class="border"></div>
-            <ul class="my-3 ms-3 ps-0">
-                    <?php foreach ($lowStockNotifications as $notification): ?>
-                        <li class="py-3"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link list__group-link-nt"><?php echo $notification; ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
+                    <!-- Display pending added notifications -->
+                    <?php if ($pendingAddedCount > 0): ?>
+                        <div id="notificationContent" class="pb-2">
+                            <p class="text-light">Added Items</p>
+                            <ul class="my-3 ms-3 ps-0">
+                                <?php foreach ($pendingAddedNotifications as $added): ?>
+                                    <li class="py-3"><a href="../added/index.php" class="list__group-link list__group-link-ad"><?php echo $added; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="border"></div>
+                    <?php endif; ?>
+                    
+                    <!-- Display low stock notifications -->
+                    <ul class="my-3 ms-3 ps-0">
+                        <?php foreach ($lowStockNotifications as $notification): ?>
+                            <li class="py-3"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link list__group-link-nt"><?php echo $notification; ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <div class="text-center text-light fs-3">There are no notifications.</div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

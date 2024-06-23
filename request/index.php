@@ -79,10 +79,10 @@ function updateItemStatus($itemId, $status) {
     if (mysqli_stmt_affected_rows($stmt) > 0) {
         // Update successful, redirect or perform any other action
         // Optionally, you can set a session message to indicate success
-        // $_SESSION['message'] = "Item status updated successfully.";
+        $_SESSION['message'] = "Item status updated successfully.";
     } else {
         // Update failed
-        // $_SESSION['error'] = "Failed to update item status.";
+        $_SESSION['error'] = "Failed to update item status.";
     }
 
     mysqli_stmt_close($stmt);
@@ -120,14 +120,8 @@ function updateItemStatus($itemId, $status) {
         <div class="container">
             <div class="collapse navbar-collapse d-flex justify-content-between text-center" id="navbarNav">
                 <div class="py-2 mx-auto">
-                    <h1 class="text-center fs-3 text-light">Requested</h1>
-                    <?php
-                    $title = "Requested"; // Set the default title
-
-                    if (isset($title) && !empty($title)) {
-                        echo "<script>document.title = '" . $title . "'</script>";
-                    }
-                    ?>
+                    <h1 class="text-center fs-3 text-light">Requested Items</h1>
+                   
                 </div>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -154,12 +148,29 @@ function updateItemStatus($itemId, $status) {
 
 <div class="d-flex justify-content-between">
     <?php include('../includes/navigation.php'); ?>
+     <?php
+                    $title = "Requested Items"; // Set the default title
+
+                    if (isset($title) && !empty($title)) {
+                        echo "<script>document.title = '" . $title . "'</script>";
+                    }
+                    ?>
     <div class="flex-grow-1 main-content">
         <div class="container mx-auto vh">
+              <section class="content-header pb-3">
+                <h1>
+                    Requested
+                    <small>Control panel</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">request</li>
+                </ol>
+            </section>
             <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
                 <?php
                 // Query to fetch all model_20 items
-                $query = "SELECT * FROM model_20";
+                $query = "SELECT * FROM model_20 ORDER BY `ordinary-number` DESC";
                 $result = mysqli_query($connection, $query);
 
                 // Check for query errors
@@ -173,12 +184,13 @@ function updateItemStatus($itemId, $status) {
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
                             <thead>
-                                <th>Ordinary Number</th>
+                                <th>id</th>
                                 <th>Quantity</th>
                                 <th>Item Type</th>
                                 <th>Model</th>
                                 <th>Update</th>
                                 <th>Requested By</th>
+                                <th>Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                                 <th>Remove</th>
@@ -209,6 +221,7 @@ function updateItemStatus($itemId, $status) {
                                             <td><?php echo $row['model']; ?></td>
                                             <td><?php echo $row['update']; ?></td>
                                             <td><?php echo $row['requested_by']; ?></td>
+                                             <td><?php echo date('Y-m-d', strtotime($row['timestamp'])); ?></td>
                                             <td><?php echo $row['status']; ?></td>
                                             <td>
                                                 <!-- Always show links/buttons to approve or decline -->

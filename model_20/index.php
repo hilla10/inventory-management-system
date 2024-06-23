@@ -52,16 +52,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
         </div>
         <div class="container">
             <div class="collapse navbar-collapse d-flex justify-content-between text-center" id="navbarNav">
-                <div class="py-2 mx-auto">
-                    <h1 class="text-center fs-3 text-light">All ሞዴል 20 ገቢ</h1>
-                    <?php
-                    $title = "All ሞዴል 20 ገቢ"; // Set the default title
-
-                    if (isset($title) && !empty($title)) {
-                        echo "<script>document.title = '" . $title . "'</script>";
-                    }
-                    ?>
-                </div>
+               
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                        <li>
@@ -90,7 +81,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 <div class="d-flex justify-content-between">
     <?php include('../includes/navigation.php'); ?>
     <?php 
-     $title = "ሞዴል 20 ገቢ"; // Set the default title
+     $title = "ሞዴል 20 ወጪ"; // Set the default title
             if (isset($title) && !empty($title)) {
                 echo "<script>document.title = '" . $title . "'</script>";
             }

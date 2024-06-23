@@ -130,4 +130,17 @@ document.addEventListener('DOMContentLoaded', function () {
       dropdownMenu.classList.remove('show');
     }
   });
+
+  // calculate remain for bin card
+
+  const income = document.getElementById('income');
+  const cost = document.getElementById('cost');
+
+  const calculateRemain = () => {
+    const remain = income.value - cost.value;
+    document.getElementById('remain').value = remain.toFixed(2);
+  };
+
+  income.addEventListener('input', calculateRemain);
+  cost.addEventListener('input', calculateRemain);
 });

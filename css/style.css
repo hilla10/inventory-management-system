@@ -141,10 +141,6 @@ a {
 transition: all .3s ease-in-out;
 }
 
-.list__group-link:hover {
-  background: #fff;
-  color: #f39c12;
-}
 
 /* notification  */
 .list__group-link-nt {
@@ -157,6 +153,7 @@ transition: all .3s ease-in-out;
 }
 
 
+
 /* request */
 .list__group-link-rq {
   background: #00c0ef;
@@ -166,7 +163,17 @@ transition: all .3s ease-in-out;
   color: #00c0ef;
   background: #fff;
 }
+ 
+/* Added */
+.list__group-link-ad {
+   background: #216900;
+  color: #fff;
+}
 
+.list__group-link-ad:hover {
+   color: #216900;
+  background: #fff;
+}
 
 .nav-link span {
   font-size: 0.9rem !important;
@@ -188,6 +195,10 @@ form .modal-content {
 form .input-box {
   position: relative;
   /* width: 100%; */
+}
+
+.form-control:disabled {
+  background: transparent !important;
 }
 
 form .search {
@@ -258,7 +269,8 @@ form .outline input:active {
 
 .input-box input:valid ~ span,
 .input-box input:focus ~ span,
-.input-box input:active ~ span {
+.input-box input:active ~ span,
+.input-box input:disabled ~ span {
   color: #00dfc4;
   transform: translate(16px, -36px);
   font-size: 0.75em;
@@ -342,7 +354,7 @@ form .input-box input:active {
 .vh {
   /* height: calc(100vh - 100px); */
   height: 100vh;
-  margin-top: 6rem;
+  margin-top: 3rem;
 }
 
 .message_count {

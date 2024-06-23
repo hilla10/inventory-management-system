@@ -9,6 +9,10 @@
 <form action="update.php?id_new=<?php echo  $ordinary_number; ?>" method="post">
     
             <div class="form-group mb-2">
+                    <input type="text" class="form-control" id="added-by" name="added-by" placeholder="ስም" value="<?php echo $row['added_by'] ?>">
+            </div>
+    
+            <div class="form-group mb-2">
                     <input type="text" class="form-control" id="item-type" name="item-type" placeholder="የእቃው አይነት" value="<?php echo $row['item-type'] ?>">
             </div>
 

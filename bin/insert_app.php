@@ -8,18 +8,8 @@ if(isset($_POST['add_bin'])) {
     $remain = $_POST['remain'];
     $short = $_POST['short'];
     
-    if(empty($date) || empty($income) || empty($cost) || empty($remain) || empty($short)) {
+    if(empty($date) || empty($income) || empty($cost) ||empty($short)) {
         header('location: index.php?error_msg= Some fields are empty.');
-    } elseif($date === "" || empty($date)) {
-         header('location: index.php?error_msg=You need to fill the inventory list');
-    } elseif($income === "" || empty($income)) {
-         header('location: index.php?error_msg=You need to fill the income');
-    }  elseif($cost === "" || empty($cost)) {
-         header('location: index.php?error_msg=You need to fill the cost');
-    }  elseif($remain === "" || empty($remain)) {
-         header('location: index.php?error_msg=You need to fill the remain');
-    }  elseif($short === "" || empty($short)) {
-         header('location: index.php?error_msg=You need to fill the short');
     } else {
 
         $query =  "INSERT INTO bin (`date`,  income, cost, remain, `short`) VALUES ('$date', '$income', '$cost', '$remain', '$short')";

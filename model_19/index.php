@@ -181,6 +181,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                         <thead>
                             <tr>
                                 <th>ተራ ቁጥር</th>
+                                <th>ስም</th>
                                 <th>የእቃው አይነት</th>
                                 <th>ሞዴል</th>
                                 <th>ሴሪ</th>
@@ -197,6 +198,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                                 ?>
                                 <tr>
                                     <td><?php echo $row['ordinary-number']; ?></td>
+                                    <td><?php echo $row['added_by']; ?></td>
                                     <td><?php echo $row['item-type']; ?></td>
                                     <td><?php echo $row['model']; ?></td>
                                     <td><?php echo $row['serie']; ?></td>
@@ -204,7 +206,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                                     <td><?php echo $row['price']; ?></td>
                                     <td><?php echo $row['total-price']; ?></td>
                                     <td><a href="update.php?ordinary-number=<?php echo $row['ordinary-number']; ?>" class="btn btn-success">Update</a></td>
-                                    <td><a href="delete.php?ordinary-number=<?php echo $row['ordinary-number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a></td>
+                                    <td><a href="delete.php?ordinary-number=<?php echo $row['ordinary-number']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['added_by']; ?>','<?php echo $row['serie']; ?>' )">Delete</a></td>
                                 </tr>
                                 <?php
                             }
@@ -304,8 +306,9 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 <!-- Include footer -->
 <?php include('../includes/footer.php'); ?>
 
-<script>
-function confirmDelete() {
-    return confirm("Are you sure you want to delete the record?");
-}
-</script>
+
+ <script>
+                                function confirmDelete(name, serie) {
+                                return confirm("Are you sure you want to delete the record?\n\nname: " + name + "\nserie: " + serie);
+                                }
+                                </script>

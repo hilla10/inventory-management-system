@@ -17,35 +17,35 @@ if (!function_exists('displayMessage')) {
 if (isset($_GET['success_msg'])) {
     $_SESSION['message'] = ['type' => 'success', 'content' => $_GET['success_msg']];
     $redirectUrl = strtok($_SERVER["REQUEST_URI"], '?');
-    echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '">';
+    echo '<meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl) . '">';
     exit;
 }
 
 if (isset($_GET['insert_msg'])) {
     $_SESSION['message'] = ['type' => 'success', 'content' => $_GET['insert_msg']];
     $redirectUrl = strtok($_SERVER["REQUEST_URI"], '?');
-    echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '">';
+    echo '<meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl) . '">';
     exit;
 }
 
 if (isset($_GET['error_msg'])) {
     $_SESSION['message'] = ['type' => 'danger', 'content' => $_GET['error_msg']];
     $redirectUrl = strtok($_SERVER["REQUEST_URI"], '?');
-    echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '">';
+    echo '<meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl) . '">';
     exit;
 }
 
 if (isset($_GET['update_msg'])) {
     $_SESSION['message'] = ['type' => 'success', 'content' => $_GET['update_msg']];
     $redirectUrl = strtok($_SERVER["REQUEST_URI"], '?');
-    echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '">';
+    echo '<meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl) . '">';
     exit;
 }
 
 if (isset($_GET['delete_msg'])) {
     $_SESSION['message'] = ['type' => 'success', 'content' => $_GET['delete_msg']];
     $redirectUrl = strtok($_SERVER["REQUEST_URI"], '?');
-    echo '<meta http-equiv="refresh" content="0;url=' . $redirectUrl . '">';
+    echo '<meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl) . '">';
     exit;
 }
 ?>
@@ -78,7 +78,7 @@ if (isset($_GET['delete_msg'])) {
 </div>
 <?php
 // JavaScript to show the modal
-if (isset($_SESSION['message'])) {
+if (isset($_SESSION['message']) && is_array($_SESSION['message'])) {
     $msg = $_SESSION['message'];
     echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -97,9 +97,6 @@ if (isset($_SESSION['message'])) {
 
                 // Show the modal
                 messageModal.show();
-
-                // Update the title bar
-                // document.title = "' . htmlspecialchars($msg['content']) . '";
 
                 // Hide the modal and reset the title after 5 seconds
                 setTimeout(function() {

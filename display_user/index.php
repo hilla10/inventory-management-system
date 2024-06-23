@@ -179,17 +179,27 @@ if (isset($title) && !empty($title)) {
                 $order = 'asc'; // Default ordering is ascending
             }
 
-            if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
-                $search = $_GET['search'];
-                $field = $_GET['field'];
-                $query = "SELECT * FROM `register` WHERE `$field` LIKE '%$search%' ORDER BY username $order LIMIT $usersPerPage OFFSET $offset";
-            } else {
-                // Display a message if the user didn't select a field or selected "select field" and clicked the submit button
-                if (isset($_GET['search']) && !empty($_GET['search'])) {
-                    $errors[] = "Please select a valid field to search the user.";
-                }
-                $query = "SELECT * FROM `register` ORDER BY username $order LIMIT $usersPerPage OFFSET $offset";
-            }
+          
+// Handle form submission for sorting
+$field = isset($_GET['field']) ? $_GET['field'] : ''; // Default empty if not set
+$order = isset($_GET['order']) ? $_GET['order'] : 'desc'; // Default descending order if not set
+
+// Validate and sanitize input for security
+if (!empty($field) && $field != 'select field') {
+    $field = mysqli_real_escape_string($connection, $_GET['field']);
+    $order = mysqli_real_escape_string($connection, $_GET['order']);
+
+    // Modify query to include sorting
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = mysqli_real_escape_string($connection, $_GET['search']);
+        $query = "SELECT * FROM `register` WHERE `$field` LIKE '%$search%' ORDER BY `$field` $order LIMIT $usersPerPage OFFSET $offset";
+    } else {
+        $query = "SELECT * FROM `register` ORDER BY `$field` $order LIMIT $usersPerPage OFFSET $offset";
+    }
+} else {
+    // Default query if no valid sorting parameters are provided
+    $query = "SELECT * FROM `register` ORDER BY `id` DESC LIMIT $usersPerPage OFFSET $offset";
+}
 
             if(!empty($errors)) {
                 $message = implode(" ", $errors);
@@ -199,9 +209,11 @@ if (isset($title) && !empty($title)) {
             $result = mysqli_query($connection, $query);
   // Count total number of rows without LIMIT for pagination
             $countQuery = "SELECT COUNT(*) AS total FROM `register`";
-            if (isset($_GET['search']) && !empty($_GET['search'])) {
-                $countQuery .= " AND `email` LIKE '%$search%'";
-            }
+          if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
+    $search = $_GET['search'];
+    $field = $_GET['field'];
+    $countQuery .= " WHERE `$field` LIKE '%$search%'";
+}
             $countResult = mysqli_query($connection, $countQuery);
 
             if (!$countResult) {
@@ -280,9 +292,13 @@ if (isset($title) && !empty($title)) {
                             <?php
                             // Count total number of rows without LIMIT for pagination
                             $countQuery = "SELECT COUNT(*) AS total FROM `register` ";
-                            if (isset($_GET['search']) && !empty($_GET['search'])) {
-                                $countQuery .= " AND `email` LIKE '%$search%'";
+                            // Check if search parameters are set and construct the WHERE clause accordingly
+                            if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
+                                $search = mysqli_real_escape_string($connection, $_GET['search']);
+                                $field = mysqli_real_escape_string($connection, $_GET['field']);
+                                $countQuery .= " WHERE `$field` LIKE '%$search%'";
                             }
+
                             $countResult = mysqli_query($connection, $countQuery);
                             $rowCount = mysqli_fetch_assoc($countResult)['total'];
 

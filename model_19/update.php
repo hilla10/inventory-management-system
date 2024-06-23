@@ -28,13 +28,13 @@
         }
 
     $itemType = $_POST['item-type'];
+    $addedBy = $_POST['added-by'];
     $model = $_POST['model'];
     $serie = $_POST['serie'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
-    $totalPrice = $_POST['total-price'];
 
-        $query = "UPDATE `model_19` set `quantity` = '$quantity', `item-type` = '$itemType', `model` = '$model', `serie` = '$serie', `price` = '$price', `total-price` = '$totalPrice' WHERE `ordinary-number` = '$new_number'";
+        $query = "UPDATE `model_19` set `quantity` = '$quantity', `added_by` = '$addedBy', `item-type` = '$itemType', `model` = '$model', `serie` = '$serie', `price` = '$price' WHERE `ordinary-number` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
 

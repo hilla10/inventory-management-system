@@ -10,19 +10,18 @@ SET time_zone = "+00:00";
 -- Table structure for table `register`
 CREATE TABLE register (
   id INT(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  username VARCHAR(50),
-  gender VARCHAR(10),
-  age INT,
+  username VARCHAR(50) NOT NULL,
+  gender ENUM('male', 'female') NOT NULL DEFAULT 'male',
+  age INT NOT NULL CHECK(age > 0),
   email VARCHAR(50) UNIQUE NOT NULL,
   Phone VARCHAR(20) UNIQUE,
   options VARCHAR(50),
-  passwords VARCHAR(255)
+  passwords VARCHAR(255) NOT NULL
 );
 
 
 -- AUTO_INCREMENT for table `register`
-
-ALTER TABLE `register` MODIFY `id` INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 100;
+ALTER TABLE `register` MODIFY id INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 100;
 
 
 -- Table structure for table `user`
@@ -48,15 +47,17 @@ INSERT INTO `user` (`user_name`, `email`, `password`, `option`)
 VALUES ('admin', 'admin@gmail.com', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a', 'admin');
 
 -- Table structure for table `department_registration`
-CREATE TABLE department_registration ( 
-  id INT(10) PRIMARY KEY NOT NULL,
-  username VARCHAR(50),
-  email VARCHAR(50) UNIQUE,
-  age INT,
-  phone VARCHAR(20),
-  position VARCHAR(50),
+CREATE TABLE department_registration (
+  id INT(10) AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  gender ENUM('male', 'female') NOT NULL DEFAULT 'male',
+  email VARCHAR(50) NOT NULL UNIQUE,
+  age INT NOT NULL CHECK (age > 0),
+  phone VARCHAR(20) NOT NULL,
+  position VARCHAR(50) NOT NULL,
   `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- AUTO_INCREMENT for table `department_registration`
 ALTER TABLE `department_registration` MODIFY `id` INT(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT = 100;
@@ -65,17 +66,18 @@ ALTER TABLE `department_registration` MODIFY `id` INT(10) NOT NULL AUTO_INCREMEN
 -- Table structure for table `inventory`
 CREATE TABLE inventory (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
-  `department` VARCHAR(50),
-  `inventory-list` VARCHAR(50),
-  `item-type` VARCHAR(50),
-  `description` VARCHAR(50),
-  measure INT,
-  quantity INT,
-  price INT,
-  `total-price` INT,
-  examination VARCHAR(50),
+  `department` VARCHAR(50) NOT NULL,
+  `inventory-list` VARCHAR(50) NOT NULL,
+  `item-type` VARCHAR(50) NOT NULL,
+  `description` VARCHAR(255),  -- Increased length for more detailed descriptions
+  measure INT NOT NULL,
+  quantity INT NOT NULL CHECK (quantity >= 0),
+  price INT NOT NULL CHECK (price >= 0),
+  `total-price` INT AS (quantity * price) STORED,
+  examination VARCHAR(255),  -- Increased length for more detailed examination notes
   `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 
 -- Table structure for table `departments`
@@ -113,9 +115,15 @@ CREATE TABLE model_20 (
 CREATE TABLE model_19 (
   `ordinary-number` INT PRIMARY KEY AUTO_INCREMENT,
   `item-type` VARCHAR(50),
+  added_by VARCHAR(100),
   model VARCHAR(50),
   serie INT,
-  quantity INT,
-  price INT,
-  `total-price` INT
+  quantity INT NOT NULL CHECK (quantity >= 0),
+  price INT NOT NULL CHECK (price >= 0),
+  `total-price` INT AS (quantity * price) STORED,
+  `status` ENUM('pending', 'approved', 'declined') DEFAULT 'pending',
+    `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Commit the transaction to save changes.
+COMMIT;

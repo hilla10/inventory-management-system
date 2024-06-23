@@ -2,40 +2,23 @@
 <?php 
 
 if(isset($_POST['add_model'])) {
-    $ordinaryNumber = $_POST['ordinary-number'];
+    // $ordinaryNumber = $_POST['ordinary-number'];
+    $addedBy = $_POST['added-by'];
     $itemType = $_POST['item-type'];
     $model = $_POST['model'];
     $serie = $_POST['serie'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
-    $totalPrice = $_POST['total-price'];
+    // $totalPrice = $_POST['total-price'];
     
-    if( empty($quantity) || empty($itemType)|| empty($model) || empty($serie)  || empty($price) || empty($totalPrice) ) {
+    if( empty($addedBy) || empty($quantity) || empty($itemType)|| empty($model) || empty($serie)  || empty($price)) {
         header('location: index.php?error_msg= Some fields are empty.');
           exit();
-    } elseif($quantity === "" || empty($quantity)) {
-         header('location: index.php?error_msg=You need to fill the quantity');
-         exit();
-    } elseif($itemType === "" || empty($itemType)) {
-         header('location: index.php?error_msg=You need to fill the itemType');
-         exit();
-    } elseif($model === "" || empty($model)) {
-         header('location: index.php?error_msg=You need to fill the model');
-         exit();
-    } elseif($serie === "" || empty($serie)) {
-         header('location: index.php?error_msg=You need to fill the serie');
-         exit();
-    } elseif($price === "" || empty($price)) {
-         header('location: index.php?error_msg=You need to fill the price');
-         exit();
-    } elseif($totalPrice === "" || empty($totalPrice)) {
-         header('location: index.php?error_msg=You need to fill the total Price');
-         exit();
-    } else {
+    }  else {
 
       
     // Prepare and execute the Insert query
-   $query = "INSERT INTO model_19 (`ordinary-number`, `item-type`, `model`, `serie`, `quantity`, `price`, `total-price`) VALUES ('$ordinaryNumber', '$itemType', '$model', '$serie', '$quantity', '$price', '$totalPrice')";
+   $query = "INSERT INTO model_19 ( `added_by`, `item-type`, `model`, `serie`, `quantity`, `price`) VALUES ( '$addedBy', '$itemType', '$model', '$serie', '$quantity', '$price')";
 
         $result = mysqli_query($connection, $query);
 

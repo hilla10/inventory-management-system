@@ -136,9 +136,6 @@ function validateFormData($formData)
     if (empty($quantity)) {
         $errors[] = 'You need to fill the quantity';
     }
-    // if (empty($totalPrice)) {
-    //     $errors[] = 'You need to fill the total price';
-    // }
     if (empty($price)) {
         $errors[] = 'You need to fill the price';
     }
@@ -167,14 +164,13 @@ function insertInventoryItem($formData, $currentPage)
     $measure = $formData['measure'];
     $quantity = $formData['quantity'];
     $price = $formData['price'];
-    $totalPrice = $formData['total-price'];
     $examination = $formData['examination'];
 
-    $query = "INSERT INTO inventory (`inventory-list`, department, `item-type`, `description`, measure, quantity, price, `total-price`, examination) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO inventory (`inventory-list`, department, `item-type`, `description`, measure, quantity, price, examination) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, 'sssssssss', $inventoryList, $department, $itemType, $description, $measure, $quantity, $price, $totalPrice, $examination);
+    mysqli_stmt_bind_param($stmt, 'ssssssss', $inventoryList, $department, $itemType, $description, $measure, $quantity, $price, $examination);
 
     $result = mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
