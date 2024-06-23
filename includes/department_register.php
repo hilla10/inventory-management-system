@@ -67,13 +67,14 @@ if(isset($_POST['add_department'])) {
     // Validate and sanitize fields
      $name = trim($_POST['username']); 
      $email = $_POST['email'];
+     $gender = $_POST['gender'];
      $age = $_POST['age'];
      $phone = $_POST['phone'];
      $position = $_POST['position'];
 
        // Perform additional validation if needed
     $errors = [];
-    if(empty($name) ||  empty($email) || empty($age) || empty($phone) || empty($position)) {
+    if(empty($name) ||  empty($email) || empty($gender) || empty($age) || empty($phone) || empty($position)) {
           $errors[] = "Some fields are empty.";
     }
 
@@ -112,8 +113,8 @@ if(isset($_POST['add_department'])) {
         header('Location: ' . $redirectUrl);
         exit;
     }
-         $stmt =  $connection->prepare("INSERT INTO department_registration (username, email, age, phone, position) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssiss", $name, $email, $age, $phone, $position );
+         $stmt =  $connection->prepare("INSERT INTO department_registration (username, email, gender, age, phone, position) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssiss", $name, $email,$gender, $age, $phone, $position );
         $stmt->execute();
 
         if($stmt->affected_rows > 0) {

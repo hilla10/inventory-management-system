@@ -20,6 +20,13 @@
             <div class="form-group input-box mb-2">
                      <input type="text" class="form-control" id="email" name="email" placeholder="የእቃው ዝርዝር" value="<?php echo $row['email'] ?>">
             </div>
+                <div class="form-group input-box mb-2">
+                            <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
+                            <select name="gender" class="select-option">
+                                <option value="male">ወንድ</option>
+                                <option value="female">ሴት</option>
+                            </select>
+                        </div>
 
             <div class="form-group input-box mb-2">
                

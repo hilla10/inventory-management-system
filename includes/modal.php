@@ -495,6 +495,13 @@
                         <input required type="number" class="form-control" id="age" name="age">
                         <span>አድሜ ያስገቡ</span>
                     </div>
+                  <div class="form-group input-box mb-2">
+                            <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
+                            <select name="gender" class="select-option">
+                                <option value="male">ወንድ</option>
+                                <option value="female">ሴት</option>
+                            </select>
+                        </div>
                     <div class="form-group input-box mb-2">
                         <input required type="number" class="form-control" id="Phone" name="phone">
                         <span>ስልክ ቁጥር ያስገቡ</span>

@@ -29,11 +29,12 @@
 
     $inventoryList = $_POST['username'];
     $email = $_POST['email'];
+    $gender = $_POST['gender'];
     $age = $_POST['age'];
     $phone = $_POST['phone'];
     $position = $_POST['position'];
 
-        $query = "UPDATE `department_registration` set `username` = '$inventoryList', `email` = '$email', `age` = '$age', `phone` = '$phone', `phone` = '$phone', `position` = '$position' WHERE `id` = '$new_number'";
+        $query = "UPDATE `department_registration` set `username` = '$inventoryList', `email` = '$email', `age` = '$age', `gender` = '$gender', `phone` = '$phone', `phone` = '$phone', `position` = '$position' WHERE `id` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
 
