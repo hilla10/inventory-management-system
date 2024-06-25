@@ -138,9 +138,15 @@ a {
   padding: 10px;
   font-size: 1.1rem;
   border-radius: 10px;
-transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  color: rgba(255, 237, 237, 0.534);
+  text-decoration: underline !important;
 }
 
+.list__group-link:hover {
+  color: #fff;
+  text-decoration: none !important;
+}
 
 /* notification  */
 .list__group-link-nt {
@@ -148,11 +154,9 @@ transition: all .3s ease-in-out;
   color: #fff;
 }
 .list__group-link-nt:hover {
- background: #fff;
+  background: #fff;
   color: #f39c12;
 }
-
-
 
 /* request */
 .list__group-link-rq {
@@ -163,15 +167,15 @@ transition: all .3s ease-in-out;
   color: #00c0ef;
   background: #fff;
 }
- 
+
 /* Added */
 .list__group-link-ad {
-   background: #216900;
+  background: #216900;
   color: #fff;
 }
 
 .list__group-link-ad:hover {
-   color: #216900;
+  color: #216900;
   background: #fff;
 }
 
@@ -285,6 +289,100 @@ form .input-box input:active {
   box-shadow: 0 0 0.5rem 0.15rem rgba(220, 210, 248, 0.945);
   background: transparent;
   color: #fff;
+}
+
+.input-box .error-input:valid ~ span,
+.input-box .error-input:focus ~ span,
+.input-box .error-input:active ~ span {
+  color: #fff;
+  background: #ff0000;
+  box-shadow: 0 -2px 0.2rem rgba(255, 4, 4, 0.788);
+}
+
+.error-input {
+  border: 2px solid #ff0000 !important;
+  box-shadow: 0 0 0.5rem 0.15rem rgba(255, 0, 0, 0.459) !important;
+}
+
+.success-input {
+  border: 2px solid #008000;
+  box-shadow: 0 0 0.5rem 0.15rem rgba(60, 255, 0, 0.459) !important;
+}
+
+.input-box .success-input:valid ~ span,
+.input-box .success-input:focus ~ span,
+.input-box .success-input:active ~ span {
+  color: #fff;
+  background: #008000;
+  box-shadow: 0 -2px 0.2rem rgba(0, 128, 0, 0.322);
+}
+
+.message {
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.message div p {
+  font-size: 12px;
+  margin-bottom: 0.5rem !important;
+  color: #fff;
+}
+
+.error {
+  border: 2px solid #ff0000 !important;
+  box-shadow: 0 0 0.5rem 0.15rem rgba(255, 0, 0, 0.459) !important;
+}
+
+.message div p.char-length.error,
+.message div p.char-lowercase-letter.error,
+.message div p.char-uppercase-letter.error,
+.message div p.digit.error,
+.message div p.special-char.error {
+  color: #ffff00 !important;
+  border: none !important;
+  box-shadow: none  !important;
+}
+
+.message div p.char-length.success,
+.message div p.char-lowercase-letter.success,
+.message div p.char-uppercase-letter.success,
+.message div p.digit.success,
+.message div p.special-char.success {
+  color: #00ff00 !important;
+}
+
+.py-2 {
+  color: #fff !important;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  10%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  80% {
+    transform: translateX(10px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-10px);
+  }
+  40%,
+  60% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
 }
 
 .bg-dark-blue {

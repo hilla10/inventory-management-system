@@ -48,7 +48,7 @@ if (isset($_POST['add_item'])) {
     if (!empty($errors)) {
         // Here you can store errors in the session or pass them back to the form page
         $_SESSION['errors'] = $errors;
-        $redirectUrl = '../' . $currentPage . '?errors=' . urlencode(implode(', ', $errors));
+        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode(implode(', ', $errors));
         header('Location: ' . $redirectUrl);
         exit;
     }
@@ -119,28 +119,12 @@ function validateFormData($formData)
     $allowedDepartments = fetchDepartments();
 
     // Validation rules
-    if (empty($inventoryList)) {
-        $errors[] = 'You need to fill the inventory list';
-    }
-    if (empty($department)) {
-        $errors[] = 'You need to fill the Department';
-    } elseif (!in_array($department, $allowedDepartments)) {
+
+    if(empty($inventoryList) || empty($department) || empty($description) || empty($quantity) || empty($price) || empty($examination)) {
+
+        $errors[] = 'Some field are empty';
+    }elseif (!in_array($department, $allowedDepartments)) {
         $errors[] = 'Department must be one of the following: ' . implode(', ', $allowedDepartments);
-    }
-    if (empty($description)) {
-        $errors[] = 'You need to fill the description';
-    }
-    if (empty($measure)) {
-        $errors[] = 'You need to fill the measure';
-    }
-    if (empty($quantity)) {
-        $errors[] = 'You need to fill the quantity';
-    }
-    if (empty($price)) {
-        $errors[] = 'You need to fill the price';
-    }
-    if (empty($examination)) {
-        $errors[] = 'You need to fill the examination';
     }
 
     return $errors;

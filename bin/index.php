@@ -2,6 +2,7 @@
 // Include necessary files
 include('../includes/dbcon.php');
 include('../includes/header.php');
+include('../includes/auth.php'); // Include auth for security
 
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {

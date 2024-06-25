@@ -1,5 +1,18 @@
+// Validation user and department register
+
+import { registerValidation } from './register_validation.js';
+
+// validation item form
+import {
+  itemValidation,
+  binCardValidation,
+  validationModel19,
+  validationModel20,
+} from './item_validation.js';
+
+// validation for bin card
+
 document.addEventListener('DOMContentLoaded', function () {
-  const passwords = document.querySelectorAll('.psw');
   const showHideBtns = document.querySelectorAll('.showHideBtn');
 
   showHideBtns.forEach((showHideBtn) => {
@@ -22,31 +35,45 @@ document.addEventListener('DOMContentLoaded', function () {
   const mainContent = document.querySelector('.main-content');
 
   function toggleSidebar() {
-    mainSidebar.classList.toggle('display-icon');
-    mainContent.classList.toggle('add-margin');
+    if (mainSidebar) {
+      mainSidebar.classList.toggle('display-icon');
+    }
+    if (mainContent) {
+      mainContent.classList.toggle('add-margin');
+    }
   }
 
   function updateSidebarDisplay() {
     if (window.innerWidth <= 768) {
-      mainSidebar.classList.add('display-icon');
-      mainContent.classList.add('add-margin');
+      if (mainSidebar) {
+        mainSidebar.classList.add('display-icon');
+      }
+      if (mainContent) {
+        mainContent.classList.add('add-margin');
+      }
     } else {
-      mainSidebar.classList.remove('display-icon');
-      mainContent.classList.remove('add-margin');
+      if (mainSidebar) {
+        mainSidebar.classList.remove('display-icon');
+      }
+      if (mainContent) {
+        mainContent.classList.remove('add-margin');
+      }
     }
   }
 
-  sidebarToggle.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (window.innerWidth > 768) {
-      toggleSidebar();
-      mainSidebar.classList.remove('hidden');
-      mainContent.classList.remove('full-width');
-    } else {
-      mainSidebar.classList.toggle('hidden');
-      mainContent.classList.toggle('full-width');
-    }
-  });
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.innerWidth > 768) {
+        toggleSidebar();
+        mainSidebar.classList.remove('hidden');
+        mainContent.classList.remove('full-width');
+      } else {
+        mainSidebar.classList.toggle('hidden');
+        mainContent.classList.toggle('full-width');
+      }
+    });
+  }
 
   window.addEventListener('resize', updateSidebarDisplay);
 
@@ -54,11 +81,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const hamburger = document.querySelector('.hamburger');
   const navbar = document.querySelector('.navbar-toggle');
-
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navbar.classList.toggle('mobile');
-  });
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navbar.classList.toggle('mobile');
+    });
+  }
 
   const accordionItems = document.querySelectorAll('.accordion-item');
 
@@ -101,20 +129,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // calculate total price for model 19
 
-  const modelQuantity = document.querySelector('.quantity');
-  const modelPrice = document.querySelector('.price');
+  const insertModelAppForm = document.querySelector('.insert-model-app-form');
+  const modelQuantity = insertModelAppForm.querySelector('#quantity');
+  const modelPrice = insertModelAppForm.querySelector('#price');
+  
 
   const calculateModelTotalPrice = () => {
     const totalPrice = modelQuantity.value * modelPrice.value;
-    document.querySelector('.total-price').value = totalPrice.toFixed(2);
+    insertModelAppForm.querySelector('#total-price').value = totalPrice.toFixed(2);
   };
 
   modelPrice.addEventListener('input', calculateModelTotalPrice);
   modelQuantity.addEventListener('input', calculateModelTotalPrice);
 
   // Get dropdown toggle button and dropdown menu
-  var dropdownToggle = document.getElementById('dropdownMenuButton');
-  var dropdownMenu = dropdownToggle.nextElementSibling;
+  const dropdownToggle = document.getElementById('dropdownMenuButton');
+
+  const dropdownMenu = dropdownToggle.nextElementSibling;
 
   // Toggle dropdown menu on button click
   dropdownToggle.addEventListener('click', function () {
@@ -138,9 +169,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const calculateRemain = () => {
     const remain = income.value - cost.value;
-    document.getElementById('remain').value = remain.toFixed(2);
+    document.getElementById('remain').value = remain;
   };
 
   income.addEventListener('input', calculateRemain);
   cost.addEventListener('input', calculateRemain);
+
+  // Validation user and department register
+
+  registerValidation();
+
+  // validation item form
+  itemValidation();
+
+  // validation for bin card
+  binCardValidation();
+
+  // validation for model 19
+  validationModel19();
+
+  // validation for model 19
+  validationModel20();
+
 });

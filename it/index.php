@@ -1,8 +1,8 @@
 <?php
 // Include necessary files
-include('../includes/dbcon.php');
-include("../includes/auth.php");
+include ('../includes/dbcon.php');
 include('../includes/header.php');
+include('../includes/auth.php'); // Include auth for security
 
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
@@ -14,6 +14,7 @@ include('../includes/insert_app.php');
 
 // Determine the current page
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
+
 
 // Store the current page URL in a session variable
 $_SESSION['currentPage'] = $currentPage;
@@ -63,9 +64,10 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                 </ul>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li>
+                          <li>
                             <div class="dropdown nav-item">
-                                <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button"
+                                    id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -73,12 +75,14 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                                         echo 'IT Head';
                                     }
                                     ?>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item text-danger fw-bold"
+                                            href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
+                       
                     </ul>
                 </div>
             </div>
@@ -180,8 +184,9 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                 if (mysqli_num_rows($result) > 0) {
                     // Initialize the counter variable
                     $itemCount = 0;
-            ?>
 
+            ?>
+            
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
                             <thead>

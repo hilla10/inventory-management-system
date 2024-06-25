@@ -1,6 +1,7 @@
 <?php
 include('../includes/dbcon.php');  // Ensure database connection
 include('../includes/header.php'); // Include header for consistency
+include('../includes/auth.php'); // Include auth for security
 
 // Start session if not already started
 if (session_status() == PHP_SESSION_NONE) {

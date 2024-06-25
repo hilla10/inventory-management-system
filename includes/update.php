@@ -47,9 +47,9 @@ if (isset($_POST['update_items'])) {
     $examination = $_POST['examination'];
 
     // Update the item details using a prepared statement
-    $query = "UPDATE `inventory` SET `department` = ?, `item-type` = ?, `inventory-list` = ?, `description` = ?, `measure` = ?, `quantity` = ?, `price` = ?, `total-price` = ?, `examination` = ? WHERE `department` = ? AND `ordinary-number` = ?";
+    $query = "UPDATE `inventory` SET `department` = ?, `item-type` = ?, `inventory-list` = ?, `description` = ?, `measure` = ?, `quantity` = ?, `price` = ?, `examination` = ? WHERE `department` = ? AND `ordinary-number` = ?";
     $stmt = $connection->prepare($query);
-    $stmt->bind_param('ssssssddsss', $department, $itemType, $inventoryList, $description, $measure, $quantity, $price, $totalPrice, $examination, $department, $new_number);
+    $stmt->bind_param('ssssssdsss', $department, $itemType, $inventoryList, $description, $measure, $quantity, $price,  $examination, $department, $new_number);
 
     if ($stmt->execute()) {
         $redirectUrl = '../' . $currentPage . '?update_msg=You have successfully updated the data';
