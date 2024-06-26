@@ -124,44 +124,50 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('total_price').value = totalPrice.toFixed(2);
   };
 
-  quantity.addEventListener('input', calculateTotalPrice);
-  price.addEventListener('input', calculateTotalPrice);
+    quantity.addEventListener('input', calculateTotalPrice);
+
+
+    price.addEventListener('input', calculateTotalPrice);
 
   // calculate total price for model 19
 
   const insertModelAppForm = document.querySelector('.insert-model-app-form');
-  const modelQuantity = insertModelAppForm.querySelector('#quantity');
+
+     const modelQuantity = insertModelAppForm.querySelector('#quantity');
   const modelPrice = insertModelAppForm.querySelector('#price');
 
   const calculateModelTotalPrice = () => {
     const totalPrice = modelQuantity.value * modelPrice.value;
     insertModelAppForm.querySelector('#total_price').value =
       totalPrice.toFixed(2);
-  };
+  
 
   modelPrice.addEventListener('input', calculateModelTotalPrice);
   modelQuantity.addEventListener('input', calculateModelTotalPrice);
+  }
+ 
 
   // Get dropdown toggle button and dropdown menu
   const dropdownToggle = document.getElementById('dropdownMenuButton');
 
-  const dropdownMenu = dropdownToggle.nextElementSibling;
+  if (dropdownToggle) {
+    const dropdownMenu = dropdownToggle.nextElementSibling;
 
-  // Toggle dropdown menu on button click
-  dropdownToggle.addEventListener('click', function () {
-    dropdownMenu.classList.toggle('show');
-  });
+    // Toggle dropdown menu on button click
+    dropdownToggle.addEventListener('click', function () {
+      dropdownMenu.classList.toggle('show');
+    });
 
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function (event) {
-    if (
-      !dropdownToggle.contains(event.target) &&
-      !dropdownMenu.contains(event.target)
-    ) {
-      dropdownMenu.classList.remove('show');
-    }
-  });
-
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+      if (
+        !dropdownToggle.contains(event.target) &&
+        !dropdownMenu.contains(event.target)
+      ) {
+        dropdownMenu.classList.remove('show');
+      }
+    });
+  }
   // calculate remain for bin card
 
   const income = document.getElementById('income');

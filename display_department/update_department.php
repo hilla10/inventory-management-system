@@ -14,11 +14,11 @@
 <form action="update.php?id_new=<?php echo $id; ?>" method="post" class="update">
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control" id="username" name="username" placeholder="የእቃው ዝርዝር" value="<?php echo $row['username'] ?>">
+                     <input type="text" class="form-control name" id="username" name="username" placeholder="የእቃው ዝርዝር" value="<?php echo $row['username'] ?>">
             </div>
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control" id="email" name="email" placeholder="የእቃው ዝርዝር" value="<?php echo $row['email'] ?>">
+                     <input type="text" class="form-control email " id="email" name="email" placeholder="የእቃው ዝርዝር" value="<?php echo $row['email'] ?>">
             </div>
                 <div class="form-group input-box mb-2">
                             <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
@@ -30,19 +30,27 @@
 
             <div class="form-group input-box mb-2">
                
-                     <input type="text" class="form-control" id="age" name="age" placeholder="የእቃው ዝርዝር" value="<?php echo $row['age'] ?>">
+                     <input type="text" class="form-control age" id="age" name="age" placeholder="የእቃው ዝርዝር" value="<?php echo $row['age'] ?>">
             </div>
 
             <div class="form-group input-box mb-2">
                
-                     <input type="text" class="form-control" id="phone" name="phone" placeholder="የእቃው ዝርዝር" value="<?php echo $row['phone'] ?>">
+                     <input type="text" class="form-control phone" id="phone" name="phone" placeholder="የእቃው ዝርዝር" value="<?php echo $row['phone'] ?>">
             </div>
 
-            <div class="form-group input-box mb-2">
-               
-                     <input type="text" class="form-control" id="position" name="position" placeholder="የእቃው ዝርዝር" value="<?php echo $row['position'] ?>">
-            </div>
+          <div class="form-group mb-2 input-box">
+    <label for="position">ያሉበትን ሁኔታ ይምረጡ:|Enter your position|</label>
+    <select name="position" class="select-option">
+        <option value="it head" <?php if ($row['position'] == 'it head') echo 'selected'; ?>>የአይቲ ዲፓርትመንት ሄድ</option>
+        <option value="business head" <?php if ($row['position'] == 'business head') echo 'selected'; ?>>የቢዝነስ ዲፓርትመንት ሄድ</option>
+        <option value="art head" <?php if ($row['position'] == 'art head') echo 'selected'; ?>>የአርት ዲፓርትመንት ሄድ</option>
+        <option value="auto head" <?php if ($row['position'] == 'auto head') echo 'selected'; ?>>የአውቶ ዲፓርትመንት ሄድ</option>
+    </select><br><br>
+</div>
            
              <input type="submit" class="btn btn-success" name="update_department" value="Update"></input>
 </form>
 
+
+    <!-- Modal -->
+    <?php include('../includes/modal.php'); ?>

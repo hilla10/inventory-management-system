@@ -1,57 +1,52 @@
-<?php include('../includes/header.php'); ?>
-<?php include('../includes/dbcon.php'); ?>
+<?php
+include('../includes/header.php');
+include('../includes/dbcon.php');
 
-    <?php
+// Fetch department registration details based on ID from GET parameter
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
+    $query = "SELECT * FROM `department_registration` WHERE `id` = '$id'";
+    $result = mysqli_query($connection, $query);
 
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
-
-        $query = "SELECT * FROM  `department_registration` WHERE `id` = '$id'";
-
-        $result = mysqli_query($connection, $query);
-
-        if (!$result) {
-            die("query Failed" . mysqli_error($connection));
-        } else {
-            $row = mysqli_fetch_assoc($result);
-        }
+    if (!$result) {
+        die("Query failed: " . mysqli_error($connection));
+    } else {
+        $row = mysqli_fetch_assoc($result);
     }
-    ?>
+}
 
-    <?php 
+// Handle form submission for updating department registration
+if (isset($_POST['update_department'])) {
+    // Validate input and sanitize data
+    $new_number = isset($_GET['id_new']) ? $_GET['id_new'] : null;
+    $username = isset($_POST['username']) ? mysqli_real_escape_string($connection, $_POST['username']) : '';
+    $email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : '';
+    $gender = isset($_POST['gender']) ? mysqli_real_escape_string($connection, $_POST['gender']) : '';
+    $age = isset($_POST['age']) ? mysqli_real_escape_string($connection, $_POST['age']) : '';
+    $phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, $_POST['phone']) : '';
+    $position = isset($_POST['position']) ? mysqli_real_escape_string($connection, $_POST['position']) : '';
 
-    if(isset($_POST['update_department'])) {
-
-        if(isset($_GET['id_new'])) {
-            $new_number = $_GET['id_new'];
-        }
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $gender = $_POST['gender'];
-    $age = $_POST['age'];
-    $phone = $_POST['phone'];
-    $position = $_POST['position'];
-
-        $query = "UPDATE `department_registration` set `username` = '$username', `email` = '$email', `age` = '$age', `gender` = '$gender', `phone` = '$phone', `position` = '$position' WHERE `id` = '$new_number'";
-
-          $result = mysqli_query($connection, $query);
-
-            if (!$result) {
-            die("query Failed" . mysqli_error($connection));
-        } else {
-
-            header('location: index.php?update_msg=You have successfully updated the data');
-
-        }
-        
+    // Ensure phone number format is valid (optional)
+    $phonePattern = '/^\+?(\\d{1,3})?[-. (]*(\\d{2})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$/';
+    if (!preg_match($phonePattern, $phone)) {
+        header('location: index.php?error_msg=Phone number is invalid.');
+        exit;
     }
 
+    // Update department registration in database using prepared statement
+    $query = "UPDATE `department_registration` SET `username` = ?, `email` = ?, `age` = ?, `gender` = ?, `phone` = ?, `position` = ? WHERE `id` = ?";
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($stmt, 'ssisssi', $username, $email, $age, $gender, $phone, $position, $new_number);
+
+    if (!mysqli_stmt_execute($stmt)) {
+        die("Query failed: " . mysqli_error($connection));
+    } else {
+        header('location: index.php?update_msg=You have successfully updated the data');
+        exit;
+    }
+}
+
+include('update_department.php');
+include('../includes/footer.php');
 ?>
-
-  <?php include('update_department.php'); ?>
-
-
-
-  <?php include('../includes/footer.php'); ?>

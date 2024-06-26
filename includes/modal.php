@@ -226,7 +226,7 @@
 <form action="../includes/department_register.php" method="post" class="userForm">
     <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content form-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Add Department</h1>
                     <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
