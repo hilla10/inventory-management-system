@@ -28,13 +28,13 @@ $row = mysqli_fetch_assoc($result);
 $totalItems = $row['total_items'];
 
 // Query to get the total number of consumable items
-$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item-type` = 'consumable'";
+$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item_category` = 'consumable'";
 $resultConsumableItems = mysqli_query($connection, $queryConsumableItems);
 $rowConsumableItems = mysqli_fetch_assoc($resultConsumableItems);
 $totalConsumableItems = $rowConsumableItems['total_consumable_items'];
 
 // Query to get the total number of non-consumable items
-$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item-type` = 'non-consumable'";
+$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item_category` = 'non-consumable'";
 $resultNonConsumableItems = mysqli_query($connection, $queryNonConsumableItems);
 $rowNonConsumableItems = mysqli_fetch_assoc($resultNonConsumableItems);
 $totalNonConsumableItems = $rowNonConsumableItems['total_non_consumable_items'];
@@ -103,7 +103,7 @@ mysqli_free_result($resultPendingAdded);
 $queryLowStockItems = "
     SELECT department, COUNT(*) as low_stock_count 
     FROM `inventory` 
-    WHERE `item-type` = 'consumable' AND `quantity` < 5 
+    WHERE `item_category` = 'consumable' AND `quantity` < 5 
     GROUP BY department
 ";
 $resultLowStockItems = mysqli_query($connection, $queryLowStockItems);
@@ -237,7 +237,6 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
 
                 <div class=" grid">
                     <div>
-
                         <div class="small-box bg-aqua">
                             <div class="inner">
                                 <h3><?php echo $totalItems; ?></h3>
@@ -246,21 +245,19 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fa-solid fa-bag-shopping"></i>
                             </div>
-                            <a href="../more_info/all_items.php" class="small-box-footer">More
-                                info
+                            <a href="../more_info/all_items.php" class="small-box-footer">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 
                     <div>
-
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3><?php echo $totalConsumableItems ?></h3>
+                                <h3><?php echo $totalConsumableItems; ?></h3>
                                 <p>Total Consumable Items</p>
                             </div>
                             <div class="icon">
-                                <i class="fa-solid fa-bag-shopping"></i>
+                                <i class="fa-solid fa-droplet"></i>
                             </div>
                             <a href="../more_info/consumable_items.php" class="small-box-footer">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
@@ -268,14 +265,13 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                     </div>
 
                     <div>
-
                         <div class="small-box bg-yellow">
                             <div class="inner">
-                                <h3><?php echo $totalNonConsumableItems ?></h3>
+                                <h3><?php echo $totalNonConsumableItems; ?></h3>
                                 <p>Total Non-Consumable Items</p>
                             </div>
                             <div class="icon">
-                                <i class="fa-solid fa-bag-shopping"></i>
+                                <i class="fa-solid fa-toolbox"></i>
                             </div>
                             <a href="../more_info/non_consumable_items.php" class="small-box-footer">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
@@ -283,10 +279,9 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                     </div>
 
                     <div>
-
-                        <div class="small-box bg-red">
+                        <div class="small-box bg-blue">
                             <div class="inner">
-                                <h3><?php echo $totalBinCard ?></h3>
+                                <h3><?php echo $totalBinCard; ?></h3>
                                 <p>Total Bin Card</p>
                             </div>
                             <div class="icon">
@@ -298,33 +293,31 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                     </div>
 
                     <div>
-
-                        <div class="small-box bg-red">
+                        <div class="small-box bg-green">
                             <div class="inner">
-                                <h3><?php echo $totalModel19 ?></h3>
+                                <h3><?php echo $totalModel19; ?></h3>
                                 <p>Total Model 19</p>
                             </div>
                             <div class="icon">
-                                <i class="fas fa-table"></i>
+                                <i class="fas fa-clipboard-list"></i>
                             </div>
                             <a href="../model_19/" class="small-box-footer">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-
                     <div>
-
-                        <div class="small-box bg-red">
+                        <div class="small-box bg-orange">
                             <div class="inner">
-                                <h3><?php echo $totalModel20 ?></h3>
+                                <h3><?php echo $totalModel20; ?></h3>
                                 <p>Total Model 20</p>
                             </div>
                             <div class="icon">
-                                <i class="fas fa-table"></i>
+                                <i class="fas fa-chart-line"></i>
                             </div>
                             <a href="../model_20/" class="small-box-footer">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
+
                     </div>
 
                 </div>

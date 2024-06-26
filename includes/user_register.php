@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +25,7 @@
       <!-- main js -->
 <script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
 
-  <title>User Register</title>
+  <title>User users</title>
     
 </head>
 <body  class="body text-light">
@@ -70,13 +68,13 @@ if (isset($_POST['add_user'])) {
     $email = trim($_POST['email']);
     $phone = trim($_POST['Phone']);
     $position = trim($_POST['position']);
-    $password = $_POST['passwords'];
+    $password = $_POST['password'];
     $confirm = $_POST['confirm'];
 
     // Perform additional validation if needed
     $errors = [];
 
-    if (empty($name) || empty($gender) || empty($email) || empty($age) || empty($phone) || empty($position) || empty($password) || empty($confirm)) {
+    if (empty($name) || empty($gender) || empty($email) || empty($age)|| empty($position) || empty($password) || empty($confirm)) {
         $errors[] = "Some fields are empty.";
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -93,7 +91,7 @@ if (isset($_POST['add_user'])) {
         $errors[] = "Please enter a password with a minimum of 8 characters.";
     }
     if ($password !== $confirm) {
-        $errors[] = "The passwords do not match.";
+        $errors[] = "The password do not match.";
     }
 
     // If there are errors, redirect back to the form with an error message
@@ -108,23 +106,23 @@ if (isset($_POST['add_user'])) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Check if the email or phone already exists in the database
-    $stmtCheckEmail = $connection->prepare("SELECT email FROM register WHERE email = ?");
+    $stmtCheckEmail = $connection->prepare("SELECT email FROM users WHERE email = ?");
     $stmtCheckEmail->bind_param("s", $email);
     $stmtCheckEmail->execute();
     $stmtCheckEmail->store_result();
 
-    $stmtCheckPhone = $connection->prepare("SELECT Phone FROM register WHERE Phone = ?");
+    $stmtCheckPhone = $connection->prepare("SELECT Phone FROM users WHERE Phone = ?");
     $stmtCheckPhone->bind_param("s", $phone);
     $stmtCheckPhone->execute();
     $stmtCheckPhone->store_result();
 
     if ($stmtCheckEmail->num_rows > 0) {
-        $message = "The email address is already registered.";
+        $message = "The email address is already usersed.";
         $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
         header('Location: ' . $redirectUrl);
         exit;
     } elseif ($stmtCheckPhone->num_rows > 0) {
-        $message = "The phone number is already registered.";
+        $message = "The phone number is already usersed.";
         $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
         header('Location: ' . $redirectUrl);
         exit;
@@ -134,34 +132,25 @@ if (isset($_POST['add_user'])) {
     $connection->begin_transaction();
 
     try {
-        // Insert the input values into the register table
-        $stmtRegister = $connection->prepare("INSERT INTO register (username, gender, age, email, Phone, options, passwords) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmtRegister->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
-        $stmtRegister->execute();
+        // Insert the input values into the users table
+        $stmtusers = $connection->prepare("INSERT INTO users (username, gender, age, email, Phone, options, `password`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmtusers->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
+        $stmtusers->execute();
 
-        if ($stmtRegister->affected_rows > 0) {
-            // Insert the input values into the user table
-            $stmtUser = $connection->prepare("INSERT INTO user (user_name, email, `option`, `password`) VALUES (?, ?, ?, ?)");
-            $stmtUser->bind_param("ssss", $name, $email, $position, $hashedPassword);
-            $stmtUser->execute();
-
-            if ($stmtUser->affected_rows > 0) {
+        if ($stmtusers->affected_rows > 0) {
+        
                 // Commit transaction
                 $connection->commit();
-                $message = "Congratulations! You have successfully registered.";
+                $message = "Congratulations! You have successfully usersed.";
                 $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
                 header('Refresh: 3; URL=' . $redirectUrl);
                 exit;
             } else {
                 // Rollback transaction if the user table insert failed
                 $connection->rollback();
-                die("Failed to insert into the user table.");
+                die("Failed to insert into the users table.");
             }
-        } else {
-            // Rollback transaction if the register table insert failed
-            $connection->rollback();
-            die("Failed to insert into the register table.");
-        }
+        
     } catch (mysqli_sql_exception $exception) {
         // Rollback transaction on exception
         $connection->rollback();
@@ -170,7 +159,7 @@ if (isset($_POST['add_user'])) {
         // Close statements
         $stmtCheckEmail->close();
         $stmtCheckPhone->close();
-        $stmtRegister->close();
+        $stmtusers->close();
         $stmtUser->close();
     }
 }

@@ -3,12 +3,12 @@
 
 if(isset($_POST['add_item'])) {
 
-    $inventoryList = $_POST['inventory-list'];
+    $inventoryList = $_POST['inventory_list'];
     $description = $_POST['description'];
     $measure = $_POST['measure'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
-    $totalPrice = $_POST['total-price'];
+    $totalPrice = $_POST['total_price'];
     $examination = $_POST['examination'];
     
     if(empty($inventoryList) || empty($description) || empty($measure) || empty($quantity) || empty($price) || empty($totalPrice) || empty($examination)) {
@@ -29,7 +29,7 @@ if(isset($_POST['add_item'])) {
          header('location: index.php?error_msg=You need to fill the examination');
     } else {
 
-        $query =  "INSERT INTO Purchase (`inventory-list`, `description`, `measure`, `quantity`, `price`, `total-price`, examination) VALUES ('$inventoryList', '$description', '$measure', '$quantity', '$price', '$totalPrice', '$examination')";
+        $query =  "INSERT INTO Purchase (`inventory_list`, `description`, `measure`, `quantity`, `price`, `total_price`, examination) VALUES ('$inventoryList', '$description', '$measure', '$quantity', '$price', '$totalPrice', '$examination')";
 
         $result = mysqli_query($connection, $query);
 

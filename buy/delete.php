@@ -3,10 +3,10 @@
 
     <?php
 
-    if(isset($_GET['ordinary-number'])) {
-        $ordinary_number = $_GET['ordinary-number'];
+    if(isset($_GET['ordinary_number'])) {
+        $ordinary_number = $_GET['ordinary_number'];
 
-        $query = "DELETE FROM `Purchase` WHERE `ordinary-number` = '$ordinary_number'";
+        $query = "DELETE FROM `Purchase` WHERE `ordinary_number` = '$ordinary_number'";
 
         $result = mysqli_query($connection, $query);
 

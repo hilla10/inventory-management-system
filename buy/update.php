@@ -4,10 +4,10 @@
     <?php
 
 
-    if (isset($_GET['ordinary-number'])) {
-        $ordinary_number = $_GET['ordinary-number'];
+    if (isset($_GET['ordinary_number'])) {
+        $ordinary_number = $_GET['ordinary_number'];
 
-        $query = "SELECT * FROM  `Purchase` WHERE `ordinary-number` = '$ordinary_number'";
+        $query = "SELECT * FROM  `Purchase` WHERE `ordinary_number` = '$ordinary_number'";
 
         $result = mysqli_query($connection, $query);
 
@@ -27,15 +27,15 @@
             $new_number = $_GET['id_new'];
         }
 
-    $inventoryList = $_POST['inventory-list'];
+    $inventoryList = $_POST['inventory_list'];
     $description = $_POST['description'];
     $measure = $_POST['measure'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
-    $totalPrice = $_POST['total-price'];
+    $totalPrice = $_POST['total_price'];
     $examination = $_POST['examination'];
 
-        $query = "UPDATE `Purchase` set `inventory-list` = '$inventoryList', `description` = '$description', `measure` = '$measure', `quantity` = '$quantity', `quantity` = '$quantity', `price` = '$price', `total-price` = '$totalPrice', `examination` = '$examination' WHERE `ordinary-number` = '$new_number'";
+        $query = "UPDATE `Purchase` set `inventory_list` = '$inventoryList', `description` = '$description', `measure` = '$measure', `quantity` = '$quantity', `quantity` = '$quantity', `price` = '$price', `total_price` = '$totalPrice', `examination` = '$examination' WHERE `ordinary_number` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
 
@@ -55,7 +55,7 @@
 <form action="update.php?id_new=<?php echo $ordinary_number; ?>" method="post">
 
             <div class="form-group mb-2">
-                     <input type="text" class="form-control" id="inventory-list" name="inventory-list" placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory-list'] ?>">
+                     <input type="text" class="form-control" id="inventory_list" name="inventory_list" placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory_list'] ?>">
             </div>
 
             <div class="form-group mb-2">
@@ -79,7 +79,7 @@
 
             <div class="form-group mb-2">
                
-                     <input type="text" class="form-control" id="total-price" name="total-price" placeholder="የእቃው ዝርዝር" value="<?php echo $row['total-price'] ?>">
+                     <input type="text" class="form-control" id="total_price" name="total_price" placeholder="የእቃው ዝርዝር" value="<?php echo $row['total_price'] ?>">
             </div>
 
             <div class="form-group mb-2">

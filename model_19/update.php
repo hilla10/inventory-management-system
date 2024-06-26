@@ -4,10 +4,10 @@
     <?php
 
 
-    if (isset($_GET['ordinary-number'])) {
-        $ordinary_number = $_GET['ordinary-number'];
+    if (isset($_GET['ordinary_number'])) {
+        $ordinary_number = $_GET['ordinary_number'];
 
-        $query = "SELECT * FROM  `model_19` WHERE `ordinary-number` = '$ordinary_number'";
+        $query = "SELECT * FROM  `model_19` WHERE `ordinary_number` = '$ordinary_number'";
 
         $result = mysqli_query($connection, $query);
 
@@ -27,14 +27,15 @@
             $new_number = $_GET['id_new'];
         }
 
-    $itemType = $_POST['item-type'];
+    $itemType = $_POST['item_type'];
+    $itemCategory = $_POST['item_category'];
     $addedBy = $_POST['added-by'];
     $model = $_POST['model'];
     $serie = $_POST['serie'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
 
-        $query = "UPDATE `model_19` set `quantity` = '$quantity', `added_by` = '$addedBy', `item-type` = '$itemType', `model` = '$model', `serie` = '$serie', `price` = '$price' WHERE `ordinary-number` = '$new_number'";
+        $query = "UPDATE `model_19` set `quantity` = '$quantity', `added_by` = '$addedBy', `item_type` = '$itemType', `item_category` = '$itemCategory',  `model` = '$model', `serie` = '$serie', `price` = '$price' WHERE `ordinary_number` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
 

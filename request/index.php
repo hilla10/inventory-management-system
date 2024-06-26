@@ -71,7 +71,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
 function updateItemStatus($itemId, $status) {
     global $connection;
 
-    $query = "UPDATE model_20 SET status = ? WHERE `ordinary-number` = ?";
+    $query = "UPDATE model_20 SET status = ? WHERE `ordinary_number` = ?";
     $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($stmt, "si", $status, $itemId);
     mysqli_stmt_execute($stmt);
@@ -171,7 +171,7 @@ function updateItemStatus($itemId, $status) {
             <div class="box1 d-flex flex-md-row flex-column justify-content-between align-items-center">
                 <?php
                 // Query to fetch all model_20 items
-                $query = "SELECT * FROM model_20 ORDER BY `ordinary-number` DESC";
+                $query = "SELECT * FROM model_20 ORDER BY `ordinary_number` DESC";
                 $result = mysqli_query($connection, $query);
 
                 // Check for query errors
@@ -185,9 +185,10 @@ function updateItemStatus($itemId, $status) {
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered table-striped">
                             <thead>
-                                <th>id</th>
-                                <th>Quantity</th>
-                                <th>Item Type</th>
+                                <th>ተራ ቁጥር</th>
+                                <th>ብዛት</th>
+                                <th>የእቃው አይነት</th>
+                                <th>የእቃው ምድብ</th>
                                 <th>Model</th>
                                 <th>Update</th>
                                 <th>Requested By</th>
@@ -212,13 +213,14 @@ function updateItemStatus($itemId, $status) {
                                         ?>
                                         <tr>
                                             <td>
-                                                <?php echo $row['ordinary-number']; ?>
+                                                <?php echo $row['ordinary_number']; ?>
                                                 <?php if ($isNew) { ?>
                                                     <span class="badge bg-danger">New</span>
                                                 <?php } ?>
                                             </td>
                                             <td><?php echo $row['quantity']; ?></td>
-                                            <td><?php echo $row['item-type']; ?></td>
+                                            <td><?php echo $row['item_type']; ?></td>
+                                            <td><?php echo $row['item_category']; ?></td>
                                             <td><?php echo $row['model']; ?></td>
                                             <td><?php echo $row['update']; ?></td>
                                             <td><?php echo $row['requested_by']; ?></td>
@@ -226,12 +228,14 @@ function updateItemStatus($itemId, $status) {
                                             <td><?php echo $row['status']; ?></td>
                                             <td>
                                                 <!-- Always show links/buttons to approve or decline -->
-                                                <a class="btn btn-success action" href="index.php?action=approve&id=<?php echo $row['ordinary-number']; ?>">Approve</a> |
-                                                <a class="btn btn-danger  action" href="index.php?action=decline&id=<?php echo $row['ordinary-number']; ?>">Decline</a>
+                                              <div class="d-flex gap-2">
+                                                  <a class="btn btn-success action" href="index.php?action=approve&id=<?php echo $row['ordinary_number']; ?>">Approve</a> |
+                                                <a class="btn btn-danger  action" href="index.php?action=decline&id=<?php echo $row['ordinary_number']; ?>">Decline</a>
                                             </td>
+                                              </div>
                                             <td>
                                                 <?php if ($row['status'] == 'approved' || $row['status'] == 'declined') { ?>
-                                                    <a href="../includes/delete_request.php?id=<?php echo $row['ordinary-number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
+                                                    <a href="../includes/delete_request.php?id=<?php echo $row['ordinary_number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
                                                 <?php } else { ?>
                                                     <button class="btn btn-danger" disabled="true">Delete</button>
                                                 <?php } ?>

@@ -1,11 +1,11 @@
 <?php
 include('../includes/dbcon.php');
 
-if (isset($_GET['ordinary-number'])) {
-    $ordinaryNumber = mysqli_real_escape_string($connection, $_GET['ordinary-number']);
+if (isset($_GET['ordinary_number'])) {
+    $ordinaryNumber = mysqli_real_escape_string($connection, $_GET['ordinary_number']);
 
     // Select the record to get added_by before deleting it
-    $queryName = "SELECT added_by FROM `model_19` WHERE `ordinary-number` = '$ordinaryNumber'";
+    $queryName = "SELECT added_by FROM `model_19` WHERE `ordinary_number` = '$ordinaryNumber'";
     $resultName = mysqli_query($connection, $queryName);
     
     if (!$resultName) {
@@ -19,7 +19,7 @@ if (isset($_GET['ordinary-number'])) {
     }
 
     // Prepare and execute DELETE query
-    $queryDelete = "DELETE FROM `model_19` WHERE `ordinary-number` = '$ordinaryNumber'";
+    $queryDelete = "DELETE FROM `model_19` WHERE `ordinary_number` = '$ordinaryNumber'";
     $resultDelete = mysqli_query($connection, $queryDelete);
 
     if (!$resultDelete) {

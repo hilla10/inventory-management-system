@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <form class="form_register" action="https://google.com">
+    <form class="form_users" action="https://google.com">
         <input type="email" class="email" placeholder="Email">
         <input type="text" class="phone" placeholder="Phone">
         <input type="text" class="name" placeholder="Name">
@@ -37,13 +37,13 @@
         <div class="char-uppercase-letter">At least one uppercase letter</div>
         <div class="digit">At least one digit</div>
         <div class="special-char">At least one special character</div>
-        <button type="submit">Register</button>
+        <button type="submit">users</button>
     </form>pass!4aA
 
     <!--  -->
 
     <script>
-        const formRegister = document.querySelectorAll('.form_register');
+        const formusers = document.querySelectorAll('.form_users');
 
         // Email validation
         const emails = document.querySelectorAll('.email');
@@ -271,7 +271,7 @@
         });
 
         // Check if all inputs are valid on form submit
-        formRegister.forEach((form) => {
+        formusers.forEach((form) => {
             form.addEventListener('submit', (event) => {
                 let isFormValid = true;
 

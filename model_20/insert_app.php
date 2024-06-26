@@ -7,7 +7,8 @@ session_start();
 
 if(isset($_POST['add_model'])) {
     $quantity = mysqli_real_escape_string($connection, $_POST['quantity']);
-    $itemType = mysqli_real_escape_string($connection, $_POST['item-type']);
+    $itemType = mysqli_real_escape_string($connection, $_POST['item_type']);
+    $itemCategory = mysqli_real_escape_string($connection, $_POST['item_category']);
     $model = mysqli_real_escape_string($connection, $_POST['model']);
     $update = mysqli_real_escape_string($connection, $_POST['update']);
     $requestedBy = mysqli_real_escape_string($connection, $_POST['requested-by']);
@@ -20,8 +21,8 @@ if(isset($_POST['add_model'])) {
     }
 
     // Insert data into model_20 table
-    $query = "INSERT INTO model_20 (quantity, `item-type`, model, `update`, requested_by) 
-              VALUES ('$quantity', '$itemType', '$model', '$update', '$requestedBy')";
+    $query = "INSERT INTO model_20 (quantity, `item_type`, `item_category`, model, `update`, requested_by) 
+              VALUES ('$quantity', '$itemType', '$itemCategory', '$model', '$update', '$requestedBy')";
 
     $result = mysqli_query($connection, $query);
 

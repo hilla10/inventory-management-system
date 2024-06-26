@@ -10,12 +10,12 @@ if (session_status() == PHP_SESSION_NONE) {
 // Access the stored current page URL
 $currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
 
-if (isset($_GET['ordinary-number']) && isset($_GET['department'])) {
-    $ordinary_number = $_GET['ordinary-number'];
+if (isset($_GET['ordinary_number']) && isset($_GET['department'])) {
+    $ordinary_number = $_GET['ordinary_number'];
     $department = $_GET['department'];
 
     // Fetch the details of the record to be deleted (optional but recommended)
-    $query_fetch = "SELECT * FROM `inventory` WHERE `ordinary-number` = ? AND `department` = ?";
+    $query_fetch = "SELECT * FROM `inventory` WHERE `ordinary_number` = ? AND `department` = ?";
     $stmt_fetch = mysqli_prepare($connection, $query_fetch);
     mysqli_stmt_bind_param($stmt_fetch, 'ss', $ordinary_number, $department);
     mysqli_stmt_execute($stmt_fetch);
@@ -24,11 +24,11 @@ if (isset($_GET['ordinary-number']) && isset($_GET['department'])) {
     // Get the record details
     $deleted_record = '';
     if ($row = mysqli_fetch_assoc($result_fetch)) {
-        $deleted_record = ' (Ordinary Number: ' . $row['ordinary-number'] . ', Inventory List: ' . $row['inventory-list'] . ')';
+        $deleted_record = ' (Ordinary Number: ' . $row['ordinary_number'] . ', Inventory List: ' . $row['inventory_list'] . ')';
     }
 
     // Prepare the SQL statement to prevent SQL injection
-    $query = "DELETE FROM `inventory` WHERE `ordinary-number` = ? AND `department` = ?";
+    $query = "DELETE FROM `inventory` WHERE `ordinary_number` = ? AND `department` = ?";
     $stmt = mysqli_prepare($connection, $query);
 
     if ($stmt) {

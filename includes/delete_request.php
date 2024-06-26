@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Fetch the details of the record to be deleted (optional but recommended)
-    $query_fetch = "SELECT * FROM `model_20` WHERE `ordinary-number` = ? ";
+    $query_fetch = "SELECT * FROM `model_20` WHERE `ordinary_number` = ? ";
     $stmt_fetch = mysqli_prepare($connection, $query_fetch);
     mysqli_stmt_bind_param($stmt_fetch, 's', $id);
     mysqli_stmt_execute($stmt_fetch);
@@ -23,11 +23,11 @@ if (isset($_GET['id'])) {
     // Get the record details
     $deleted_record = '';
     if ($row = mysqli_fetch_assoc($result_fetch)) {
-        $deleted_record = ' (Ordinary Number: ' . $row['ordinary-number'].')';
+        $deleted_record = ' (Ordinary Number: ' . $row['ordinary_number'].')';
     }
 
     // Prepare the SQL statement to prevent SQL injection
-    $query = "DELETE FROM `model_20` WHERE `ordinary-number` = ?"; 
+    $query = "DELETE FROM `model_20` WHERE `ordinary_number` = ?"; 
     $stmt = mysqli_prepare($connection, $query);
 
     if ($stmt) {

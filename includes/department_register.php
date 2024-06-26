@@ -26,7 +26,7 @@
       <!-- main js -->
 <script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
 
-  <title>Department Register</title>
+  <title>Department users</title>
     
 </head>
 <body  class="body text-light">
@@ -119,7 +119,7 @@ if(isset($_POST['add_department'])) {
 
         if($stmt->affected_rows > 0) {
               $connection->commit();
-                $message = "Congratulations! You have successfully registered.";
+                $message = "Congratulations! You have successfully usersed.";
                 $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
                 header('Refresh: 3; URL=' . $redirectUrl);
                 exit;

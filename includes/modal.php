@@ -1,105 +1,4 @@
-
-
-
-<!-- modal for item -->
-
-<form action="../includes/insert_app.php" method="post" class="insert-app-form">
-<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content shake-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Item</h1>
-        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-           <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
-
-            <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control inventory-list" id="inventory-list" name="inventory-list">
-                <span>የእቃው ዝርዝር</span>
-            </div>
-
-            <div class="form-group input-box mb-2">
-                      <label for="gender" class="py-2">Select Department:</label>
-                     <select name="department" id="department" class="select-option">
-                            <?php
-                            // Include the database connection
-                            include('dbcon.php');
-
-                            // Function to fetch departments from database
-                            function fetchDepartmentsAndDisplay($connection)
-                            {
-                                $departments = [];
-
-                                $query = "SELECT `name` FROM departments";
-                                $result = mysqli_query($connection, $query);
-
-                                if ($result) {
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        $departments[] = $row['name'];
-                                    }
-                                    mysqli_free_result($result);
-                                }
-
-                                return $departments;
-                            }
-
-                            // Fetch departments
-                            $departments = fetchDepartmentsAndDisplay($connection);
-
-                            // Output options for select dropdown
-                            foreach ($departments as $dept) {
-                                echo '<option value="' . htmlspecialchars($dept) . '">' . htmlspecialchars($dept) . '</option>';
-                            }
-
-                            // Close database connection
-                            mysqli_close($connection);
-                            ?>
-                        </select>
-            </div>
-             <div class="form-group input-box mb-2">
-                    <label for="item-type" class="py-2">Enter item type</label>
-                    <select name="item-type" class="select-option">
-                        <option value="consumable">አላቂ እቃ</option>
-                        <option value="non-consumable">የማያልቅ እቃ</option>
-                    </select>
-              </div>  
-
-            <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control description" id="description" name="description">
-                <span>መግለጫ</span>
-            </div>
-            <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control measure" id="measure" name="measure">
-                <span>መለኪያ</span>
-            </div>
-            <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control quantity" id="quantity" name="quantity">
-                <span>ብዛት</span>
-            </div>
-            <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control price" id="price" name="price" step="0.1">
-                <span>የአንዱ ዋጋ</span>
-            </div>
-            <div class="form-group input-box mb-2">
-                <input type="number" class="form-control" id="total-price" name="total-price" disabled>
-                <span>ጠቅላላ ዋጋ</span>
-            </div>
-            <div class="form-group input-box mb-2">
-                <input type="text" class="form-control examination" id="examination" name="examination" >
-                <span>ምርመራ</span>
-            </div>
-      
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <input required type="submit" class="btn btn-success" name="add_item" value="አስገባ"></input>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
+   
 
 
 
@@ -144,7 +43,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input required type="submit" class="btn btn-success" name="add_bin" value="አስገባ"></input>
+          <input  type="submit" class="btn btn-success" name="add_bin" value="አስገባ"></input>
       </div>
     </div>
   </div>
@@ -152,8 +51,8 @@
 </form>
   
 
-<!-- modal for user register -->
-  <form action="../includes/user_register.php" method="post"  class="userRegisterForm">
+<!-- modal for user user -->
+  <form action="../includes/user_register.php" method="post"  class="userForm">
     <div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content form-content">
@@ -166,7 +65,7 @@
                     <h2 class="fs-3 text-center py-3">ዋናው መመዝገቢያ ቅጽ</h2>
 
                     <div class="form-group input-box">
-                        <input required type="text" class="form-control name" name="username">
+                        <input  type="text" class="form-control name" name="username">
                         <span>ስሞትን ያስገቡ| Enter your name|</span>
                     </div>
                     <div class="form-group input-box mb-2">
@@ -178,17 +77,17 @@
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="number" class="form-control age" name="age">
+                        <input  type="number" class="form-control age" name="age">
                         <span>አድሜ ያስገቡ |Enter your age|</span>
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="email" class="form-control email" name="email">
+                        <input  type="email" class="form-control email" name="email">
                         <span>ኢሜል ያስገቡ|Enter your email|</span>
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="text" class="form-control phone" name="Phone">
+                        <input  type="text" class="form-control phone" name="Phone">
                         <span>ስልክ ቁጥር ያስገቡ |Enter your phone.no|</span>
                     </div>
 
@@ -203,7 +102,7 @@
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="password" class="form-control validPassword" name="passwords">
+                        <input  type="password" class="form-control validPassword" name="password">
                         <i class="fa-solid fa-eye-slash showHideBtn"></i>
                         <span>የይለፍ ቃል |Enter your password|</span>
                     </div> 
@@ -221,7 +120,7 @@
                         </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="password" class="form-control confirm" name="confirm">
+                        <input  type="password" class="form-control confirm" name="confirm">
                         <i class="fa-solid fa-eye-slash showHideBtn"></i>
                         <span>የይለፍ ቃል አረጋግጥ| Confirm your password|</span>
                     </div>
@@ -229,7 +128,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input required type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
+                        <input  type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
                     </div>
                 </div>
             </div>
@@ -237,9 +136,9 @@
     </div>
 </form>
 
-  <!-- modal for user register for login page -->
+  <!-- modal for user user for login page -->
 
-  <form action="./includes/user_register.php" method="post"  class="userRegisterForm">
+  <form action="./includes/user_users.php" method="post"  class="userForm">
     <div class="modal fade" id="Modal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content form-content">
@@ -252,7 +151,7 @@
                     <h2 class="fs-3 text-center py-3">ዋናው መመዝገቢያ ቅጽ</h2>
 
                     <div class="form-group input-box">
-                        <input required type="text" class="form-control name" name="username">
+                        <input  type="text" class="form-control name" name="username">
                         <span>ስሞትን ያስገቡ| Enter your name|</span>
                     </div>
                     <div class="form-group input-box mb-2">
@@ -264,17 +163,17 @@
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="number" class="form-control age" name="age">
+                        <input  type="number" class="form-control age" name="age">
                         <span>አድሜ ያስገቡ |Enter your age|</span>
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="email" class="form-control email" name="email">
+                        <input  type="email" class="form-control email" name="email">
                         <span>ኢሜል ያስገቡ|Enter your email|</span>
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="text" class="form-control phone" name="Phone">
+                        <input  type="text" class="form-control phone" name="Phone">
                         <span>ስልክ ቁጥር ያስገቡ |Enter your phone.no|</span>
                     </div>
 
@@ -289,7 +188,7 @@
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="password" class="form-control validPassword" name="passwords">
+                        <input  type="password" class="form-control validPassword" name="password">
                         <i class="fa-solid fa-eye-slash showHideBtn"></i>
                         <span>የይለፍ ቃል |Enter your password|</span>
                     </div> 
@@ -307,7 +206,7 @@
                         </div>
 
                     <div class="form-group input-box mb-2">
-                        <input required type="password" class="form-control confirm" name="confirm">
+                        <input  type="password" class="form-control confirm" name="confirm">
                         <i class="fa-solid fa-eye-slash showHideBtn"></i>
                         <span>የይለፍ ቃል አረጋግጥ| Confirm your password|</span>
                     </div>
@@ -315,7 +214,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input required type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
+                        <input  type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
                     </div>
                 </div>
             </div>
@@ -328,7 +227,7 @@
 <form action="insert_app.php" method="post" class="insert-model-app-form">
  <div class="modal fade" id="Modal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content shake-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 19</h1>
         <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -340,9 +239,16 @@
                     </div>
               <div class="form-group input-box mb-2">
              
-                <input  type="text" class="form-control" id="item-type" name="item-type">
+                <input  type="text" class="form-control" id="item_type" name="item_type">
                 <span>የእቃው አይነት</span>
               </div>
+              <div class="form-group input-box mb-2">
+                        <label for="item_category" class="py-2">Enter item category</label>
+                        <select name="item_category" class="select-option">
+                            <option value="consumable">አላቂ እቃ</option>
+                            <option value="non-consumable">የማያልቅ እቃ</option>
+                        </select>
+                </div>  
               <div class="form-group input-box mb-2">
                 
                 <input  type="text" class="form-control" id="model" name="model">
@@ -363,13 +269,13 @@
                 <span>የአንዱ ዋጋ</span>
             </div>
             <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control total-price" id="total-price" name="total-price" disabled>
+                <input  type="text" class="form-control total_price" id="total_price" name="total_price" disabled>
                 <span>ጠቅላላ ዋጋ</span>
             </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input required type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
+          <input  type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
       </div>
     </div>
   </div>
@@ -396,9 +302,16 @@
                         <span>ብዛት</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control" id="item-type" name="item-type">
+                        <input  type="text" class="form-control" id="item_type" name="item_type">
                         <span>የእቃው አይነት</span>
                     </div>
+                    <div class="form-group input-box mb-2">
+                        <label for="item_category" class="py-2">Enter item category</label>
+                        <select name="item_category" class="select-option">
+                            <option value="consumable">አላቂ እቃ</option>
+                            <option value="non-consumable">የማያልቅ እቃ</option>
+                        </select>
+                </div>  
                     <div class="form-group input-box mb-2">
                         <input  type="text" class="form-control" id="model" name="model">
                         <span>ሞዴል</span>
@@ -410,7 +323,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                    <input required type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
+                    <input  type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
                 </div>
             </div>
         </div>
@@ -418,9 +331,136 @@
 </form>
 
 
+<!-- modal for item -->
 
-<!-- modal for department register -->
-<form action="../includes/department_register.php" method="post" class="userRegisterForm">
+<form action="../includes/insert_app.php" method="post" class="insert-app-form">
+    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content shake-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Item</h1>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control inventory_list" id="inventory_list" name="inventory_list">
+                        <span>የእቃው ዝርዝር</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <label for="department" class="py-2">Select Department:</label>
+                            <?php
+// Include the database connection
+                                    include('dbcon.php');
+
+                                    // Function to fetch departments from database
+                                    function fetchDepartmentsAndDisplay($connection)
+                                    {
+                                        $departments = [];
+
+                                        $query = "SELECT `name` FROM departments";
+                                        $result = mysqli_query($connection, $query);
+
+                                        if ($result) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                $departments[] = $row['name'];
+                                            }
+                                            mysqli_free_result($result);
+                                        }
+
+                                        return $departments;
+                                    }
+
+                                    // Function to determine current department from the URL
+                                    function determineCurrentPageDep($currentUrl)
+                                    {
+                                        $path = parse_url($currentUrl, PHP_URL_PATH);
+                                        // Remove any double slashes to ensure correct path segmentation
+                                        $path = str_replace('//', '/', $path);
+                                        $segments = explode('/', trim($path, '/'));
+                                        $allowedDepartments = fetchDepartments();
+
+                                        foreach ($segments as $key => $segment) {
+                                            if (in_array(strtoupper($segment), $allowedDepartments)) {
+                                                return strtoupper($segment); // Return the department found
+                                            }
+                                        }
+                                        return ''; // Return empty if no valid department found
+                                    }
+
+                                    // Fetch departments
+                                    $departments = fetchDepartmentsAndDisplay($connection);
+
+                                    // Determine current department from the current URL
+                                    $requestUri = $_SERVER['REQUEST_URI'];
+                                    $currentDepartment = determineCurrentPageDep($requestUri);
+
+                                    // Output select dropdown options
+                                    echo '<select name="department" id="department" class="select-option">';
+                                    // Output the current department as the first option if it exists in the fetched departments
+                                    if (!empty($currentDepartment) && in_array($currentDepartment, $departments)) {
+                                        echo '<option value="' . htmlspecialchars($currentDepartment) . '">' . htmlspecialchars($currentDepartment) . '</option>';
+                                    }
+                                    // Output other departments
+                                    foreach ($departments as $dept) {
+                                        if ($dept !== $currentDepartment) {
+                                            echo '<option value="' . htmlspecialchars($dept) . '">' . htmlspecialchars($dept) . '</option>';
+                                        }
+                                    }
+                                    echo '</select>';
+
+                                    // Close database connection
+                                    mysqli_close($connection);
+                                    ?>
+                        </select>
+                    </div>
+                      <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control item_type" id="item_type" name="item_type">
+                        <span>የእቃው አይነት</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <label for="item_category" class="py-2">Enter item category</label>
+                        <select name="item_category" class="select-option">
+                            <option value="consumable">አላቂ እቃ</option>
+                            <option value="non-consumable">የማያልቅ እቃ</option>
+                        </select>
+                    </div>  
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control description" id="description" name="description">
+                        <span>መግለጫ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control measure" id="measure" name="measure">
+                        <span>መለኪያ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control quantity" id="quantity" name="quantity">
+                        <span>ብዛት</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control price" id="price" name="price" step="0.1">
+                        <span>የአንዱ ዋጋ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input type="number" class="form-control" id="total_price" name="total_price" disabled>
+                        <span>ጠቅላላ ዋጋ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input type="text" class="form-control examination" id="examination" name="examination">
+                        <span>ምርመራ</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-success" name="add_item" value="አስገባ"></input>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- modal for department user -->
+<form action="../includes/department_register.php" method="post" class="userForm">
     <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -431,15 +471,15 @@
                 <div class="modal-body">
                     <h2 class="fs-3 text-center py-3">የዲፓርትመንት ምዝገባ ቅጽ</h2>
                     <div class="form-group input-box mb-2">
-                        <input required type="text" class="form-control name" id="username" name="username">
+                        <input  type="text" class="form-control name" id="username" name="username">
                         <span>ስሞትን ያስገቡ</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input required type="email" class="form-control email" name="email">
+                        <input  type="email" class="form-control email" name="email">
                         <span>ኢሜል ያስገቡ</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input required type="number" class="form-control age" id="age" name="age">
+                        <input  type="number" class="form-control age" id="age" name="age">
                         <span>አድሜ ያስገቡ</span>
                     </div>
                   <div class="form-group input-box mb-2">
@@ -450,7 +490,7 @@
                             </select>
                         </div>
                     <div class="form-group input-box mb-2">
-                        <input required type="text" class="form-control phone" id="Phone" name="phone">
+                        <input  type="text" class="form-control phone" id="Phone" name="phone">
                         <span>ስልክ ቁጥር ያስገቡ</span>
                     </div>
                     <div class="form-group input-box mb-2">
@@ -467,7 +507,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input required type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
+                    <input  type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
                 </div>
             </div>
         </div>
@@ -528,7 +568,7 @@
 
 
 <!-- Modal for deleting user -->
-<form action="../includes/delete_user.php" method="post" class="userRegisterForm">
+<form action="../includes/delete_user.php" method="post" class="userForm">
   <div class="modal fade" id="Modal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -538,11 +578,11 @@
         </div>
         <div class="modal-body">
           <div class="form-group input-box my-2">
-            <input required type="text" class="form-control email" name="email">
+            <input  type="text" class="form-control email" name="email">
             <span>Enter your email to delete</span>
           </div>
             <div class="form-group input-box my-2">
-                <input required type="password" class="form-control validPassword" name="password">
+                <input  type="password" class="form-control validPassword" name="password">
                 <i class="fa-solid fa-eye-slash showHideBtn"></i>
                 <span>Enter your password</span>
         </div>
@@ -554,4 +594,3 @@
     </div>
   </div>
 </form>
-

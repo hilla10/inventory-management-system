@@ -9,7 +9,7 @@ if(isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Fetch email before deleting
-    $query_fetch_email = "SELECT email FROM register WHERE id = ?";
+    $query_fetch_email = "SELECT email FROM users WHERE id = ?";
     $stmt_fetch_email = mysqli_prepare($connection, $query_fetch_email);
     mysqli_stmt_bind_param($stmt_fetch_email, 'i', $id);
     mysqli_stmt_execute($stmt_fetch_email);
@@ -17,8 +17,8 @@ if(isset($_GET['id'])) {
     mysqli_stmt_fetch($stmt_fetch_email);
     mysqli_stmt_close($stmt_fetch_email);
 
-    // Delete the record from register
-    $query_delete = "DELETE FROM register WHERE id = ?";
+    // Delete the record from users
+    $query_delete = "DELETE FROM users WHERE id = ?";
     $stmt_delete = mysqli_prepare($connection, $query_delete);
     mysqli_stmt_bind_param($stmt_delete, 'i', $id);
     $result_delete = mysqli_stmt_execute($stmt_delete);

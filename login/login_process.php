@@ -8,7 +8,7 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $option = mysqli_real_escape_string($connection, $_POST['options']);
 
-    $query = "SELECT * FROM `user` WHERE (`user_name` = ? OR `email` = ?) AND `option` = ?";
+    $query = "SELECT * FROM users WHERE (username = ? OR email = ?) AND options = ?";
     $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($stmt, "sss", $usernameOrEmail, $usernameOrEmail, $option);
     mysqli_stmt_execute($stmt);
@@ -35,7 +35,7 @@ if (isset($_POST['login'])) {
                 $currentVisitTime = date("Y-m-d H:i:s");
 
                 // Retrieve and store the last visit time from the database
-                $lastVisitQuery = "SELECT last_visit FROM `user` WHERE email = ?";
+                $lastVisitQuery = "SELECT last_visit FROM users WHERE email = ?";
                 $lastVisitStmt = mysqli_prepare($connection, $lastVisitQuery);
                 mysqli_stmt_bind_param($lastVisitStmt, "s", $row['email']);
                 mysqli_stmt_execute($lastVisitStmt);
@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
                 }
 
                 // Update the last visit time in the database
-                $updateVisitQuery = "UPDATE `user` SET last_visit = ? WHERE email = ?";
+                $updateVisitQuery = "UPDATE users SET last_visit = ? WHERE email = ?";
                 $updateVisitStmt = mysqli_prepare($connection, $updateVisitQuery);
                 mysqli_stmt_bind_param($updateVisitStmt, "ss", $currentVisitTime, $row['email']);
                 mysqli_stmt_execute($updateVisitStmt);

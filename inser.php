@@ -30,13 +30,13 @@ $row = mysqli_fetch_assoc($result);
 $totalItems = $row['total_items'];
 
 // Query to get the total number of consumable items
-$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item-type` = 'consumable'";
+$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item_type` = 'consumable'";
 $resultConsumableItems = mysqli_query($connection, $queryConsumableItems);
 $rowConsumableItems = mysqli_fetch_assoc($resultConsumableItems);
 $totalConsumableItems = $rowConsumableItems['total_consumable_items'];
 
 // Query to get the total number of non-consumable items
-$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item-type` = 'non-consumable'";
+$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item_type` = 'non-consumable'";
 $resultNonConsumableItems = mysqli_query($connection, $queryNonConsumableItems);
 $rowNonConsumableItems = mysqli_fetch_assoc($resultNonConsumableItems);
 $totalNonConsumableItems = $rowNonConsumableItems['total_non_consumable_items'];

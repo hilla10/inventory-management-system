@@ -27,7 +27,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const quantity = document.getElementById('quantity');
             const price = document.getElementById('price');
-            const totalPriceField = document.getElementById('total-price');
+            const totalPriceField = document.getElementById('total_price');
 
             const calculateTotalPrice = () => {
                 const totalPrice = quantity.value * price.value;
@@ -48,16 +48,19 @@
     <div class="container mt-5 w-50">
         <form action="update.php?id_new=<?php echo urlencode($ordinary_number); ?>&department=<?php echo urlencode($department); ?>" method="post" class="update">
             <div class="form-group mb-2 input-box">
-                <input type="text" class="form-control" id="department" name="department" placeholder="ዲፖርትመንት" value="<?php echo $row['department'] ?>">
+                <input disabled type="text" class="form-control" id="department" name="department" placeholder="ዲፖርትመንት" value="<?php echo $row['department'] ?>">
             </div>
              <div class="form-group input-box mb-2">
-                    <select name="item-type" class="select-option">
+                    <select name="item_category" class="select-option">
                         <option value="consumable">አላቂ እቃ</option>
                         <option value="non-consumable">የማያልቅ እቃ</option>
                     </select>
               </div> 
+             <div class="form-group input-box mb-2">
+                    <input type="text" class="form-control" id="item_type" name="item_type" placeholder="የእቃው  አይነት" value="<?php echo $row['item_type'] ?>">
+              </div> 
             <div class="form-group mb-2 input-box">
-                <input type="text" class="form-control" id="inventory-list" name="inventory-list" placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory-list'] ?>">
+                <input type="text" class="form-control" id="inventory_list" name="inventory_list" placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory_list'] ?>">
             </div>
             
             <div class="form-group mb-2 input-box">
@@ -77,7 +80,7 @@
             </div>
 
             <div class="form-group mb-2 input-box">
-                <input type="number" class="form-control" id="total-price" name="total-price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total-price'] ?>" readonly>
+                <input type="number" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" readonly>
             </div>
 
             <div class="form-group mb-2 input-box">

@@ -76,7 +76,7 @@ Usage
 
 To use the inventory management system, follow these steps:
 
-    Register a new user account or use the provided login credentials.
+    users a new user account or use the provided login credentials.
     Navigate through the system's interface to access different functionalities.
     Add or update inventory items, manage departments, and generate reports.
     Make sure to log out after using the system to ensure the security of your account.
@@ -86,7 +86,7 @@ Security
 When using the inventory management system, consider the following security guidelines:
 
     - Use strong and unique passwords for your user account.
-  
+
     - Regularly update the system and its dependencies to patch any security vulnerabilities.
-  
+
     - Only provide access to authorized personnel and restrict user privileges based on their roles.

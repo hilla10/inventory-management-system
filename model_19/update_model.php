@@ -12,8 +12,15 @@
                     <input type="text" class="form-control" id="added-by" name="added-by" placeholder="ስም" value="<?php echo $row['added_by'] ?>">
             </div>
     
+            <div class="form-group input-box mb-2">
+                    <select name="item_category" class="select-option">
+                        <option value="consumable">አላቂ እቃ</option>
+                        <option value="non-consumable">የማያልቅ እቃ</option>
+                    </select>
+              </div> 
+    
             <div class="form-group mb-2">
-                    <input type="text" class="form-control" id="item-type" name="item-type" placeholder="የእቃው አይነት" value="<?php echo $row['item-type'] ?>">
+                    <input type="text" class="form-control" id="item_type" name="item_type" placeholder="የእቃው አይነት" value="<?php echo $row['item_type'] ?>">
             </div>
 
 
@@ -39,7 +46,7 @@
             
             <div class="form-group mb-2">
                 
-                        <input type="text" class="form-control" id="total-price" name="total-price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total-price'] ?>">
+                        <input type="text" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>">
             </div>
 
              <input type="submit" class="btn btn-success" name="update_model" value="Update"></input>

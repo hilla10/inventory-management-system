@@ -10,6 +10,13 @@ if (session_status() == PHP_SESSION_NONE) {
 // Access the stored current page URL
 $currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
 
+// Extract department from URL if available
+$department = isset($_GET['department']) ? $_GET['department'] : '';
+
+function isSelected($value, $department) {
+    return $value === $department ? 'selected' : '';
+}
+
 // Handle form submission
 if (isset($_POST['add_item'])) {
     $formData = $_POST;
@@ -106,21 +113,20 @@ function validateFormData($formData)
 {
     $errors = [];
 
-    $inventoryList = trim($formData['inventory-list']);
+    $inventoryList = trim($formData['inventory_list']);
     $department = trim(strtoupper($formData['department']));
-    $itemType = trim(strtoupper($formData['item-type']));
+    $itemType = trim(strtoupper($formData['item_type']));
     $description = trim($formData['description']);
-    $measure = trim($formData['measure']);
     $quantity = trim($formData['quantity']);
     $price = trim($formData['price']);
-    // $totalPrice = trim($formData['total-price']);
+    // $totalPrice = trim($formData['total_price']);
     $examination = trim($formData['examination']);
 
     $allowedDepartments = fetchDepartments();
 
     // Validation rules
 
-    if(empty($inventoryList) || empty($department) || empty($description) || empty($quantity) || empty($price) || empty($examination)) {
+    if(empty($inventoryList) || empty($department) || empty($description) || empty($quantity) || empty($price) || empty($examination) || empty($itemType)) {
 
         $errors[] = 'Some field are empty';
     }elseif (!in_array($department, $allowedDepartments)) {
@@ -141,20 +147,21 @@ function insertInventoryItem($formData, $currentPage)
 {
     global $connection;
 
-    $inventoryList = $formData['inventory-list'];
+    $inventoryList = $formData['inventory_list'];
     $department = $formData['department'];
-    $itemType = $formData['item-type'];
+    $itemType = $formData['item_type'];
+    $itemCategory = $formData['item_category'];
     $description = $formData['description'];
     $measure = $formData['measure'];
     $quantity = $formData['quantity'];
     $price = $formData['price'];
     $examination = $formData['examination'];
 
-    $query = "INSERT INTO inventory (`inventory-list`, department, `item-type`, `description`, measure, quantity, price, examination) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO inventory (`inventory_list`, department, `item_type`, `item_category`, `description`, measure, quantity, price, examination) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, 'ssssssss', $inventoryList, $department, $itemType, $description, $measure, $quantity, $price, $examination);
+    mysqli_stmt_bind_param($stmt, 'sssssssss', $inventoryList, $department, $itemType, $itemCategory, $description, $measure, $quantity, $price, $examination);
 
     $result = mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);

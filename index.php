@@ -43,7 +43,7 @@
             </form>
 
             <div>
-                <button id="registerBtn" class="px-5 btn-outline my-2">Register</button>
+                <button id="usersBtn" class="px-5 btn-outline my-2">users</button>
             </div>
         </div>
     </div>
@@ -58,8 +58,8 @@
 <?php include('includes/footer.php'); ?>
 
 <script>
-  // Handle click event on the register button
-  document.getElementById('registerBtn').addEventListener('click', (event) => {
+  // Handle click event on the users button
+  document.getElementById('usersBtn').addEventListener('click', (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
     // Manually open the modal using its ID
     var myModal = new bootstrap.Modal(document.getElementById('Modal5'));

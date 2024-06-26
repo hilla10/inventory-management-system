@@ -2,14 +2,15 @@
 <?php 
 
 if(isset($_POST['add_model'])) {
-    // $ordinaryNumber = $_POST['ordinary-number'];
+    // $ordinaryNumber = $_POST['ordinary_number'];
     $addedBy = $_POST['added-by'];
-    $itemType = $_POST['item-type'];
+    $itemType = $_POST['item_type'];
+    $itemCategory = $_POST['item_category'];
     $model = $_POST['model'];
     $serie = $_POST['serie'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
-    // $totalPrice = $_POST['total-price'];
+    // $totalPrice = $_POST['total_price'];
     
     if( empty($addedBy) || empty($quantity) || empty($itemType)|| empty($model) || empty($serie)  || empty($price)) {
         header('location: index.php?error_msg= Some fields are empty.');
@@ -18,7 +19,7 @@ if(isset($_POST['add_model'])) {
 
       
     // Prepare and execute the Insert query
-   $query = "INSERT INTO model_19 ( `added_by`, `item-type`, `model`, `serie`, `quantity`, `price`) VALUES ( '$addedBy', '$itemType', '$model', '$serie', '$quantity', '$price')";
+   $query = "INSERT INTO model_19 ( `added_by`, `item_type`, `item_category`, `model`, `serie`, `quantity`, `price`) VALUES ( '$addedBy', '$itemType', '$itemCategory', '$model', '$serie', '$quantity', '$price')";
 
         $result = mysqli_query($connection, $query);
 

@@ -14,8 +14,15 @@
             </div>
             
             <div class="form-group mb-2">
-                     <input type="text" class="form-control" id="item-type" name="item-type" placeholder="የእቃው ዝርዝር" value="<?php echo $row['item-type'] ?>">
+                     <input type="text" class="form-control" id="item_type" name="item_type" placeholder="የእቃው ዝርዝር" value="<?php echo $row['item_type'] ?>">
             </div>
+
+             <div class="form-group input-box mb-2">
+                    <select name="item_category" class="select-option">
+                        <option value="consumable">አላቂ እቃ</option>
+                        <option value="non-consumable">የማያልቅ እቃ</option>
+                    </select>
+              </div> 
 
             <div class="form-group mb-2">
                

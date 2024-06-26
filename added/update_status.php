@@ -15,9 +15,9 @@ if(isset($_GET['action']) && isset($_GET['id'])) {
 
     // Update status based on action
     if($action == 'approve') {
-        $query = "UPDATE model_19 SET `status` = 'approved' WHERE `ordinary-number` = $id";
+        $query = "UPDATE model_19 SET `status` = 'approved' WHERE `ordinary_number` = $id";
     } elseif($action == 'decline') {
-        $query = "UPDATE model_19 SET `status` = 'declined' WHERE `ordinary-number` = $id";
+        $query = "UPDATE model_19 SET `status` = 'declined' WHERE `ordinary_number` = $id";
     }
 
     $result = mysqli_query($connection, $query);

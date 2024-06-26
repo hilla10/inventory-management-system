@@ -31,7 +31,7 @@ if(isset($_POST['add_user'])) {
         if(!$result) {
             die("Query Failed" . mysqli_error($connection));
         } else {
-            header('location: index.php?insert_msg=Congratulations! You have successfully registered');
+            header('location: index.php?insert_msg=Congratulations! You have successfully usersed');
         }
 
     }

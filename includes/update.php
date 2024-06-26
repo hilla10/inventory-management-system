@@ -11,11 +11,11 @@ if (session_status() == PHP_SESSION_NONE) {
 $currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
 
 // Fetch the item details to be updated
-if (isset($_GET['ordinary-number']) && isset($_GET['department'])) {
-    $ordinary_number = $_GET['ordinary-number'];
+if (isset($_GET['ordinary_number']) && isset($_GET['department'])) {
+    $ordinary_number = $_GET['ordinary_number'];
     $department = $_GET['department'];
 
-    $query = "SELECT * FROM `inventory` WHERE `department` = ? AND `ordinary-number` = ?";
+    $query = "SELECT * FROM `inventory` WHERE `department` = ? AND `ordinary_number` = ?";
     $stmt = $connection->prepare($query);
     $stmt->bind_param('ss', $department, $ordinary_number);
     $stmt->execute();
@@ -37,19 +37,20 @@ if (isset($_POST['update_items'])) {
     }
 
     
-    $itemType = $_POST['item-type'];
-    $inventoryList = $_POST['inventory-list'];
+    $itemType = $_POST['item_type'];
+    $itemCategory = $_POST['item_category'];
+    $inventoryList = $_POST['inventory_list'];
     $description = $_POST['description'];
     $measure = $_POST['measure'];
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
-    $totalPrice = $_POST['total-price'];
+    $totalPrice = $_POST['total_price'];
     $examination = $_POST['examination'];
 
     // Update the item details using a prepared statement
-    $query = "UPDATE `inventory` SET `department` = ?, `item-type` = ?, `inventory-list` = ?, `description` = ?, `measure` = ?, `quantity` = ?, `price` = ?, `examination` = ? WHERE `department` = ? AND `ordinary-number` = ?";
+    $query = "UPDATE `inventory` SET `department` = ?, `item_type` = ?, `item_category` = ?, `inventory_list` = ?, `description` = ?, `measure` = ?, `quantity` = ?, `price` = ?, `examination` = ? WHERE `department` = ? AND `ordinary_number` = ?";
     $stmt = $connection->prepare($query);
-    $stmt->bind_param('ssssssdsss', $department, $itemType, $inventoryList, $description, $measure, $quantity, $price,  $examination, $department, $new_number);
+    $stmt->bind_param('sssssssdsss', $department, $itemType,$itemCategory, $inventoryList, $description, $measure, $quantity, $price,  $examination, $department, $new_number);
 
     if ($stmt->execute()) {
         $redirectUrl = '../' . $currentPage . '?update_msg=You have successfully updated the data';

@@ -150,13 +150,13 @@ echo $_SESSION['currentPage'];
                 $search = $_GET['search'];
                 $query = "SELECT * FROM `inventory` 
                           WHERE `department` = 'BUSINESS' 
-                          AND `inventory-list` LIKE '%$search%'
-                          ORDER BY `inventory-list` $order 
+                          AND `inventory_list` LIKE '%$search%'
+                          ORDER BY `inventory_list` $order 
                           LIMIT $itemsPerPage OFFSET $offset";
             } else {
                 $query = "SELECT * FROM `inventory` 
                           WHERE `department` = 'BUSINESS'
-                          ORDER BY `ordinary-number` $order 
+                          ORDER BY `ordinary_number` $order 
                           LIMIT $itemsPerPage OFFSET $offset";
             }
 
@@ -164,7 +164,7 @@ echo $_SESSION['currentPage'];
             // Count total number of rows without LIMIT for pagination
             $countQuery = "SELECT COUNT(*) AS total FROM `inventory` WHERE `department` = 'BUSINESS'";
             if (isset($_GET['search']) && !empty($_GET['search'])) {
-                $countQuery .= " AND `inventory-list` LIKE '%$search%'";
+                $countQuery .= " AND `inventory_list` LIKE '%$search%'";
             }
             $countResult = mysqli_query($connection, $countQuery);
 
@@ -189,6 +189,7 @@ echo $_SESSION['currentPage'];
                             <th>ዲፖርትመንት</th>
                             <th>የእቃው ዝርዝር</th>
                             <th>የእቃው አይነት</th>
+                            <th>የእቃው ምድብ</th>
                             <th>መግለጫ</th>
                             <th>መለኪያ</th>
                             <th>ብዛት</th>
@@ -206,19 +207,20 @@ echo $_SESSION['currentPage'];
                             $itemCount++;
                         ?>
                         <tr>
-                            <td><?php echo $row['ordinary-number']?></td>
+                            <td><?php echo $row['ordinary_number']?></td>
                             <td><?php echo $row['department']?></td>
-                            <td><?php echo $row['inventory-list']?></td>
-                            <td><?php echo $row['item-type']?></td>
+                            <td><?php echo $row['inventory_list']?></td>
+                            <td><?php echo $row['item_type']?></td>
+                            <td><?php echo $row['item_category']?></td>
                             <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['description']?></td>
                             <td><?php echo $row['measure']?></td>
                             <td><?php echo $row['quantity']?></td>
                             <td><?php echo $row['price']?></td>
-                            <td><?php echo $row['total-price']?></td>
+                            <td><?php echo $row['total_price']?></td>
                             <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']?></td>
-                            <td><a href="../includes/update.php?ordinary-number=<?php echo $row['ordinary-number']?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
+                            <td><a href="../includes/update.php?ordinary_number=<?php echo $row['ordinary_number']?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
                             <td>
-                                <a href="../includes/delete.php?ordinary-number=<?php echo $row['ordinary-number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary-number']; ?>', '<?php echo htmlspecialchars($row['inventory-list']); ?>')">Delete</a>
+                                <a href="../includes/delete.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary_number']; ?>', '<?php echo htmlspecialchars($row['inventory_list']); ?>')">Delete</a>
                             </td>
                         </tr>
                         <script>
@@ -249,7 +251,7 @@ echo $_SESSION['currentPage'];
                             // Count total number of rows without LIMIT for pagination
                             $countQuery = "SELECT COUNT(*) AS total FROM `inventory` WHERE `department` = 'BUSINESS'";
                             if (isset($_GET['search']) && !empty($_GET['search'])) {
-                                $countQuery .= " AND `inventory-list` LIKE '%$search%'";
+                                $countQuery .= " AND `inventory_list` LIKE '%$search%'";
                             }
                             $countResult = mysqli_query($connection, $countQuery);
                             $rowCount = mysqli_fetch_assoc($countResult)['total'];

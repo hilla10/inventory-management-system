@@ -1,6 +1,6 @@
-// Validation user and department register
+// Validation user and department user
 
-import { registerValidation } from './register_validation.js';
+import { userValidation } from './user_validation.js';
 
 // validation item form
 import {
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const price = document.getElementById('price');
   const calculateTotalPrice = () => {
     const totalPrice = quantity.value * price.value;
-    document.getElementById('total-price').value = totalPrice.toFixed(2);
+    document.getElementById('total_price').value = totalPrice.toFixed(2);
   };
 
   quantity.addEventListener('input', calculateTotalPrice);
@@ -132,11 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const insertModelAppForm = document.querySelector('.insert-model-app-form');
   const modelQuantity = insertModelAppForm.querySelector('#quantity');
   const modelPrice = insertModelAppForm.querySelector('#price');
-  
 
   const calculateModelTotalPrice = () => {
     const totalPrice = modelQuantity.value * modelPrice.value;
-    insertModelAppForm.querySelector('#total-price').value = totalPrice.toFixed(2);
+    insertModelAppForm.querySelector('#total_price').value =
+      totalPrice.toFixed(2);
   };
 
   modelPrice.addEventListener('input', calculateModelTotalPrice);
@@ -175,9 +175,21 @@ document.addEventListener('DOMContentLoaded', function () {
   income.addEventListener('input', calculateRemain);
   cost.addEventListener('input', calculateRemain);
 
-  // Validation user and department register
+  // for input styling
 
-  registerValidation();
+  document.querySelectorAll('.input-box input').forEach((input) => {
+    input.addEventListener('input', () => {
+      if (input.value.trim() !== '') {
+        input.classList.add('has-content');
+      } else {
+        input.classList.remove('has-content');
+      }
+    });
+  });
+
+  // Validation user and department user
+
+  userValidation();
 
   // validation item form
   itemValidation();
@@ -190,5 +202,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // validation for model 19
   validationModel20();
-
 });

@@ -3,9 +3,9 @@ export const itemValidation = () => {
   // Get the form element
   const insertAppForm = document.querySelector('.insert-app-form');
   const shakeContent = document.querySelector('.shake-content');
-  const inventoryList = document.getElementById('inventory-list');
+  const inventoryList = document.getElementById('inventory_list');
+  const itemType = document.getElementById('item_type');
   const description = document.getElementById('description');
-  const measure = document.getElementById('measure');
   const inputQuantity = document.getElementById('quantity');
   const inputPrice = document.getElementById('price');
   const examination = document.getElementById('examination');
@@ -37,75 +37,90 @@ export const itemValidation = () => {
   };
 
   // Event listener for form submission
-  insertAppForm.addEventListener('submit', (event) => {
-    let isValid = true;
-
-    // Validate inventoryList input
-    if (!validateInput(inventoryList)) {
-      isValid = false;
-    }
-
-    // Validate description input
-    if (!validateInput(description)) {
-      isValid = false;
-    }
-
-    // Validate measure input
-    if (!validateInput(measure)) {
-      isValid = false;
-    }
-
-    // Validate quantity input
-    if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
-      isValid = false;
-    }
-
-    // Validate price input
-    if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
-      isValid = false;
-    }
-
-    // Validate examination input
-    if (!validateInput(examination)) {
-      isValid = false;
-    }
-
-    // Prevent form submission if validation fails
-    if (!isValid) {
-      event.preventDefault();
-      shakeContent.classList.add('shake');
-      setTimeout(() => {
-        shakeContent.classList.remove('shake');
-      }, 500);
-    }
-  });
+  if (insertAppForm) {
+    
+    insertAppForm.addEventListener('submit', (event) => {
+      let isValid = true;
+  
+      // Validate inventoryList input
+      if (!validateInput(inventoryList)) {
+        isValid = false;
+      }
+  
+      // Validate item type input
+      if (!validateInput(itemType)) {
+        isValid = false;
+      }
+  
+      // Validate description input
+      if (!validateInput(description)) {
+        isValid = false;
+      }
+  
+      // Validate quantity input
+      if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
+        isValid = false;
+      }
+  
+      // Validate price input
+      if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
+        isValid = false;
+      }
+  
+      // Validate examination input
+      if (!validateInput(examination)) {
+        isValid = false;
+      }
+  
+      // Prevent form submission if validation fails
+      if (!isValid) {
+        event.preventDefault();
+        shakeContent.classList.add('shake');
+        setTimeout(() => {
+          shakeContent.classList.remove('shake');
+        }, 500);
+      }
+    });
+  }
 
   // Event listeners for input fields to validate dynamically
-  inventoryList.addEventListener('input', () => {
-    validateInput(inventoryList);
-  });
+  if (inventoryList) {
+    inventoryList.addEventListener('input', () => {
+      validateInput(inventoryList);
+    });
+  }
 
-  description.addEventListener('input', () => {
-    validateInput(description);
-  });
+  if (itemType) {
+    itemType.addEventListener('input', () => {
+      validateInput(itemType);
+    });
+  }
 
-  measure.addEventListener('input', () => {
-    validateInput(measure);
-  });
+  if (description) {
+    description.addEventListener('input', () => {
+      validateInput(description);
+    });
+  }
 
-  inputQuantity.addEventListener('input', () => {
-    validateInput(inputQuantity);
-    validateNumber(inputQuantity);
-  });
+  if (inputQuantity) {
+    inputQuantity.addEventListener('input', () => {
+      validateInput(inputQuantity);
+      validateNumber(inputQuantity);
+    });
+  }
 
-  inputPrice.addEventListener('input', () => {
-    validateInput(inputPrice);
-    validateNumber(inputPrice);
-  });
+  if (inputPrice) {
+    inputPrice.addEventListener('input', () => {
+      validateInput(inputPrice);
+      validateNumber(inputPrice);
+    });
+  }
 
-  examination.addEventListener('input', () => {
-    validateInput(examination);
-  });
+  if (examination) {
+    examination.addEventListener('input', () => {
+      validateInput(examination);
+    });
+  }
 };
 
 /* ********************  */
@@ -215,11 +230,11 @@ export const binCardValidation = () => {
 // validation for model 19
 export const validationModel19 = () => {
   const insertAppForm = document.querySelector('.insert-model-app-form');
-  const shakeContent = document.querySelector('.shake-content');
-  const name = document.getElementById('added-by');
-  const itemType = document.getElementById('item-type');
-  const model = document.getElementById('model');
-  const serie = document.getElementById('serie');
+  const shakeContent = insertAppForm.querySelector('.shake-content');
+  const name = insertAppForm.querySelector('#added-by');
+  const itemType = insertAppForm.querySelector('#item_type');
+  const model = insertAppForm.querySelector('#model');
+  const serie = insertAppForm.querySelector('#serie');
   const inputQuantity = insertAppForm.querySelector('#quantity');
   const inputPrice = insertAppForm.querySelector('#price');
 
@@ -339,7 +354,6 @@ export const validationModel19 = () => {
   });
 };
 
-
 /* ********************  */
 
 // validation for model 20
@@ -347,7 +361,7 @@ export const validationModel20 = () => {
   const insertAppForm = document.querySelector('.insert-model20-app-form');
   const shakeContent = insertAppForm.querySelector('.shake-content');
   const name = insertAppForm.querySelector('#requested-by');
-  const itemType = insertAppForm.querySelector('#item-type');
+  const itemType = insertAppForm.querySelector('#item_type');
   const model = insertAppForm.querySelector('#model');
   const update = insertAppForm.querySelector('#update');
   const inputQuantity = insertAppForm.querySelector('#quantity');
@@ -413,8 +427,7 @@ export const validationModel20 = () => {
     if (!validateInput(model)) {
       isValid = false;
     }
- 
-      
+
     // Validate update input
     if (!validateInput(update)) {
       isValid = false;
@@ -424,8 +437,6 @@ export const validationModel20 = () => {
     if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
       isValid = false;
     }
-
-    
 
     // Prevent form submission if validation fails
     if (!isValid) {
@@ -452,8 +463,6 @@ export const validationModel20 = () => {
     validateInput(model);
   });
 
-
-    
   update.addEventListener('input', () => {
     validateInput(update);
   });
@@ -462,5 +471,4 @@ export const validationModel20 = () => {
     validateInput(inputQuantity);
     validateNumber(inputQuantity);
   });
-
 };

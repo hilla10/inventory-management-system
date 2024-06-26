@@ -4,10 +4,10 @@
     <?php
 
 
-    if (isset($_GET['ordinary-number'])) {
-        $ordinary_number = $_GET['ordinary-number'];
+    if (isset($_GET['ordinary_number'])) {
+        $ordinary_number = $_GET['ordinary_number'];
 
-        $query = "SELECT * FROM  `model_20` WHERE `ordinary-number` = '$ordinary_number'";
+        $query = "SELECT * FROM  `model_20` WHERE `ordinary_number` = '$ordinary_number'";
 
         $result = mysqli_query($connection, $query);
 
@@ -28,11 +28,12 @@
         }
 
     $quantity = $_POST['quantity'];
-    $itemType = $_POST['item-type'];
+    $itemType = $_POST['item_type'];
+    $itemCategory = $_POST['item_category'];
     $model = $_POST['model'];
     $update = $_POST['update'];
 
-        $query = "UPDATE `model_20` set `quantity` = '$quantity', `item-type` = '$itemType', `model` = '$model', `update` = '$update' WHERE `ordinary-number` = '$new_number'";
+        $query = "UPDATE `model_20` set `quantity` = '$quantity', `item_type` = '$itemType', `item_category`, '$itemCategory', `model` = '$model', `update` = '$update' WHERE `ordinary_number` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
 

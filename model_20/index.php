@@ -142,12 +142,12 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 
             if (isset($_GET['search']) && !empty($_GET['search'])) {
                 $search = $_GET['search'];
-                $query = "SELECT * FROM `model_20` `item-type` LIKE '%$search%'
-                          ORDER BY `item-type` $order 
+                $query = "SELECT * FROM `model_20` `item_category` LIKE '%$search%'
+                          ORDER BY `item_category` $order 
                           LIMIT $itemsPerPage OFFSET $offset";
             } else {
                 $query = "SELECT * FROM `model_20` 
-                          ORDER BY `ordinary-number` $order 
+                          ORDER BY `ordinary_number` $order 
                           LIMIT $itemsPerPage OFFSET $offset";
             }
 
@@ -155,7 +155,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
             // Count total number of rows without LIMIT for pagination
             $countQuery = "SELECT COUNT(*) AS total FROM `model_20`";
             if (isset($_GET['search']) && !empty($_GET['search'])) {
-                $countQuery .= " AND `item-type` LIKE '%$search%'";
+                $countQuery .= " AND `item_category` LIKE '%$search%'";
             }
             $countResult = mysqli_query($connection, $countQuery);
 
@@ -178,6 +178,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                                     <th>ተራ ቁጥር</th>
                                     <th>ብዛት</th>
                                     <th>የእቃው አይነት</th>
+                                    <th>የእቃው ምድብ</th>
                                     <th>ሞዴል</th>
                                     <th>ማሻሻያ</th>
                                     <th>Update</th>
@@ -189,13 +190,14 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['ordinary-number']; ?></td>
+                                        <td><?php echo $row['ordinary_number']; ?></td>
                                         <td><?php echo $row['quantity']; ?></td>
-                                        <td><?php echo $row['item-type']; ?></td>
+                                        <td><?php echo $row['item_type']; ?></td>
+                                        <td><?php echo $row['item_category']; ?></td>
                                         <td><?php echo $row['model']; ?></td>
                                         <td><?php echo $row['update']; ?></td>
-                                        <td><a href="update.php?ordinary-number=<?php echo $row['ordinary-number']; ?>" class="btn btn-success">Update</a></td>
-                                        <td><a href="delete.php?ordinary-number=<?php echo $row['ordinary-number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a></td>
+                                        <td><a href="update.php?ordinary_number=<?php echo $row['ordinary_number']; ?>" class="btn btn-success">Update</a></td>
+                                        <td><a href="delete.php?ordinary_number=<?php echo $row['ordinary_number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a></td>
                                     </tr>
                                     <?php
                                 }
@@ -221,7 +223,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                             // Count total number of rows without LIMIT for pagination
                             $countQuery = "SELECT COUNT(*) AS total FROM `model_20`";
                             if (isset($_GET['search']) && !empty($_GET['search'])) {
-                                $countQuery .= " AND `item-type` LIKE '%$search%'";
+                                $countQuery .= " AND `item_category` LIKE '%$search%'";
                             }
                             $countResult = mysqli_query($connection, $countQuery);
                             $rowCount = mysqli_fetch_assoc($countResult)['total'];

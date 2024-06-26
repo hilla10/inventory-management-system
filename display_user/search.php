@@ -4,9 +4,9 @@ include('../includes/dbcon.php');
 if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field'])) {
     $search = $_GET['search'];
     $field = $_GET['field'];
-    $query = "SELECT * FROM `register` WHERE $field LIKE '%$search%'";
+    $query = "SELECT * FROM users WHERE $field LIKE '%$search%'";
 } else {
-    $query = "SELECT * FROM `register`";
+    $query = "SELECT * FROM users";
 }
 
 $result = mysqli_query($connection, $query);

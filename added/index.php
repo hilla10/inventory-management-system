@@ -70,7 +70,7 @@ function updateItemStatus($itemId, $status) {
     global $connection;
 
     // Prepare statement to update status
-    $query = "UPDATE model_19 SET status = ? WHERE ordinary-number = ?";
+    $query = "UPDATE model_19 SET status = ? WHERE ordinary_number = ?";
     $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($stmt, "si", $status, $itemId);
     mysqli_stmt_execute($stmt);
@@ -171,9 +171,10 @@ function updateItemStatus($itemId, $status) {
     <div class="form-group mb-2">
         <select name="field" class="form-select">
             <option value="select field">Select field</option>
-            <option value="ordinary-number" <?php if(isset($_GET['field']) && $_GET['field'] == 'ordinary-number') echo 'selected'; ?>>ID</option>
+            <option value="ordinary_number" <?php if(isset($_GET['field']) && $_GET['field'] == 'ordinary_number') echo 'selected'; ?>>ID</option>
             <option value="added_by" <?php if(isset($_GET['field']) && $_GET['field'] == 'added_by') echo 'selected'; ?>>Added By</option>
-            <option value="item-type" <?php if(isset($_GET['field']) && $_GET['field'] == 'item-type') echo 'selected'; ?>>Item type</option>
+            <option value="item_type" <?php if(isset($_GET['field']) && $_GET['field'] == 'item_type') echo 'selected'; ?>>Item type</option>
+            <option value="item_type" <?php if(isset($_GET['field']) && $_GET['field'] == 'item_category') echo 'selected'; ?>>Item category</option>
             <option value="model" <?php if(isset($_GET['field']) && $_GET['field'] == 'model') echo 'selected'; ?>>Model</option>
             <option value="serie" <?php if(isset($_GET['field']) && $_GET['field'] == 'serie') echo 'selected'; ?>>Serie</option>
             <option value="quantity" <?php if(isset($_GET['field']) && $_GET['field'] == 'quantity') echo 'selected'; ?>>Quantity</option>
@@ -239,7 +240,7 @@ if (!empty($field) && $field != 'select field') {
     }
 } else {
     // Default query if no valid sorting parameters are provided
-    $query = "SELECT * FROM model_19 ORDER BY `ordinary-number` DESC LIMIT $usersPerPage OFFSET $offset";
+    $query = "SELECT * FROM model_19 ORDER BY `ordinary_number` DESC LIMIT $usersPerPage OFFSET $offset";
 }
 
 // Execute the query
@@ -284,6 +285,7 @@ if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) &
                                     <th>id</th>
                                     <th>Added By</th>
                                     <th>Item Type</th>
+                                    <th>Item Category</th>
                                     <th>Model</th>
                                     <th>Serie</th>
                                     <th>Quantity</th>
@@ -308,25 +310,28 @@ if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) &
                                     ?>
                                     <tr>
                                         <td>
-                                            <?php echo $row['ordinary-number']; ?>
+                                            <?php echo $row['ordinary_number']; ?>
                                             <?php if ($isNew) { ?>
                                                 <span class="badge bg-danger">New</span>
                                             <?php } ?>
                                         </td>
                                         <td><?php echo $row['added_by']; ?></td>
-                                        <td><?php echo $row['item-type']; ?></td>
+                                        <td><?php echo $row['item_type']; ?></td>
+                                        <td><?php echo $row['item_category']; ?></td>
                                         <td><?php echo $row['model']; ?></td>
                                         <td><?php echo $row['serie']; ?></td>
                                         <td><?php echo $row['quantity']; ?></td>
                                         <td><?php echo $row['price']; ?></td>
-                                        <td><?php echo $row['total-price']; ?></td>
+                                        <td><?php echo $row['total_price']; ?></td>
                                         <td><?php echo date('Y-m-d', strtotime($row['timestamp'])); ?></td>
 
                                         <td><?php echo $row['status']; ?></td>
                                         <td>
                                             <!-- Always show links/buttons to approve or decline -->
-                                            <a class="btn btn-success action my-1" href="index.php?action=approve&id=<?php echo $row['ordinary-number']; ?>">Approve</a>
-                                            <a class="btn btn-danger action" href="index.php?action=decline&id=<?php echo $row['ordinary-number']; ?>">Decline</a>
+                                        <div class="d-flex gap-2">
+                                            <a class="btn btn-success action my-1" href="index.php?action=approve&id=<?php echo $row['ordinary_number']; ?>">Approve</a>
+                                            <a class="btn btn-danger action  my-1" href="index.php?action=decline&id=<?php echo $row['ordinary_number']; ?>">Decline</a> 
+                                        </div>
                                         </td>
                                     </tr>
                                 <?php
