@@ -25,7 +25,7 @@
       <!-- main js -->
 <script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
 
-  <title>User users</title>
+  <title>User Register</title>
     
 </head>
 <body  class="body text-light">
@@ -66,7 +66,7 @@ if (isset($_POST['add_user'])) {
     $gender = trim($_POST['gender']);
     $age = trim($_POST['age']);
     $email = trim($_POST['email']);
-    $phone = trim($_POST['Phone']);
+    $phone = trim($_POST['phone']);
     $position = trim($_POST['position']);
     $password = $_POST['password'];
     $confirm = $_POST['confirm'];
@@ -111,7 +111,7 @@ if (isset($_POST['add_user'])) {
     $stmtCheckEmail->execute();
     $stmtCheckEmail->store_result();
 
-    $stmtCheckPhone = $connection->prepare("SELECT Phone FROM users WHERE Phone = ?");
+    $stmtCheckPhone = $connection->prepare("SELECT phone FROM users WHERE phone = ?");
     $stmtCheckPhone->bind_param("s", $phone);
     $stmtCheckPhone->execute();
     $stmtCheckPhone->store_result();
@@ -133,7 +133,7 @@ if (isset($_POST['add_user'])) {
 
     try {
         // Insert the input values into the users table
-        $stmtusers = $connection->prepare("INSERT INTO users (username, gender, age, email, Phone, options, `password`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmtusers = $connection->prepare("INSERT INTO users (username, gender, age, email, phone, options, `password`) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmtusers->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
         $stmtusers->execute();
 

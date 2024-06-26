@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control phone" name="Phone">
+                        <input  type="text" class="form-control phone" name="phone">
                         <span>ስልክ ቁጥር ያስገቡ |Enter your phone.no|</span>
                     </div>
 
@@ -173,7 +173,7 @@
                     </div>
 
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control phone" name="Phone">
+                        <input  type="text" class="form-control phone" name="phone">
                         <span>ስልክ ቁጥር ያስገቡ |Enter your phone.no|</span>
                     </div>
 
@@ -216,6 +216,61 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input  type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- modal for department user -->
+<form action="../includes/department_register.php" method="post" class="userForm">
+    <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Department</h1>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="fs-3 text-center py-3">የዲፓርትመንት ምዝገባ ቅጽ</h2>
+                    <div class="form-group input-box mb-2">
+                        <input  type="text" class="form-control name" id="username" name="username">
+                        <span>ስሞትን ያስገቡ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input  type="email" class="form-control email" name="email">
+                        <span>ኢሜል ያስገቡ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <input  type="number" class="form-control age" id="age" name="age">
+                        <span>አድሜ ያስገቡ</span>
+                    </div>
+                  <div class="form-group input-box mb-2">
+                            <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
+                            <select name="gender" class="select-option">
+                                <option value="male">ወንድ</option>
+                                <option value="female">ሴት</option>
+                            </select>
+                        </div>
+                    <div class="form-group input-box mb-2">
+                        <input  type="text" class="form-control phone" id="phone" name="phone">
+                        <span>ስልክ ቁጥር ያስገቡ</span>
+                    </div>
+                    <div class="form-group input-box mb-2">
+                        <div class="form-group input-box mb-2">
+                            <label for="position" class="py-2">ያሉበትን ሁኔታ ይምረጡ:</label>
+                            <select name="position" class="select-option">
+                                <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
+                                <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
+                                <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
+                                <option value="auto head">የአውቶ ዲፓርትመንት ሄድ</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input  type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
                 </div>
             </div>
         </div>
@@ -459,60 +514,6 @@
     </div>
 </form>
 
-<!-- modal for department user -->
-<form action="../includes/department_register.php" method="post" class="userForm">
-    <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Department</h1>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h2 class="fs-3 text-center py-3">የዲፓርትመንት ምዝገባ ቅጽ</h2>
-                    <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control name" id="username" name="username">
-                        <span>ስሞትን ያስገቡ</span>
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input  type="email" class="form-control email" name="email">
-                        <span>ኢሜል ያስገቡ</span>
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input  type="number" class="form-control age" id="age" name="age">
-                        <span>አድሜ ያስገቡ</span>
-                    </div>
-                  <div class="form-group input-box mb-2">
-                            <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
-                            <select name="gender" class="select-option">
-                                <option value="male">ወንድ</option>
-                                <option value="female">ሴት</option>
-                            </select>
-                        </div>
-                    <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control phone" id="Phone" name="phone">
-                        <span>ስልክ ቁጥር ያስገቡ</span>
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <div class="form-group input-box mb-2">
-                            <label for="position" class="py-2">ያሉበትን ሁኔታ ይምረጡ:</label>
-                            <select name="position" class="select-option">
-                                <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
-                                <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
-                                <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
-                                <option value="auto head">የአውቶ ዲፓርትመንት ሄድ</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input  type="submit" class="btn btn-success" name="add_department" value="አስገባ"></input>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 
 <!-- notification modal -->
 <div class="modal fade" id="Modal9" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">

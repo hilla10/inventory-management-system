@@ -1,4 +1,4 @@
-// Validation user and department users
+// Validation user and Department Register
 
 export const userValidation = () => {
   // Get the form element by its ID
@@ -29,170 +29,20 @@ export const userValidation = () => {
       });
     });
 
-    // Phone validation
-    // const phones = document.querySelectorAll('.phone');
-
-    // const isValidPhone = (phoneValue) => {
-    //   // Allow empty/null phone numbers
-    //   if (!phoneValue) return true;
-
-    //   const phoneRegex =
-    //     /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-
-    //   console.log('phone Regex ' + phoneRegex.test(phoneValue));
-    //   return phoneRegex.test(phoneValue);
-    //   };
-
-    // phones.forEach((phone) => {
-    //   phone.addEventListener('input', () => {
-    //     const value = phone.value.trim(); // Remove leading/trailing whitespace
-
-    //     if (isValidPhone(value)) {
-    //       phone.classList.remove('error-input');
-    //       phone.classList.add('success-input');
-    //       console.log('Phone is valid');
-    //     } else {
-    //       phone.classList.remove('success-input');
-    //       phone.classList.add('error-input');
-    //       console.log('Phone is NOT valid');
-    //     }
-    //   });
-
-    //   // Set initial value and handle user input for prefix +251
-    //   phone.value = '+251 ';
-    //   phone.addEventListener('input', () => {
-    //     const value = phone.value.trim(); // Remove leading/trailing whitespace
-
-    //     // Check if the input starts with +251
-    //     if (value && !value.startsWith('+251 ')) {
-    //       // If not, reset to +251
-    //       phone.value = '+251 ';
-    //     }
-    //   });
-
-    //   // Prevent user from removing the prefix +251
-    //   phone.addEventListener('keydown', (event) => {
-    //     const value = phone.value.trim(); // Remove leading/trailing whitespace
-    //     console.log('value ' + value);
-
-    //     // Allow arrow keys and backspace
-    //     if (
-    //       event.key === 'ArrowLeft' ||
-    //       event.key === 'ArrowRight' ||
-    //       event.key === 'Backspace'
-    //     ) {
-    //       return;
-    //     }
-
-    //     // Prevent modifying the prefix +251
-    //     if (phone.selectionStart < 5) {
-    //       console.log('select error');
-    //       event.preventDefault();
-    //     } else {
-    //       console.log('select success');
-    //     }
-    //   });
-    // });
-
-    // Phone validation
-    // const phones = formUser.querySelectorAll('.phone');
-
-    // const isValidPhone = (phoneValue) => {
-    //   // Allow empty/null phone numbers
-    //   if (!phoneValue) return true;
-
-    //   const PhoneRegex =
-    //     /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-    //   return PhoneRegex.test(phoneValue);
-    // };
-
-    // phones.forEach((phone) => {
-    //   phone.addEventListener('input', () => {
-    //     'Phone input value:', phone.value;
-    //     if (isValidPhone(phone.value)) {
-    //       phone.classList.remove('error-input');
-    //       phone.classList.add('success-input');
-    //       ('Phone is valid');
-    //     } else {
-    //       phone.classList.remove('success-input');
-    //       phone.classList.add('error-input');
-    //       ('Phone is NOT valid');
-    //     }
-    //   });
-    // });
-
-    // const phoneNumberInput = document.querySelectorAll('.phone');
-
-    // // Initial value
-    // phoneNumberInput.value = '+251 ';
-
-    // // Handle user input
-    // phoneNumberInput.forEach((phone) => {
-    //   phone.value = '+251 ';
-    //   phone.addEventListener('input', () => {
-    //     // Check if the input starts with +251
-    //     if (!phone.value.startsWith('+251 ')) {
-    //       // If not, reset to +251
-    //       phone.value = '+251 ';
-    //     }
-    //   });
-    // });
-
-    // // Prevent user from removing the prefix
-    // phoneNumberInput.forEach((phone) => {
-    //   phone.addEventListener('keydown', function (event) {
-    //     // Allow arrow keys and backspace
-    //     if (
-    //       event.key === 'ArrowLeft' ||
-    //       event.key === 'ArrowRight' ||
-    //       event.key === 'Backspace'
-    //     ) {
-    //       return;
-    //     }
-
-    //     // Prevent modifying the prefix
-    //     if (phoneNumberInput.selectionStart < 6) {
-    //       event.preventDefault();
-    //     }
-    //   });
-    // });
-
-    // // Name validation
-    // const names = formUser.querySelectorAll('.name');
-
-    // const isValidName = (nameValue) => {
-    //   const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
-    //   return nameRegex.test(nameValue);
-    // };
-
-    // names.forEach((name) => {
-    //   name.addEventListener('input', () => {
-    //     'Name input value:', name.value;
-    //     if (isValidName(name.value)) {
-    //       name.classList.remove('error-input');
-    //       name.classList.add('success-input');
-    //       ('Name is valid');
-    //     } else {
-    //       name.classList.remove('success-input');
-    //       name.classList.add('error-input');
-    //       ('Name is NOT valid');
-    //     }
-    //   });
-    // });
-
-
+    /* starting Phone validation */
+    
    const phones = document.querySelectorAll('.phone');
 
    const isValidPhone = (phoneValue) => {
      // Allow empty/null phone numbers
      if (!phoneValue) return true;
 
-     const PhoneRegex =
+     const phoneRegex =
        /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
      const numericPhoneValue = phoneValue.replace(/[^\d]/g, '');
 
      return (
-       PhoneRegex.test(phoneValue) &&
+       phoneRegex.test(phoneValue) &&
        (numericPhoneValue.length === 12 || numericPhoneValue.length === 13)
      );
    };

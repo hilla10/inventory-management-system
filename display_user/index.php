@@ -198,7 +198,7 @@ if (!empty($field) && $field != 'select field') {
     }
 } else {
     // Default query if no valid sorting parameters are provided
-    $query = "SELECT * FROM users WHERE  email != 'admin@gmail.com' ORDER BY `id` DESC LIMIT $usersPerPage OFFSET $offset";
+    $query = "SELECT * FROM users WHERE  email != 'admin@gmail.com' ORDER BY `id` ASC LIMIT $usersPerPage OFFSET $offset";
 }
 
             if(!empty($errors)) {

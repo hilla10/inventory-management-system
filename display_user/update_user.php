@@ -34,11 +34,11 @@
 
             <div class="form-group mb-2 input-box">
                
-                     <input type="text" class="form-control" id="phone" name="phone" placeholder="የእቃው ዝርዝር" value="<?php echo $row['Phone'] ?>">
+                     <input type="text" class="form-control" id="phone" name="phone" placeholder="የእቃው ዝርዝር" value="<?php echo $row['phone'] ?>">
             </div>
-<div class="form-group ">
+<div class="form-group mb-2 input-box">
     <label for="options text-dark">ያሉበትን ሁኔታ ይምረጡ:|Enter your position|</label>
-    <select name="options" class="form-select">
+    <select name="options" class="select-option">
         <option value="it head" <?php if ($row['options'] == 'it head') echo 'selected'; ?>>የአይቲ ዲፓርትመንት ሄድ</option>
         <option value="business head" <?php if ($row['options'] == 'business head') echo 'selected'; ?>>የቢዝነስ ዲፓርትመንት ሄድ</option>
         <option value="art head" <?php if ($row['options'] == 'art head') echo 'selected'; ?>>የአርት ዲፓርትመንት ሄድ</option>

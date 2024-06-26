@@ -26,7 +26,7 @@
       <!-- main js -->
 <script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
 
-  <title>Department users</title>
+  <title>Department Register</title>
     
 </head>
 <body  class="body text-light">
