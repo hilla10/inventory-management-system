@@ -76,11 +76,11 @@ $totalDepartments = $rowDepartments['total_departments'];
             <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
                     <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal2">Add Department</a>
+                        data-bs-target="#ModalDepartment">Add Department</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#Modal1">Add User</a>
+                        data-bs-target="#ModalUser">Add User</a>
                 </li>
                
 
@@ -90,7 +90,7 @@ $totalDepartments = $rowDepartments['total_departments'];
                     
        <li class="nav-item">
                         <button type="button" class="btn btn-danger mb-3 mb-lg-0  me-3" data-bs-toggle="modal"
-                            data-bs-target="#Modal4">
+                            data-bs-target="#ModalDelete">
                             Delete User
                         </button>
                     </li>

@@ -118,7 +118,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                         <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
-                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal6">Add Items</button>
+                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalModel20">Add Items</button>
             </div>
 
              
@@ -289,14 +289,19 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
     </div>
 </div>
 
-<!-- Include message -->
+<!-- message -->
 <?php include('../includes/message.php'); ?>
 
-<!-- Include modal -->
+<!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
-<!-- Include footer -->
+<!-- update item -->
+<?php include('../includes/update.php'); ?>
+
+<!-- footer -->
 <?php include('../includes/footer.php'); ?>
+
 
 <script>
 function confirmDelete() {

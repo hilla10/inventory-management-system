@@ -118,7 +118,7 @@ echo $_SESSION['currentPage'];
                         <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
-                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal3">Add Items</button>
+                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalBinCard">Add Items</button>
             </div>
 
           <?php
@@ -296,7 +296,9 @@ echo $_SESSION['currentPage'];
 <?php include('../includes/message.php'); ?>
 
 <!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
 <!-- footer -->
 <?php include('../includes/footer.php'); ?>
+

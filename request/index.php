@@ -258,11 +258,17 @@ function updateItemStatus($itemId, $status) {
             </div>
         </div>
     </div>
-    <!-- Include footer -->
-    <?php include('../includes/footer.php'); ?>
-</div>
 
+<!-- message -->
 <?php include('../includes/message.php'); ?>
+
+<!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
+<?php include('../includes/modal.php'); ?>
+
+<!-- footer -->
+<?php include('../includes/footer.php'); ?>
+
 
 <script>
 function confirmDelete() {

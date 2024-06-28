@@ -158,18 +158,18 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                 <ul class="navbar-nav mx-auto ">
                     <li class="nav-item">
                         <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                            data-bs-target="#Modal2">Add Department</a>
+                            data-bs-target="#ModalDepartment">Add Department</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                            data-bs-target="#Modal1">Add User</a>
+                            data-bs-target="#ModalUser">Add User</a>
                     </li>
                 </ul>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <button type="button" class="btn mb-3 mb-lg-0 me-3 position-relative"
-                                data-bs-toggle="modal" data-bs-target="#Modal9">
+                                data-bs-toggle="modal" data-bs-target="#notificationModal">
                                 <i class="fa-solid fa-bell fs-4 text-light"></i>
                                 <span class="message_count"><?php echo $totalNotifications; ?></span>
                             </button>
@@ -177,7 +177,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                         </li>
                         <li class="nav-item">
                             <button type="button" class="btn btn-danger mb-3 mb-lg-0  me-3" data-bs-toggle="modal"
-                                data-bs-target="#Modal4">
+                                data-bs-target="#ModalDelete">
                                 Delete User
                             </button>
                         </li>
@@ -336,6 +336,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
 <?php include('../includes/message.php'); ?>
 
 <!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
 <?php include('../includes/footer.php'); ?>

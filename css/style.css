@@ -202,7 +202,7 @@ a {
   font-size: 1.2rem;
 }
 
-form .modal-content {
+.modal-content {
   background: #175374;
 }
 
@@ -281,7 +281,7 @@ form .outline input:active {
   transition: transform 0.5s ease;
 }
 
-.input-box input.has-content~ span,
+.input-box input.has-content ~ span,
 .input-box input.phone:valid ~ span,
 .input-box input:focus ~ span,
 .input-box input:active ~ span,
@@ -311,8 +311,8 @@ form .input-box input:active {
   box-shadow: 0 -2px 0.2rem rgba(255, 4, 4, 0.788);
 }
 
-.input-box .success-input.has-content  ~ span,
-.input-box .success-input.phone:valid  ~ span,
+.input-box .success-input.has-content ~ span,
+.input-box .success-input.phone:valid ~ span,
 .input-box .success-input:focus ~ span,
 .input-box .success-input:active ~ span {
   color: #fff !important;
@@ -329,8 +329,6 @@ form .input-box input:active {
   border: 2px solid #008000;
   box-shadow: 0 0 0.5rem 0.15rem rgba(60, 255, 0, 0.459) !important;
 }
-
-
 
 .message {
   margin-bottom: 1rem;
@@ -666,7 +664,6 @@ form .input-box input:active {
   font-size: 95px;
 }
 
-
 .small-box > .small-box-footer {
   position: relative;
   text-align: center;
@@ -680,7 +677,7 @@ form .input-box input:active {
 }
 
 .small-box-footer .fa {
-  transition: transform .3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .small-box-footer:hover .fa {

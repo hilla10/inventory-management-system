@@ -1,339 +1,443 @@
-// Validation user and Department Register
+// Validation user and
 
 export const userValidation = () => {
-  // Get the form element by its ID
-  const formUser = document.querySelectorAll('.userForm');
+  // Get the form element by its class name
+  const formUser = document.querySelector('.userForm');
 
-  formUser.forEach((formUser) => {
-    // Email validation
-    const emails = formUser.querySelectorAll('.email');
+  // Email validation
+  const email = formUser.querySelector('.userForm .email');
 
+  const isValidEmail = (emailValue) => {
+    const emailRegex =
+      /^(?!.*?[.]{2})[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(emailValue);
+  };
+
+  email.addEventListener('input', () => {
+    if (isValidEmail(email.value)) {
+      email.classList.remove('error-input');
+      email.classList.add('success-input');
+    } else {
+      email.classList.remove('success-input');
+      email.classList.add('error-input');
+    }
+  });
+
+  /* starting Phone validation */
+
+  // Select the phone input element
+  const phone = document.querySelector('.userForm .phone');
+
+  // Regular expression for validating phone number format
+  const phoneRegex =
+    /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+
+  // Function to check if a phone number is valid
+  const isValidPhone = (phoneValue) => {
+    // Allow empty/null phone numbers
+    if (!phoneValue) return true;
+
+    // Replace all non-digit characters with empty string
+    const numericPhoneValue = phoneValue.replace(/[^\d]/g, '');
+
+    // Check if the phone value matches the regex and is of correct length
+    return (
+      phoneRegex.test(phoneValue) &&
+      (numericPhoneValue.length === 12 || numericPhoneValue.length === 13)
+    );
+  };
+
+  // Initialize phone input with the prefix +251 and validate/format input
+  phone.value = '+251 ';
+  phone.addEventListener('input', () => {
+    let value = phone.value.trim(); // Remove leading/trailing whitespace
+
+    // Check if the input starts with +251
+    if (!value.startsWith('+251 ')) {
+      // If not, reset to +251
+      value = '+251 ';
+    }
+
+    // Remove all non-digit characters except for allowed ones
+    const cleanedValue = value.replace(/[^+\d\s()-]/g, '');
+    phone.value = cleanedValue;
+
+    // Perform validation and apply appropriate styling
+    if (isValidPhone(cleanedValue)) {
+      phone.classList.remove('error-input');
+      phone.classList.add('success-input');
+    } else {
+      phone.classList.remove('success-input');
+      phone.classList.add('error-input');
+    }
+  });
+
+  // Event listener to prevent modification of the prefix and restrict input
+  phone.addEventListener('keydown', (event) => {
+    const value = phone.value.trim(); // Remove leading/trailing whitespace
+    const numericValue = value.replace(/[^\d]/g, '');
+
+    // Allow arrow keys, backspace, delete, and specific special characters
+    if (
+      event.key === 'ArrowLeft' ||
+      event.key === 'ArrowRight' ||
+      event.key === 'Backspace' ||
+      event.key === 'Delete' ||
+      event.key === ' ' ||
+      event.key === '-' ||
+      event.key === '(' ||
+      event.key === ')'
+    ) {
+      return;
+    }
+    // Allow tab key to navigate to the next input field
+    if (event.key === 'Tab') {
+      return;
+    }
+
+    // Allow Enter key to submit the form
+    if (event.key === 'Enter') {
+      return;
+    }
+
+    // Prevent modifying the prefix +251 and ensure only numbers are entered
+    if (
+      phone.selectionStart < 4 ||
+      numericValue.length >= 13 ||
+      !/^\d$/.test(event.key)
+    ) {
+      event.preventDefault();
+    }
+  });
+
+  /* end of phone validation */
+
+  // Age validation
+  const age = formUser.querySelector('.userForm .age');
+  const isValidAge = (ageValue) => {
+    const ageRegex = /^\d+$/;
+    return ageRegex.test(ageValue);
+  };
+
+  age.addEventListener('input', () => {
+    if (isValidAge(age.value)) {
+      age.classList.remove('error-input');
+      age.classList.add('success-input');
+    } else {
+      age.classList.remove('success-input');
+      age.classList.add('error-input');
+    }
+  });
+
+  // Name validation
+  const name = formUser.querySelector('.userForm .name');
+  const isValidName = (nameValue) => {
+    const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
+    return nameRegex.test(nameValue);
+  };
+
+  name.addEventListener('input', () => {
+    if (isValidName(name.value)) {
+      name.classList.remove('error-input');
+      name.classList.add('success-input');
+    } else {
+      name.classList.remove('success-input');
+      name.classList.add('error-input');
+    }
+  });
+
+  // Password validation
+  const password = formUser.querySelector('.userForm .validPassword');
+  const confirmPassword = formUser.querySelector('.userForm .confirm');
+
+  const isValidPassword = (passwordValue) => {
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=\[\]{};:'",.<>\/?]).{8,}$/;
+    return passwordRegex.test(passwordValue);
+  };
+
+  const validatePassword = () => {
+    const passwordValue = password.value;
+    const isValid = isValidPassword(passwordValue);
+
+    if (isValid) {
+      password.classList.remove('error-input');
+      password.classList.add('success-input');
+    } else {
+      password.classList.remove('success-input');
+      password.classList.add('error-input');
+    }
+
+    // Validate criteria separately
+    const criteriaChecks = {
+      'char-length': /.{8,}/.test(passwordValue),
+      'char-lowercase-letter': /[a-z]/.test(passwordValue),
+      'char-uppercase-letter': /[A-Z]/.test(passwordValue),
+      digit: /\d/.test(passwordValue),
+      'special-char': /[!@#$%^&*()\-_=\[\]{};:'",.<>\/?]/.test(passwordValue),
+    };
+
+    for (const [className, isValid] of Object.entries(criteriaChecks)) {
+      const element = formUser.querySelector(`.${className}`);
+      if (isValid) {
+        element.classList.remove('error');
+        element.classList.add('success');
+      } else {
+        element.classList.remove('success');
+        element.classList.add('error');
+      }
+    }
+  };
+
+  password.addEventListener('input', validatePassword);
+
+  confirmPassword.addEventListener('input', () => {
+    if (isValidPassword(confirmPassword.value)) {
+      confirmPassword.classList.remove('error-input');
+      confirmPassword.classList.add('success-input');
+    } else {
+      confirmPassword.classList.remove('success-input');
+      confirmPassword.classList.add('error-input');
+    }
+  });
+
+  // Form submission handling
+  formUser.addEventListener('submit', (event) => {
+    let isFormValid = true;
+
+    // Validate all fields
+    if (!isValidEmail(email.value)) {
+      isFormValid = false;
+      email.classList.add('error-input');
+    }
+
+    if (!isValidPhone(phone.value)) {
+      isFormValid = false;
+      phone.classList.add('error-input');
+    }
+
+    if (!isValidName(name.value)) {
+      isFormValid = false;
+      name.classList.add('error-input');
+    }
+
+    if (!isValidAge(age.value)) {
+      isFormValid = false;
+      age.classList.add('error-input');
+    }
+
+    if (!isValidPassword(password.value)) {
+      isFormValid = false;
+      password.classList.add('error-input');
+    }
+
+    if (!isValidPassword(confirmPassword.value)) {
+      isFormValid = false;
+      confirmPassword.add('error-input');
+    }
+
+    // If form is valid, submit it
+    if (isFormValid) {
+      formUser.submit();
+    } else {
+      event.preventDefault();
+      // Add shake animation to the form
+      formUser.classList.add('shake');
+
+      // Remove shake animation after 0.5s (duration of shake animation)
+      setTimeout(() => {
+        formUser.classList.remove('shake');
+      }, 500);
+    }
+  });
+};
+
+// Validation user and Department Register
+
+export const DepartmentValidation = () => {
+  // Get the form element by its class
+  const formDepartment = document.querySelector('.departmentForm');
+
+  if (formDepartment) {
+    // Email validation within the department form
+    const email = formDepartment.querySelector('.email');
     const isValidEmail = (emailValue) => {
       const emailRegex =
         /^(?!.*?[.]{2})[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       return emailRegex.test(emailValue);
     };
-
-    emails.forEach((email) => {
-      email.addEventListener('input', () => {
-        'Email input value:', email.value;
-        if (isValidEmail(email.value)) {
-          email.classList.remove('error-input');
-          email.classList.add('success-input');
-          ('Email is valid');
-        } else {
-          email.classList.remove('success-input');
-          email.classList.add('error-input');
-          ('Email is NOT valid');
-        }
-      });
+    email.addEventListener('input', () => {
+      const value = email.value.trim();
+      if (isValidEmail(value)) {
+        email.classList.remove('error-input');
+        email.classList.add('success-input');
+      } else {
+        email.classList.remove('success-input');
+        email.classList.add('error-input');
+      }
     });
 
     /* starting Phone validation */
 
-    const phones = document.querySelectorAll('.phone');
+    // Select the phone input element within the department form
+    const phone = formDepartment.querySelector('.phone');
 
+    // Regular expression for validating phone number format
+    const phoneRegex =
+      /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+
+    // Function to check if a phone number is valid
     const isValidPhone = (phoneValue) => {
       // Allow empty/null phone numbers
       if (!phoneValue) return true;
 
-      const phoneRegex =
-        /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+      // Replace all non-digit characters with empty string
       const numericPhoneValue = phoneValue.replace(/[^\d]/g, '');
 
+      // Check if the phone value matches the regex and is of correct length
       return (
         phoneRegex.test(phoneValue) &&
         (numericPhoneValue.length === 12 || numericPhoneValue.length === 13)
       );
     };
 
-    phones.forEach((phone) => {
-      phone.addEventListener('input', () => {
-        const value = phone.value.trim(); // Remove leading/trailing whitespace
+    // Initialize phone input with the prefix +251 and validate/format input
+    phone.value = '+251 ';
+    phone.addEventListener('input', () => {
+      let value = phone.value.trim(); // Remove leading/trailing whitespace
 
-        if (isValidPhone(value)) {
-          phone.classList.remove('error-input');
-          phone.classList.add('success-input');
-        } else {
-          phone.classList.remove('success-input');
-          phone.classList.add('error-input');
-        }
-      });
+      // Check if the input starts with +251
+      if (!value.startsWith('+251 ')) {
+        // If not, reset to +251
+        value = '+251 ';
+      }
 
-      // Set initial value and handle user input for prefix +251
-      phone.value = '+251 ';
-      phone.addEventListener('input', () => {
-        const value = phone.value.trim(); // Remove leading/trailing whitespace
+      // Remove all non-digit characters except for allowed ones
+      const cleanedValue = value.replace(/[^+\d\s()-]/g, '');
+      phone.value = cleanedValue;
 
-        // Check if the input starts with +251
-        if (value && !value.startsWith('+251 ')) {
-          // If not, reset to +251
-          phone.value = '+251 ';
-        }
+      // Perform validation and apply appropriate styling
+      if (isValidPhone(cleanedValue)) {
+        phone.classList.remove('error-input');
+        phone.classList.add('success-input');
+      } else {
+        phone.classList.remove('success-input');
+        phone.classList.add('error-input');
+      }
+    });
 
-        // Remove all non-digit characters except for allowed ones
-        const cleanedValue = phone.value.replace(/[^+\d\s()-]/g, '');
-        phone.value = cleanedValue;
-      });
+    // Event listener to prevent modification of the prefix and restrict input
+    phone.addEventListener('keydown', (event) => {
+      const value = phone.value.trim(); // Remove leading/trailing whitespace
+      const numericValue = value.replace(/[^\d]/g, '');
 
-      // Prevent user from removing the prefix +251 and ensure only numbers are entered
-      phone.addEventListener('keydown', (event) => {
-        const value = phone.value.trim(); // Remove leading/trailing whitespace
-        const numericValue = value.replace(/[^\d]/g, '');
+      // Allow arrow keys, backspace, delete, and specific special characters
+      if (
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight' ||
+        event.key === 'Backspace' ||
+        event.key === 'Delete' ||
+        event.key === ' ' ||
+        event.key === '-' ||
+        event.key === '(' ||
+        event.key === ')'
+      ) {
+        return;
+      }
+      // Allow tab key to navigate to the next input field
+      if (event.key === 'Tab') {
+        return;
+      }
+      // Allow Enter key to submit the form
+      if (event.key === 'Enter') {
+        return;
+      }
 
-        // Allow arrow keys, backspace, delete, and specific special characters
-        if (
-          event.key === 'ArrowLeft' ||
-          event.key === 'ArrowRight' ||
-          event.key === 'Backspace' ||
-          event.key === 'Delete' ||
-          event.key === ' ' ||
-          event.key === '-' ||
-          event.key === '(' ||
-          event.key === ')'
-        ) {
-          return;
-        }
-
-        // Prevent modifying the prefix +251
-        if (
-          phone.selectionStart < 5 ||
-          numericValue.length >= 13 ||
-          !/^\d$/.test(event.key)
-        ) {
-          event.preventDefault();
-        }
-      });
+      // Prevent modifying the prefix +251 and ensure only numbers are entered
+      if (
+        phone.selectionStart < 4 ||
+        numericValue.length >= 13 ||
+        !/^\d$/.test(event.key)
+      ) {
+        event.preventDefault();
+      }
     });
 
     /* end of phone validation */
 
     // Age validation
-    const ages = formUser.querySelectorAll('.age');
-
+    const age = formDepartment.querySelector('.age');
     const isValidAge = (ageValue) => {
       const ageRegex = /^\d+$/;
       return ageRegex.test(ageValue);
     };
-
-    ages.forEach((age) => {
-      age.addEventListener('input', () => {
-        'Age input value:', age.value;
-        if (isValidAge(age.value)) {
-          age.classList.remove('error-input');
-          age.classList.add('success-input');
-        } else {
-          age.classList.remove('success-input');
-          age.classList.add('error-input');
-        }
-      });
+    age.addEventListener('input', () => {
+      const value = age.value.trim();
+      if (isValidAge(value)) {
+        age.classList.remove('error-input');
+        age.classList.add('success-input');
+      } else {
+        age.classList.remove('success-input');
+        age.classList.add('error-input');
+      }
     });
 
     // Name validation
-    const names = document.querySelectorAll('.name');
-
+    const name = formDepartment.querySelector('.name');
     const isValidName = (nameValue) => {
       const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
       return nameRegex.test(nameValue);
     };
-
-    names.forEach((name) => {
-      name.addEventListener('input', () => {
-        'Name input value:', name.value;
-        if (isValidName(name.value)) {
-          name.classList.remove('error-input');
-          name.classList.add('success-input');
-        } else {
-          name.classList.remove('success-input');
-          name.classList.add('error-input');
-        }
-      });
-    });
-
-    // Password validation
-    const passwords = formUser.querySelectorAll('.validPassword');
-    const confirmPasswords = formUser.querySelectorAll('.confirm');
-    const charLength = formUser.querySelectorAll('.char-length');
-    const charLowercaseLetter = formUser.querySelectorAll(
-      '.char-lowercase-letter'
-    );
-    const charUppercaseLetter = formUser.querySelectorAll(
-      '.char-uppercase-letter'
-    );
-    const digit = formUser.querySelectorAll('.digit');
-    const specialChar = formUser.querySelectorAll('.special-char');
-
-    const isValidPassword = (passwordValue) => {
-      const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=\[\]{};:'",.<>\/?]).{8,}$/;
-      const charLengthRegex = /.{8,}/;
-      const charLowercaseLetterRegex = /[a-z]/;
-      const charUppercaseLetterRegex = /[A-Z]/;
-      const digitRegex = /\d/;
-      const specialCharRegex = /[!@#$%^&*()\-_=\[\]{};:'",.<>\/?]/;
-
-      return {
-        isValid: passwordRegex.test(passwordValue),
-        charLength: charLengthRegex.test(passwordValue),
-        charLowercaseLetter: charLowercaseLetterRegex.test(passwordValue),
-        charUppercaseLetter: charUppercaseLetterRegex.test(passwordValue),
-        digit: digitRegex.test(passwordValue),
-        specialChar: specialCharRegex.test(passwordValue),
-      };
-    };
-
-    const validatePasswords = (password) => {
-      const validationResult = isValidPassword(password.value);
-
-      if (validationResult.isValid) {
-        password.classList.remove('error-input');
-        password.classList.add('success-input');
+    name.addEventListener('input', () => {
+      const value = name.value.trim();
+      if (isValidName(value)) {
+        name.classList.remove('error-input');
+        name.classList.add('success-input');
       } else {
-        password.classList.remove('success-input');
-        password.classList.add('error-input');
+        name.classList.remove('success-input');
+        name.classList.add('error-input');
       }
-
-      charLength.forEach((elem) => {
-        if (validationResult.charLength) {
-          elem.classList.remove('error');
-          elem.classList.add('success');
-        } else {
-          elem.classList.remove('success');
-          elem.classList.add('error');
-        }
-      });
-
-      charLowercaseLetter.forEach((elem) => {
-        if (validationResult.charLowercaseLetter) {
-          elem.classList.remove('error');
-          elem.classList.add('success');
-        } else {
-          elem.classList.remove('success');
-          elem.classList.add('error');
-        }
-      });
-
-      charUppercaseLetter.forEach((elem) => {
-        if (validationResult.charUppercaseLetter) {
-          elem.classList.remove('error');
-          elem.classList.add('success');
-        } else {
-          elem.classList.remove('success');
-          elem.classList.add('error');
-        }
-      });
-
-      digit.forEach((elem) => {
-        if (validationResult.digit) {
-          elem.classList.remove('error');
-          elem.classList.add('success');
-        } else {
-          elem.classList.remove('success');
-          elem.classList.add('error');
-        }
-      });
-
-      specialChar.forEach((elem) => {
-        if (validationResult.specialChar) {
-          elem.classList.remove('error');
-          elem.classList.add('success');
-        } else {
-          elem.classList.remove('success');
-          elem.classList.add('error');
-        }
-      });
-    };
-
-    passwords.forEach((password) => {
-      password.addEventListener('input', () => {
-        validatePasswords(password);
-      });
-    });
-
-    // validate confirm password
-    const validateConfirmPasswords = (confirmPassword) => {
-      const validationResult = isValidPassword(confirmPassword.value);
-
-      confirmPasswords.forEach((confirmPassword) => {
-        if (validationResult.isValid) {
-          confirmPassword.classList.remove('error-input');
-          confirmPassword.classList.add('success-input');
-        } else {
-          confirmPassword.classList.remove('success-input');
-          confirmPassword.classList.add('error-input');
-        }
-      });
-    };
-
-    confirmPasswords.forEach((confirmPassword) => {
-      confirmPassword.addEventListener('input', () => {
-        validateConfirmPasswords(confirmPassword);
-      });
     });
 
     // Form submission handling
-    formUser.addEventListener('submit', (event) => {
-      let isFormValid = true;
+    formDepartment.addEventListener('submit', (event) => {
+      let isDepartmentFormValid = true;
 
-      // Validate all fields
-      emails.forEach((email) => {
-        if (!isValidEmail(email.value)) {
-          isFormValid = false;
-          email.classList.add('error-input');
-        }
-      });
+      if (!isValidEmail(email.value)) {
+        isDepartmentFormValid = false;
+        email.classList.add('error-input');
+      }
 
-      phones.forEach((phone) => {
-        if (!isValidPhone(phone.value)) {
-          isFormValid = false;
-          phone.classList.add('error-input');
-        } 
-      });
+      if (!isValidPhone(phone.value)) {
+        isDepartmentFormValid = false;
+        phone.classList.add('error-input');
+      }
 
-      names.forEach((name) => {
-        if (!isValidName(name.value)) {
-          isFormValid = false;
-          name.classList.add('error-input');
-        }
-      });
+      if (!isValidName(name.value)) {
+        isDepartmentFormValid = false;
+        name.classList.add('error-input');
+      }
 
-      ages.forEach((age) => {
-        if (!isValidAge(age.value)) {
-          isFormValid = false;
-          age.classList.add('error-input');
-          console.log('age error');
-        } else {
-          console.log('age succcess');
-        }
-      });
+      if (!isValidAge(age.value)) {
+        isDepartmentFormValid = false;
+        age.classList.add('error-input');
+      }
 
-      passwords.forEach((password) => {
-        const validationResult = isValidPassword(password.value);
-        if (!validationResult.isValid) {
-          isFormValid = false;
-          password.classList.add('error-input');
-          console.log('password error');
-        } else {
-          console.log('password succcess');
-        }
-      });
+      // Prevent default form submission behavior
+      event.preventDefault();
 
-      const formContents = formUser.querySelectorAll('.form-content');
-      // If form is valid, submit it
-      if (isFormValid) {
-        formUser.submit();
+      // Add shake animation to the form if validation fails
+      if (!isDepartmentFormValid) {
+        formDepartment.classList.add('shake');
+
+        // Remove shake animation after 0.5s (duration of shake animation)
+        setTimeout(() => {
+          formDepartment.classList.remove('shake');
+        }, 500);
       } else {
-        event.preventDefault();
-        // Add shake animation to the form
-        formContents.forEach((formContent) => {
-          formContent.classList.add('shake');
-
-          // Remove shake animation after 0.5s (duration of shake animation)
-          setTimeout(() => {
-            formContent.classList.remove('shake');
-          }, 500);
-        });
+        // If form is valid, submit it programmatically
+        formDepartment.submit();
       }
     });
-  });
+  }
 };

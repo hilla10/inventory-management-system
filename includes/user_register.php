@@ -34,15 +34,10 @@
 // Include the database connection file
 include('dbcon.php');
 
-// Include the header file
-// include('header.php');
-
 // Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
-
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
@@ -65,8 +60,8 @@ if (isset($_POST['add_user'])) {
     $name = trim($_POST['username']);
     $gender = trim($_POST['gender']);
     $age = trim($_POST['age']);
-    $email = trim($_POST['email']);
-    $phone = trim($_POST['phone']);
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
     $position = trim($_POST['position']);
     $password = $_POST['password'];
     $confirm = $_POST['confirm'];
@@ -74,12 +69,14 @@ if (isset($_POST['add_user'])) {
     // Perform additional validation if needed
     $errors = [];
 
-    if (empty($name) || empty($gender) || empty($email) || empty($age)|| empty($position) || empty($password) || empty($confirm)) {
+    if (empty($name) || empty($gender) || empty($age) || empty($position) || empty($password) || empty($confirm)) {
         $errors[] = "Some fields are empty.";
     }
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    
+    // Ensure either email or phone is provided or neither, but not both
+    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Please enter a valid email address.";
-    } else {
+    } else if (!empty($email)) {
         // Extract domain from email
         $domain = explode('@', $email)[1];
         // Check if domain has valid DNS records
@@ -87,11 +84,21 @@ if (isset($_POST['add_user'])) {
             $errors[] = "Please enter a valid email address.";
         }
     }
+
+    if (!empty($phone)) {
+        // Validate phone number format
+        $phoneRegex = "/^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$/";
+        if (!preg_match($phoneRegex, $phone)) {
+            $errors[] = "Please enter a valid phone number.";
+        }
+    }
+
+
     if (strlen($password) < 8) {
         $errors[] = "Please enter a password with a minimum of 8 characters.";
     }
     if ($password !== $confirm) {
-        $errors[] = "The password do not match.";
+        $errors[] = "The passwords do not match.";
     }
 
     // If there are errors, redirect back to the form with an error message
@@ -106,23 +113,34 @@ if (isset($_POST['add_user'])) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Check if the email or phone already exists in the database
-    $stmtCheckEmail = $connection->prepare("SELECT email FROM users WHERE email = ?");
-    $stmtCheckEmail->bind_param("s", $email);
-    $stmtCheckEmail->execute();
-    $stmtCheckEmail->store_result();
+    $stmtCheckEmail = null;
+    $stmtCheckPhone = null;
 
-    $stmtCheckPhone = $connection->prepare("SELECT phone FROM users WHERE phone = ?");
-    $stmtCheckPhone->bind_param("s", $phone);
-    $stmtCheckPhone->execute();
-    $stmtCheckPhone->store_result();
+    if (!empty($email)) {
+        $stmtCheckEmail = $connection->prepare("SELECT email FROM users WHERE email = ?");
+        $stmtCheckEmail->bind_param("s", $email);
+        $stmtCheckEmail->execute();
+        $stmtCheckEmail->store_result();
+    }
 
-    if ($stmtCheckEmail->num_rows > 0) {
-        $message = "The email address is already usersed.";
-        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-        header('Location: ' . $redirectUrl);
-        exit;
-    } elseif ($stmtCheckPhone->num_rows > 0) {
-        $message = "The phone number is already usersed.";
+    if (!empty($phone)) {
+        $stmtCheckPhone = $connection->prepare("SELECT phone FROM users WHERE phone = ?");
+        $stmtCheckPhone->bind_param("s", $phone);
+        $stmtCheckPhone->execute();
+        $stmtCheckPhone->store_result();
+    }
+
+    // Handle email and phone checks
+    $emailExists = ($stmtCheckEmail && $stmtCheckEmail->num_rows > 0);
+    $phoneExists = ($stmtCheckPhone && $stmtCheckPhone->num_rows > 0);
+
+    if ($emailExists) {
+        $message = "The email address is already registered.";
+    }
+    if ($phoneExists) {
+        $message = "The phone number is already registered.";
+    }
+    if ($emailExists || $phoneExists) {
         $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
         header('Location: ' . $redirectUrl);
         exit;
@@ -138,32 +156,35 @@ if (isset($_POST['add_user'])) {
         $stmtusers->execute();
 
         if ($stmtusers->affected_rows > 0) {
-        
-                // Commit transaction
-                $connection->commit();
-                $message = "Congratulations! You have successfully usersed.";
-                $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
-                header('Refresh: 3; URL=' . $redirectUrl);
-                exit;
-            } else {
-                // Rollback transaction if the user table insert failed
-                $connection->rollback();
-                die("Failed to insert into the users table.");
-            }
-        
+            // Commit transaction
+            $connection->commit();
+            $message = "Congratulations! You have successfully added a new user.";
+            $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
+            header('Refresh: 3; URL=' . $redirectUrl);
+            exit;
+        } else {
+            // Rollback transaction if the user table insert failed
+            $connection->rollback();
+            die("Failed to insert into the users table.");
+        }
     } catch (mysqli_sql_exception $exception) {
         // Rollback transaction on exception
         $connection->rollback();
         die("Query Failed: " . $exception->getMessage());
     } finally {
         // Close statements
-        $stmtCheckEmail->close();
-        $stmtCheckPhone->close();
+        if ($stmtCheckEmail) {
+            $stmtCheckEmail->close();
+        }
+        if ($stmtCheckPhone) {
+            $stmtCheckPhone->close();
+        }
         $stmtusers->close();
-        $stmtUser->close();
     }
 }
 ?>
+
+
 
 </body>
 </html>

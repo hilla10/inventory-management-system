@@ -32,8 +32,9 @@ ALTER TABLE `users` AUTO_INCREMENT=001;
 -- Define the phone format and length constraint
 ALTER TABLE users
 ADD CONSTRAINT `chk_phone_format_length`
-CHECK ( phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$'
+CHECK ( phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$'
     
+
 );
 
 
@@ -63,12 +64,16 @@ CREATE TABLE department_registration (
 
 
 -- phone format
-ALTER TABLE `department_registration` ADD CONSTRAINT `chk_phone_format_length_dr` CHECK ( phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$'
+ALTER TABLE `department_registration` ADD CONSTRAINT `chk_phone_format_length_dr` CHECK ( phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$'
     
 );
 
 -- AUTO_INCREMENT for table `department_registration`
 ALTER TABLE `department_registration` AUTO_INCREMENT=001;
+
+INSERT INTO department_registration (username, gender, email, age, phone, position)
+VALUES ('admin', 'male', 'admin@gmail.com', 21, '+251 99-555-1234', 'admin');
+
 
 
 /* ********************************************** */

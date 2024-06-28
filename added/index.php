@@ -202,7 +202,7 @@ function updateItemStatus($itemId, $status) {
     <!-- Include search input and submit button here -->
 </form>
 
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalUser">Add User</button>
     </div>
                 
             <?php
@@ -430,3 +430,5 @@ if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) &
 
 <!-- Include Message Display -->
 <?php include('../includes/message.php'); ?>
+
+<?php include('../includes/modal.php'); ?>

@@ -1,6 +1,6 @@
 // Validation user and department user
 
-import { userValidation } from './user_validation.js';
+import { userValidation, DepartmentValidation } from './user_validation.js';
 
 // validation item form
 import {
@@ -117,35 +117,40 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Calculate total price for items
-  const quantity = document.getElementById('quantity');
-  const price = document.getElementById('price');
+  const insertAppForm = document.querySelector('.insert-app-form');
+  const quantity = document.querySelector('#quantity');
+  const price = document.querySelector('#price');
+
   const calculateTotalPrice = () => {
     const totalPrice = quantity.value * price.value;
-    document.getElementById('total_price').value = totalPrice.toFixed(2);
+    document.querySelector('#total_price').value = totalPrice.toFixed(2);
   };
 
+  if (quantity) {
     quantity.addEventListener('input', calculateTotalPrice);
+  }
 
-
+  if (price) {
     price.addEventListener('input', calculateTotalPrice);
+  }
 
   // calculate total price for model 19
 
   const insertModelAppForm = document.querySelector('.insert-model-app-form');
 
-     const modelQuantity = insertModelAppForm.querySelector('#quantity');
-  const modelPrice = insertModelAppForm.querySelector('#price');
+  if (insertModelAppForm) {
+    const modelQuantity = insertModelAppForm.querySelector('#quantity');
+    const modelPrice = insertModelAppForm.querySelector('#price');
 
-  const calculateModelTotalPrice = () => {
-    const totalPrice = modelQuantity.value * modelPrice.value;
-    insertModelAppForm.querySelector('#total_price').value =
-      totalPrice.toFixed(2);
-  
+    const calculateModelTotalPrice = () => {
+      const totalPrice = modelQuantity.value * modelPrice.value;
+      insertModelAppForm.querySelector('#total_price').value =
+        totalPrice.toFixed(2);
+    };
 
-  modelPrice.addEventListener('input', calculateModelTotalPrice);
-  modelQuantity.addEventListener('input', calculateModelTotalPrice);
+    modelPrice.addEventListener('input', calculateModelTotalPrice);
+    modelQuantity.addEventListener('input', calculateModelTotalPrice);
   }
- 
 
   // Get dropdown toggle button and dropdown menu
   const dropdownToggle = document.getElementById('dropdownMenuButton');
@@ -178,8 +183,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('remain').value = remain;
   };
 
-  income.addEventListener('input', calculateRemain);
-  cost.addEventListener('input', calculateRemain);
+  if (income) {
+    income.addEventListener('input', calculateRemain);
+  }
+
+  if (cost) {
+    cost.addEventListener('input', calculateRemain);
+  }
 
   // for input styling
 
@@ -193,19 +203,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Validation user and department user
-
-  userValidation();
+  // validation for bin card
+  binCardValidation();
 
   // validation item form
   itemValidation();
-
-  // validation for bin card
-  binCardValidation();
 
   // validation for model 19
   validationModel19();
 
   // validation for model 19
   validationModel20();
+
+  // Validation department users
+  DepartmentValidation();
+
+  // Validation user
+  userValidation();
 });

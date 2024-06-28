@@ -158,7 +158,7 @@ if (isset($title) && !empty($title)) {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalUser">Add User</button>
     </div>
     
 
@@ -363,7 +363,9 @@ if (!empty($field) && $field != 'select field') {
 <!-- message -->
 <?php include('../includes/message.php'); ?>
 
-    <!-- Modal -->
-    <?php include('../includes/modal.php'); ?>
+<!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
+<?php include('../includes/modal.php'); ?>
 
-    <?php include('../includes/footer.php'); ?>
+<!-- footer -->
+<?php include('../includes/footer.php'); ?>

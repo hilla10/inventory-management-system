@@ -21,7 +21,7 @@ $_SESSION['currentPage'] = $currentPage;
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 echo $_SESSION['currentPage'];
 // Check if the user is logged in and has the appropriate role
-if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
+if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
 
     // Redirect to specific pages based on the role
     if ($_SESSION['options'] === 'business head') {
@@ -32,6 +32,9 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
         exit();
     } elseif ($_SESSION['options'] === 'auto head') {
         header('Location: ../auto/index.php');
+        exit();
+    }elseif ($_SESSION['options'] === 'it head') {
+        header('Location: ../it/index.php');
         exit();
     }
 }
@@ -152,7 +155,7 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'it head') {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal2">Add Department</button>
+        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalDepartment">Add Department</button>
     </div>
     
    
@@ -353,11 +356,13 @@ if (!empty($field) && $field != 'select field') {
     </div>
     </div>
 
-
 <!-- message -->
 <?php include('../includes/message.php'); ?>
 
+<!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
+
 
 <!-- footer -->
 <?php include('../includes/footer.php'); ?>

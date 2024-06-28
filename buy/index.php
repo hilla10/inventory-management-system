@@ -103,7 +103,7 @@ echo $_SESSION['currentPage'];
                         <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
-                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal">Add Items</button>
+                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalItem">Add Items</button>
             </div>
 
             <?php
@@ -200,9 +200,12 @@ echo $_SESSION['currentPage'];
 <?php include('../includes/message.php'); ?>
 
 <!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
+<!-- update item -->
 <?php include('../includes/update.php'); ?>
 
-
+<!-- footer -->
 <?php include('../includes/footer.php'); ?>
+

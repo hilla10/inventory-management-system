@@ -56,10 +56,10 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
             <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal" data-bs-target="#Modal2">Add Department</a>
+                        <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal" data-bs-target="#ModalDepartment">Add Department</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal" data-bs-target="#Modal1">Add User</a>
+                        <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal" data-bs-target="#ModalUser">Add User</a>
                     </li>
                 </ul>
                 <div class="d-flex">
@@ -131,7 +131,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                         <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
-                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#Modal">Add Items</button>
+                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalItem">Add Items</button>
             </div>
 
             <?php
@@ -325,10 +325,13 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 <?php include('../includes/message.php'); ?>
 
 <!-- Modal -->
+<?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
+<!-- update item -->
 <?php include('../includes/update.php'); ?>
 
+<!-- footer -->
 <?php include('../includes/footer.php'); ?>
 
 <?php

@@ -54,15 +54,20 @@
                                 <div aria-labelledby="dropdownMenuButton">
                                 </div>
 
+<!-- Modal -->
+<?php include('includes/register_modal.php'); ?>
 <?php include('includes/modal.php'); ?>
+
+<!-- footer -->
 <?php include('includes/footer.php'); ?>
+
 
 <script>
   // Handle click event on the users button
   document.getElementById('usersBtn').addEventListener('click', (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
     // Manually open the modal using its ID
-    var myModal = new bootstrap.Modal(document.getElementById('Modal5'));
+    var myModal = new bootstrap.Modal(document.getElementById('ModalUserLogin'));
     myModal.show();
   });
 </script>

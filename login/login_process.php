@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
                 // Password is correct, proceed with login
                 $_SESSION['loggedin'] = true;
                 $_SESSION['email'] = $row['email'];
-                $_SESSION['options'] = $row['option'];
+                $_SESSION['options'] = $row['options'];
 
                 // Fetch the current time
                 $currentVisitTime = date("Y-m-d H:i:s");
@@ -54,7 +54,7 @@ if (isset($_POST['login'])) {
                 mysqli_stmt_execute($updateVisitStmt);
 
                 // Redirect the user based on their role
-                $options = $row['option'];
+                $options = $row['options'];
 
                 echo "Options: " . $options;
                 if ($options === 'admin') {
