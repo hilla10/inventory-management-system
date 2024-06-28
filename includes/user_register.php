@@ -55,7 +55,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Check if the form for adding a user is submitted
-if (isset($_POST['add_user'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     // Validate and sanitize fields
     $name = trim($_POST['username']);
     $gender = trim($_POST['gender']);
@@ -181,7 +181,15 @@ if (isset($_POST['add_user'])) {
         }
         $stmtusers->close();
     }
+}else {
+    $message = "Invalid request. Please make sure the request method is POST and the 'add_user' parameter is set.";
+    $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+    header('Location: ' . $redirectUrl);
+    exit;
 }
+
+
+// include('register_modal.php');
 ?>
 
 

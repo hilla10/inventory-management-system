@@ -1,12 +1,48 @@
-<?php
-// Include the database connection file
-include('dbcon.php');
-include('header.php');
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- google font noto serif Ethiopic-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@100..900&display=swap" rel="stylesheet">
+ <!-- google font open sans-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<!-- font awesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- style file -->
+<!-- <link rel="stylesheet" href="../css/style.css"> -->
+ <link rel="stylesheet" href="../css/style.css?v=<?php echo time(); ?>">
+
+   <!-- bootstrap js -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <!-- main js -->
+<script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
+
+  <title>Department Register</title>
+    
+</head>
+<body  class="body text-light">
+
+<?php
 // Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+include('dbcon.php'); // Include  database connection script
+// include('header.php'); 
+
+
+// Debugging output
+
+// echo "Request method: " . $_SERVER['REQUEST_METHOD'] . "<br>";
+// print_r($_POST);
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
@@ -19,134 +55,128 @@ echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-
     <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
 </div>";
 
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Check if the form is submitted and process it
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['add_department'])) {
 
-// Check if the form for adding a user is submitted
-if (isset($_POST['add_user'])) {
-    // Validate and sanitize fields
-    $name = trim($_POST['username']);
-    $gender = trim($_POST['gender']);
-    $age = trim($_POST['age']);
-    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-    $position = trim($_POST['position']);
+        // Trim and sanitize input data
+        $name = trim($_POST['username']);
+        $gender = trim($_POST['gender']);
+        $age = trim($_POST['age']);
+        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+        $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+        $position = trim($_POST['position']);
 
-    // Perform additional validation if needed
-    $errors = [];
+        // Array to store validation errors
+        $errors = [];
 
-    if (empty($name) || empty($gender) || empty($age) || empty($position)) {
-        $errors[] = "Some fields are empty.";
-    }
-    
-    // Ensure either email or phone is provided or neither, but not both
-    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Please enter a valid email address.";
-    } else if (!empty($email)) {
-        // Extract domain from email
-        $domain = explode('@', $email)[1];
-        // Check if domain has valid DNS records
-        if (!checkdnsrr($domain, 'MX')) {
-            $errors[] = "Please enter a valid email address.";
+        // Basic field validation
+        if (empty($name) || empty($gender) || empty($age) || empty($position)) {
+            $errors[] = "Some fields are empty.";
         }
-    }
-
-    if (!empty($phone)) {
-        // Validate phone number format
-        $phoneRegex = "/^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$/";
-        if (!preg_match($phoneRegex, $phone)) {
-            $errors[] = "Please enter a valid phone number.";
+        
+        // Validate email if provided
+        if (!empty($email)) {
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Please enter a valid email address.";
+            } else {
+                // Check DNS records for the email domain
+                $domain = explode('@', $email)[1];
+                if (!checkdnsrr($domain, 'MX')) {
+                    $errors[] = "Please enter a valid email address with a valid domain.";
+                }
+            }
         }
-    }
 
-    // If there are errors, redirect back to the form with an error message
-    if (!empty($errors)) {
-        $message = implode(" ", $errors);
-        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-        header('Location: ' . $redirectUrl);
-        exit;
-    }
+        // Validate phone number format if provided
+        if (!empty($phone)) {
+            $phoneRegex = "/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/";
+            if (!preg_match($phoneRegex, $phone)) {
+                $errors[] = "Please enter a valid phone number.";
+            }
+        }
 
-    // Check if the email or phone already exists in the database
-    $stmtCheckEmail = null;
-    $stmtCheckPhone = null;
-
-    if (!empty($email)) {
-        $stmtCheckEmail = $connection->prepare("SELECT email FROM department_registration WHERE email = ?");
-        $stmtCheckEmail->bind_param("s", $email);
-        $stmtCheckEmail->execute();
-        $stmtCheckEmail->store_result();
-    }
-
-    if (!empty($phone)) {
-        $stmtCheckPhone = $connection->prepare("SELECT phone FROM department_registration WHERE phone = ?");
-        $stmtCheckPhone->bind_param("s", $phone);
-        $stmtCheckPhone->execute();
-        $stmtCheckPhone->store_result();
-    }
-
-    // Handle email and phone checks
-    $emailExists = ($stmtCheckEmail && $stmtCheckEmail->num_rows > 0);
-    $phoneExists = ($stmtCheckPhone && $stmtCheckPhone->num_rows > 0);
-
-    if ($emailExists) {
-        $message = "The email address is already registered.";
-        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-        header('Location: ' . $redirectUrl);
-        exit;
-    }
-    if ($phoneExists) {
-        $message = "The phone number is already registered.";
-        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-        header('Location: ' . $redirectUrl);
-        exit;
-    }
-
-    // Start transaction
-    $connection->begin_transaction();
-
-    try {
-        // Insert the input values into the Department table
-        $stmtDepartment = $connection->prepare("INSERT INTO department_registration (username, gender, age, email, phone, options) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmtDepartment->bind_param("ssisss", $name, $gender, $age, $email, $phone, $position);
-        $stmtDepartment->execute();
-
-        if ($stmtDepartment->affected_rows > 0) {
-            // Commit transaction
-            $connection->commit();
-            $message = "Congratulations! You have successfully added a new user.";
-            $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
-            header('Refresh: 3; URL=' . $redirectUrl);
+        // If there are errors, redirect back to the form with an error message
+        if (!empty($errors)) {
+            $message = implode(" ", $errors);
+            $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+            header('Location: ' . $redirectUrl);
             exit;
-        } else {
-            // Rollback transaction if the user table insert failed
+        }
+
+        // Prepare statement for checking email
+        if (!empty($email)) {
+            $stmtCheckEmail = $connection->prepare("SELECT email FROM department_registration WHERE email = ?");
+            $stmtCheckEmail->bind_param("s", $email);
+            $stmtCheckEmail->execute();
+            $stmtCheckEmail->store_result();
+
+            if ($stmtCheckEmail->num_rows > 0) {
+                $message = "The email address is already registered.";
+                $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+                header('Location: ' . $redirectUrl);
+                exit;
+            }
+        }
+
+        // Prepare statement for checking phone
+        if (!empty($phone)) {
+            $stmtCheckPhone = $connection->prepare("SELECT phone FROM department_registration WHERE phone = ?");
+            $stmtCheckPhone->bind_param("s", $phone);
+            $stmtCheckPhone->execute();
+            $stmtCheckPhone->store_result();
+
+            if ($stmtCheckPhone->num_rows > 0) {
+                $message = "The phone number is already registered.";
+                $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+                header('Location: ' . $redirectUrl);
+                exit;
+            }
+        }
+
+        // Start a database transaction
+        $connection->begin_transaction();
+
+        try {
+            // Insert new department registration data
+            $stmtDepartment = $connection->prepare("INSERT INTO department_registration (username, gender, age, email, phone, position) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmtDepartment->bind_param("ssisss", $name, $gender, $age, $email, $phone, $position);
+            $stmtDepartment->execute();
+
+            // Check if insertion was successful
+            if ($stmtDepartment->affected_rows > 0) {
+                // Commit transaction if successful
+                $connection->commit();
+                $message = "Congratulations! You have successfully added a new User.";
+                $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
+                header('Refresh: 3; URL=' . $redirectUrl);
+                exit;
+            } else {
+                // Rollback transaction if insertion failed
+                $connection->rollback();
+                $message = "Failed to add User. Please try again.";
+                $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+                header('Location: ' . $redirectUrl);
+                exit;
+            }
+        } catch (Exception $e) {
+            // Rollback transaction on exception
             $connection->rollback();
-            die("Failed to insert into the Department table.");
+            $message = "An error occurred: " . $e->getMessage();
+            $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+            header('Location: ' . $redirectUrl);
+            exit;
         }
-    } catch (mysqli_sql_exception $exception) {
-        // Rollback transaction on exception
-        $connection->rollback();
-        die("Query Failed: " . $exception->getMessage());
-    } finally {
-        // Close statements
-        if ($stmtCheckEmail) {
-            $stmtCheckEmail->close();
-        }
-        if ($stmtCheckPhone) {
-            $stmtCheckPhone->close();
-        }
-        $stmtDepartment->close();
     }
+} else {
+    $message = "Invalid request. Please make sure the request method is POST and the 'add_department' parameter is set.";
+    $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+    header('Location: ' . $redirectUrl);
+    exit;
 }
 
-include('register_modal.php');
+
 ?>
 
 
-   <?php $title = "Department Register"; // Set the default title
 
-        if (isset($title) && !empty($title)) {
-            echo "<script>document.title = '" . $title . "'</script>";
-        }
-        ?>

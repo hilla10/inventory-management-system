@@ -18,7 +18,7 @@ CREATE TABLE `users` (
   `username` VARCHAR(50) NOT NULL,
   `gender` ENUM('male', 'female') NOT NULL DEFAULT 'male',
   `age` INT NOT NULL CHECK (age > 0),
-  `email` VARCHAR(50) NOT NULL UNIQUE,
+  `email` VARCHAR(50)  UNIQUE,
   `phone` VARCHAR(20) UNIQUE,
   `options` VARCHAR(50),
   `password` VARCHAR(255) NOT NULL,
@@ -49,31 +49,26 @@ VALUES ('admin', 'male', 21, 'admin@gmail.com', '+251 99-555-1234', 'admin', '$2
 -- Table structure for table `department_registration`
 
 /* ********************************************** */
-
+-- Create department_registration table
 CREATE TABLE department_registration (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL,
   gender ENUM('male', 'female') NOT NULL DEFAULT 'male',
-  email VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(50)  UNIQUE,
   age INT NOT NULL CHECK (age > 0),
-  phone VARCHAR(20) NOT NULL,
+  phone VARCHAR(20) ,
   position VARCHAR(50) NOT NULL,
-  `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-  PRIMARY KEY (`id`)
+  last_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Add constraint for phone format
+ALTER TABLE department_registration
+ADD CONSTRAINT chk_phone_format_length_dr
+CHECK (phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$');
 
--- phone format
-ALTER TABLE `department_registration` ADD CONSTRAINT `chk_phone_format_length_dr` CHECK ( phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$'
-    
-);
-
--- AUTO_INCREMENT for table `department_registration`
-ALTER TABLE `department_registration` AUTO_INCREMENT=001;
-
-INSERT INTO department_registration (username, gender, email, age, phone, position)
-VALUES ('admin', 'male', 'admin@gmail.com', 21, '+251 99-555-1234', 'admin');
-
+-- Set AUTO_INCREMENT for department_registration table
+ALTER TABLE department_registration AUTO_INCREMENT=1;
 
 
 /* ********************************************** */

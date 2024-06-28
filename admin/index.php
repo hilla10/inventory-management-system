@@ -335,8 +335,10 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
 <!-- message -->
 <?php include('../includes/message.php'); ?>
 
+
 <!-- Modal -->
 <?php include('../includes/register_modal.php'); ?>
-<?php include('../includes/modal.php'); ?>
 
 <?php include('../includes/footer.php'); ?>
+<?php include('../includes/modal.php'); ?>
+

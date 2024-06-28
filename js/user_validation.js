@@ -426,17 +426,20 @@ export const DepartmentValidation = () => {
       // Prevent default form submission behavior
       event.preventDefault();
 
-      // Add shake animation to the form if validation fails
-      if (!isDepartmentFormValid) {
+      
+
+      // If form is valid, submit it
+      if (isDepartmentFormValid) {
+        formDepartment.submit();
+      } else {
+        event.preventDefault();
+        // Add shake animation to the form
         formDepartment.classList.add('shake');
 
         // Remove shake animation after 0.5s (duration of shake animation)
         setTimeout(() => {
           formDepartment.classList.remove('shake');
         }, 500);
-      } else {
-        // If form is valid, submit it programmatically
-        formDepartment.submit();
       }
     });
   }

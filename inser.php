@@ -1,235 +1,189 @@
-<?php
-// Include necessary files
-include('../includes/dbcon.php');
-include("../includes/auth.php");
-include('../includes/header.php');
 
-// Start the session (if not already started in included files)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- google font noto serif Ethiopic-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Ethiopic:wght@100..900&display=swap" rel="stylesheet">
+ <!-- google font open sans-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<!-- font awesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- style file -->
+<!-- <link rel="stylesheet" href="../css/style.css"> -->
+ <link rel="stylesheet" href="../css/style.css?v=<?php echo time(); ?>">
+
+   <!-- bootstrap js -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <!-- main js -->
+<script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
+
+  <title>Department Register</title>
+    
+</head>
+<body  class="body text-light">
+
+
+<?php
+// Include the database connection file
+include('dbcon.php');
+// include('header.php');
+
+// Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
-// Determine the current page
-include ('../includes/determineFnc.php');
-
-// Determine the current page
-$currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
-
-// Store the current page URL in a session variable
-$_SESSION['currentPage'] = $currentPage;
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
-echo $_SESSION['currentPage'];
+// Access the stored current page URL
+$currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
 
+// Display a loading message while the page is loading
+echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-items-center\">
+    <h2 class=\"pe-2 text-success fw-semibold\">Loading page... Redirecting</h2>
+    <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
+</div>";
 
-// Query to get the total number of items in the inventory
-$query = "SELECT COUNT(*) as total_items FROM `inventory`";
-$result = mysqli_query($connection, $query);
-$row = mysqli_fetch_assoc($result);
-$totalItems = $row['total_items'];
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Query to get the total number of consumable items
-$queryConsumableItems = "SELECT COUNT(*) as total_consumable_items FROM `inventory` WHERE `item_type` = 'consumable'";
-$resultConsumableItems = mysqli_query($connection, $queryConsumableItems);
-$rowConsumableItems = mysqli_fetch_assoc($resultConsumableItems);
-$totalConsumableItems = $rowConsumableItems['total_consumable_items'];
+// Check if the form for adding a user is submitted
+if (isset($_POST['add_department'])) {
+    // Validate and sanitize fields
+    $name = trim($_POST['username']);
+    $gender = trim($_POST['gender']);
+    $age = trim($_POST['age']);
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+    $position = trim($_POST['position']);
 
-// Query to get the total number of non-consumable items
-$queryNonConsumableItems = "SELECT COUNT(*) as total_non_consumable_items FROM `inventory` WHERE `item_type` = 'non-consumable'";
-$resultNonConsumableItems = mysqli_query($connection, $queryNonConsumableItems);
-$rowNonConsumableItems = mysqli_fetch_assoc($resultNonConsumableItems);
-$totalNonConsumableItems = $rowNonConsumableItems['total_non_consumable_items'];
+    // Perform additional validation if needed
+    $errors = [];
 
-
-// Query to get the total number of items in the inventory
-$queryDepartments = "SELECT COUNT(*) as total_departments FROM `departments`";
-$resultDepartments = mysqli_query($connection, $queryDepartments);
-$rowDepartments = mysqli_fetch_assoc($resultDepartments);
-$totalDepartments = $rowDepartments['total_departments'];
-
-?>
-
-   <header class="main-header">
-
-      <div>
-          <a href="index.php" class="logo">
-        <img src="../img/EPTC_logo" alt="logo">
-        </a>
-
-        <nav class="navbar navbar-static-top">
-
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                <i class="fa-solid fa-bars-staggered"></i>
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-        </nav>
-      </div>
-      <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <div class="container">
-        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
-            <ul class="navbar-nav mx-auto ">
-                <li class="nav-item">
-                    <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#ModalDepartment">Add Department</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-light link-opacity-50-hover" href="#" data-bs-toggle="modal"
-                        data-bs-target="#ModalUser">Add User</a>
-                </li>
-               
-
-            </ul>
-            <div class="d-flex">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    
-       <li class="nav-item">
-                        <button type="button" class="btn btn-danger mb-3 mb-lg-0  me-3" data-bs-toggle="modal"
-                            data-bs-target="#ModalDelete">
-                            Delete User
-                        </button>
-                    </li>
-                    <li>
-                        <div class="dropdown nav-item">
-                            <a class="btn btn-info  dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php
-                                        if ($userRole == 'admin') {
-                                            echo 'Admin';
-                                        } elseif ($userRole == 'it head') {
-                                            echo 'IT Head';
-                                        }
-                                ?>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
-                            </ul>       
-                        </div>
-                    </li>
-                   
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
-    </header>
+    if (empty($name) || empty($gender) || empty($age) || empty($position)) {
+        $errors[] = "Some fields are empty.";
+    }
     
-   <div class="d-flex justify-content-between ">
+    // Ensure either email or phone is provided or neither, but not both
+    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Please enter a valid email address.";
+    } else if (!empty($email)) {
+        // Extract domain from email
+        $domain = explode('@', $email)[1];
+        // Check if domain has valid DNS records
+        if (!checkdnsrr($domain, 'MX')) {
+            $errors[] = "Please enter a valid email address.";
+        }
+    }
 
+    if (!empty($phone)) {
+        // Validate phone number format
+        $phoneRegex = "/^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$/";
+        if (!preg_match($phoneRegex, $phone)) {
+            $errors[] = "Please enter a valid phone number.";
+        }
+    }
 
-        <?php include('../includes/navigation.php'); ?>
+    // If there are errors, redirect back to the form with an error message
+    if (!empty($errors)) {
+        $message = implode(" ", $errors);
+        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+        header('Location: ' . $redirectUrl);
+        exit;
+    }
 
-        <div class="flex-grow-1 main-content">
- <div class=" py-2 text-center">
-            <h1 class="sr-only">Dashboard</h1>
-            <?php  $title = "Dashboard"; // Set the default title
+    // Check if the email or phone already exists in the database
+    $stmtCheckEmail = null;
+    $stmtCheckPhone = null;
 
-       if (isset($title) && !empty($title)) {
-    echo "<script>document.title = '" . $title . "'</script>";
+    if (!empty($email)) {
+        $stmtCheckEmail = $connection->prepare("SELECT email FROM department_registration WHERE email = ?");
+        $stmtCheckEmail->bind_param("s", $email);
+        $stmtCheckEmail->execute();
+        $stmtCheckEmail->store_result();
+    }
+
+    if (!empty($phone)) {
+        $stmtCheckPhone = $connection->prepare("SELECT phone FROM department_registration WHERE phone = ?");
+        $stmtCheckPhone->bind_param("s", $phone);
+        $stmtCheckPhone->execute();
+        $stmtCheckPhone->store_result();
+    }
+
+    // Handle email and phone checks
+    $emailExists = ($stmtCheckEmail && $stmtCheckEmail->num_rows > 0);
+    $phoneExists = ($stmtCheckPhone && $stmtCheckPhone->num_rows > 0);
+
+    if ($emailExists) {
+        $message = "The email address is already registered.";
+        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+        header('Location: ' . $redirectUrl);
+        exit;
+    }
+    if ($phoneExists) {
+        $message = "The phone number is already registered.";
+        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+        header('Location: ' . $redirectUrl);
+        exit;
+    }
+
+    // Start transaction
+    $connection->begin_transaction();
+
+    try {
+        // Insert the input values into the Department table
+        $stmtDepartment = $connection->prepare("INSERT INTO department_registration (username, gender, age, email, phone, position) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmtDepartment->bind_param("ssisss", $name, $gender, $age, $email, $phone, $position);
+        $stmtDepartment->execute();
+
+        if ($stmtDepartment->affected_rows > 0) {
+            // Commit transaction
+            $connection->commit();
+            $message = "Congratulations! You have successfully added a new Department.";
+            $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
+            header('Refresh: 3; URL=' . $redirectUrl);
+            exit;
+        } else {
+            // Rollback transaction if the user table insert failed
+            $connection->rollback();
+            die("Failed to insert into the Department table.");
+        }
+    } catch (mysqli_sql_exception $exception) {
+        // Rollback transaction on exception
+        $connection->rollback();
+        die("Query Failed: " . $exception->getMessage());
+    } finally {
+        // Close statements
+        if ($stmtCheckEmail) {
+            $stmtCheckEmail->close();
+        }
+        if ($stmtCheckPhone) {
+            $stmtCheckPhone->close();
+        }
+        $stmtDepartment->close();
+    }
 }
+
+include('register_modal.php');
 ?>
 
-        </div>
-            <div class="content-wrapper" >
 
-            <div class="notification">
-                
-            </div>
+   <?php $title = "Department Register"; // Set the default title
 
-                <section class="content-header">
-                    <h1>
-                        Dashboard
-                        <small>Control panel</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
-                    </ol>
-                </section>
-                <section class="content">
+        if (isset($title) && !empty($title)) {
+            echo "<script>document.title = '" . $title . "'</script>";
+        }
+        ?>
 
-                    <div class=" grid">
-                        <div>
-
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                   <h3><?php echo $totalItems; ?></h3>
-                                    <p>Total Items</p>
-                                </div>
-                                <div class="icon">
-                                   <i class="fa-solid fa-bag-shopping"></i>
-                                </div>
-                                <a href="../more_info/all_items.php" class="small-box-footer">More
-                                    info
-                                    <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-
-                        <div>
-
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3><?php echo $totalConsumableItems ?></h3>
-                                    <p>Total Consumable Items</p>
-                                </div>
-                                <div class="icon">
-                                   <i class="fa-solid fa-bag-shopping"></i>
-                                </div>
-                                <a href="../more_info/consumable_items.php" class="small-box-footer">More info
-                                    <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-
-                        <div>
-
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3><?php echo $totalNonConsumableItems ?></h3>
-                                    <p>Total Non-Consumable Items</p>
-                                </div>
-                                <div class="icon">
-                                     <i class="fa-solid fa-bag-shopping"></i>
-                                </div>
-                                <a href="../more_info/non_consumable_items.php" class="small-box-footer">More info
-                                    <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-
-                        <!-- <div>
-
-                            <div class="small-box bg-red">
-                                <div class="inner">
-                                    <h3><?php echo $totalDepartments ?></h3>
-                                    <p>Total Departments</p>
-                                </div>
-                                <div class="icon">
-                                     <i class="fa-solid fa-bag-shopping"></i>
-                                </div>
-                                <a href="../more_info/departments.php" class="small-box-footer">More info
-                                    <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div> -->
-
-                    </div>
-                   
-
-                </section>
-
-
-            </div>
-        </div>
-        
-    </div>
-
-
-<!-- message -->
-<?php include('../includes/message.php'); ?>
-
-    <!-- Modal -->
-    <?php include('../includes/modal.php'); ?>
-
-<?php include('../includes/footer.php'); ?>
+        </body>
+</html>
