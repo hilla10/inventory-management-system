@@ -296,9 +296,6 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 <?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
-<!-- update item -->
-<?php include('../includes/update.php'); ?>
-
 <!-- footer -->
 <?php include('../includes/footer.php'); ?>
 

@@ -1,4 +1,4 @@
-<?php include('login/header.php'); ?>
+<?php include('./includes/header.php'); ?>
 <?php include('includes/dbcon.php'); ?>
 
 <?php include('includes/message.php'); ?>
@@ -43,7 +43,7 @@
             </form>
 
             <div>
-                <button id="usersBtn" class="px-5 btn-outline my-2">users</button>
+                <button id="usersBtn" class="px-5 btn-outline my-2">Sign Up</button>
             </div>
         </div>
     </div>
@@ -56,7 +56,6 @@
 
 <!-- Modal -->
 <?php include('includes/register_modal.php'); ?>
-<?php include('includes/modal.php'); ?>
 
 <!-- footer -->
 <?php include('includes/footer.php'); ?>

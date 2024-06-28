@@ -3,8 +3,8 @@
 
 <!-- modal for item -->
 
-<form action="../includes/insert_app.php" method="post" class="insert-app-form">
-    <div class="modal fade" id="ModalItem" tabindex="-1" aria-labelledby="ModalItemLabel" aria-hidden="true">
+
+<div class="modal fade" id="ModalItem" tabindex="-1" aria-labelledby="ModalItemLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content shake-content">
                 <div class="modal-header">
@@ -12,6 +12,7 @@
                     <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                <form action="../includes/insert_app.php" method="post" class="insert-app-form">
                     <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
                     <div class="form-group input-box mb-2">
                         <input type="text" class="form-control inventory_list" id="inventory_list" name="inventory_list">
@@ -119,26 +120,28 @@
                         <input type="text" class="form-control examination" id="examination" name="examination">
                         <span>ምርመራ</span>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-success" name="add_item" value="አስገባ"></input>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                         <input type="hidden" name="add_item" value="1"></input>
+                        <button type="submit"  class="btn btn-success">አስገባ</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
+
 
 <!-- modal for bin card -->
-<form action="insert_app.php" method="post" class="insert-binCard-form">
-    <div class="modal fade" id="ModalBinCard" tabindex="-1" aria-labelledby="ModalBinCardLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content shake-bin-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="ModalBinCardLabel">Add Bin Card</h1>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="ModalBinCard" tabindex="-1" aria-labelledby="ModalBinCardLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content shake-bin-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalBinCardLabel">Add Bin Card</h1>
+                <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="insert_app.php" method="post" class="insert-binCard-form">
                     <h2 class="fs-3 text-center py-3">ቢን ካርድ</h2>
 
                     <div class="form-group input-box my-2">
@@ -160,96 +163,101 @@
                         <input type="text" class="form-control" id="short" name="short">
                         <span>አጭር ፈር</span>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-success" name="add_bin" value="አስገባ"></input>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <input type="hidden" name="add_bin" value="1"></input>
+                        <button type="submit"  class="btn btn-success">አስገባ</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
+
+
 
 <!-- modal for Model 19 -->
-<form action="insert_app.php" method="post" class="insert-model-app-form">
- <div class="modal fade" id="ModalModel19" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content shake-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 19</h1>
-        <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-         <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control" id="added-by" name="added-by">
-                        <span>ስሞትን ያስገቡ| Enter your name|</span>
-                    </div>
-              <div class="form-group input-box mb-2">
-             
-                <input  type="text" class="form-control" id="item_type" name="item_type">
-                <span>የእቃው አይነት</span>
-              </div>
-              <div class="form-group input-box mb-2">
-                        <label for="item_category" class="py-2">Enter item category</label>
-                        <select name="item_category" class="select-option">
-                            <option value="consumable">አላቂ እቃ</option>
-                            <option value="non-consumable">የማያልቅ እቃ</option>
-                        </select>
-                </div>  
-              <div class="form-group input-box mb-2">
-                
-                <input  type="text" class="form-control" id="model" name="model">
-                <span>ሞዴል</span>
-              </div>
-              <div class="form-group input-box mb-2">
-             
-                <input  type="text" class="form-control" id="serie" name="serie">
-                <span>ሴሪ</span>
-              </div>
-              <div class="form-group input-box mb-2">
-              
-                <input  type="text" class="form-control quantity" id="quantity" name="quantity">
-                <span>ብዛት</span>
-              </div>
-             <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control price" id="price" name="price">
-                <span>የአንዱ ዋጋ</span>
-            </div>
-            <div class="form-group input-box mb-2">
-                <input  type="text" class="form-control total_price" id="total_price" name="total_price" disabled>
-                <span>ጠቅላላ ዋጋ</span>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input  type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
+  <div class="modal fade" id="ModalModel19" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+         <div class="modal-content shake-model19-content">
+             <div class="modal-header">
+                 <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 19</h1>
+                 <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <form action="insert_app.php" method="post" class="insert-model-app-form">
+                     <div class="form-group input-box mb-2">
+                         <input type="text" class="form-control" id="added-by" name="added-by">
+                         <span>ስሞትን ያስገቡ| Enter your name|</span>
+                     </div>
+                     <div class="form-group input-box mb-2">
+
+                         <input type="text" class="form-control item_type" id="item_type" name="item_type">
+                         <span>የእቃው አይነት</span>
+                     </div>
+                     <div class="form-group input-box mb-2">
+                         <label for="item_category" class="py-2">Enter item category</label>
+                         <select name="item_category" class="select-option">
+                             <option value="consumable">አላቂ እቃ</option>
+                             <option value="non-consumable">የማያልቅ እቃ</option>
+                         </select>
+                     </div>
+                     <div class="form-group input-box mb-2">
+
+                         <input type="text" class="form-control" id="model" name="model">
+                         <span>ሞዴል</span>
+                     </div>
+                     <div class="form-group input-box mb-2">
+
+                         <input type="text" class="form-control" id="serie" name="serie">
+                         <span>ሴሪ</span>
+                     </div>
+                     <div class="form-group input-box mb-2">
+
+                         <input type="text" class="form-control quantity" id="quantity" name="quantity">
+                         <span>ብዛት</span>
+                     </div>
+                     <div class="form-group input-box mb-2">
+                         <input type="text" class="form-control price" id="price" name="price">
+                         <span>የአንዱ ዋጋ</span>
+                     </div>
+                     <div class="form-group input-box mb-2">
+                         <input type="text" class="form-control total_price" id="total_price" name="total_price"
+                             disabled>
+                         <span>ጠቅላላ ዋጋ</span>
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                         <!-- <input type="hidden" name="add_model" value="1"></input>
+                         <button type="submit" class="btn btn-success">አስገባ</button> -->
+                         <input type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
 
 
 <!-- modal for Model 20 -->
-<form action="insert_app.php" method="post" class="insert-model20-app-form">
-    <div class="modal fade" id="ModalModel20" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content shake-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 20</h1>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+<div class="modal fade" id="ModalModel20" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content shake-model20-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 20</h1>
+                <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="insert_app.php" method="post" class="insert-model20-app-form">
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control" id="requested-by" name="requested-by">
+                        <input type="text" class="form-control" id="requested-by" name="requested-by">
                         <span>ስሞትን ያስገቡ| Enter your name|</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control quantity" id="quantity" name="quantity">
+                        <input type="text" class="form-control quantity" id="quantity" name="quantity">
                         <span>ብዛት</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control" id="item_type" name="item_type">
+                        <input type="text" class="form-control" id="item_type" name="item_type">
                         <span>የእቃው አይነት</span>
                     </div>
                     <div class="form-group input-box mb-2">
@@ -258,24 +266,27 @@
                             <option value="consumable">አላቂ እቃ</option>
                             <option value="non-consumable">የማያልቅ እቃ</option>
                         </select>
-                </div>  
+                    </div>
                     <div class="form-group input-box mb-2">
-                        <input  type="text" class="form-control" id="model" name="model">
+                        <input type="text" class="form-control" id="model" name="model">
                         <span>ሞዴል</span>
                     </div>
                     <div class="form-group input-box mb-2">
                         <input type="text" class="form-control" id="update" name="update">
                         <span>ማሻሻያ አምድ</span>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                    <input  type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                        <!-- <input  type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input> -->
+                        <input type="hidden" name="add_model" value="1"></input>
+                        <button type="submit" class="btn btn-success">አስገባ</button>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
-</form>
+</div>
 
 
 <!-- notification modal -->
@@ -330,32 +341,36 @@
 </div>
 
 <!-- Modal for deleting user -->
-<form action="../includes/delete_user.php" method="post">
+
   <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group input-box my-2">
-            <input  type="text" class="form-control email" name="email">
-            <span>Enter your email to delete</span>
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="../includes/delete_user.php" method="post">
+                      <div class="form-group input-box my-2">
+                          <input type="text" class="form-control email" name="email">
+                          <span>Enter your email to delete</span>
+                      </div>
+                      <div class="form-group input-box my-2">
+                          <input type="password" class="form-control validPassword" name="password">
+                          <i class="fa-solid fa-eye-slash showHideBtn"></i>
+                          <span>Enter your password</span>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="hidden" name="delete_user" value="1"></input>
+                        <button type="submit"  class="btn btn-danger">Delete User</button>
+                      </div>
+
+                  </form>
+              </div>
           </div>
-            <div class="form-group input-box my-2">
-                <input  type="password" class="form-control validPassword" name="password">
-                <i class="fa-solid fa-eye-slash showHideBtn"></i>
-                <span>Enter your password</span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-danger" name="delete_user" value="Delete User">
-        </div>
       </div>
-    </div>
   </div>
-</form>
 
 
 

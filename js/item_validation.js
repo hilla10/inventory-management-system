@@ -126,12 +126,14 @@ export const itemValidation = () => {
 
 // validation for bin card
 export const binCardValidation = () => {
-  const insertAppForm = document.querySelector('.insert-binCard-form');
-  const shakeContent = document.querySelector('.shake-bin-content');
+  const insertBinCardAppForm = document.querySelector('.insert-binCard-form');
+  const shakeBinContent = document.querySelector('.shake-bin-content');
   const income = document.getElementById('income');
   const cost = document.getElementById('cost');
   const short = document.getElementById('short');
   const dateInput = document.getElementById('date');
+  
+  console.log('bin card ' +  insertBinCardAppForm);
 
   // Function to validate individual input fields
   const validateInput = (inputElement) => {
@@ -165,9 +167,9 @@ export const binCardValidation = () => {
     return regex.test(dateString);
   };
 
-  if (insertAppForm) {
+  if (insertBinCardAppForm) {
     // Event listener for form submission
-    insertAppForm.addEventListener('submit', (event) => {
+    insertBinCardAppForm.addEventListener('submit', (event) => {
       let isValid = true;
 
       // Validate short input
@@ -192,9 +194,9 @@ export const binCardValidation = () => {
       // Prevent form submission if validation fails
       if (!isValid) {
         event.preventDefault();
-        shakeContent.classList.add('shake');
+        shakeBinContent.classList.add('shake');
         setTimeout(() => {
-          shakeContent.classList.remove('shake');
+          shakeBinContent.classList.remove('shake');
         }, 500);
       }
     });
@@ -221,7 +223,6 @@ export const binCardValidation = () => {
   }
 
   if (dateInput) {
-
     dateInput.addEventListener('input', () => {
       if (!isValidDateFormat(dateInput.value)) {
         dateInput.classList.add('error');
@@ -231,21 +232,25 @@ export const binCardValidation = () => {
         console.log('Parsed Date:', dateObject);
       }
     });
-  };
   }
+};
 
 /* ********************  */
 
 // validation for model 19
 export const validationModel19 = () => {
-  const insertAppForm = document.querySelector('.insert-model-app-form');
-  const shakeContent = document.querySelector('.shake-content');
-  const name = document.querySelector('#added-by');
-  const itemType = document.querySelector('#item_type');
-  const model = document.querySelector('#model');
-  const serie = document.querySelector('#serie');
-  const inputQuantity = document.querySelector('#quantity');
-  const inputPrice = document.querySelector('#price');
+  const insertModel19AppForm = document.querySelector('.insert-model-app-form');
+  const shakeModel19Content = document.querySelector('.shake-model19-content');
+  const name = document.querySelector('.insert-model-app-form #added-by');
+  const itemType = document.querySelector(' .insert-model-app-form .item_type');
+  const model = document.querySelector('.insert-model-app-form #model');
+  const serie = document.querySelector('.insert-model-app-form #serie');
+  const inputQuantity = document.querySelector(
+    '.insert-model-app-form .quantity'
+  );
+  const inputPrice = document.querySelector('.insert-model-app-form .price');
+  console.log(insertModel19AppForm);
+  console.log('hello from item validation');
 
   // Function to validate individual input fields
   const validateInput = (inputElement) => {
@@ -291,8 +296,8 @@ export const validationModel19 = () => {
   };
 
   // Event listener for form submission
-  if (insertAppForm) {
-    insertAppForm.addEventListener('submit', (event) => {
+  if (insertModel19AppForm) {
+    insertModel19AppForm.addEventListener('submit', (event) => {
       let isValid = true;
 
       // Validate item type input
@@ -327,9 +332,9 @@ export const validationModel19 = () => {
       // Prevent form submission if validation fails
       if (!isValid) {
         event.preventDefault();
-        shakeContent.classList.add('shake');
+        shakeModel19Content.classList.add('shake');
         setTimeout(() => {
-          shakeContent.classList.remove('shake');
+          shakeModel19Content.classList.remove('shake');
         }, 500);
       }
     });
@@ -341,37 +346,32 @@ export const validationModel19 = () => {
       validName(name);
       validateInput(name);
     });
-
-}
+  }
 
   if (itemType) {
-      itemType.addEventListener('input', () => {
-        validateInput(itemType);
-      });
+    itemType.addEventListener('input', () => {
+      validateInput(itemType);
+    });
   }
-
 
   if (model) {
-      model.addEventListener('input', () => {
-        validateInput(model);
-      });
-
+    model.addEventListener('input', () => {
+      validateInput(model);
+    });
   }
-
 
   if (serie) {
-     serie.addEventListener('input', () => {
-       validateInput(serie);
-     });
+    serie.addEventListener('input', () => {
+      validateInput(serie);
+    });
   }
 
- 
   if (inputQuantity) {
     inputQuantity.addEventListener('input', () => {
       validateInput(inputQuantity);
       validateNumber(inputQuantity);
     });
-}
+  }
 
   if (inputPrice) {
     inputPrice.addEventListener('input', () => {
@@ -379,21 +379,23 @@ export const validationModel19 = () => {
       validateNumber(inputPrice);
     });
   }
-
 };
 
 /* ********************  */
 
 // validation for model 20
 export const validationModel20 = () => {
-  const insertAppForm = document.querySelector('.insert-model20-app-form');
-  if (insertAppForm) {
-    const shakeContent = insertAppForm.querySelector('.shake-content');
-    const name = insertAppForm.querySelector('#requested-by');
-    const itemType = insertAppForm.querySelector('#item_type');
-    const model = insertAppForm.querySelector('#model');
-    const update = insertAppForm.querySelector('#update');
-    const inputQuantity = insertAppForm.querySelector('#quantity');
+  const insertModel20AppForm = document.querySelector('.insert-model20-app-form');
+  if (insertModel20AppForm) {
+    const shakeModel20Content = document.querySelector(
+      '.shake-model20-content'
+    );
+    const name = insertModel20AppForm.querySelector('#requested-by');
+    const itemType = insertModel20AppForm.querySelector('#item_type');
+    const model = insertModel20AppForm.querySelector('#model');
+    const update = insertModel20AppForm.querySelector('#update');
+    const inputQuantity = insertModel20AppForm.querySelector('#quantity');
+    console.log(shakeModel20Content);
 
     // Function to validate individual input fields
     const validateInput = (inputElement) => {
@@ -439,7 +441,7 @@ export const validationModel20 = () => {
     };
 
     // Event listener for form submission
-    insertAppForm.addEventListener('submit', (event) => {
+    insertModel20AppForm.addEventListener('submit', (event) => {
       let isValid = true;
 
       // Validate item type input
@@ -470,9 +472,9 @@ export const validationModel20 = () => {
       // Prevent form submission if validation fails
       if (!isValid) {
         event.preventDefault();
-        shakeContent.classList.add('shake');
+        shakeModel20Content.classList.add('shake');
         setTimeout(() => {
-          shakeContent.classList.remove('shake');
+          shakeModel20Content.classList.remove('shake');
         }, 500);
       }
     });

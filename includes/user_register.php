@@ -23,7 +23,7 @@
    <!-- bootstrap js -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
       <!-- main js -->
-<script src="../js/main.js?v=<?php echo time(); ?>" defer></script>
+<script type="module" src="../js/main.js?v=<?php echo time(); ?>" defer></script>
 
   <title>User Register</title>
     
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         $stmtusers->close();
     }
 }else {
-    $message = "Invalid request. Please make sure the request method is POST and the 'add_user' parameter is set.";
+    $message = "Error: Unable to process the form submission. Please try again.";
     $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
     header('Location: ' . $redirectUrl);
     exit;

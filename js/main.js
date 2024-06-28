@@ -1,8 +1,5 @@
-// Validation user and department user
-
-import { userValidation, DepartmentValidation } from './user_validation.js';
-
 // validation item form
+
 import {
   itemValidation,
   binCardValidation,
@@ -10,7 +7,9 @@ import {
   validationModel20,
 } from './item_validation.js';
 
-// validation for bin card
+// Validation user and department user
+
+import { userValidation, DepartmentValidation } from './user_validation.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const showHideBtns = document.querySelectorAll('.showHideBtn');
@@ -210,9 +209,9 @@ document.addEventListener('DOMContentLoaded', function () {
   itemValidation();
 
   // validation for model 19
-  validationModel19();
+  // validationModel19();
 
-  // validation for model 19
+  // validation for model 20
   validationModel20();
 
   // Validation department users
@@ -220,4 +219,153 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Validation user
   userValidation();
+
+  // validation modal for model 19
+
+  // const validationModel19 = () => {
+  //   const insertModel19AppForm = document.querySelector(
+  //     '.insert-model-app-form'
+  //   );
+  //   const shakeContent = document.querySelector('.shake-19-content');
+  //   const name = document.querySelector('.insert-model-app-form #added-by');
+  //   const itemType = document.querySelector(
+  //     ' .insert-model-app-form .item_type'
+  //   );
+  //   const model = document.querySelector('.insert-model-app-form #model');
+  //   const serie = document.querySelector('.insert-model-app-form #serie');
+  //   const inputQuantity = document.querySelector(
+  //     '.insert-model-app-form .quantity'
+  //   );
+  //   const inputPrice = document.querySelector('.insert-model-app-form .price');
+
+  //   // Function to validate individual input fields
+  //   const validateInput = (inputElement) => {
+  //     const inputValue = inputElement.value.trim();
+
+  //     if (inputValue === '') {
+  //       inputElement.classList.add('error');
+  //       return false;
+  //     } else {
+  //       inputElement.classList.remove('error');
+  //       return true;
+  //     }
+  //   };
+
+  //   // Function to validate numeric fields
+  //   const validateNumber = (inputElement) => {
+  //     const inputValue = parseFloat(inputElement.value.trim());
+
+  //     if (isNaN(inputValue) || inputValue <= 0) {
+  //       inputElement.classList.add('error');
+  //       return false;
+  //     } else {
+  //       inputElement.classList.remove('error');
+  //       return true;
+  //     }
+  //   };
+
+  //   const isValidName = (nameValue) => {
+  //     const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
+  //     return nameRegex.test(nameValue);
+  //   };
+
+  //   const validName = (name) => {
+  //     if (isValidName(name.value)) {
+  //       name.classList.remove('error-input');
+  //       name.classList.add('success-input');
+  //       ('Name is valid');
+  //     } else {
+  //       name.classList.remove('success-input');
+  //       name.classList.add('error-input');
+  //       ('Name is NOT valid');
+  //     }
+  //   };
+
+  //   // Event listener for form submission
+  //   if (insertModel19AppForm) {
+  //     insertModel19AppForm.addEventListener('submit', (event) => {
+  //       let isValid = true;
+
+  //       // Validate item type input
+  //       if (!validateInput(name)) {
+  //         isValid = false;
+  //       }
+
+  //       // Validate item type input
+  //       if (!validateInput(itemType)) {
+  //         isValid = false;
+  //       }
+
+  //       // Validate model input
+  //       if (!validateInput(model)) {
+  //         isValid = false;
+  //       }
+  //       // Validate serie input
+  //       if (!validateInput(serie)) {
+  //         isValid = false;
+  //       }
+
+  //       // Validate quantity input
+  //       if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
+  //         isValid = false;
+  //       }
+
+  //       // Validate price input
+  //       if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
+  //         isValid = false;
+  //       }
+
+  //       // Prevent form submission if validation fails
+  //       if (!isValid) {
+  //         event.preventDefault();
+  //         shakeContent.classList.add('shake');
+  //         setTimeout(() => {
+  //           shakeContent.classList.remove('shake');
+  //         }, 500);
+  //       }
+  //     });
+  //   }
+
+  //   // Event listeners for input fields to validate dynamically
+  //   if (name) {
+  //     name.addEventListener('input', () => {
+  //       validName(name);
+  //       validateInput(name);
+  //     });
+  //   }
+
+  //   if (itemType) {
+  //     itemType.addEventListener('input', () => {
+  //       validateInput(itemType);
+  //     });
+  //   }
+
+  //   if (model) {
+  //     model.addEventListener('input', () => {
+  //       validateInput(model);
+  //     });
+  //   }
+
+  //   if (serie) {
+  //     serie.addEventListener('input', () => {
+  //       validateInput(serie);
+  //     });
+  //   }
+
+  //   if (inputQuantity) {
+  //     inputQuantity.addEventListener('input', () => {
+  //       validateInput(inputQuantity);
+  //       validateNumber(inputQuantity);
+  //     });
+  //   }
+
+  //   if (inputPrice) {
+  //     inputPrice.addEventListener('input', () => {
+  //       validateInput(inputPrice);
+  //       validateNumber(inputPrice);
+  //     });
+  //   }
+  // };
+
+  validationModel19();
 });

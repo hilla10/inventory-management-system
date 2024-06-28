@@ -2,10 +2,9 @@
 
 export const userValidation = () => {
   // Get the form element by its class name
-  const formUser = document.querySelector('.userForm');
-
+  const formUser = document.querySelectorAll('.userForm');
   // Email validation
-  const email = formUser.querySelector('.userForm .email');
+  const email = document.querySelector('.userForm .email');
 
   const isValidEmail = (emailValue) => {
     const emailRegex =
@@ -113,7 +112,7 @@ export const userValidation = () => {
   /* end of phone validation */
 
   // Age validation
-  const age = formUser.querySelector('.userForm .age');
+  const age = document.querySelector('.userForm .age');
   const isValidAge = (ageValue) => {
     const ageRegex = /^\d+$/;
     return ageRegex.test(ageValue);
@@ -130,7 +129,7 @@ export const userValidation = () => {
   });
 
   // Name validation
-  const name = formUser.querySelector('.userForm .name');
+  const name = document.querySelector('.userForm .name');
   const isValidName = (nameValue) => {
     const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
     return nameRegex.test(nameValue);
@@ -147,8 +146,8 @@ export const userValidation = () => {
   });
 
   // Password validation
-  const password = formUser.querySelector('.userForm .validPassword');
-  const confirmPassword = formUser.querySelector('.userForm .confirm');
+  const password = document.querySelector('.userForm .validPassword');
+  const confirmPassword = document.querySelector('.userForm .confirm');
 
   const isValidPassword = (passwordValue) => {
     const passwordRegex =
@@ -202,53 +201,59 @@ export const userValidation = () => {
   });
 
   // Form submission handling
-  formUser.addEventListener('submit', (event) => {
-    let isFormValid = true;
+  formUser.forEach((formUser) => {
+    console.log(formUser);
+    formUser.addEventListener('submit', (event) => {
+      let isFormValid = true;
 
-    // Validate all fields
-    if (!isValidEmail(email.value)) {
-      isFormValid = false;
-      email.classList.add('error-input');
-    }
+      // Validate all fields
+      if (!isValidEmail(email.value)) {
+        isFormValid = false;
+        email.classList.add('error-input');
+      }
 
-    if (!isValidPhone(phone.value)) {
-      isFormValid = false;
-      phone.classList.add('error-input');
-    }
+      if (!isValidPhone(phone.value)) {
+        isFormValid = false;
+        phone.classList.add('error-input');
+      }
 
-    if (!isValidName(name.value)) {
-      isFormValid = false;
-      name.classList.add('error-input');
-    }
+      if (!isValidName(name.value)) {
+        isFormValid = false;
+        name.classList.add('error-input');
+      }
 
-    if (!isValidAge(age.value)) {
-      isFormValid = false;
-      age.classList.add('error-input');
-    }
+      if (!isValidAge(age.value)) {
+        isFormValid = false;
+        age.classList.add('error-input');
+      }
 
-    if (!isValidPassword(password.value)) {
-      isFormValid = false;
-      password.classList.add('error-input');
-    }
+      if (!isValidPassword(password.value)) {
+        isFormValid = false;
+        password.classList.add('error-input');
+      }
 
-    if (!isValidPassword(confirmPassword.value)) {
-      isFormValid = false;
-      confirmPassword.add('error-input');
-    }
+      if (!isValidPassword(confirmPassword.value)) {
+        isFormValid = false;
+        confirmPassword.classList.add('error-input');
+      }
 
-    // If form is valid, submit it
-    if (isFormValid) {
-      formUser.submit();
-    } else {
-      event.preventDefault();
-      // Add shake animation to the form
-      formUser.classList.add('shake');
+      const formUserContents = document.querySelectorAll('.form-user-content');
+      formUserContents.forEach((formUserContent) => {
+        // If form is valid, submit it
+        if (isFormValid) {
+          formUser.submit();
+        } else {
+          event.preventDefault();
+          // Add shake animation to the form
+          formUserContent.classList.add('shake');
 
-      // Remove shake animation after 0.5s (duration of shake animation)
-      setTimeout(() => {
-        formUser.classList.remove('shake');
-      }, 500);
-    }
+          // Remove shake animation after 0.5s (duration of shake animation)
+          setTimeout(() => {
+            formUserContent.classList.remove('shake');
+          }, 500);
+        }
+      });
+    });
   });
 };
 
@@ -257,6 +262,9 @@ export const userValidation = () => {
 export const DepartmentValidation = () => {
   // Get the form element by its class
   const formDepartment = document.querySelector('.departmentForm');
+  const formDepartmentContent = document.querySelector(
+    '.form-department-content'
+  );
 
   if (formDepartment) {
     // Email validation within the department form
@@ -426,19 +434,17 @@ export const DepartmentValidation = () => {
       // Prevent default form submission behavior
       event.preventDefault();
 
-      
-
       // If form is valid, submit it
       if (isDepartmentFormValid) {
         formDepartment.submit();
       } else {
         event.preventDefault();
         // Add shake animation to the form
-        formDepartment.classList.add('shake');
+        formDepartmentContent.classList.add('shake');
 
         // Remove shake animation after 0.5s (duration of shake animation)
         setTimeout(() => {
-          formDepartment.classList.remove('shake');
+          formDepartmentContent.classList.remove('shake');
         }, 500);
       }
     });
