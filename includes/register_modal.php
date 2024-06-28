@@ -1,9 +1,9 @@
 
 <!-- modal for department user -->
 
-<div class="modal fade" id="ModalDepartment" tabindex="-form-department-content1" aria-labelledby="ModalDepartmentLabel" aria-hidden="true">
+<div class="modal fade" id="ModalDepartment" tabindex="-1" aria-labelledby="ModalDepartmentLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content ">
+        <div class="modal-content form-department-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="ModalDepartmentLabel">Add Department</h1>
                 <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -161,8 +161,9 @@
                     <h1 class="modal-title fs-5" id="ModalUserLoginLabel">Add User</h1>
                     <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <!-- signInForm -->
                 <div class="modal-body">
-                    <form action="./includes/user_register.php" method="post"  class="userForm">
+                    <form action="./includes/user_register.php" method="post"  class=" userForm">
                     <h2 class="fs-3 text-center py-3">ዋናው መመዝገቢያ ቅጽ</h2>
 
                     <div class="form-group input-box">

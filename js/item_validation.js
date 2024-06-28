@@ -133,8 +133,6 @@ export const binCardValidation = () => {
   const short = document.getElementById('short');
   const dateInput = document.getElementById('date');
   
-  console.log('bin card ' +  insertBinCardAppForm);
-
   // Function to validate individual input fields
   const validateInput = (inputElement) => {
     const inputValue = inputElement.value.trim();
@@ -229,7 +227,6 @@ export const binCardValidation = () => {
       } else {
         dateInput.classList.remove('error');
         const dateObject = new Date(dateInput.value);
-        console.log('Parsed Date:', dateObject);
       }
     });
   }
@@ -249,8 +246,6 @@ export const validationModel19 = () => {
     '.insert-model-app-form .quantity'
   );
   const inputPrice = document.querySelector('.insert-model-app-form .price');
-  console.log(insertModel19AppForm);
-  console.log('hello from item validation');
 
   // Function to validate individual input fields
   const validateInput = (inputElement) => {
@@ -395,7 +390,6 @@ export const validationModel20 = () => {
     const model = insertModel20AppForm.querySelector('#model');
     const update = insertModel20AppForm.querySelector('#update');
     const inputQuantity = insertModel20AppForm.querySelector('#quantity');
-    console.log(shakeModel20Content);
 
     // Function to validate individual input fields
     const validateInput = (inputElement) => {
