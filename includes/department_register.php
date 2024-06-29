@@ -55,6 +55,30 @@ echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-
     <img src=\"../page_loading/loading.svg\" style=\"height: 120px; width: 120px;\">
 </div>";
 
+
+// Function to validate phone number
+function isValidPhone($phoneValue) {
+    // Trim whitespace
+    $phoneValue = trim($phoneValue);
+
+    // Allow empty/null phone numbers or '+251 '
+    if ($phoneValue === '+251') {
+        return null;
+    } else {
+        // Define phone number regex
+        $phoneRegex = '/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/';
+
+        // Remove non-digit characters
+        $numericPhoneValue = preg_replace('/[^\d]/', '', $phoneValue);
+
+        // Validate with regex and length check
+        $isValid = preg_match($phoneRegex, $phoneValue) &&
+                   (strlen($numericPhoneValue) === 10 || strlen($numericPhoneValue) === 13);
+
+        return $isValid;
+    }
+}
+
 // Check if the form is submitted and process it
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add_department'])) {
@@ -75,27 +99,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[] = "Some fields are empty.";
         }
         
-        // Validate email if provided
-        if (!empty($email)) {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors[] = "Please enter a valid email address.";
-            } else {
-                // Check DNS records for the email domain
-                $domain = explode('@', $email)[1];
-                if (!checkdnsrr($domain, 'MX')) {
-                    $errors[] = "Please enter a valid email address with a valid domain.";
-                }
-            }
+       // Validate email if provided
+       if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Please enter a valid email address.";
+    } else if (!empty($email)) {
+        // Extract domain from email
+        $domain = explode('@', $email)[1];
+        // Check if domain has valid DNS records
+        if (!checkdnsrr($domain, 'MX')) {
+            $errors[] = "Please enter a valid email address.";
         }
+    } else {
+        // If email is empty, set it to NULL
+        $email = null;
+    }
 
-        // Validate phone number format if provided
-        if (!empty($phone)) {
-            $phoneRegex = "/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/";
-            if (!preg_match($phoneRegex, $phone)) {
-                $errors[] = "Please enter a valid phone number.";
-            }
-        }
+      // Validate phone number format if provided
+    if ($phone === '+251') {
+        $phone = null; // Set phone number to NULL if it is '+251'
+    } else if (!isValidPhone($phone)) {
+        $errors[] = "Please enter a valid phone number.";
+    }
 
+    // Check if the email or phone already exists in the database
+    $stmtCheckEmail = null;
+    $stmtCheckPhone = null;
+    
         // If there are errors, redirect back to the form with an error message
         if (!empty($errors)) {
             $message = implode(" ", $errors);
@@ -125,15 +154,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmtCheckPhone->bind_param("s", $phone);
             $stmtCheckPhone->execute();
             $stmtCheckPhone->store_result();
-
-            if ($stmtCheckPhone->num_rows > 0) {
-                $message = "The phone number is already registered.";
-                $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-                header('Location: ' . $redirectUrl);
-                exit;
-            }
+            
         }
+        
+ // Handle email and phone checks
+    $emailExists = ($stmtCheckEmail && $stmtCheckEmail->num_rows > 0);
+    $phoneExists = ($stmtCheckPhone && $stmtCheckPhone->num_rows > 0);
 
+    if ($emailExists) {
+        $message = "The email address is already registered.";
+    }
+    if ($phoneExists) {
+        $message = "The phone number is already registered.";
+    }
+    if ($emailExists || $phoneExists) {
+        $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
+        header('Location: ' . $redirectUrl);
+        exit;
+    }
         // Start a database transaction
         $connection->begin_transaction();
 

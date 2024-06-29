@@ -18,9 +18,9 @@ CREATE TABLE `users` (
   `username` VARCHAR(50) NOT NULL,
   `gender` ENUM('male', 'female') NOT NULL DEFAULT 'male',
   `age` INT NOT NULL CHECK (age > 0),
-  `email` VARCHAR(50)  UNIQUE,
+  `email` VARCHAR(50) UNIQUE,
   `phone` VARCHAR(20) UNIQUE,
-  `options` VARCHAR(50),
+  options VARCHAR(50),
   `password` VARCHAR(255) NOT NULL,
   `last_visit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -30,13 +30,12 @@ CREATE TABLE `users` (
 ALTER TABLE `users` AUTO_INCREMENT=001;
 
 -- Define the phone format and length constraint
-ALTER TABLE users
+ALTER TABLE `users`
 ADD CONSTRAINT `chk_phone_format_length`
-CHECK ( phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$'
-    
-
+CHECK (
+    phone IS NULL OR 
+    (phone = '+251' OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$')
 );
-
 
 -- Insert data into `users` table, ensuring phone number format and length constraints are met
 INSERT INTO users (username, gender, age, email, phone, options, `password`)
@@ -65,7 +64,10 @@ CREATE TABLE department_registration (
 -- Add constraint for phone format
 ALTER TABLE department_registration
 ADD CONSTRAINT chk_phone_format_length_dr
-CHECK (phone IS NULL OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$');
+CHECK (
+    phone IS NULL OR 
+    (phone = '+251' OR phone REGEXP '^\\+?(\\d{1,3})?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$')
+);
 
 -- Set AUTO_INCREMENT for department_registration table
 ALTER TABLE department_registration AUTO_INCREMENT=1;
@@ -110,10 +112,10 @@ INSERT INTO departments (`name`) VALUES   ('IT'), ('ART'), ('AUTO'), ('BUSINESS'
 
 CREATE TABLE bin (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  `date` DATE,
-  income INT,
-  cost INT,
-  remain INT,
+  `date` DATE NOT NULL,
+  income INT NOT NULL,
+  cost INT NOT NULL,
+  remain INT AS (income - cost) STORED,
   short VARCHAR(50)
 );
 

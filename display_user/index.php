@@ -184,21 +184,32 @@ if (isset($title) && !empty($title)) {
 $field = isset($_GET['field']) ? $_GET['field'] : ''; // Default empty if not set
 $order = isset($_GET['order']) ? $_GET['order'] : 'desc'; // Default descending order if not set
 
+// Initialize the base query
+$query = "SELECT * FROM users WHERE email != 'admin@gmail.com' OR email IS NULL";
+
 // Validate and sanitize input for security
 if (!empty($field) && $field != 'select field') {
     $field = mysqli_real_escape_string($connection, $_GET['field']);
     $order = mysqli_real_escape_string($connection, $_GET['order']);
-
-    // Modify query to include sorting
+   // Check if search parameter is provided
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = mysqli_real_escape_string($connection, $_GET['search']);
-        $query = "SELECT * FROM users WHERE `$field` LIKE '%$search%' AND email != 'admin@gmail.com' ORDER BY `$field` $order LIMIT $usersPerPage OFFSET $offset";
-    } else {
-        $query = "SELECT * FROM users WHERE  email != 'admin@gmail.com' ORDER BY `$field` $order LIMIT $usersPerPage OFFSET $offset";
+        
+        // Modify the query based on field type
+        if ($field == 'email' || $field == 'Phone') {
+            // Include records where the field is NULL or matches the search term
+            $query .= " AND (`$field` IS NULL OR `$field` LIKE '%$search%')";
+        } else {
+            // Include records where the field matches the search term
+            $query .= " AND `$field` LIKE '%$search%'";
+        }
     }
+
+    // Finalize the query with sorting and pagination
+    $query .= " ORDER BY `$field` $order LIMIT $offset, $usersPerPage";
 } else {
     // Default query if no valid sorting parameters are provided
-    $query = "SELECT * FROM users WHERE  email != 'admin@gmail.com' ORDER BY `id` ASC LIMIT $usersPerPage OFFSET $offset";
+    $query .= " ORDER BY id ASC LIMIT $offset, $usersPerPage";
 }
 
             if(!empty($errors)) {
@@ -208,8 +219,9 @@ if (!empty($field) && $field != 'select field') {
 
             $result = mysqli_query($connection, $query);
   // Count total number of rows without LIMIT for pagination
-            $countQuery = "SELECT COUNT(*) AS total FROM users WHERE  email != 'admin@gmail.com'";
+            $countQuery = "SELECT COUNT(*) AS total FROM users WHERE  email != 'admin@gmail.com'  OR email IS NULL";
           if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
+            
     $search = $_GET['search'];
     $field = $_GET['field'];
     $countQuery .= " WHERE `$field` LIKE '%$search%'";
@@ -253,9 +265,25 @@ if (!empty($field) && $field != 'select field') {
                         <td><?php echo $row['id'] ?></td>
                         <td><?php echo $row['username'] ?></td>
                         <td><?php echo $row['gender'] ?></td>
-                        <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['age'] ?></td>
-                        <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['email'] ?></td>
-                        <td><?php echo $row['phone'] ?></td>
+                        <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['age'] ?></td> 
+                        <td class="text-wrap" style="max-width: 12rem;">
+                            <?php
+                            if ($row['email'] === NULL) {
+                                echo "No email specified";
+                            } else {
+                                echo $row['email'];
+                            }
+                            ?>
+                            </td>
+                            <td>
+                            <?php
+                            if ($row['phone'] === NULL) {
+                                echo "No phone specified";
+                            } else {
+                                echo $row['phone'];
+                            }
+                            ?>
+                        </td>
                         <td><?php echo $row['options'] ?></td>
                         <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
                          <td>
@@ -291,7 +319,7 @@ if (!empty($field) && $field != 'select field') {
                         <ul class="pagination justify-content-end m-auto">
                             <?php
                             // Count total number of rows without LIMIT for pagination
-                            $countQuery = "SELECT COUNT(*) AS total FROM users WHERE email != 'admin@gmail.com'";
+                            $countQuery = "SELECT COUNT(*) AS total FROM users WHERE email != 'admin@gmail.com'  OR email IS NULL ";
                             // Check if search parameters are set and construct the WHERE clause accordingly
                             if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
                                 $search = mysqli_real_escape_string($connection, $_GET['search']);
@@ -363,9 +391,10 @@ if (!empty($field) && $field != 'select field') {
 <!-- message -->
 <?php include('../includes/message.php'); ?>
 
+<!-- footer -->
+<?php include('../includes/footer.php'); ?>
+
 <!-- Modal -->
 <?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
-<!-- footer -->
-<?php include('../includes/footer.php'); ?>

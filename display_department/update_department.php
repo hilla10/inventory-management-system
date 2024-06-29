@@ -11,14 +11,20 @@
 
         </div>
 <div class="container mt-5 w-50">
-<form action="update.php?id_new=<?php echo $id; ?>" method="post" class="update">
+<form action="update.php?id_new=<?php echo $id; ?>" method="post" class="update departmentForm">
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control name" id="username" name="username" placeholder="የእቃው ዝርዝር" value="<?php echo $row['username'] ?>">
+                     <input type="text" class="form-control name" id="username" name="username" placeholder="username" value="<?php echo $row['username'] ?>">
             </div>
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control email " id="email" name="email" placeholder="የእቃው ዝርዝር" value="<?php echo $row['email'] ?>">
+                     <input type="text" class="form-control email " id="email" name="email" placeholder="email" value=" <?php
+                            if ($row['email'] === NULL) {
+                                echo "No email specified";
+                            } else {
+                                echo $row['email'];
+                            }
+                            ?>">
             </div>
                 <div class="form-group input-box mb-2">
                             <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
@@ -30,12 +36,18 @@
 
             <div class="form-group input-box mb-2">
                
-                     <input type="text" class="form-control age" id="age" name="age" placeholder="የእቃው ዝርዝር" value="<?php echo $row['age'] ?>">
+                     <input type="text" class="form-control age" id="age" name="age" placeholder="age" value="<?php echo $row['age'] ?>">
             </div>
 
             <div class="form-group input-box mb-2">
                
-                     <input type="text" class="form-control phone" id="phone" name="phone" placeholder="የእቃው ዝርዝር" value="<?php echo $row['phone'] ?>">
+                     <input type="text" class="form-control phone" id="phone" name="phone" placeholder="phone" value=" <?php
+                            if ($row['phone'] === NULL) {
+                                echo "No phone specified";
+                            } else {
+                                echo $row['phone'];
+                            }
+                            ?><?php echo $row['phone'] ?>">
             </div>
 
           <div class="form-group mb-2 input-box">

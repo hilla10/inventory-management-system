@@ -54,6 +54,31 @@ echo "<div class=\"d-flex flex-column w-100 vh-100 justify-content-center align-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+
+// Function to validate phone number
+function isValidPhone($phoneValue) {
+    // Trim whitespace
+    $phoneValue = trim($phoneValue);
+
+    // Allow empty/null phone numbers or '+251 '
+    if ($phoneValue === '+251') {
+        return null;
+    } else {
+        // Define phone number regex
+        $phoneRegex = '/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/';
+
+        // Remove non-digit characters
+        $numericPhoneValue = preg_replace('/[^\d]/', '', $phoneValue);
+
+        // Validate with regex and length check
+        $isValid = preg_match($phoneRegex, $phoneValue) &&
+                   (strlen($numericPhoneValue) === 10 || strlen($numericPhoneValue) === 13);
+
+        return $isValid;
+    }
+}
+
+
 // Check if the form for adding a user is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     // Validate and sanitize fields
@@ -66,15 +91,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     $password = $_POST['password'];
     $confirm = $_POST['confirm'];
 
-    // Perform additional validation if needed
-    $errors = [];
-
+    // Check if fields are empty
     if (empty($name) || empty($gender) || empty($age) || empty($position) || empty($password) || empty($confirm)) {
         $errors[] = "Some fields are empty.";
     }
     
-    // Ensure either email or phone is provided or neither, but not both
-    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // Validate email if provided
+       if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Please enter a valid email address.";
     } else if (!empty($email)) {
         // Extract domain from email
@@ -83,17 +106,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         if (!checkdnsrr($domain, 'MX')) {
             $errors[] = "Please enter a valid email address.";
         }
+    } else {
+        // If email is empty, set it to NULL
+        $email = null;
     }
 
-    if (!empty($phone)) {
-        // Validate phone number format
-        $phoneRegex = "/^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{2,3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$/";
-        if (!preg_match($phoneRegex, $phone)) {
-            $errors[] = "Please enter a valid phone number.";
-        }
+    // Validate phone number format if provided
+    if ($phone === '+251') {
+        $phone = null; // Set phone number to NULL if it is '+251'
+    } else if (!isValidPhone($phone)) {
+        $errors[] = "Please enter a valid phone number.";
     }
 
-
+    // Validate password length and match
     if (strlen($password) < 8) {
         $errors[] = "Please enter a password with a minimum of 8 characters.";
     }
@@ -151,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
 
     try {
         // Insert the input values into the users table
-        $stmtusers = $connection->prepare("INSERT INTO users (username, gender, age, email, phone, options, `password`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmtusers = $connection->prepare("INSERT INTO users (username, gender, age, email, phone, options, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmtusers->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
         $stmtusers->execute();
 
@@ -181,15 +206,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         }
         $stmtusers->close();
     }
-}else {
+} else {
     $message = "Error: Unable to process the form submission. Please try again.";
     $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-    header('Location: ' . $redirectUrl);
+    header('Refresh: 3; URL=' . $redirectUrl);
     exit;
 }
 
-
-// include('register_modal.php');
 ?>
 
 

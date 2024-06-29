@@ -17,7 +17,7 @@
 <form action="update.php?id_new=<?php echo $id; ?>" method="post" class="update userForm">
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control name" id="username" name="username" placeholder="የእቃው ዝርዝር" value="<?php echo $row['username'] ?>">
+                     <input type="text" class="form-control name" id="username" name="username" placeholder="usernameር" value="<?php echo $row['username'] ?>">
             </div>
 
            <div class="form-group input-box mb-2">
@@ -29,16 +29,22 @@
                         </div>
 
             <div class="form-group mb-2 input-box">
-                     <input type="text" class="form-control age" id="age" name="age" placeholder="የእቃው ዝርዝር" value="<?php echo $row['age'] ?>">
+                     <input type="text" class="form-control age" id="age" name="age" placeholder="age" value="<?php echo $row['age'] ?>">
             </div>
 
             <div class="form-group mb-2 input-box">
-                     <input type="text" class="form-control email" id="email" name="email" placeholder="የእቃው ዝርዝር" value="<?php echo $row['email'] ?>">
+                     <input type="text" class="form-control email" id="email" name="email" placeholder="email" value=" <?php
+                            if ($row['email'] === NULL) {
+                                echo "No email specified";
+                            } else {
+                                echo $row['email'];
+                            }
+                            ?>">
             </div>
 
             <div class="form-group mb-2 input-box">
                
-                     <input type="text" class="form-control phone" id="phone" name="phone" placeholder="የእቃው ዝርዝር" value="<?php echo $row['phone'] ?>">
+                     <input type="text" class="form-control phone" id="phone" name="phone" placeholder="phone" value="<?php echo $row['phone'] ?>">
             </div>
 <div class="form-group mb-2 input-box">
     <label for="options text-dark">ያሉበትን ሁኔታ ይምረጡ:|Enter your position|</label>

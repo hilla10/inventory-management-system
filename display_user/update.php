@@ -1,59 +1,73 @@
- <?php include('../includes/header.php'); ?>
-<?php include('../includes/dbcon.php'); ?>
-
-
 <?php
+include('../includes/header.php');
+include('../includes/dbcon.php');
 
+function isValidPhone($phoneValue) {
+    // Trim whitespace
+    $phoneValue = trim($phoneValue);
+
+    // Allow empty/null phone numbers or '+251'
+    if ($phoneValue === '+251') {
+        return true; // Allow '+251' as valid
+    } else {
+        // Define phone number regex
+        $phoneRegex = '/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/';
+
+        // Remove non-digit characters
+        $numericPhoneValue = preg_replace('/[^\d]/', '', $phoneValue);
+
+        // Validate with regex and length check
+        return preg_match($phoneRegex, $phoneValue) &&
+               (strlen($numericPhoneValue) === 10 || strlen($numericPhoneValue) === 13);
+    }
+}
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $query = "SELECT * FROM  users WHERE `id` = '$id'";
-
+    $query = "SELECT * FROM users WHERE `id` = '$id'";
     $result = mysqli_query($connection, $query);
 
     if (!$result) {
-        die("query Failed" . mysqli_error($connection));
+        die("Query Failed: " . mysqli_error($connection));
     } else {
         $row = mysqli_fetch_assoc($result);
     }
 }
 
+if (isset($_POST['update_user'])) {
+    $new_number = isset($_GET['id_new']) ? $_GET['id_new'] : null;
 
-if(isset($_POST['update_user'])) {
-$new_number = isset($_GET['id_new']) ? $_GET['id_new'] : null;
+    $username = isset($_POST['username']) ? mysqli_real_escape_string($connection, $_POST['username']) : ''; 
+    $email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : '';
+    $gender = isset($_POST['gender']) ? mysqli_real_escape_string($connection, $_POST['gender']) : '';
+    $age = isset($_POST['age']) ? mysqli_real_escape_string($connection, $_POST['age']) : '';
+    $phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, trim($_POST['phone'])) : '';
+    $options = isset($_POST['options']) ? mysqli_real_escape_string($connection, $_POST['options']) : '';
 
-$username = isset($_POST['username']) ? mysqli_real_escape_string($connection, $_POST['username']) : ''; $email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : '';
-$gender = isset($_POST['gender']) ? mysqli_real_escape_string($connection, $_POST['gender']) : '';
-$age = isset($_POST['age']) ? mysqli_real_escape_string($connection, $_POST['age']) : '';
-$phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, $_POST['phone']) : '';
- $options = isset($_POST['options']) ? mysqli_real_escape_string($connection, $_POST['options']) : '';
-
- // Ensure phone number format is valid (optional)
-    $phonePattern = '/^\+?(\\d{1,3})?[-. (]*(\\d{2})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$/';
-    if (!preg_match($phonePattern, $phone)) {
-        header('location: index.php?error_msg=Phone number is invalid.');
-        exit;
+    // Validate phone number format if provided
+    if ($phone === '+251') {
+        $phone = null; // Set phone number to NULL if it is '+251'
+    } else if (!isValidPhone($phone)) {
+        $errors[] = "Please enter a valid phone number.";
     }
 
-    $queryusers = "UPDATE users SET `username` = '$username', `gender` = '$gender', `email` = '$email', `age` = '$age', `phone` = '$phone', `options` = '$options' WHERE `id` = '$new_number'";
-
+    // Update query with prepared statement
     $query = "UPDATE users SET `username` = ?, `gender` = ?, `email` = ?, `age` = ?, `phone` = ?, `options` = ? WHERE `id` = ?";
     $stmt = mysqli_prepare($connection, $query);
 
-    mysqli_stmt_bind_param($stmt, 'sssissi',$username, $gender, $email, $age, $phone, $options, $new_number);
+    // Bind parameters to the statement
+    mysqli_stmt_bind_param($stmt, 'sssissi', $username, $gender, $email, $age, $phone, $options, $new_number);
 
-      $resultusers = mysqli_query($connection, $queryusers);
-
-        if (!mysqli_stmt_execute($stmt)) {
+    // Execute the statement
+    if (!mysqli_stmt_execute($stmt)) {
         die("Query failed: " . mysqli_error($connection));
     } else {
-        header('location: index.php?update_msg=You have successfully updated the data');
+        header('Location: index.php?update_msg=You have successfully updated the data');
         exit;
     }
-    
 }
-
 ?>
+
 <?php include('update_user.php'); ?> 
 <?php include('../includes/footer.php'); ?>

@@ -2,6 +2,27 @@
 include('../includes/header.php');
 include('../includes/dbcon.php');
 
+function isValidPhone($phoneValue) {
+    // Trim whitespace
+    $phoneValue = trim($phoneValue);
+
+    // Allow empty/null phone numbers or '+251'
+    if ($phoneValue === '+251') {
+        return true; // Allow '+251' as valid
+    } else {
+        // Define phone number regex
+        $phoneRegex = '/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/';
+
+        // Remove non-digit characters
+        $numericPhoneValue = preg_replace('/[^\d]/', '', $phoneValue);
+
+        // Validate with regex and length check
+        return preg_match($phoneRegex, $phoneValue) &&
+               (strlen($numericPhoneValue) === 10 || strlen($numericPhoneValue) === 13);
+    }
+}
+
+
 // Fetch department registration details based on ID from GET parameter
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -24,14 +45,14 @@ if (isset($_POST['update_department'])) {
     $email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : '';
     $gender = isset($_POST['gender']) ? mysqli_real_escape_string($connection, $_POST['gender']) : '';
     $age = isset($_POST['age']) ? mysqli_real_escape_string($connection, $_POST['age']) : '';
-    $phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, $_POST['phone']) : '';
+    $phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, trim($_POST['phone'])) : '';
     $position = isset($_POST['position']) ? mysqli_real_escape_string($connection, $_POST['position']) : '';
 
-    // Ensure phone number format is valid (optional)
-    $phonePattern = '/^\+?(\\d{1,3})?[-. (]*(\\d{2})[-. )]*(\\d{3})[-. ]*(\\d{4})( *x(\\d+))?\\s*$/';
-    if (!preg_match($phonePattern, $phone)) {
-        header('location: index.php?error_msg=Phone number is invalid.');
-        exit;
+      // Validate phone number format if provided
+    if ($phone === '+251') {
+        $phone = null; // Set phone number to NULL if it is '+251'
+    } else if (!isValidPhone($phone)) {
+        $errors[] = "Please enter a valid phone number.";
     }
 
     // Update department registration in database using prepared statement

@@ -180,6 +180,7 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
 $field = isset($_GET['field']) ? $_GET['field'] : ''; // Default empty if not set
 $order = isset($_GET['order']) ? $_GET['order'] : 'desc'; // Default descending order if not set
 
+
 // Validate and sanitize input for security
 if (!empty($field) && $field != 'select field') {
     $field = mysqli_real_escape_string($connection, $_GET['field']);
@@ -250,9 +251,25 @@ if (!empty($field) && $field != 'select field') {
                         <td><?php echo $row['id'] ?></td>
                         <td><?php echo $row['username'] ?></td>
                         <td><?php echo $row['gender'] ?></td>
-                        <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['email'] ?></td>
+                       <td class="text-wrap" style="max-width: 12rem;">
+                            <?php
+                            if ($row['email'] === NULL) {
+                                echo "No email specified";
+                            } else {
+                                echo $row['email'];
+                            }
+                            ?>
+                            </td>
                        <td><?php echo $row['age'] ?></td>
-                        <td><?php echo $row['phone'] ?></td>
+                        <td>
+                            <?php
+                            if ($row['phone'] === NULL) {
+                                echo "No phone specified";
+                            } else {
+                                echo $row['phone'];
+                            }
+                            ?>
+                        </td>
                         <td><?php echo $row['position'] ?></td>
                         <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
                          <td>

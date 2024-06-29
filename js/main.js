@@ -214,11 +214,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // Validation department users
   DepartmentValidation();
 
-
   // Initialize validation for user
   userValidation();
 
   // validation modal for model 19
 
   validationModel19();
+
+/*   function initDeleteModal() {
+    const deleteModal = document.getElementById('deleteModal');
+    const deleteModalInstance = new bootstrap.Modal(deleteModal);
+
+    // Add event listener to the delete button
+    const deleteButton = document.querySelector('#deleteModal .btn-danger');
+    deleteButton.addEventListener('click', () => {
+      // Perform delete action
+      // document.getElementById('deleteForm').submit();
+    });
+
+    return deleteModalInstance;
+  }
+
+  // Assuming you have a button to trigger the modal
+  const deleteUserButton = document.getElementById('deleteUserButton');
+  deleteUserButton.addEventListener('click', () => {
+    const deleteModalInstance = initDeleteModal();
+    deleteModalInstance.show();
+  }); */
 });

@@ -267,6 +267,7 @@ form .outline input:active {
   color: #181414;
 }
 
+
 .input-box span {
   position: absolute;
   left: 0;
@@ -295,7 +296,8 @@ form .outline input:active {
 }
 
 form .input-box input:focus,
-form .input-box input:active {
+form .input-box input:active,
+form .input-box input.has-content {
   border: 1px groove #00dfc4;
   box-shadow: 0 0 0.5rem 0.15rem rgba(220, 210, 248, 0.945);
   background: transparent;
@@ -315,9 +317,11 @@ form .input-box input:active {
 .input-box .success-input.phone:valid ~ span,
 .input-box .success-input:focus ~ span,
 .input-box .success-input:active ~ span {
-  color: #fff !important;
+  /* color: #fff !important;
   background: #008000 !important;
-  box-shadow: 0 -2px 0.2rem rgba(0, 128, 0, 0.322) !important;
+  box-shadow: 0 -2px 0.2rem rgba(0, 128, 0, 0.322) !important; */
+   border: 1px groove #00dfc4;
+  box-shadow: 0 0 0.3rem 0.1rem rgba(4, 255, 226, 0.39);
 }
 
 .error-input {
