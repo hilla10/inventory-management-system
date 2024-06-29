@@ -35,6 +35,12 @@
     $quantity = $_POST['quantity'];
     $price = $_POST['price'];
 
+     if(empty($quantity) || empty($addedBy) || empty($itemType) || empty($itemCategory) || empty($model) || empty($serie)|| empty($price)) {
+          header('location: index.php?error_msg=some field are empty');
+    } else {
+
+  
+
         $query = "UPDATE `model_19` set `quantity` = '$quantity', `added_by` = '$addedBy', `item_type` = '$itemType', `item_category` = '$itemCategory',  `model` = '$model', `serie` = '$serie', `price` = '$price' WHERE `ordinary_number` = '$new_number'";
 
           $result = mysqli_query($connection, $query);
@@ -46,7 +52,7 @@
             header('location: index.php?update_msg=You have successfully updated the data');
 
         }
-        
+          }
     }
 ?>
   <?php include('update_model.php'); ?>

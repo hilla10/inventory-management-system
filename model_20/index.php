@@ -175,7 +175,8 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                         <table class="table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ተራ ቁጥር</th>
+                                    <th>ተራ ቁጥር</th> 
+                                    <th>ስም</th> 
                                     <th>ብዛት</th>
                                     <th>የእቃው አይነት</th>
                                     <th>የእቃው ምድብ</th>
@@ -191,6 +192,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                                     ?>
                                     <tr>
                                         <td><?php echo $row['ordinary_number']; ?></td>
+                                        <td><?php echo $row['requested_by']; ?></td>
                                         <td><?php echo $row['quantity']; ?></td>
                                         <td><?php echo $row['item_type']; ?></td>
                                         <td><?php echo $row['item_category']; ?></td>

@@ -1,16 +1,17 @@
 /* ********************  */
 
 // validation item form
-export const itemValidation = () => {
+export  const itemValidation = () => {
   // Get the form element
-  const insertAppForm = document.querySelector('.insert-app-form');
-  const shakeContent = document.querySelector('.shake-content');
-  const inventoryList = document.getElementById('inventory_list');
-  const itemType = document.getElementById('item_type');
-  const description = document.getElementById('description');
-  const inputQuantity = document.getElementById('quantity');
-  const inputPrice = document.getElementById('price');
-  const examination = document.getElementById('examination');
+  const insertAppForms = document.querySelectorAll('.insert-app-form');
+
+  const shakeContents = document.querySelectorAll('.shake-content');
+  const inventoryLists = document.querySelectorAll('.inventory_list');
+  const itemTypes = document.querySelectorAll('.item_type');
+  const descriptions = document.querySelectorAll('.description');
+  const inputQuantities = document.querySelectorAll('.quantity');
+  const inputPrices = document.querySelectorAll('.price');
+  const examinations = document.querySelectorAll('.examination');
 
   // Function to validate individual input fields
   const validateInput = (inputElement) => {
@@ -25,11 +26,11 @@ export const itemValidation = () => {
     }
   };
 
-  // Function to validate numeric fields
   const validateNumber = (inputElement) => {
-    const inputValue = parseFloat(inputElement.value.trim());
+    const inputValue = inputElement.value.trim();
+    const regexNumber = /^\d+$/; // This regex matches only whole numbers
 
-    if (isNaN(inputValue) || inputValue <= 0) {
+    if (!regexNumber.test(inputValue)) {
       inputElement.classList.add('error');
       return false;
     } else {
@@ -38,214 +39,282 @@ export const itemValidation = () => {
     }
   };
 
+
   // Event listener for form submission
-  if (insertAppForm) {
-    insertAppForm.addEventListener('submit', (event) => {
-      let isValid = true;
+  insertAppForms.forEach((insertAppForm) => {
+    if (insertAppForm) {
+      insertAppForm.addEventListener('submit', (event) => {
+        let isValid = true;
 
-      // Validate inventoryList input
-      if (!validateInput(inventoryList)) {
-        isValid = false;
-      }
+        // Validate inventoryList input
+        inventoryLists.forEach((inventoryList) => {
+          if (!validateInput(inventoryList)) {
+            isValid = false;
+          }
+        });
 
-      // Validate item type input
-      if (!validateInput(itemType)) {
-        isValid = false;
-      }
+        // Validate item type input
 
-      // Validate description input
-      if (!validateInput(description)) {
-        isValid = false;
-      }
+        itemTypes.forEach((itemType) => {
+          if (!validateInput(itemType)) {
+            isValid = false;
+          }
+        });
 
-      // Validate quantity input
-      if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
-        isValid = false;
-      }
+        // Validate description input
+        descriptions.forEach((description) => {
+          if (!validateInput(description)) {
+            isValid = false;
+          }
+        });
 
-      // Validate price input
-      if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
-        isValid = false;
-      }
+        // Validate quantity input
+        inputQuantities.forEach((inputQuantity) => {
+          if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
+            isValid = false;
+          }
+        });
 
-      // Validate examination input
-      if (!validateInput(examination)) {
-        isValid = false;
-      }
+        // Validate price input
+        inputPrices.forEach((inputPrice) => {
+          if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
+            isValid = false;
+          }
+        });
 
-      // Prevent form submission if validation fails
-      if (!isValid) {
-        event.preventDefault();
-        shakeContent.classList.add('shake');
-        setTimeout(() => {
-          shakeContent.classList.remove('shake');
-        }, 500);
-      }
-    });
-  }
+        // Validate examination input
+        examinations.forEach((examination) => {
+          if (!validateInput(examination)) {
+            isValid = false;
+          }
+        });
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+          event.preventDefault();
+          shakeContents.forEach((shakeContent) => {
+            shakeContent.classList.add('shake');
+            setTimeout(() => {
+              shakeContent.classList.remove('shake');
+            }, 500);
+          });
+        }
+      });
+    }
+  });
 
   // Event listeners for input fields to validate dynamically
-  if (inventoryList) {
-    inventoryList.addEventListener('input', () => {
-      validateInput(inventoryList);
-    });
-  }
+  inventoryLists.forEach((inventoryList) => {
+    if (inventoryList) {
+      inventoryList.addEventListener('input', () => {
+        validateInput(inventoryList);
+      });
+    }
+  });
 
-  if (itemType) {
-    itemType.addEventListener('input', () => {
-      validateInput(itemType);
-    });
-  }
+  itemTypes.forEach((itemType) => {
+    if (itemType) {
+      itemType.addEventListener('input', () => {
+        validateInput(itemType);
+      });
+    }
+  });
 
-  if (description) {
-    description.addEventListener('input', () => {
-      validateInput(description);
-    });
-  }
+  descriptions.forEach((description) => {
+    if (description) {
+      description.addEventListener('input', () => {
+        validateInput(description);
+      });
+    }
+  });
 
-  if (inputQuantity) {
-    inputQuantity.addEventListener('input', () => {
-      validateInput(inputQuantity);
-      validateNumber(inputQuantity);
-    });
-  }
+  inputQuantities.forEach((inputQuantity) => {
+    if (inputQuantity) {
+      inputQuantity.addEventListener('input', () => {
+        validateInput(inputQuantity);
+        validateNumber(inputQuantity);
+      });
+    }
+  });
 
-  if (inputPrice) {
-    inputPrice.addEventListener('input', () => {
-      validateInput(inputPrice);
-      validateNumber(inputPrice);
-    });
-  }
+  inputPrices.forEach((inputPrice) => {
+    if (inputPrice) {
+      inputPrice.addEventListener('input', () => {
+        validateInput(inputPrice);
+        validateNumber(inputPrice);
+      });
+    }
+  });
 
-  if (examination) {
-    examination.addEventListener('input', () => {
-      validateInput(examination);
-    });
-  }
+  examinations.forEach((examination) => {
+    if (examination) {
+      examination.addEventListener('input', () => {
+        validateInput(examination);
+      });
+    }
+  });
 };
 
 // validation for bin card
-export const binCardValidation = () => {
-  const insertBinCardAppForm = document.querySelector('.insert-binCard-form');
-  const shakeBinContent = document.querySelector('.shake-bin-content');
-  const income = document.getElementById('income');
-  const cost = document.getElementById('cost');
-  const short = document.getElementById('short');
-  const dateInput = document.getElementById('date');
-  
-  // Function to validate individual input fields
-  const validateInput = (inputElement) => {
-    const inputValue = inputElement.value.trim();
+ export const binCardValidation = () => {
+   const insertBinCardAppForms = document.querySelectorAll(
+     '.insert-binCard-form'
+   );
+   const shakeBinContents = document.querySelectorAll('.shake-bin-content');
+   const incomes = document.querySelectorAll('.income');
+   const costs = document.querySelectorAll('.cost');
+   const shorts = document.querySelectorAll('.short');
+   const dateInputs = document.querySelectorAll('.date');
 
-    if (inputValue === '') {
-      inputElement.classList.add('error');
-      return false;
-    } else {
-      inputElement.classList.remove('error');
-      return true;
-    }
-  };
+   // Function to validate individual input fields
+   const validateInput = (inputElement) => {
+     const inputValue = inputElement.value.trim();
 
-  // Function to validate numeric fields
-  const validateNumber = (inputElement) => {
-    const inputValue = parseFloat(inputElement.value.trim());
+     if (inputValue === '') {
+       inputElement.classList.add('error');
+       return false;
+     } else {
+       inputElement.classList.remove('error');
+       return true;
+     }
+   };
 
-    if (isNaN(inputValue) || inputValue <= 0) {
-      inputElement.classList.add('error');
-      return false;
-    } else {
-      inputElement.classList.remove('error');
-      return true;
-    }
-  };
+   // Function to validate numeric fields
+   const validateNumber = (inputElement) => {
+     const inputValue = inputElement.value.trim();
+     const regexNumber = /^\d+$/; // This regex matches only whole numbers
 
-  // Function to validate date format (YYYY-MM-DD)
-  const isValidDateFormat = (dateString) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    return regex.test(dateString);
-  };
+     if (!regexNumber.test(inputValue)) {
+       inputElement.classList.add('error');
+       return false;
+     } else {
+       inputElement.classList.remove('error');
+       return true;
+     }
+   };
 
-  if (insertBinCardAppForm) {
-    // Event listener for form submission
-    insertBinCardAppForm.addEventListener('submit', (event) => {
-      let isValid = true;
+   // Function to validate date format (YYYY-MM-DD)
+   const isValidDateFormat = (dateString) => {
+     const regex = /^\d{4}-\d{2}-\d{2}$/;
+     return regex.test(dateString);
+   };
 
-      // Validate short input
-      if (!validateInput(short)) {
-        isValid = false;
-      }
+   insertBinCardAppForms.forEach((insertBinCardAppForm) => {
+     if (insertBinCardAppForm) {
+       // Event listener for form submission
+       insertBinCardAppForm.addEventListener('submit', (event) => {
+         let isValid = true;
 
-      // Validate income and cost inputs (both required and numeric)
-      if (!validateInput(income) || !validateNumber(income)) {
-        isValid = false;
-      }
+         // Validate short input
+         shorts.forEach((short) => {
+           if (!validateInput(short)) {
+             isValid = false;
+           }
+         });
 
-      if (!validateInput(cost) || !validateNumber(cost)) {
-        isValid = false;
-      }
+         // Validate income and cost inputs (both required and numeric)
+         incomes.forEach((income) => {
+           if (!validateInput(income) || !validateNumber(income)) {
+             isValid = false;
+           }
+         });
 
-      // Validate date input
-      if (!validateInput(dateInput) || !isValidDateFormat(dateInput.value)) {
-        isValid = false;
-      }
+         costs.forEach((cost) => {
+           if (!validateInput(cost) || !validateNumber(cost)) {
+             isValid = false;
+           }
+         });
 
-      // Prevent form submission if validation fails
-      if (!isValid) {
-        event.preventDefault();
-        shakeBinContent.classList.add('shake');
-        setTimeout(() => {
-          shakeBinContent.classList.remove('shake');
-        }, 500);
-      }
-    });
-  }
+         // Validate date input
+         dateInputs.forEach((dateInput) => {
+           if (
+             !validateInput(dateInput) ||
+             !isValidDateFormat(dateInput.value)
+           ) {
+             isValid = false;
+           }
+         });
 
-  // Event listeners for input fields to validate dynamically
-  if (income) {
-    income.addEventListener('input', () => {
-      validateInput(income);
-      validateNumber(income);
-    });
-  }
+         // Prevent form submission if validation fails
+         if (!isValid) {
+           event.preventDefault();
+           shakeBinContents.forEach((shakeBinContent) => {
+             shakeBinContent.classList.add('shake');
+             setTimeout(() => {
+               shakeBinContent.classList.remove('shake');
+             }, 500);
+           });
+         }
+       });
+     }
+   });
 
-  if (cost) {
-    cost.addEventListener('input', () => {
-      validateInput(cost);
-      validateNumber(cost);
-    });
-  }
-  if (short) {
-    short.addEventListener('input', () => {
-      validateInput(short);
-    });
-  }
+   // Event listeners for input fields to validate dynamically
+   incomes.forEach((income) => {
+     if (income) {
+       income.addEventListener('input', () => {
+         validateInput(income);
+         validateNumber(income);
+         console.log(income.value);
+       });
+     }
+   });
 
-  if (dateInput) {
-    dateInput.addEventListener('input', () => {
-      if (!isValidDateFormat(dateInput.value)) {
-        dateInput.classList.add('error');
-      } else {
-        dateInput.classList.remove('error');
-        const dateObject = new Date(dateInput.value);
-      }
-    });
-  }
-};
+   costs.forEach((cost) => {
+     if (cost) {
+       cost.addEventListener('input', () => {
+         validateInput(cost);
+         validateNumber(cost);
+         console.log(cost.value);
+       });
+     }
+   });
 
+   shorts.forEach((short) => {
+     if (short) {
+       short.addEventListener('input', () => {
+         validateInput(short);
+         console.log(short.value);
+       });
+     }
+   });
+
+   dateInputs.forEach((dateInput) => {
+     if (dateInput) {
+       dateInput.addEventListener('input', () => {
+         if (!isValidDateFormat(dateInput.value)) {
+           dateInput.classList.add('error');
+           console.log(dateInput.value);
+         } else {
+           dateInput.classList.remove('error');
+           const dateObject = new Date(dateInput.value);
+         }
+       });
+     }
+   });
+ };
 /* ********************  */
 
 // validation for model 19
-export const validationModel19 = () => {
-  const insertModel19AppForm = document.querySelector('.insert-model-app-form');
-  const shakeModel19Content = document.querySelector('.shake-model19-content');
-  const name = document.querySelector('.insert-model-app-form #added-by');
-  const itemType = document.querySelector(' .insert-model-app-form .item_type');
-  const model = document.querySelector('.insert-model-app-form #model');
-  const serie = document.querySelector('.insert-model-app-form #serie');
-  const inputQuantity = document.querySelector(
-    '.insert-model-app-form .quantity'
+export  const validationModel19 = () => {
+  const insertModel19AppForms = document.querySelectorAll(
+    '.insert-model19-app-form'
   );
-  const inputPrice = document.querySelector('.insert-model-app-form .price');
+  const shakeModel19Contents = document.querySelectorAll(
+    '.shake-model19-content'
+  );
+  const names = document.querySelectorAll('.insert-model19-app-form .added-by');
+  const itemTypes = document.querySelectorAll(
+    ' .insert-model19-app-form .item_type'
+  );
+  const models = document.querySelectorAll('.insert-model19-app-form .model');
+  const series = document.querySelectorAll('.insert-model19-app-form .serie');
+  const inputQuantities = document.querySelectorAll(
+    '.insert-model19-app-form .quantity'
+  );
+  const inputPrices = document.querySelectorAll(
+    '.insert-model19-app-form .price'
+  );
 
   // Function to validate individual input fields
   const validateInput = (inputElement) => {
@@ -262,9 +331,10 @@ export const validationModel19 = () => {
 
   // Function to validate numeric fields
   const validateNumber = (inputElement) => {
-    const inputValue = parseFloat(inputElement.value.trim());
+    const inputValue = inputElement.value.trim();
+    const regexNumber = /^\d+$/; // This regex matches only whole numbers
 
-    if (isNaN(inputValue) || inputValue <= 0) {
+    if (!regexNumber.test(inputValue)) {
       inputElement.classList.add('error');
       return false;
     } else {
@@ -282,219 +352,253 @@ export const validationModel19 = () => {
     if (isValidName(name.value)) {
       name.classList.remove('error-input');
       name.classList.add('success-input');
-      ('Name is valid');
     } else {
       name.classList.remove('success-input');
       name.classList.add('error-input');
-      ('Name is NOT valid');
     }
   };
 
   // Event listener for form submission
-  if (insertModel19AppForm) {
-    insertModel19AppForm.addEventListener('submit', (event) => {
-      let isValid = true;
 
-      // Validate item type input
-      if (!validateInput(name)) {
-        isValid = false;
-      }
+  insertModel19AppForms.forEach((insertModel19AppForm) => {
+    if (insertModel19AppForm) {
+      insertModel19AppForm.addEventListener('submit', (event) => {
+        let isValid = true;
 
-      // Validate item type input
-      if (!validateInput(itemType)) {
-        isValid = false;
-      }
+        // Validate item type input
+        names.forEach((name) => {
+          if (!validateInput(name)) {
+            isValid = false;
+          }
+        });
 
-      // Validate model input
-      if (!validateInput(model)) {
-        isValid = false;
-      }
-      // Validate serie input
-      if (!validateInput(serie)) {
-        isValid = false;
-      }
+        // Validate item type input
+        itemTypes.forEach((itemType) => {
+          if (!validateInput(itemType)) {
+            isValid = false;
+          }
+        });
 
-      // Validate quantity input
-      if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
-        isValid = false;
-      }
+        // Validate model input
+        models.forEach((model) => {
+          if (!validateInput(model)) {
+            isValid = false;
+          }
+        });
 
-      // Validate price input
-      if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
-        isValid = false;
-      }
+        // Validate serie input
+        series.forEach((serie) => {
+          if (!validateInput(serie)) {
+            isValid = false;
+          }
+        });
 
-      // Prevent form submission if validation fails
-      if (!isValid) {
-        event.preventDefault();
-        shakeModel19Content.classList.add('shake');
-        setTimeout(() => {
-          shakeModel19Content.classList.remove('shake');
-        }, 500);
-      }
-    });
-  }
+        // Validate quantity input
+        inputQuantities.forEach((inputQuantity) => {
+          if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
+            isValid = false;
+          }
+        });
+
+        // Validate price input
+        inputPrices.forEach((inputPrice) => {
+          if (!validateInput(inputPrice) || !validateNumber(inputPrice)) {
+            isValid = false;
+          }
+        });
+
+        // Prevent form submission if validation fails
+        if (!isValid) {
+          event.preventDefault();
+          shakeModel19Contents.forEach((shakeModel19Content) => {
+            shakeModel19Content.classList.add('shake');
+            setTimeout(() => {
+              shakeModel19Content.classList.remove('shake');
+            }, 500);
+          });
+        }
+      });
+    }
+  });
 
   // Event listeners for input fields to validate dynamically
-  if (name) {
-    name.addEventListener('input', () => {
-      validName(name);
-      validateInput(name);
-    });
-  }
+  names.forEach((name) => {
+    if (name) {
+      name.addEventListener('input', () => {
+        validName(name);
+        validateInput(name);
+      });
+    }
+  });
 
-  if (itemType) {
-    itemType.addEventListener('input', () => {
-      validateInput(itemType);
-    });
-  }
+  itemTypes.forEach((itemType) => {
+    if (itemType) {
+      itemType.addEventListener('input', () => {
+        validateInput(itemType);
+      });
+    }
+  });
 
-  if (model) {
-    model.addEventListener('input', () => {
-      validateInput(model);
-    });
-  }
+  models.forEach((model) => {
+    if (model) {
+      model.addEventListener('input', () => {
+        validateInput(model);
+      });
+    }
+  });
 
-  if (serie) {
-    serie.addEventListener('input', () => {
-      validateInput(serie);
-    });
-  }
+  series.forEach((serie) => {
+    if (serie) {
+      serie.addEventListener('input', () => {
+        validateInput(serie);
+      });
+    }
+  });
 
-  if (inputQuantity) {
-    inputQuantity.addEventListener('input', () => {
-      validateInput(inputQuantity);
-      validateNumber(inputQuantity);
-    });
-  }
+  inputQuantities.forEach((inputQuantity) => {
+    if (inputQuantity) {
+      inputQuantity.addEventListener('input', () => {
+        validateInput(inputQuantity);
+        validateNumber(inputQuantity);
+      });
+    }
+  });
 
-  if (inputPrice) {
-    inputPrice.addEventListener('input', () => {
-      validateInput(inputPrice);
-      validateNumber(inputPrice);
-    });
-  }
+  inputPrices.forEach((inputPrice) => {
+    if (inputPrice) {
+      inputPrice.addEventListener('input', () => {
+        validateInput(inputPrice);
+        validateNumber(inputPrice);
+      });
+    }
+  });
 };
 
 /* ********************  */
 
 // validation for model 20
 export const validationModel20 = () => {
-  const insertModel20AppForm = document.querySelector('.insert-model20-app-form');
-  if (insertModel20AppForm) {
-    const shakeModel20Content = document.querySelector(
-      '.shake-model20-content'
-    );
-    const name = insertModel20AppForm.querySelector('#requested-by');
-    const itemType = insertModel20AppForm.querySelector('#item_type');
-    const model = insertModel20AppForm.querySelector('#model');
-    const update = insertModel20AppForm.querySelector('#update');
-    const inputQuantity = insertModel20AppForm.querySelector('#quantity');
+  const insertModel20AppForms = document.querySelectorAll(
+    '.insert-model20-app-form'
+  );
 
-    // Function to validate individual input fields
-    const validateInput = (inputElement) => {
-      const inputValue = inputElement.value.trim();
+  insertModel20AppForms.forEach((insertModel20AppForm) => {
+    if (insertModel20AppForm) {
+      const shakeModel20Content = document.querySelector(
+        '.shake-model20-content'
+      );
+      const name = insertModel20AppForm.querySelector('#requested-by');
+      const itemType = insertModel20AppForm.querySelector('#item_type');
+      const model = insertModel20AppForm.querySelector('#model');
+      const update = insertModel20AppForm.querySelector('#update');
+      const inputQuantity = insertModel20AppForm.querySelector('#quantity');
 
-      if (inputValue === '') {
-        inputElement.classList.add('error');
-        return false;
-      } else {
-        inputElement.classList.remove('error');
-        return true;
-      }
-    };
+      // Function to validate individual input fields
+      const validateInput = (inputElement) => {
+        const inputValue = inputElement.value.trim();
 
-    // Function to validate numeric fields
-    const validateNumber = (inputElement) => {
-      const inputValue = parseFloat(inputElement.value.trim());
+        if (inputValue === '') {
+          inputElement.classList.add('error');
+          return false;
+        } else {
+          inputElement.classList.remove('error');
+          return true;
+        }
+      };
 
-      if (isNaN(inputValue) || inputValue <= 0) {
-        inputElement.classList.add('error');
-        return false;
-      } else {
-        inputElement.classList.remove('error');
-        return true;
-      }
-    };
+      // Function to validate numeric fields
+      const validateNumber = (inputElement) => {
+        const inputValue = parseFloat(inputElement.value.trim());
 
-    const isValidName = (nameValue) => {
-      const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
-      return nameRegex.test(nameValue);
-    };
+        if (isNaN(inputValue) || inputValue <= 0) {
+          inputElement.classList.add('error');
+          return false;
+        } else {
+          inputElement.classList.remove('error');
+          return true;
+        }
+      };
 
-    const validName = (name) => {
-      if (isValidName(name.value)) {
-        name.classList.remove('error-input');
-        name.classList.add('success-input');
-        ('Name is valid');
-      } else {
-        name.classList.remove('success-input');
-        name.classList.add('error-input');
-        ('Name is NOT valid');
-      }
-    };
+      const isValidName = (nameValue) => {
+        const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
+        return nameRegex.test(nameValue);
+      };
 
-    // Event listener for form submission
-    insertModel20AppForm.addEventListener('submit', (event) => {
-      let isValid = true;
+      const validName = (name) => {
+        if (isValidName(name.value)) {
+          name.classList.remove('error-input');
+          name.classList.add('success-input');
+          ('Name is valid');
+        } else {
+          name.classList.remove('success-input');
+          name.classList.add('error-input');
+          ('Name is NOT valid');
+        }
+      };
 
-      // Validate item type input
-      if (!validateInput(name)) {
-        isValid = false;
-      }
+      // Event listener for form submission
+      insertModel20AppForm.addEventListener('submit', (event) => {
+        let isValid = true;
 
-      // Validate item type input
-      if (!validateInput(itemType)) {
-        isValid = false;
-      }
+        // Validate item type input
+        if (!validateInput(name)) {
+          isValid = false;
+        }
 
-      // Validate model input
-      if (!validateInput(model)) {
-        isValid = false;
-      }
+        // Validate item type input
+        if (!validateInput(itemType)) {
+          isValid = false;
+        }
 
-      // Validate update input
-      if (!validateInput(update)) {
-        isValid = false;
-      }
+        // Validate model input
+        if (!validateInput(model)) {
+          isValid = false;
+        }
 
-      // Validate quantity input
-      if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
-        isValid = false;
-      }
+        // Validate update input
+        if (!validateInput(update)) {
+          isValid = false;
+        }
 
-      // Prevent form submission if validation fails
-      if (!isValid) {
-        event.preventDefault();
-        shakeModel20Content.classList.add('shake');
-        setTimeout(() => {
-          shakeModel20Content.classList.remove('shake');
-        }, 500);
-      }
-    });
+        // Validate quantity input
+        if (!validateInput(inputQuantity) || !validateNumber(inputQuantity)) {
+          isValid = false;
+        }
 
-    // Event listeners for input fields to validate dynamically
+        // Prevent form submission if validation fails
+        if (!isValid) {
+          event.preventDefault();
+          shakeModel20Content.classList.add('shake');
+          setTimeout(() => {
+            shakeModel20Content.classList.remove('shake');
+          }, 500);
+        }
+      });
 
-    name.addEventListener('input', () => {
-      validName(name);
-      validateInput(name);
-    });
+      // Event listeners for input fields to validate dynamically
 
-    itemType.addEventListener('input', () => {
-      validateInput(itemType);
-    });
+      name.addEventListener('input', () => {
+        validName(name);
+        validateInput(name);
+      });
 
-    model.addEventListener('input', () => {
-      validateInput(model);
-    });
+      itemType.addEventListener('input', () => {
+        validateInput(itemType);
+      });
 
-    update.addEventListener('input', () => {
-      validateInput(update);
-    });
+      model.addEventListener('input', () => {
+        validateInput(model);
+      });
 
-    inputQuantity.addEventListener('input', () => {
-      validateInput(inputQuantity);
-      validateNumber(inputQuantity);
-    });
-  }
+      update.addEventListener('input', () => {
+        validateInput(update);
+      });
+
+      inputQuantity.addEventListener('input', () => {
+        validateInput(inputQuantity);
+        validateNumber(inputQuantity);
+      });
+    }
+  });
+
 };

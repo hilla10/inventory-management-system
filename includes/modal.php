@@ -175,22 +175,22 @@
                     <h2 class="fs-3 text-center py-3">ቢን ካርድ</h2>
 
                     <div class="form-group input-box my-2">
-                        <input type="date" class="form-control" id="date" name="date">
+                        <input type="date" class="form-control date" id="date" name="date">
                     </div>
                     <div class="form-group input-box my-2">
-                        <input type="text" class="form-control" id="income" name="income">
+                        <input type="text" class="form-control income" id="income" name="income">
                         <span>ገቢ</span>
                     </div>
                     <div class="form-group input-box my-2">
-                        <input type="text" class="form-control" id="cost" name="cost">
+                        <input type="text" class="form-control cost" id="cost" name="cost">
                         <span>ወጪ</span>
                     </div>
                     <div class="form-group input-box my-2">
-                        <input disabled type="text" class="form-control" id="remain" name="remain">
+                        <input disabled type="text" class="form-control remain" id="remain" name="remain">
                         <span>ከወጪ ቀሪ</span>
                     </div>
                     <div class="form-group input-box my-2">
-                        <input type="text" class="form-control" id="short" name="short">
+                        <input type="text" class="form-control short" id="short" name="short">
                         <span>አጭር ፈር</span>
                     </div>
                     <div class="modal-footer">
@@ -215,9 +215,9 @@
                  <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
-                 <form action="insert_app.php" method="post" class="insert-model-app-form">
+                 <form action="insert_app.php" method="post" class="insert-model19-app-form">
                      <div class="form-group input-box mb-2">
-                         <input type="text" class="form-control" id="added-by" name="added-by">
+                         <input type="text" class="form-control added-by" id="added-by" name="added-by">
                          <span>ስሞትን ያስገቡ| Enter your name|</span>
                      </div>
                      <div class="form-group input-box mb-2">
@@ -234,12 +234,12 @@
                      </div>
                      <div class="form-group input-box mb-2">
 
-                         <input type="text" class="form-control" id="model" name="model">
+                         <input type="text" class="form-control model" id="model" name="model">
                          <span>ሞዴል</span>
                      </div>
                      <div class="form-group input-box mb-2">
 
-                         <input type="text" class="form-control" id="serie" name="serie">
+                         <input type="text" class="form-control serie" id="serie" name="serie">
                          <span>ሴሪ</span>
                      </div>
                      <div class="form-group input-box mb-2">
@@ -253,7 +253,7 @@
                      </div>
                      <div class="form-group input-box mb-2">
                          <input type="text" class="form-control total_price" id="total_price" name="total_price"
-                             disabled>
+                             readonly>
                          <span>ጠቅላላ ዋጋ</span>
                      </div>
                      <div class="modal-footer">
@@ -280,7 +280,7 @@
             <div class="modal-body">
                 <form action="insert_app.php" method="post" class="insert-model20-app-form">
                     <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control" id="requested-by" name="requested-by">
+                        <input type="text" class="form-control requested-by" id="requested-by" name="requested-by">
                         <span>ስሞትን ያስገቡ| Enter your name|</span>
                     </div>
                     <div class="form-group input-box mb-2">
@@ -288,7 +288,7 @@
                         <span>ብዛት</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control" id="item_type" name="item_type">
+                        <input type="text" class="form-control item_type" id="item_type" name="item_type">
                         <span>የእቃው አይነት</span>
                     </div>
                     <div class="form-group input-box mb-2">
@@ -299,16 +299,15 @@
                         </select>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control" id="model" name="model">
+                        <input type="text" class="form-control model" id="model" name="model">
                         <span>ሞዴል</span>
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control" id="update" name="update">
+                        <input type="text" class="form-control update" id="update" name="update">
                         <span>ማሻሻያ አምድ</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                        <!-- <input  type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input> -->
                         <input type="hidden" name="add_model" value="1"></input>
                         <button type="submit" class="btn btn-success">አስገባ</button>
                     </div>

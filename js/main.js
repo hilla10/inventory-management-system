@@ -4,7 +4,7 @@ import {
   itemValidation,
   binCardValidation,
   validationModel19,
-  validationModel20,
+  // validationModel20,
 } from './item_validation.js';
 
 // Validation user and department user
@@ -118,11 +118,14 @@ document.addEventListener('DOMContentLoaded', function () {
   // Calculate total price for items
   const insertAppForm = document.querySelector('.insert-app-form');
   const quantity = document.querySelector('#quantity');
-  const price = document.querySelector('#price');
+  const price = document.querySelector('#price') || '';
 
   const calculateTotalPrice = () => {
     const totalPrice = quantity.value * price.value;
-    document.querySelector('#total_price').value = totalPrice.toFixed(2);
+    const total = document.querySelector('#total_price');
+    if (total) {
+      total.value = totalPrice.toFixed(2);
+    }
   };
 
   if (quantity) {
@@ -135,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // calculate total price for model 19
 
-  const insertModelAppForm = document.querySelector('.insert-model-app-form');
+  const insertModelAppForm = document.querySelector('.insert-model19-app-form');
 
   if (insertModelAppForm) {
     const modelQuantity = insertModelAppForm.querySelector('#quantity');
@@ -202,6 +205,157 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  const validationModel20 = () => {
+    const insertModel20AppForms = document.querySelectorAll(
+      '.insert-model20-app-form'
+    );
+
+    insertModel20AppForms.forEach((insertModel20AppForm) => {
+      if (insertModel20AppForm) {
+        const shakeModel20Contents = document.querySelectorAll(
+          '.shake-model20-content'
+        );
+        const names = insertModel20AppForm.querySelectorAll('.requested-by');
+        const itemTypes = insertModel20AppForm.querySelectorAll('.item_type');
+        const models = insertModel20AppForm.querySelectorAll('.model');
+        const updates = insertModel20AppForm.querySelectorAll('.update');
+        const inputQuantities =
+          insertModel20AppForm.querySelectorAll('.quantity');
+
+        // Function to validate individual input fields
+        const validateInput = (inputElement) => {
+          const inputValue = inputElement.value.trim();
+
+          if (inputValue === '') {
+            inputElement.classList.add('error');
+            return false;
+          } else {
+            inputElement.classList.remove('error');
+            return true;
+          }
+        };
+
+        // Function to validate numeric fields
+        const validateNumber = (inputElement) => {
+          const inputValue = inputElement.value.trim();
+          const regexNumber = /^\d+$/; // This regex matches only whole numbers
+
+          if (!regexNumber.test(inputValue)) {
+            inputElement.classList.add('error');
+            return false;
+          } else {
+            inputElement.classList.remove('error');
+            return true;
+          }
+        };
+
+        const isValidName = (nameValue) => {
+          const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
+          return nameRegex.test(nameValue);
+        };
+
+        const validName = (name) => {
+          if (isValidName(name.value)) {
+            name.classList.remove('error-input');
+            name.classList.add('success-input');
+            ('Name is valid');
+          } else {
+            name.classList.remove('success-input');
+            name.classList.add('error-input');
+            ('Name is NOT valid');
+          }
+        };
+
+        // Event listener for form submission
+        insertModel20AppForm.addEventListener('submit', (event) => {
+          let isValid = true;
+
+          // Validate item type input
+          names.forEach((name) => {
+            if (!validateInput(name)) {
+              isValid = false;
+            }
+          });
+
+          // Validate item type input
+          itemTypes.forEach((itemType) => {
+            if (!validateInput(itemType)) {
+              isValid = false;
+            }
+          });
+
+          // Validate model input
+          models.forEach((model) => {
+            if (!validateInput(model)) {
+              isValid = false;
+            }
+          });
+
+          // Validate update input
+          updates.forEach((update) => {
+            if (!validateInput(update)) {
+              isValid = false;
+            }
+          });
+
+          // Validate quantity input
+          inputQuantities.forEach((inputQuantity) => {
+            if (
+              !validateInput(inputQuantity) ||
+              !validateNumber(inputQuantity)
+            ) {
+              isValid = false;
+            }
+          });
+
+          // Prevent form submission if validation fails
+          if (!isValid) {
+            event.preventDefault();
+            shakeModel20Contents.forEach((shakeMOdel20content) => {
+              shakeMOdel20content.classList.add('shake');
+              setTimeout(() => {
+                shakeMOdel20content.classList.remove('shake');
+              }, 500);
+            });
+          }
+        });
+
+        // Event listeners for input fields to validate dynamically
+        names.forEach((name) => {
+          name.addEventListener('input', () => {
+            validName(name);
+            validateInput(name);
+          });
+        });
+
+        itemTypes.forEach((itemType) => {
+          itemType.addEventListener('input', () => {
+            validateInput(itemType);
+          });
+        });
+
+        models.forEach((model) => {
+          model.addEventListener('input', () => {
+            validateInput(model);
+          });
+        });
+
+        updates.forEach((update) => {
+          update.addEventListener('input', () => {
+            validateInput(update);
+          });
+        });
+
+        inputQuantities.forEach((inputQuantity) => {
+          inputQuantity.addEventListener('input', () => {
+            validateInput(inputQuantity);
+            validateNumber(inputQuantity);
+          });
+        });
+      }
+    });
+  };
+
   // validation for bin card
   binCardValidation();
 
@@ -220,25 +374,4 @@ document.addEventListener('DOMContentLoaded', function () {
   // validation modal for model 19
 
   validationModel19();
-
-/*   function initDeleteModal() {
-    const deleteModal = document.getElementById('deleteModal');
-    const deleteModalInstance = new bootstrap.Modal(deleteModal);
-
-    // Add event listener to the delete button
-    const deleteButton = document.querySelector('#deleteModal .btn-danger');
-    deleteButton.addEventListener('click', () => {
-      // Perform delete action
-      // document.getElementById('deleteForm').submit();
-    });
-
-    return deleteModalInstance;
-  }
-
-  // Assuming you have a button to trigger the modal
-  const deleteUserButton = document.getElementById('deleteUserButton');
-  deleteUserButton.addEventListener('click', () => {
-    const deleteModalInstance = initDeleteModal();
-    deleteModalInstance.show();
-  }); */
 });
