@@ -1,6 +1,7 @@
 <?php
 // Determine the base URL
 $baseURL = '/group-project/';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,3 +37,4 @@ $baseURL = '/group-project/';
     <title><?php echo $title; ?></title>
 </head>
 <body class="body text-light">
+ 

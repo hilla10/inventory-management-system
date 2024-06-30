@@ -1,3 +1,53 @@
+<!-- notification modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content bg-modal-color">
+            <div class="modal-header d-flex justify-content-between">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
+                <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close"></i>
+            </div>
+            <div class="modal-body w-100">
+                <?php if($totalNotifications > 0): ?>
+                    <!-- Display pending requests notifications -->
+                    <?php if ($pendingCount > 0): ?>
+                        <div id="notificationContent" class="pb-2">
+                            <p class="text-light">Requested Items</p>
+                            <ul class="my-3 ms-3 ps-0">
+                                <?php foreach ($pendingRequestsNotifications as $request): ?>
+                                    <li class="py-1"><a href="../request/index.php" class="list__group-link "><?php echo $request; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="border"></div>
+                    <?php endif; ?>
+                    
+                    <!-- Display pending added notifications -->
+                    <?php if ($pendingAddedCount > 0): ?>
+                        <div id="notificationContent" class="pb-2">
+                            <p class="text-light">Added Items</p>
+                            <ul class="my-3 ms-3 ps-0">
+                                <?php foreach ($pendingAddedNotifications as $added): ?>
+                                    <li class="py-1"><a href="../added/index.php" class="list__group-link "><?php echo $added; ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="border"></div>
+                    <?php endif; ?>
+                    
+                    <!-- Display low stock notifications -->
+                    <ul class="my-3 ms-3 ps-0">
+                            <p class="text-light">Out of Items</p>
+                        <?php foreach ($lowStockNotifications as $notification): ?>
+                            <li class="py-1"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link "><?php echo $notification; ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <div class="text-center text-light fs-3">There are no notifications.</div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal for deleting user -->
 
@@ -205,7 +255,6 @@
 
 
 
-
 <!-- modal for Model 19 -->
   <div class="modal fade" id="ModalModel19" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog">
@@ -253,7 +302,7 @@
                      </div>
                      <div class="form-group input-box mb-2">
                          <input type="text" class="form-control total_price" id="total_price" name="total_price"
-                             readonly>
+                             disabled>
                          <span>ጠቅላላ ዋጋ</span>
                      </div>
                      <div class="modal-footer">
@@ -318,57 +367,6 @@
     </div>
 </div>
 
-
-<!-- notification modal -->
-<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content bg-modal-color">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
-                <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close"></i>
-            </div>
-            <div class="modal-body w-100">
-                <?php if($totalNotifications > 0): ?>
-                    <!-- Display pending requests notifications -->
-                    <?php if ($pendingCount > 0): ?>
-                        <div id="notificationContent" class="pb-2">
-                            <p class="text-light">Requested Items</p>
-                            <ul class="my-3 ms-3 ps-0">
-                                <?php foreach ($pendingRequestsNotifications as $request): ?>
-                                    <li class="py-1"><a href="../request/index.php" class="list__group-link "><?php echo $request; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                        <div class="border"></div>
-                    <?php endif; ?>
-                    
-                    <!-- Display pending added notifications -->
-                    <?php if ($pendingAddedCount > 0): ?>
-                        <div id="notificationContent" class="pb-2">
-                            <p class="text-light">Added Items</p>
-                            <ul class="my-3 ms-3 ps-0">
-                                <?php foreach ($pendingAddedNotifications as $added): ?>
-                                    <li class="py-1"><a href="../added/index.php" class="list__group-link "><?php echo $added; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                        <div class="border"></div>
-                    <?php endif; ?>
-                    
-                    <!-- Display low stock notifications -->
-                    <ul class="my-3 ms-3 ps-0">
-                            <p class="text-light">Out of Items</p>
-                        <?php foreach ($lowStockNotifications as $notification): ?>
-                            <li class="py-1"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link "><?php echo $notification; ?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <div class="text-center text-light fs-3">There are no notifications.</div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

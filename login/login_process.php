@@ -1,5 +1,4 @@
 <?php
-
 include("../includes/dbcon.php");
 session_start();
 
@@ -8,76 +7,73 @@ if (isset($_POST['login'])) {
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $option = mysqli_real_escape_string($connection, $_POST['options']);
 
-    $query = "SELECT * FROM users WHERE (username = ? OR email = ?) AND options = ?";
+    // Check if $usernameOrEmail is a valid email address
+    if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
+        $query = "SELECT * FROM users WHERE email = ? AND options = ?";
+    } else {
+        $query = "SELECT * FROM users WHERE username = ? AND options = ?";
+    }
+
     $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, "sss", $usernameOrEmail, $usernameOrEmail, $option);
+    mysqli_stmt_bind_param($stmt, "ss", $usernameOrEmail, $option);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     if (!$result) {
         die("Query Failed: " . mysqli_error($connection));
     } else {
-        $row = mysqli_num_rows($result);
+        $row = mysqli_fetch_assoc($result);
 
-        if ($row === 1) {
-            // Fetch the stored hashed password from the database
-            $row = mysqli_fetch_assoc($result);
-            $storedHashedPassword = $row['password'];
-
+        if ($row) {
             // Verify the entered password with the stored hashed password
+            $storedHashedPassword = $row['password'];
             if (password_verify($password, $storedHashedPassword)) {
                 // Password is correct, proceed with login
                 $_SESSION['loggedin'] = true;
-                $_SESSION['email'] = $row['email'];
+                $_SESSION['email'] = $row['email']; // It can be NULL
+                $_SESSION['username'] = $row['username'];
                 $_SESSION['options'] = $row['options'];
 
                 // Fetch the current time
                 $currentVisitTime = date("Y-m-d H:i:s");
 
-                // Retrieve and store the last visit time from the database
-                $lastVisitQuery = "SELECT last_visit FROM users WHERE email = ?";
-                $lastVisitStmt = mysqli_prepare($connection, $lastVisitQuery);
-                mysqli_stmt_bind_param($lastVisitStmt, "s", $row['email']);
-                mysqli_stmt_execute($lastVisitStmt);
-                $lastVisitResult = mysqli_stmt_get_result($lastVisitStmt);
-                if ($lastVisitResult) {
-                    $lastVisitRow = mysqli_fetch_assoc($lastVisitResult);
-                    $_SESSION['lastVisitTime'] = $lastVisitRow['last_visit'];
-                } else {
-                    $_SESSION['lastVisitTime'] = null;
-                }
+                // Update last visit time in the database
+                $identifier = $row['email'] ?? $row['username'];
+                $identifierField = $row['email'] ? 'email' : 'username';
 
-                // Update the last visit time in the database
-                $updateVisitQuery = "UPDATE users SET last_visit = ? WHERE email = ?";
+                $updateVisitQuery = "UPDATE users SET last_visit = ? WHERE $identifierField = ?";
                 $updateVisitStmt = mysqli_prepare($connection, $updateVisitQuery);
-                mysqli_stmt_bind_param($updateVisitStmt, "ss", $currentVisitTime, $row['email']);
+                mysqli_stmt_bind_param($updateVisitStmt, "ss", $currentVisitTime, $identifier);
                 mysqli_stmt_execute($updateVisitStmt);
 
                 // Redirect the user based on their role
-                $options = $row['options'];
-
-                echo "Options: " . $options;
-                if ($options === 'admin') {
-                    header("Location: ../admin/");
-                    exit();
-                } elseif ($options === 'it head') {
-                    header("Location: ../it/");
-                    exit();
-                } elseif ($options === 'business head') {
-                    header("Location: ../business/");
-                    exit();
-                } elseif ($options === 'art head') {
-                    header("Location: ../art/");
-                    exit();
-                } elseif ($options === 'auto head') {
-                    header("Location: ../auto/");
-                    exit();
+                switch ($row['options']) {
+                    case 'admin':
+                        header("Location: ../admin/");
+                        exit();
+                    case 'it head':
+                        header("Location: ../it/");
+                        exit();
+                    case 'business head':
+                        header("Location: ../business/");
+                        exit();
+                    case 'art head':
+                        header("Location: ../art/");
+                        exit();
+                    case 'auto head':
+                        header("Location: ../auto/");
+                        exit();
+                    default:
+                        // Redirect to a default page or handle as needed
+                        break;
                 }
             } else {
-                header('location:../index.php?error_msg=Sorry, your username/email, roll or password is invalid');
+                header('Location: ../index.php?error_msg=Sorry, your username/email or password is invalid');
+                exit();
             }
         } else {
-            header('location:../index.php?error_msg=Sorry, your username/email, roll or password is invalid');
+            header('Location: ../index.php?error_msg=Sorry, your username/email or password is invalid');
+            exit();
         }
     }
 }

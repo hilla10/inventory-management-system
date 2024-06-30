@@ -52,7 +52,7 @@
             
             <div class="form-group input-box  mb-2">
                 
-                        <input type="text" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" readonly>
+                        <input type="text" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" disabled>
             </div>
 
              <input type="submit" class="btn btn-success" name="update_model" value="Update"></input>

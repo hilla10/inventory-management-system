@@ -198,11 +198,7 @@ function updateItemStatus($itemId, $status) {
         <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
 </div>
 
-    <!-- Other form elements like search input and submit button -->
-    <!-- Include search input and submit button here -->
 </form>
-
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalUser">Add User</button>
     </div>
                 
             <?php

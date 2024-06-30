@@ -53,7 +53,10 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
         </div>
         <div class="container">
             <div class="collapse navbar-collapse d-flex justify-content-between text-center" id="navbarNav">
-               
+                 <div class="py-2 mx-auto">
+                    <h1 class="text-center fs-3 text-light">ሞዴል 20</h1>
+                   
+                </div>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                        <li>

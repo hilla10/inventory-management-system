@@ -18,10 +18,7 @@
             </div>
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control email " id="email" name="email" placeholder="email" value=" <?php
-                            if ($row['email'] === NULL) {
-                                echo "No email specified";
-                            } else {
+                     <input type="text" class="form-control email " id="email" name="email" placeholder="email" value="<?php if($row['email'] ) {
                                 echo $row['email'];
                             }
                             ?>">

@@ -9,16 +9,16 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include insert_app.php to access determineCurrentPage() function
+// // Include insert_app.php to access determineCurrentPage() function
 include('../includes/insert_app.php');
 
-// Determine the current page
+// // Determine the current page
 $currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
 
 // Store the current page URL in a session variable
 $_SESSION['currentPage'] = $currentPage;
 
-// Access user role from session
+// // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 echo $_SESSION['currentPage'];
 
@@ -62,11 +62,10 @@ echo $_SESSION['currentPage'];
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                         <li>
+                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button"
-                                    id="dropdownMenuButton" aria-expanded="false">
+                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -76,13 +75,19 @@ echo $_SESSION['currentPage'];
                                     ?>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item text-danger fw-bold"
-                                            href="../login/logout_process.php">Logout</a></li>
+                                    <!-- Display user information -->
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fas fa-user me-2"></i> <!-- Font Awesome icon for user -->
+                                            <?php echo $_SESSION['email']; ?> <!-- Display user's email or other info -->
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
-                     
                     </ul>
+
                 </div>
             </div>
         </div>

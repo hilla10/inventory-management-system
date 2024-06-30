@@ -56,7 +56,7 @@
                         <input type="text" class="form-control inventory_list" id="inventory_list" name="inventory_list"placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory_list'] ?>">
                     </div>
                    <div class="form-group mb-2 input-box">
-                <input disabled type="text" class="form-control" id="department" name="department" placeholder="ዲፖርትመንት" value="<?php echo $row['department'] ?>" readonly>
+                <input type="text" class="form-control" id="department" name="department" placeholder="ዲፖርትመንት" value="<?php echo $row['department'] ?>" disabled>
                 </div>
                       <div class="form-group input-box mb-2">
                         <input type="text" class="form-control item_type" id="item_type" name="item_type" placeholder="የእቃው አይነት" value="<?php echo $row['item_type'] ?>">
@@ -72,7 +72,7 @@
                         <input type="text" class="form-control description" id="description" name="description" placeholder="መግለጫ" value="<?php echo $row['description'] ?>">
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control measure" id="measure" name="measure" value="<?php echo $row['measure'] ?>">
+                        <input type="text" class="form-control measure" id="measure" name="measure" value="<?php echo $row['measure'] ?>" placeholder="መለኪያ">
                     </div>
                     <div class="form-group input-box mb-2">
                         <input type="text" class="form-control quantity" id="quantity" name="quantity" placeholder="ብዛት" value="<?php echo $row['quantity'] ?>">
@@ -81,7 +81,7 @@
                         <input type="text" class="form-control price" id="price" name="price" step="0.1"placeholder="የአንዱ ዋጋ" value="<?php echo $row['price'] ?>">
                     </div>
                     <div class="form-group input-box mb-2">
-                        <input type="number" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" readonly>
+                        <input type="text" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" disabled>
                     </div>
                     <div class="form-group input-box mb-2">
                         <input type="text" class="form-control examination" id="examination" name="examination"placeholder="ምርመራ" value="<?php echo $row['examination'] ?>">

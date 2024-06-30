@@ -54,7 +54,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
         <div class="container">
             <div class="collapse navbar-collapse d-flex justify-content-between text-center" id="navbarNav">
                 <div class="py-2 mx-auto">
-                    <h1 class="text-center fs-3 text-light">All ሞዴል 19 ገቢ</h1>
+                    <h1 class="text-center fs-3 text-light">ሞዴል 19</h1>
                     <?php
                     $title = "All ሞዴል 19 ገቢ"; // Set the default title
 

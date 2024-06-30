@@ -300,10 +300,10 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
 <!-- message -->
 <?php include('../includes/message.php'); ?>
 
+<!-- footer -->
+<?php include('../includes/footer.php'); ?>
+
 <!-- Modal -->
 <?php include('../includes/register_modal.php'); ?>
 <?php include('../includes/modal.php'); ?>
 
-
-<!-- footer -->
-<?php include('../includes/footer.php'); ?>
