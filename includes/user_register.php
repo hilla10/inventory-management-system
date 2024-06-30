@@ -60,19 +60,20 @@ function isValidPhone($phoneValue) {
     // Trim whitespace
     $phoneValue = trim($phoneValue);
 
-    // Allow empty/null phone numbers or '+251 '
-    if ($phoneValue === '+251') {
-        return null;
+    // Allow empty/null phone numbers or '+251'
+    if ($phoneValue === '+251' || $phoneValue === '') {
+        return true; // Consider it valid
     } else {
         // Define phone number regex
         $phoneRegex = '/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/';
 
         // Remove non-digit characters
         $numericPhoneValue = preg_replace('/[^\d]/', '', $phoneValue);
+        echo "Numeric phone value: '$numericPhoneValue'<br>";
 
         // Validate with regex and length check
         $isValid = preg_match($phoneRegex, $phoneValue) &&
-                   (strlen($numericPhoneValue) === 10 || strlen($numericPhoneValue) === 13);
+                   (strlen($numericPhoneValue) === 12 || strlen($numericPhoneValue) === 13);
 
         return $isValid;
     }
@@ -111,11 +112,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         $email = null;
     }
 
-    // Validate phone number format if provided
-    if ($phone === '+251') {
-        $phone = null; // Set phone number to NULL if it is '+251'
-    } else if (!isValidPhone($phone)) {
-        $errors[] = "Please enter a valid phone number.";
+    if (!isValidPhone($phone)) {
+        $errors[] = "Phone number '$phone' is invalid.<br><br>";
+    } else {
+        $phone = null;
     }
 
     // Validate password length and match

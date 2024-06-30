@@ -176,17 +176,19 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
                 $order = 'asc'; // Default ordering is ascending
             }
        
+// Initialize the base query
+$query = "SELECT * FROM department_registration ";
+
 // Handle form submission for sorting
 $field = isset($_GET['field']) ? $_GET['field'] : ''; // Default empty if not set
-$order = isset($_GET['order']) ? $_GET['order'] : 'desc'; // Default descending order if not set
-
+$order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Default ascending order if not set
 
 // Validate and sanitize input for security
 if (!empty($field) && $field != 'select field') {
     $field = mysqli_real_escape_string($connection, $_GET['field']);
     $order = mysqli_real_escape_string($connection, $_GET['order']);
 
-    // Modify query to include sorting
+    // Modify query to include sorting and search
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = mysqli_real_escape_string($connection, $_GET['search']);
         $query = "SELECT * FROM `department_registration` WHERE `$field` LIKE '%$search%' ORDER BY `$field` $order LIMIT $departmentPerPage OFFSET $offset";
@@ -195,8 +197,9 @@ if (!empty($field) && $field != 'select field') {
     }
 } else {
     // Default query if no valid sorting parameters are provided
-    $query = "SELECT * FROM `department_registration` ORDER BY `id` DESC LIMIT $departmentPerPage OFFSET $offset";
+    $query = "SELECT * FROM `department_registration` ORDER BY `id` ASC LIMIT $departmentPerPage OFFSET $offset";
 }
+
 
             if(!empty($errors)) {
                 $message = implode(" ", $errors);
@@ -307,58 +310,70 @@ if (!empty($field) && $field != 'select field') {
                             // Count total number of rows without LIMIT for pagination
                             $countQuery = "SELECT COUNT(*) AS total FROM `department_registration` ";
                           // Check if search parameters are set and construct the WHERE clause accordingly
-                        if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
-                            $search = mysqli_real_escape_string($connection, $_GET['search']);
-                            $field = mysqli_real_escape_string($connection, $_GET['field']);
-                            $countQuery .= " WHERE `$field` LIKE '%$search%'";
-                        }
+                      if (isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['field']) && !empty($_GET['field']) && $_GET['field'] != 'select field') {
+                                $search = mysqli_real_escape_string($connection, $_GET['search']);
+                                $field = mysqli_real_escape_string($connection, $_GET['field']);
+                                $countQuery .= " WHERE `$field` LIKE '%$search%'";
+                            }
 
                             $countResult = mysqli_query($connection, $countQuery);
                             $rowCount = mysqli_fetch_assoc($countResult)['total'];
 
-                            // Calculate total pages
-                            $totalPages = ceil($rowCount / $departmentCount);
+                    // Calculate total pages
+                    $totalPages = ceil($rowCount / $departmentPerPage);
 
-                            // Previous page link
-                            if ($currentPage > 1) {
-                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage - 1);
-                                if (isset($_GET['order'])) {
-                                    echo "&order={$_GET['order']}";
-                                }
-                                if (isset($_GET['search'])) {
-                                    echo "&search={$_GET['search']}";
-                                }
-                                echo "'>Previous</a></li>";
-                            }
+                  
+                    // Previous page link
+                    if ($currentPage > 1) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage - 1);
+                        if (isset($_GET['field'])) {
+                            echo "&field={$_GET['field']}";
+                        }
+                        if (isset($_GET['order'])) {
+                            echo "&order={$_GET['order']}";
+                        }
+                        if (isset($_GET['search'])) {
+                            echo "&search={$_GET['search']}";
+                        }
+                        echo "'>Previous</a></li>";
+                    }
 
-                            // Page links
-                            for ($i = 1; $i <= $totalPages; $i++) {
-                                echo "<li class='page-item";
-                                if ($i == $currentPage) {
-                                    echo " active";
-                                }
-                                echo "'><a class='page-link' href='?page=$i";
-                                if (isset($_GET['order'])) {
-                                    echo "&order={$_GET['order']}";
-                                }
-                                if (isset($_GET['search'])) {
-                                    echo "&search={$_GET['search']}";
-                                }
-                                echo "'>$i</a></li>";
-                            }
+                    // Page links
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        echo "<li class='page-item";
+                        if ($i == $currentPage) {
+                            echo " active";
+                        }
+                        echo "'><a class='page-link' href='?page=$i";
+                        if (isset($_GET['field'])) {
+                            echo "&field={$_GET['field']}";
+                        }
+                        if (isset($_GET['order'])) {
+                            echo "&order={$_GET['order']}";
+                        }
+                        if (isset($_GET['search'])) {
+                            echo "&search={$_GET['search']}";
+                        }
+                        echo "'>$i</a></li>";
+                    }
 
-                            // Next page link
-                            if ($currentPage < $totalPages) {
-                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage + 1);
-                                if (isset($_GET['order'])) {
-                                    echo "&order={$_GET['order']}";
-                                }
-                                if (isset($_GET['search'])) {
-                                    echo "&search={$_GET['search']}";
-                                }
-                                echo "'>Next</a></li>";
-                            }
-                            ?>
+                    // Next page link
+                    if ($currentPage < $totalPages) {
+                        echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage + 1);
+                        if (isset($_GET['field'])) {
+                            echo "&field={$_GET['field']}";
+                        }
+                        if (isset($_GET['order'])) {
+                            echo "&order={$_GET['order']}";
+                        }
+                        if (isset($_GET['search'])) {
+                            echo "&search={$_GET['search']}";
+                        }
+                        echo "'>Next</a></li>";
+                    }
+                    ?>
+
+
                         </ul>
                     </nav>
                     <!-- End Pagination -->

@@ -181,8 +181,9 @@ if (isset($title) && !empty($title)) {
 
           
 // Handle form submission for sorting
+// Default values
 $field = isset($_GET['field']) ? $_GET['field'] : ''; // Default empty if not set
-$order = isset($_GET['order']) ? $_GET['order'] : 'desc'; // Default descending order if not set
+$order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Default ascending order if not set
 
 // Initialize the base query
 $query = "SELECT * FROM users WHERE email != 'admin@gmail.com' OR email IS NULL";
@@ -191,7 +192,8 @@ $query = "SELECT * FROM users WHERE email != 'admin@gmail.com' OR email IS NULL"
 if (!empty($field) && $field != 'select field') {
     $field = mysqli_real_escape_string($connection, $_GET['field']);
     $order = mysqli_real_escape_string($connection, $_GET['order']);
-   // Check if search parameter is provided
+    
+    // Check if search parameter is provided
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = mysqli_real_escape_string($connection, $_GET['search']);
         
@@ -204,7 +206,7 @@ if (!empty($field) && $field != 'select field') {
             $query .= " AND `$field` LIKE '%$search%'";
         }
     }
-
+    
     // Finalize the query with sorting and pagination
     $query .= " ORDER BY `$field` $order LIMIT $offset, $usersPerPage";
 } else {
