@@ -3,23 +3,23 @@
 This Inventory Management System is built using HTML, CSS, Bootstrap, PHP, and MySQL. It enables users to manage inventory, departments, and perform operations such as login, registration, updating, and deleting records.
 Table of Contents
 
--[Setup](#Setup)
+[Setup](#Setup)
 
--[Database](#Database)
+[Database](#Database)
 
--[Directory Structure](#Directory-Structure)
+[Directory Structure](#DirectoryStructure)
 
--[Running the System](#Running-the-System)
+[Running the System](#Running-the-System)
 
--[Login](#Login)
+[Login](#Login)
 
--[Functionalities](#Functionalities)
+[Functionalities](#Functionalities)
 
--[Troubleshooting](#Troubleshooting)
+[Troubleshooting](#Troubleshooting)
 
--[Usage](#Usage)
+[Usage](#Usage)
 
--[Security](#Security)
+[Security](#Security)
 
 ## Setup
 
