@@ -11,7 +11,7 @@
 </div>
 
 <div class="container mt-4 w-50">
-    <form action="update.php?id=<?php echo $id; ?>" method="post" class="update userForm form-user-content">
+    <form action="../includes/user_update.php?id=<?php echo $id; ?>" method="post" class="update userForm form-user-content">
         <div class="form-group input-box mb-2">
             <input type="text" class="form-control name" id="username" name="username" placeholder="Username" value="<?php echo htmlspecialchars($row['username']); ?>">
         </div>
@@ -27,7 +27,6 @@
         <div class="form-group mb-2 input-box">
             <input type="text" class="form-control age" id="age" name="age" placeholder="Age" value="<?php echo htmlspecialchars($row['age']); ?>">
         </div>
-
         <div class="form-group mb-2 input-box">
             <input type="text" class="form-control email" id="email" name="email" placeholder="Email" value="<?php  echo $row['email'] ? htmlspecialchars($row['email']) : ''; ?>">
         </div>
@@ -37,8 +36,11 @@
         </div>
 
         <div class="form-group mb-2 input-box">
-            <label for="options" class="text-dark">Enter your position:</label>
+            <label for="options" class="text-light">Enter your position:</label>
             <select name="options" class="select-option">
+               <?php if ($userRole == 'admin'): ?>
+                    <option value="admin">Admin</option>
+                <?php endif; ?>
                 <option value="it head" <?php if ($row['options'] == 'it head') echo 'selected'; ?>>IT Head</option>
                 <option value="business head" <?php if ($row['options'] == 'business head') echo 'selected'; ?>>Business Head</option>
                 <option value="art head" <?php if ($row['options'] == 'art head') echo 'selected'; ?>>Art Head</option>

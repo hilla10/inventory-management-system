@@ -2,6 +2,8 @@
 include('../includes/header.php');
 include('../includes/dbcon.php');
 
+
+
 function isValidPhone($phoneValue) {
     // Trim whitespace
     $phoneValue = trim($phoneValue);

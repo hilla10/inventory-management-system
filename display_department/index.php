@@ -74,8 +74,8 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
   
     <div class="collapse navbar-collapse" id="navbarNav">
       
-      <div class="d-flex">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">  
+      <div class="d-flex  justify-content-end w-100">
+      <ul class="navbar-nav mb-2 mb-lg-0">  
         
 
                     <li>
@@ -87,7 +87,14 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
                                     }
                                     ?>
                                 </button>
-                                <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                    <!-- Display user information -->
+                                   <li>
+                                        <a class="dropdown-item" href="../profile/">
+                                            <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
+                                            <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
+                                        </a>
+                                    </li>
                                     <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>

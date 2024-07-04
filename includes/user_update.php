@@ -2,6 +2,14 @@
 include('../includes/dbcon.php');
 session_start();
 
+// Access the stored current page URL
+$currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
+$redirectUrl = '../' . $currentPage;
+
+
+// Access user role from session
+$userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
+
 function isValidPhone($phoneValue) {
     $phoneValue = trim($phoneValue);
 
@@ -68,11 +76,12 @@ if (isset($_POST['update_user'])) {
         if ($email !== $_SESSION['email']) {
             $_SESSION['email'] = $email;
         }
-        header('Location: index.php?update_msg=You have successfully updated the data');
+         $redirectUrl = '../' . $currentPage . '?update_msg=You have successfully updated the data';
+          header('Location: ' . $redirectUrl);
         exit;
     }
 }
 ?>
 
-<?php include('update_user.php'); ?> 
+<?php include('../display_user/update_user.php'); ?> 
 <?php include('../includes/footer.php'); ?>

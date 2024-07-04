@@ -192,9 +192,15 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                                     }
                                     ?>
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item text-danger fw-bold"
-                                            href="../login/logout_process.php">Logout</a></li>
+                              <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                    <!-- Display user information -->
+                                   <li>
+                                        <a class="dropdown-item" href="../profile/">
+                                            <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
+                                            <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>

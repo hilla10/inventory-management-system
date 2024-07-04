@@ -10,6 +10,19 @@ if (!isset($_SESSION['loggedin'])) {
 // Include your database connection file
 include("../includes/dbcon.php");
 
+
+// Include insert_app.php to access determineCurrentPage() function
+include('../includes/determineFnc.php');
+
+// Determine the current page
+$currentPage = determineCurrentPage($_SERVER['REQUEST_URI']);
+// Access user role from session
+$userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
+
+
+// Store the current page URL in a session variable
+$_SESSION['currentPage'] = $currentPage;
+
 // Retrieve user information based on session data
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : null;
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
@@ -48,43 +61,146 @@ if (!$result) {
         $displayId = 'ID not found';
     }
 }
+include ('../includes/header.php');
+
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h1 class="card-title">User Profile</h1>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Email:</strong> <?php echo $displayEmail; ?></p>
-                        <p><strong>Name:</strong> <?php echo $displayName; ?></p>
-                        <p><strong>Role:</strong> <?php echo $displayRole; ?></p>
-                        <p><strong>Phone:</strong> <?php echo $displayPhone; ?></p>
-                        <p><strong>ID:</strong> <?php echo $displayId; ?></p>
-                        <!-- Add more information as needed -->
-                    </div>
-                </div>
-                <td><a href="../display_user/update.php?id=<?php echo $user['id'] ?>" class="btn btn-success">Update</a></td>
-            </div>
-            <div class="card-footer text-muted">
-                <!-- Add any footer content here -->
-            </div>
-        </div>
+<header class="main-header">
+    <div>
+        <?php 
+        if ($userRole == 'admin') {
+            echo '<a href="../admin/index.php" class="logo" aria-current="page">';
+            echo '<img src="../img/EPTC_logo" alt="logo">';
+            echo '</a>';
+        } else if ($userRole === 'it head'){
+            echo '<a href="../it/index.php" class="logo" aria-current="page">';
+            echo '<img src="../img/EPTC_logo" alt="logo">';
+            echo '</a>';
+        } else if ($userRole === 'art head'){
+            echo '<a href="../art/index.php" class="logo" aria-current="page">';
+            echo '<img src="../img/EPTC_logo" alt="logo">';
+            echo '</a>';
+        } else if ($userRole === 'auto head'){
+            echo '<a href="../auto/index.php" class="logo" aria-current="page">';
+            echo '<img src="../img/EPTC_logo" alt="logo">';
+            echo '</a>';
+        } else if ($userRole === 'business head'){
+            echo '<a href="../business/index.php" class="logo" aria-current="page">';
+            echo '<img src="../img/EPTC_logo" alt="logo">';
+            echo '</a>';
+        }
+        ?>
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <i class="fa-solid fa-bars-staggered"></i>
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        </nav>
     </div>
 
-    <!-- Bootstrap JS and dependencies (if needed) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
+        <div class="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="container">
+            <div class="collapse navbar-collapse d-flex justify-content-between text-center" id="navbarNav">
+                <div class="py-2 mx-auto">
+                    <h1 class="text-center fs-3 text-light">User Profile</h1>
+                </div>
+                <div class="d-flex">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                         <li>
+                            <div class="dropdown nav-item">
+                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                          <?php
+                                    if ($userRole == 'admin') {
+                                        echo 'Admin';
+                                    }elseif ($userRole == 'it head') {
+                                        echo 'IT Head';
+                                    }elseif ($userRole == 'auto head') {
+                                        echo 'AUTO Head';
+                                    }elseif ($userRole == 'art head') {
+                                        echo 'ART Head';
+                                    }elseif ($userRole == 'business head') {
+                                        echo 'BUSINESS Head';
+                                    }
+                                    ?>
+                                </button>
+                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                    <!-- Display user information -->
+                                   <li>
+                                        <a class="dropdown-item" href="../profile/">
+                                            <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
+                                            <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<?php include('../includes/navigation.php'); ?>
+<?php $title = "User Profile"; // Set the default title
+if (isset($title) && !empty($title)) {
+    echo "<script>document.title = '" . $title . "'</script>";
+} 
+?>
+    <div class="flex-grow-1 main-content">
+ <div class="container content-wrapper">
+     <section class=" content-header">
+                    <h1>
+                        User Profile
+                        <small>Control panel</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">profile</li>
+                    </ol>
+                    </section>
+  <div class="card profile-card shadow-sm">
+    
+    <div class="card-body">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">Email</th>
+            <td><?php echo htmlspecialchars($displayEmail); ?></td>
+          </tr>
+          <tr>
+            <th scope="row">Name</th>
+            <td><?php echo htmlspecialchars($displayName); ?></td>
+          </tr>
+          <tr>
+            <th scope="row">Role</th>
+            <td><?php echo htmlspecialchars($displayRole); ?></td>
+          </tr>
+          <tr>
+            <th scope="row">Phone</th>
+            <td><?php echo htmlspecialchars($displayPhone); ?></td>
+          </tr>
+          <tr>
+            <th scope="row">ID</th>
+            <td><?php echo htmlspecialchars($displayId); ?></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end mt-4">
+        <a href="../includes/user_update.php?id=<?php echo htmlspecialchars($user['id']); ?>" class="btn btn-success">Update</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- message -->
+<?php include('../includes/message.php'); ?>
+
+<?php include('../includes/footer.php'); ?>

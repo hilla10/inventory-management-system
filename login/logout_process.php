@@ -1,7 +1,11 @@
-<?php session_start(); ?>
+<?Php 
+session_start();
 
-<?php session_unset(); ?>
+session_unset();
 
-<?php session_destroy(); ?>
+session_destroy();
 
-<?php header('location:../index.php') ?>
+header('location:../index.php');
+exit;
+
+?>

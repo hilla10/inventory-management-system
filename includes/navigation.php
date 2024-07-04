@@ -38,8 +38,11 @@ if (strpos($currentUrl, '/admin/') !== false) {
     $currentPage = 'display_user';
 }elseif (strpos($currentUrl, '/display_department/') !== false) {
     $currentPage = 'display_department';
+}elseif (strpos($currentUrl, '/profile/') !== false) {
+    $currentPage = 'profile';
 }
 ?>
+
 
 
 
@@ -60,7 +63,13 @@ if (strpos($currentUrl, '/admin/') !== false) {
             echo "<i class=\"fas fa-house\"></i>";
             echo "<span>Dashboard</span>";
             echo "</a>";
-        } ?>
+        } else if ($currentPage == 'profile' ||  $userRole == 'admin') {
+                      echo "<a href=\"../admin/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage == 'admin') {
+                echo "active";
+            }
+        }
+        ?>
       </li>
 
         <li class="nav-item">
@@ -74,7 +83,18 @@ if (strpos($currentUrl, '/admin/') !== false) {
             echo "<i class=\"fas fa-server\"></i>";
             echo "<span>It Department</span>";
             echo "</a>";
-        } ?>
+        } else if ($currentPage == 'profile' ||  $userRole == 'it') {
+                echo "<a href=\"../it/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+
+                 if ($currentPage == 'it') {
+                echo "active";
+            }
+            echo "\" aria-current=\"page\">";
+            echo "<i class=\"fas fa-server\"></i>";
+            echo "<span>It Department</span>";
+            echo "</a>";
+            }
+         ?>
       </li>
       <li>
          <?php   if ($currentPage == 'art' ||  $userRole == 'admin') {
@@ -86,7 +106,13 @@ if (strpos($currentUrl, '/admin/') !== false) {
             echo "<i class=\"fas fa-palette\"></i>";
             echo "<span>Art Department</span>";
             echo "</a>";
-        } ?>
+        } else if ($currentPage == 'profile' ||  $userRole == 'art') {
+           echo "<a href=\"../art/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage == 'art') {
+                echo "active";
+            }
+        }
+         ?>
         </a>
       </li>
       <li>
@@ -100,7 +126,13 @@ if (strpos($currentUrl, '/admin/') !== false) {
             echo "<i class=\"fas fa-car\"></i>";
             echo "<span>Auto Department</span>";
             echo "</a>";
-        } ?>
+        } else if ($currentPage == 'profile' ||  $userRole ==  'auto') {
+           echo "<a href=\"../auto/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage == 'auto') {
+                echo "active";
+            }
+        }
+        ?>
       </li>
       <li>
           
@@ -113,7 +145,13 @@ if (strpos($currentUrl, '/admin/') !== false) {
             echo "<i class=\"fas fa-briefcase\"></i>";
             echo "<span>Business Department</span>";
             echo "</a>";
-        } ?>
+        }  else if ($currentPage == 'profile' ||  $userRole ==  'business') {
+          echo "<a href=\"../business/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage == 'business') {
+                echo "active";
+            }
+        }
+        ?>
       </li>
       <li>
         <a href="../bin/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'bin') echo 'active'; ?>">

@@ -67,6 +67,10 @@ ul {
   width: 50px;
 }
 
+.dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
 .main-header .navbar {
   -webkit-transition: margin-left 0.3s ease-in-out;
   -o-transition: margin-left 0.3s ease-in-out;
@@ -267,7 +271,6 @@ form .outline input:active {
   color: #181414;
 }
 
-
 .input-box span {
   position: absolute;
   left: 0;
@@ -320,7 +323,7 @@ form .input-box input.has-content {
   /* color: #fff !important;
   background: #008000 !important;
   box-shadow: 0 -2px 0.2rem rgba(0, 128, 0, 0.322) !important; */
-   border: 1px groove #00dfc4;
+  border: 1px groove #00dfc4;
   box-shadow: 0 0 0.3rem 0.1rem rgba(4, 255, 226, 0.39);
 }
 
@@ -692,6 +695,29 @@ form .input-box input.has-content {
   padding: 0 5px;
   color: #ccc;
   content: '>\00a0';
+}
+
+.profile-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+.card-header {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 15px 15px 0 0;
+}
+.card-body p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+.btn-success:hover {
+  background-color: #218838;
 }
 
 .footer {

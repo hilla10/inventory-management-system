@@ -20,7 +20,6 @@ $_SESSION['currentPage'] = $currentPage;
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
-echo $_SESSION['currentPage'];
 
 // Check if the user is logged in and has the appropriate role
 if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
@@ -72,12 +71,12 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-  <div class="container">
+  <div class="container ">
    
     <div class="collapse navbar-collapse" id="navbarNav">
       
-      <div class="d-flex">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">  
+      <div class="d-flex justify-content-end w-100">
+      <ul class="navbar-nav  mb-2 mb-lg-0">  
        
                          <li>
                             <div class="dropdown nav-item">
@@ -88,7 +87,14 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
                                     }
                                     ?>
                                 </button>
-                                <ul  class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
+                                    <!-- Display user information -->
+                                   <li>
+                                        <a class="dropdown-item" href="../profile/">
+                                            <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
+                                            <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
+                                        </a>
+                                    </li>
                                     <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
@@ -287,7 +293,7 @@ if (!empty($field) && $field != 'select field') {
                             ?>
                         </td>
                         <td><?php echo $row['options'] ?></td>
-                        <td><a href="update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
+                        <td><a href="../includes/user_update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
                          <td>
                                   <a  href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['id']; ?>','<?php echo $row['email']; ?>' )">Delete</a>
                                 </td>
