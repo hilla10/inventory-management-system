@@ -1,8 +1,14 @@
 <?php
-include('../includes/header.php');
 include('../includes/dbcon.php');
 
+// Start session if not already started
+session_start();
 
+// Access the stored current page URL
+$currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
+
+// Access user role from session
+$userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 
 function isValidPhone($phoneValue) {
     // Trim whitespace
@@ -20,10 +26,9 @@ function isValidPhone($phoneValue) {
 
         // Validate with regex and length check
         return preg_match($phoneRegex, $phoneValue) &&
-               (strlen($numericPhoneValue) === 10 || strlen($numericPhoneValue) === 13);
+               (strlen($numericPhoneValue) === 12 || strlen($numericPhoneValue) === 13);
     }
 }
-
 
 // Fetch department registration details based on ID from GET parameter
 if (isset($_GET['id'])) {
@@ -50,22 +55,81 @@ if (isset($_POST['update_department'])) {
     $phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, trim($_POST['phone'])) : '';
     $position = isset($_POST['position']) ? mysqli_real_escape_string($connection, $_POST['position']) : '';
 
-      // Validate phone number format if provided
-    if ($phone === '+251') {
-        $phone = null; // Set phone number to NULL if it is '+251'
-    } else if (!isValidPhone($phone)) {
-        $errors[] = "Please enter a valid phone number.";
+    // Validate email if provided
+    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Please enter a valid email address.";
+    } else if (!empty($email)) {
+        // Extract domain from email
+        $domain = explode('@', $email)[1];
+        // Check if domain has valid DNS records
+        if (!checkdnsrr($domain, 'MX')) {
+            $errors[] = "Please enter a valid email address.";
+        }
+    } else {
+        // If email is empty, set it to NULL
+        $email = null;
     }
 
-    // Update department registration in database using prepared statement
-    $query = "UPDATE `department_registration` SET `username` = ?, `email` = ?, `age` = ?, `gender` = ?, `phone` = ?, `position` = ? WHERE `id` = ?";
-    $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, 'ssisssi', $username, $email, $age, $gender, $phone, $position, $new_number);
+    // Validate phone number format if provided
+    if (!isValidPhone($phone)) {
+        $errors[] = "Phone number '$phone' is invalid.<br><br>";
+    } else if ($phone === '+251' || $phone === '+251 ' || $phone === '') {
+        $phoneValue = null; // Set to NULL if +251 or empty
+    } else {
+        $phoneValue = $phone;
+    }
 
-    if (!mysqli_stmt_execute($stmt)) {
+    // Check if the updated email already exists (excluding current user)
+    if (!empty($email)) {
+        $queryCheckEmail = "SELECT id FROM department_registration WHERE email = ? AND id <> ?";
+        $stmtCheckEmail = mysqli_prepare($connection, $queryCheckEmail);
+        mysqli_stmt_bind_param($stmtCheckEmail, 'si', $email, $new_number);
+        mysqli_stmt_execute($stmtCheckEmail);
+        mysqli_stmt_store_result($stmtCheckEmail);
+        if (mysqli_stmt_num_rows($stmtCheckEmail) > 0) {
+            $errors[] = "Email '$email' is already registered.";
+        }
+        mysqli_stmt_close($stmtCheckEmail);
+    }
+
+    // Check if the updated phone number already exists (excluding current user)
+    if (!empty($phoneValue)) {
+        $queryCheckPhone = "SELECT id FROM department_registration WHERE phone = ? AND id <> ?";
+        $stmtCheckPhone = mysqli_prepare($connection, $queryCheckPhone);
+        mysqli_stmt_bind_param($stmtCheckPhone, 'si', $phoneValue, $new_number);
+        mysqli_stmt_execute($stmtCheckPhone);
+        mysqli_stmt_store_result($stmtCheckPhone);
+        if (mysqli_stmt_num_rows($stmtCheckPhone) > 0) {
+            $errors[] = "Phone number '$phoneValue' is already registered.";
+        }
+        mysqli_stmt_close($stmtCheckPhone);
+    }
+
+    // If there are errors, display them and stop further execution
+    if (!empty($errors)) {
+        foreach ($errors as $error) {
+            echo "<p>Error: $error</p>";
+            $redirectUrl = '../' . $currentPage . '?update_msg= ' . $error ;
+             header('Location: ' . $redirectUrl);
+        }
+        exit;
+    }
+
+   
+    // Update department registration in database using prepared statement
+    $queryUpdate = "UPDATE `department_registration` SET `username` = ?, `email` = ?, `age` = ?, `gender` = ?, `phone` = ?, `position` = ? WHERE `id` = ?";
+    $stmtUpdate = mysqli_prepare($connection, $queryUpdate);
+    mysqli_stmt_bind_param($stmtUpdate, 'ssisssi', $username, $email, $age, $gender, $phoneValue, $position, $new_number);
+
+    if (!mysqli_stmt_execute($stmtUpdate)) {
         die("Query failed: " . mysqli_error($connection));
     } else {
-        header('location: index.php?update_msg=You have successfully updated the data');
+        // Update session email if it has changed
+        if ($email !== $_SESSION['email']) {
+            $_SESSION['email'] = $email;
+        }
+        $redirectUrl = '../' . $currentPage . '?update_msg=You have successfully updated the data';
+        header('Location: ' . $redirectUrl);
         exit;
     }
 }

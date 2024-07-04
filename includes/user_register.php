@@ -112,11 +112,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
         $email = null;
     }
 
+    // Validate and sanitize phone number
     if (!isValidPhone($phone)) {
         $errors[] = "Phone number '$phone' is invalid.<br><br>";
+    } else if ($phone === '+251' || $phone === '+251 ' || $phone === '') {
+        $phoneValue = null; // Set to NULL if +251 or empty
     } else {
-        $phone = null;
+        $phoneValue = $phone;
     }
+
+
 
     // Validate password length and match
     if (strlen($password) < 8) {
@@ -125,6 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     if ($password !== $confirm) {
         $errors[] = "The passwords do not match.";
     }
+
+ 
 
     // If there are errors, redirect back to the form with an error message
     if (!empty($errors)) {
@@ -177,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
     try {
         // Insert the input values into the users table
         $stmtusers = $connection->prepare("INSERT INTO users (username, gender, age, email, phone, options, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmtusers->bind_param("ssissss", $name, $gender, $age, $email, $phone, $position, $hashedPassword);
+        $stmtusers->bind_param("ssissss", $name, $gender, $age, $email, $phoneValue, $position, $hashedPassword);
         $stmtusers->execute();
 
         if ($stmtusers->affected_rows > 0) {
@@ -209,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_user'])) {
 } else {
     $message = "Error: Unable to process the form submission. Please try again.";
     $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-    header('Refresh: 3; URL=' . $redirectUrl);
+    header('Refresh: 1; URL=' . $redirectUrl);
     exit;
 }
 

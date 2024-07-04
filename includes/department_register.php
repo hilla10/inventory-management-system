@@ -116,13 +116,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = null;
     }
 
-    // Validate phone number format if provided
-     if (!isValidPhone($phone)) {
+     // Validate and sanitize phone number
+    if (!isValidPhone($phone)) {
         $errors[] = "Phone number '$phone' is invalid.<br><br>";
+    } else if ($phone === '+251' || $phone === '+251 ' || $phone === '') {
+        $phoneValue = null; // Set to NULL if +251 or empty
     } else {
-        $phone = null;
+        $phoneValue = $phone;
     }
-
 
     // Check if the email or phone already exists in the database
     $stmtCheckEmail = null;
@@ -181,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         try {
             // Insert new department registration data
             $stmtDepartment = $connection->prepare("INSERT INTO department_registration (username, gender, age, email, phone, position) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmtDepartment->bind_param("ssisss", $name, $gender, $age, $email, $phone, $position);
+            $stmtDepartment->bind_param("ssisss", $name, $gender, $age, $email, $phoneValue, $position);
             $stmtDepartment->execute();
 
             // Check if insertion was successful
@@ -190,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $connection->commit();
                 $message = "Congratulations! You have successfully added a new User.";
                 $redirectUrl = '../' . $currentPage . '?insert_msg=' . urlencode($message);
-                header('Refresh: 3; URL=' . $redirectUrl);
+                header('Refresh: 1; URL=' . $redirectUrl);
                 exit;
             } else {
                 // Rollback transaction if insertion failed
@@ -212,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     $message = "Error: Unable to process the form submission. Please try again.";
     $redirectUrl = '../' . $currentPage . '?error_msg=' . urlencode($message);
-    header('Location: ' . $redirectUrl);
+    header('Refresh: 1; URL=' . $redirectUrl);
     exit;
 }
 

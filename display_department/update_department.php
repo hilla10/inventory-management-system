@@ -1,4 +1,4 @@
-
+<?php include('../includes/header.php') ?>
 
        <div class="py-2 text-center primary-color text-light">
                <h1 class="fs-3">Update Department</h1>
@@ -11,40 +11,34 @@
 
         </div>
 <div class="container mt-5 w-50">
-<form action="update.php?id_new=<?php echo $id; ?>" method="post" class="update departmentForm">
+<form action="update.php?id_new=<?php echo $id; ?>" method="post" class="update departmentForm form-department-content">
 
             <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control name" id="username" name="username" placeholder="username" value="<?php echo $row['username'] ?>">
+                     <input type="text" class="form-control name" id="username" name="username" placeholder="username"value="<?php echo htmlspecialchars($row['username']); ?>">
             </div>
 
-            <div class="form-group input-box mb-2">
-                     <input type="text" class="form-control email " id="email" name="email" placeholder="email" value="<?php if($row['email'] ) {
-                                echo $row['email'];
-                            }
-                            ?>">
-            </div>
+           
                 <div class="form-group input-box mb-2">
                             <label for="gender" class="py-2">ጾታ አስገባ |Enter your gender|:</label>
                             <select name="gender" class="select-option">
-                                <option value="male">ወንድ</option>
-                                <option value="female">ሴት</option>
+                                <option value="male" <?php if ($row['gender'] == 'male') echo 'selected'; ?>>Male</option>
+                                <option value="female" <?php if ($row['gender'] == 'female') echo 'selected'; ?>>Female</option>
                             </select>
                         </div>
 
             <div class="form-group input-box mb-2">
                
-                     <input type="text" class="form-control age" id="age" name="age" placeholder="age" value="<?php echo $row['age'] ?>">
+                     <input type="text" class="form-control age" id="age" name="age" placeholder="age"  value="<?php echo htmlspecialchars($row['age']); ?>">
+
+            </div>
+
+             <div class="form-group input-box mb-2">
+                     <input type="text" class="form-control email " id="email" name="email" placeholder="email" value="<?php  echo $row['email'] ? htmlspecialchars($row['email']) : ''; ?>">
             </div>
 
             <div class="form-group input-box mb-2">
-               
-                     <input type="text" class="form-control phone" id="phone" name="phone" placeholder="phone" value=" <?php
-                            if ($row['phone'] === NULL) {
-                                echo "No phone specified";
-                            } else {
-                                echo $row['phone'];
-                            }
-                            ?><?php echo $row['phone'] ?>">
+                       <input type="text" class="form-control update_phone" id="phone" name="phone" placeholder="Phone" value="<?php echo $row['phone'] ? htmlspecialchars($row['phone']) : '+251 '; ?>">
+
             </div>
 
           <div class="form-group mb-2 input-box">
@@ -62,4 +56,6 @@
 
 
     <!-- Modal -->
-    <?php include('../includes/modal.php'); ?>
+<?php include('../includes/modal.php'); ?>
+
+<?php include('../includes/footer.php'); ?>
