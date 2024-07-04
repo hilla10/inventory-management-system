@@ -4,13 +4,21 @@ This Inventory Management System is built using HTML, CSS, Bootstrap, PHP, and M
 Table of Contents
 
 -[Setup](#Setup)
+
 -[Database](#Database)
+
 -[Directory Structure](#Directory-Structure)
+
 -[Running the System](#Running-the-System)
+
 -[Login](#Login)
+
 -[Functionalities](#Functionalities)
+
 -[Troubleshooting](#Troubleshooting)
+
 -[Usage](#Usage)
+
 -[Security](#Security)
 
 ## Setup
