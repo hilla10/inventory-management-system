@@ -50,7 +50,7 @@ To access the system:
     Use the following credentials:
         Username: admin
         Email: admin@gmail.com (you can use either username or email)
-        Password: admin@admin123
+        Password: Admin@Admin123
     Click the "Login" button.
 
 Note: Create new credentials if none exist.

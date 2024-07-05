@@ -39,9 +39,7 @@ CHECK (
 
 -- Insert data into `users` table, ensuring phone number format and length constraints are met
 INSERT INTO users (username, gender, age, email, phone, options, `password`)
-VALUES ('admin', 'male', 21, 'admin@gmail.com', '+251 99-555-1234', 'admin', '$2y$10$YNUaplf0BMkC9gtXREqfSO5s9/Gz4bW4dJrj9POpo4Vwzd6zTzU5a');
-
-
+VALUES ('admin', 'male', 21, 'admin@gmail.com', '+251 99-555-1234', 'admin', '$2y$10$JT2ADRIkKdS.mK3W4l1H5uWVwAp//1O/yMrJII8IW9zKMibuZmHHS');
 
 
 /* ********************************************** */

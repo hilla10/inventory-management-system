@@ -39,7 +39,7 @@
                         <input type="text" class="form-control" id="password" name="password" placeholder="የይለፍ ቃል" aria-label="የይለፍ ቃል">
                          <i class="fa-solid fa-eye-slash showHideBtn" tabindex="0"></i>
                     </div>
-                    <div class="form-group mb-2 input-box w-50">
+                    <div class="form-group mb-2 input-box w-25">
                         <input type="submit" name="login" value="አስገባ" class="px-5 btn-outline my-2 py-2" tabindex="0">
                     </div>
             </form>
