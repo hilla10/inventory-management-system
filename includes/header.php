@@ -1,6 +1,6 @@
 <?php
 // Determine the base URL
-$baseURL = '/group-project/';
+$baseURL = '/inventory-management-system/';
 
 ?>
 <!DOCTYPE html>

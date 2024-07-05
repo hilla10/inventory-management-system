@@ -38,7 +38,7 @@
                     <ul class="my-3 ms-3 ps-0">
                             <p class="text-light" aria-label="Out of Items" tabindex="0">Out of Items</p>
                         <?php foreach ($lowStockNotifications as $notification): ?>
-                            <li class="py-1"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link "tabindex="0"><?php echo $notification; ?></a></li>
+                            <li class="py-1"><a href="/inventory-management-system/<?php echo $link; ?>\" class="list__group-link "tabindex="0"><?php echo $notification; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>

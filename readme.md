@@ -33,7 +33,7 @@ Before running the system, ensure you have the following prerequisites installed
 ## Database
 
 1. Create a new database named `inventory`.
-2. Import the `inventory.sql` from localhost/group-project/database/inventory.sql file into the `inventory` database to create the necessary tables and data.
+2. Import the `inventory.sql` from localhost/inventory-management-system/database/inventory.sql file into the `inventory` database to create the necessary tables and data.
 
 ## Directory-Structure
 
@@ -54,7 +54,7 @@ Before running the system, ensure you have the following prerequisites installed
 
 To access the system:
 
-    Navigate to group-project/index.php.
+    Navigate to inventory-management-system/index.php.
     Use the following credentials:
         Username: admin
         Email: admin@gmail.com (you can use either username or email)

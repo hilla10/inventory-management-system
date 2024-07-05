@@ -9,7 +9,7 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Define project directory
-$projectDirectory = '/group-project'; // Adjust this to match your project's directory
+$projectDirectory = '/inventory-management-system'; // Adjust this to match your project's directory
 
 // Define allowed pages based on roles
 $allowedPages = [
