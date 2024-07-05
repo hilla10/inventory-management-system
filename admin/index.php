@@ -252,7 +252,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fa-solid fa-bag-shopping"></i>
                             </div>
-                            <a href="../more_info/all_items.php" class="small-box-footer">More info
+                            <a href="../more_info/all_items.php" class="small-box-footer" tabindex="0">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -266,7 +266,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fa-solid fa-droplet"></i>
                             </div>
-                            <a href="../more_info/consumable_items.php" class="small-box-footer">More info
+                            <a href="../more_info/consumable_items.php" class="small-box-footer" tabindex="0">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -280,7 +280,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fa-solid fa-toolbox"></i>
                             </div>
-                            <a href="../more_info/non_consumable_items.php" class="small-box-footer">More info
+                            <a href="../more_info/non_consumable_items.php" class="small-box-footer" tabindex="0">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -294,7 +294,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fas fa-archive"></i>
                             </div>
-                            <a href="../bin/" class="small-box-footer">More info
+                            <a href="../bin/" class="small-box-footer" tabindex="0">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -308,7 +308,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fas fa-clipboard-list"></i>
                             </div>
-                            <a href="../model_19/" class="small-box-footer">More info
+                            <a href="../model_19/" class="small-box-footer" tabindex="0">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -321,7 +321,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                             <div class="icon">
                                 <i class="fas fa-chart-line"></i>
                             </div>
-                            <a href="../model_20/" class="small-box-footer">More info
+                            <a href="../model_20/" class="small-box-footer" tabindex="0">More info
                                 <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
 

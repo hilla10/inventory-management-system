@@ -158,13 +158,13 @@
         <div class="modal-dialog">
             <div class="modal-content form-user-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="ModalUserLoginLabel">Add User</h1>
+                    <h1 class="modal-title text-light fs-5" id="ModalUserLoginLabel">Add User</h1>
                     <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- signInForm -->
                 <div class="modal-body">
                     <form action="./includes/user_register.php" method="post"  class=" userForm">
-                    <h2 class="fs-3 text-center py-3">ዋናው መመዝገቢያ ቅጽ</h2>
+                    <h2 class="fs-3 text-center py-3 text-light">ዋናው መመዝገቢያ ቅጽ</h2>
 
                     <div class="form-group input-box">
                         <input  type="text" class="form-control name" name="username">

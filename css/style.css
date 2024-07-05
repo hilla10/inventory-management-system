@@ -162,6 +162,10 @@ a {
   text-decoration: none !important;
 }
 
+.list__group-link:focus-visible, .list__group-link:focus {
+  border: 2px solid #fff;
+}
+
 /* notification  */
 .list__group-link-nt {
   background: #f39c12;
@@ -333,7 +337,15 @@ form .outline input:active {
   box-shadow: 0 -2px 0.2rem rgba(220, 210, 248, 0.945);
 }
 
+:focus-visible {
+  outline:  none !important;
+}
+
 form .input-box input:focus,
+form .input-box input:focus-visible,
+form .input-box button:focus-visible,
+button:focus,
+button:focus-visible,
 form .input-box input:active,
 form .input-box input.has-content {
   border: 1px groove #00dfc4;
@@ -469,6 +481,11 @@ form .input-box input.has-content {
   color: #f0d6d6;
   transition: color 0.3s ease;
   z-index: 99;
+  padding: 5px;
+}
+
+.showHideBtn:focus, .showHideBtn:focus-visible {
+ border: 2px dotted #fff !important;
 }
 
 .fa-eye {
@@ -545,6 +562,21 @@ form .input-box input.has-content {
 .visually-hidden {
   color: #000000;
 }
+
+
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    color: #fff;
+}
+
 
 .fa-close {
   color: #fff;
@@ -723,6 +755,10 @@ form .input-box input.has-content {
   z-index: 10;
   background: rgba(255, 255, 255, 0.226);
   text-decoration: none;
+}
+
+.small-box-footer:focus, .small-box-footer:focus-visible {
+  border: 2px solid #fff;
 }
 
 .small-box-footer .fa {
@@ -921,7 +957,6 @@ form .input-box input.has-content {
   transition: all 0.4s ease-in-out;
   background: #272727;
   padding-left: 4px;
-  padding-top: 4px;
   font-size: 0.8rem;
 }
 

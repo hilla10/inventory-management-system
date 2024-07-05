@@ -3,18 +3,18 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content bg-modal-color">
             <div class="modal-header d-flex justify-content-between">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Notification</h1>
-                <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close"></i>
+                <h1 class="modal-title fs-5" id="exampleModalLabel" tabindex="0" aria-label="Notification">Notification</h1>
+                <i class="fas fa-close" data-bs-dismiss="modal" aria-label="Close" tabindex="0"></i>
             </div>
             <div class="modal-body w-100">
                 <?php if($totalNotifications > 0): ?>
                     <!-- Display pending requests notifications -->
                     <?php if ($pendingCount > 0): ?>
                         <div id="notificationContent" class="pb-2">
-                            <p class="text-light">Requested Items</p>
+                            <p class="text-light" aria-label="Requested Items" tabindex="0">Requested Items</p>
                             <ul class="my-3 ms-3 ps-0">
                                 <?php foreach ($pendingRequestsNotifications as $request): ?>
-                                    <li class="py-1"><a href="../request/index.php" class="list__group-link "><?php echo $request; ?></a></li>
+                                    <li class="py-1"><a href="../request/index.php" class="list__group-link " tabindex="0"><?php echo $request; ?></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
@@ -24,10 +24,10 @@
                     <!-- Display pending added notifications -->
                     <?php if ($pendingAddedCount > 0): ?>
                         <div id="notificationContent" class="pb-2">
-                            <p class="text-light">Added Items</p>
+                            <p class="text-light" aria-label="Added Items" tabindex="0">Added Items</p>
                             <ul class="my-3 ms-3 ps-0">
                                 <?php foreach ($pendingAddedNotifications as $added): ?>
-                                    <li class="py-1"><a href="../added/index.php" class="list__group-link "><?php echo $added; ?></a></li>
+                                    <li class="py-1"><a href="../added/index.php" class="list__group-link "tabindex="0"><?php echo $added; ?></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
@@ -36,9 +36,9 @@
                     
                     <!-- Display low stock notifications -->
                     <ul class="my-3 ms-3 ps-0">
-                            <p class="text-light">Out of Items</p>
+                            <p class="text-light" aria-label="Out of Items" tabindex="0">Out of Items</p>
                         <?php foreach ($lowStockNotifications as $notification): ?>
-                            <li class="py-1"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link "><?php echo $notification; ?></a></li>
+                            <li class="py-1"><a href="/group-project/<?php echo $link; ?>\" class="list__group-link "tabindex="0"><?php echo $notification; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>

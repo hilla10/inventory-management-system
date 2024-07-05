@@ -18,31 +18,33 @@
                     ?>
 
                     <div class="form-group mb-2 input-box">
-                        <input type="text" class="form-control" name="username_or_email" placeholder="ስሞትን ወይም የኢሜል አድራሻዎን ያስገቡ">
+                        <label for="username_or_email" class="visually-hidden">ስሞትን ወይም የኢሜል አድራሻዎን ያስገቡ:</label>
+                        <input type="text" class="form-control" id="username_or_email" name="username_or_email" placeholder="ስሞትን ወይም የኢሜል አድራሻዎን ያስገቡ" aria-label="Enter Email | Username">
                     </div>
 
-                    <div class="form-group mb-2">
-                        <label for="options" class="pb-2 text-light">ያሉበትን ሁኔታ ይምረጡ:</label>
-                        <select name="options" class="form-select">
-                            <option value="Admin">Admin</option>
-                            <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
-                            <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
-                            <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
-                            <option value="auto head">የአውቶ ዲፓርትመንት ሄድ</option>
-                        </select>
-                    </div>
+                   <div class="form-group mb-2">
+                    <label for="options" class="pb-2 text-light" id="optionsLabel">ያሉበትን ሁኔታ ይምረጡ:</label>
+                    <select id="options" name="options" class="form-select" aria-labelledby="optionsLabel">
+                        <option value="Admin">Admin</option>
+                        <option value="it head">የአይቲ ዲፓርትመንት ሄድ</option>
+                        <option value="business head">የቢዝነስ ዲፓርትመንት ሄድ</option>
+                        <option value="art head">የአርት ዲፓርትመንት ሄድ</option>
+                        <option value="auto head">የአውቶ ዲፓርትመንት ሄድ</option>
+                    </select>
+                </div>
 
-                    <div class="form-group mb-2  input-box">
-                        <input type="password" class="form-control psw" name="password" placeholder="የይለፍ ቃል">
-                       <i class="fa-solid fa-eye-slash showHideBtn"></i>
-                    </div>
 
-                    <div>
-                        <input type="submit" name="login" value="አስገባ" class="px-5 btn-outline my-2">
+                    <div class="form-group mb-2 input-box">
+                        <label for="password" class="visually-hidden psw">የይለፍ ቃል:</label>
+                        <input type="text" class="form-control" id="password" name="password" placeholder="የይለፍ ቃል" aria-label="የይለፍ ቃል">
+                         <i class="fa-solid fa-eye-slash showHideBtn" tabindex="0"></i>
+                    </div>
+                    <div class="form-group mb-2 input-box w-50">
+                        <input type="submit" name="login" value="አስገባ" class="px-5 btn-outline my-2 py-2" tabindex="0">
                     </div>
             </form>
 
-            <div>
+            <div class="form-group mb-2 input-box w-50">
                 <button id="usersBtn" class="px-5 btn-outline my-2" tabindex="0">Sign Up</button>
             </div>
         </div>

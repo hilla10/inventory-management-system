@@ -207,7 +207,7 @@ if (strpos($currentUrl, '/admin/') !== false) {
                                 }
                                 echo "\" aria-current=\"page\">";
                                 echo "<i class=\"fa-solid fa-users\"></i>";
-                                echo "<span>See All Users</span>";
+                                echo "<span aria-label=\"Display All Users\">See All User</span>";
                                 echo "</a>";
                             } ?>
                           </li>
@@ -248,7 +248,7 @@ if (strpos($currentUrl, '/admin/') !== false) {
                                     echo "active";
                                 }
                                 echo "\" aria-current=\"page\">";
-                                echo "<span>See All Department</span>";
+                                echo "<span aria-label=\"Display All Department\">See All Department</span>";
                                 echo "</a>";
                             } ?>
                           </li>
