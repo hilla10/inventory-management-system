@@ -3,6 +3,7 @@
 include('../includes/dbcon.php');
 include('../includes/header.php');
 include('../includes/auth.php'); // Include auth for security
+include('../includes/check_time.php'); // Include time out for security
 
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
@@ -95,17 +96,17 @@ function updateItemStatus($itemId, $status) {
     <div>
         <?php 
         if ($userRole == 'admin') {
-            echo '<a href="../admin/index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="../admin/index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         } else {
-            echo '<a href="index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         }
         ?>
         <nav class="navbar navbar-static-top">
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <a tabindex="0" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <i class="fa-solid fa-bars-staggered"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
@@ -113,7 +114,7 @@ function updateItemStatus($itemId, $status) {
     </div>
     
     <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
+        <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -128,7 +129,7 @@ function updateItemStatus($itemId, $status) {
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                <button tabindex="0" class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -138,12 +139,12 @@ function updateItemStatus($itemId, $status) {
                                   <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                     <!-- Display user information -->
                                    <li>
-                                        <a class="dropdown-item" href="../profile/">
+                                        <a tabindex="0" class="dropdown-item" href="../profile/">
                                             <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
                                             <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
                                         </a>
                                     </li>
-                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                    <li><a tabindex="0" class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -171,7 +172,7 @@ function updateItemStatus($itemId, $status) {
                     <small>Control panel</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a tabindex="0" href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
                     <li class="active">request</li>
                 </ol>
             </section>
@@ -236,15 +237,15 @@ function updateItemStatus($itemId, $status) {
                                             <td>
                                                 <!-- Always show links/buttons to approve or decline -->
                                               <div class="d-flex gap-2">
-                                                  <a class="btn btn-success action" href="index.php?action=approve&id=<?php echo $row['ordinary_number']; ?>">Approve</a> |
-                                                <a class="btn btn-danger  action" href="index.php?action=decline&id=<?php echo $row['ordinary_number']; ?>">Decline</a>
+                                                  <a tabindex="0" class="btn btn-success action" href="index.php?action=approve&id=<?php echo $row['ordinary_number']; ?>">Approve</a> |
+                                                <a tabindex="0" class="btn btn-danger  action" href="index.php?action=decline&id=<?php echo $row['ordinary_number']; ?>">Decline</a>
                                             </td>
                                               </div>
                                             <td>
                                                 <?php if ($row['status'] == 'approved' || $row['status'] == 'declined') { ?>
-                                                    <a href="../includes/delete_request.php?id=<?php echo $row['ordinary_number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
+                                                    <a tabindex="0" href="../includes/delete_request.php?id=<?php echo $row['ordinary_number']; ?>" class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
                                                 <?php } else { ?>
-                                                    <button class="btn btn-danger" disabled="true">Delete</button>
+                                                    <button tabindex="0" class="btn btn-danger" disabled="true">Delete</button>
                                                 <?php } ?>
                                             </td>
                                         </tr>

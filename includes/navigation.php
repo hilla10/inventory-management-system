@@ -54,18 +54,18 @@ if (strpos($currentUrl, '/admin/') !== false) {
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
        
-         <?php   if ($currentPage == 'admin' || $userRole == 'admin') {
-            echo "<a href=\"../admin/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'admin') {
+         <?php   if ($currentPage === 'admin' || $userRole === 'admin') {
+            echo "<a tabindex=\"0\" href=\"../admin/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'admin') {
                 echo "active";
             }
             echo "\" aria-current=\"page\">";
             echo "<i class=\"fas fa-house\"></i>";
             echo "<span>Dashboard</span>";
             echo "</a>";
-        } else if ($currentPage == 'profile' ||  $userRole == 'admin') {
-                      echo "<a href=\"../admin/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'admin') {
+        } else if ($currentPage === 'profile' &&  $userRole === 'admin') {
+                      echo "<a tabindex=\"0\" href=\"../admin/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'admin') {
                 echo "active";
             }
         }
@@ -74,8 +74,8 @@ if (strpos($currentUrl, '/admin/') !== false) {
 
         <li class="nav-item">
        
-         <?php   if ($currentPage == 'it' ||  $userRole == 'admin') {
-            echo "<a href=\"../it/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+         <?php   if ($currentPage === 'it' ||  $userRole === 'admin' || ($userRole == 'it head' && $currentPage === 'profile') ) {
+            echo "<a tabindex=\"0\" href=\"../it/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
             if ($currentPage == 'it') {
                 echo "active";
             }
@@ -83,8 +83,8 @@ if (strpos($currentUrl, '/admin/') !== false) {
             echo "<i class=\"fas fa-server\"></i>";
             echo "<span>It Department</span>";
             echo "</a>";
-        } else if ($currentPage == 'profile' ||  $userRole == 'it') {
-                echo "<a href=\"../it/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+        } else if (($currentPage === 'profile' && $userRole === 'it head') || ($currentPage === 'model_19' && $userRole === 'it head')  || ($currentPage === 'model_20' && $userRole === 'it head')  || ($currentPage === 'bin' && $userRole === 'it head')) {
+                echo "<a tabindex=\"0\" href=\"../it/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
 
                  if ($currentPage == 'it') {
                 echo "active";
@@ -97,76 +97,89 @@ if (strpos($currentUrl, '/admin/') !== false) {
          ?>
       </li>
       <li>
-         <?php   if ($currentPage == 'art' ||  $userRole == 'admin') {
-            echo "<a href=\"../art/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'art') {
+         <?php   if ($currentPage === 'art' ||  $userRole === 'admin' || ($userRole === 'art head'  && $currentPage === 'profile')) {
+            echo "<a tabindex=\"0\" href=\"../art/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'art') {
                 echo "active";
             }
             echo "\" aria-current=\"page\">";
             echo "<i class=\"fas fa-palette\"></i>";
             echo "<span>Art Department</span>";
             echo "</a>";
-        } else if ($currentPage == 'profile' ||  $userRole == 'art') {
-           echo "<a href=\"../art/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'art') {
+        } else if (($currentPage === 'profile' && $userRole === 'art head') || ($currentPage === 'model_19' && $userRole === 'art head')  || ($currentPage === 'model_20' && $userRole === 'art head')  || ($currentPage === 'bin' && $userRole === 'art head')) {
+           echo "<a tabindex=\"0\" href=\"../art/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'art') {
                 echo "active";
             }
+                        echo "\" aria-current=\"page\">";
+            echo "<i class=\"fas fa-palette\"></i>";
+            echo "<span>Art Department</span>";
+            echo "</a>";
         }
          ?>
         </a>
       </li>
       <li>
         
-         <?php   if ($currentPage == 'auto' ||  $userRole == 'admin') {
-            echo "<a href=\"../auto/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'auto') {
+         <?php   if ($currentPage === 'auto' ||  $userRole === 'admin' || ($userRole === 'auto head' && $currentPage === 'profile') ) {
+            echo "<a tabindex=\"0\" href=\"../auto/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'auto') {
                 echo "active";
             }
             echo "\" aria-current=\"page\">";
             echo "<i class=\"fas fa-car\"></i>";
             echo "<span>Auto Department</span>";
             echo "</a>";
-        } else if ($currentPage == 'profile' ||  $userRole ==  'auto') {
-           echo "<a href=\"../auto/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'auto') {
+        } else if (($currentPage === 'profile' &&  $userRole ===  'auto head')|| ($currentPage === 'model_19' && $userRole === 'auto head')  || ($currentPage === 'model_20' && $userRole === 'auto head')  || ($currentPage === 'bin' && $userRole === 'auto head')) {
+           echo "<a tabindex=\"0\" href=\"../auto/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'auto') {
                 echo "active";
             }
+             echo "\" aria-current=\"page\">";
+            echo "<i class=\"fas fa-car\"></i>";
+            echo "<span>Auto Department</span>";
+            echo "</a>";
         }
         ?>
       </li>
       <li>
           
-           <?php   if ($currentPage == 'business' ||  $userRole == 'admin') {
-            echo "<a href=\"../business/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'business') {
+           <?php   if ($currentPage === 'business' ||  $userRole === 'admin' || ($userRole === 'business head'  && $currentPage === 'profile')) {
+            echo "<a tabindex=\"0\" href=\"../business/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'business') {
                 echo "active";
             }
             echo "\" aria-current=\"page\">";
             echo "<i class=\"fas fa-briefcase\"></i>";
             echo "<span>Business Department</span>";
             echo "</a>";
-        }  else if ($currentPage == 'profile' ||  $userRole ==  'business') {
-          echo "<a href=\"../business/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
-            if ($currentPage == 'business') {
+        }  else if (($currentPage === 'profile' &&  $userRole ===  'business head') || ($currentPage === 'model_19' && $userRole === 'business head')  || ($currentPage === 'model_20' && $userRole === 'business head')  || ($currentPage === 'bin' && $userRole === 'business head')) {
+          echo "<a tabindex=\"0\" href=\"../business/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+            if ($currentPage === 'business') {
                 echo "active";
             }
+            echo "\" aria-current=\"page\">";
+            echo "<i class=\"fas fa-briefcase\"></i>";
+            echo "<span>Business Department</span>";
+            echo "</a>";
         }
         ?>
+
       </li>
       <li>
-        <a href="../bin/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'bin') echo 'active'; ?>">
+        <a tabindex="0" href="../bin/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'bin') echo 'active'; ?>">
           <i class="fas fa-archive"></i>
         <span>Bin</span>
         </a>
       </li>
       <li>
-        <a href="../model_19/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'model_19') echo 'active'; ?>">
+        <a tabindex="0" href="../model_19/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'model_19') echo 'active'; ?>">
         <i class="fas fa-table"></i>
           <span>Modal 19</span>
         </a>
       </li>
       <li>
-        <a href="../model_20/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'model_20') echo 'active'; ?>">
+        <a tabindex="0" href="../model_20/" class="nav-link fs-6 text-white link-opacity-50-hover <?php if ($currentPage == 'model_20') echo 'active'; ?>">
           <i class="fas fa-table"></i>
          <span> Modal 20</span>
         </a>
@@ -174,7 +187,7 @@ if (strpos($currentUrl, '/admin/') !== false) {
        <li>
          <div class="accordion">
             <div class="accordion-item">
-                <div class="accordion-header pb-1">
+                <div class="accordion-header pb-1" tabindex="0" role="button" aria-label="Expand department details">
                         <h3>
                             <div>
                               <i class="fas fa-user"></i>
@@ -188,7 +201,7 @@ if (strpos($currentUrl, '/admin/') !== false) {
                         <li class="item1"> 
                          
                              <?php   if ($currentPage == 'display_user' || $userRole == 'admin') {
-                                echo "<a href=\"../display_user/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+                                echo "<a tabindex=\"0\" href=\"../display_user/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
                                 if ($currentPage == 'display_user') {
                                     echo "active";
                                 }
@@ -216,20 +229,21 @@ if (strpos($currentUrl, '/admin/') !== false) {
        <li>
          <div class="accordion">
             <div class="accordion-item">
-                <div class="accordion-header pb-1">
-                        <h3>
-                            <div>
-                            <i class="fas fa-building"></i>
-                            <span>Department</span>
-                            </div>
-                            <i class="fas fa-angle-down accordion-icon"></i>
-                        </h3>
+               <div class="accordion-header pb-1" tabindex="0" role="button" aria-label="Expand user details">
+            <h3>
+                <div>
+                    <i class="fas fa-building"></i>
+                    <span>Department</span>
                 </div>
+                <i class="fas fa-angle-down accordion-icon"></i>
+            </h3>
+                        </div>
+
                 <div class="accordion-content">
                     <ul>
                     <li class="item1">
                         <?php   if ($currentPage == 'display_department' ||  $userRole == 'admin') {
-                                echo "<a href=\"../display_department/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
+                                echo "<a tabindex=\"0\" href=\"../display_department/index.php\" class=\"nav-link fs-6 text-white link-opacity-50-hover ";
                                 if ($currentPage == 'display_department') {
                                     echo "active";
                                 }

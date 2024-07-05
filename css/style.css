@@ -197,6 +197,32 @@ a {
   font-size: 0.9rem !important;
 }
 
+.link-light {
+  color: #000000 !important;
+}
+
+.item1 .link-light {
+  color: #fff !important;
+}
+
+button:focus,
+button:focus-visible,
+.fa-bell:focus,
+.fa-bell:focus-visible {
+  border: 2px solid #fff !important;
+  outline: none !important;
+}
+
+ .accordion-header:focus, .accordion-header:focus-visible {
+  border:  1px dotted #fff !important;
+  outline: none !important;
+ }
+
+ 
+:focus-visible {
+  outline: 1px auto !important;
+}
+
 .main-header .navbar .sidebar-toggle:hover {
   background-color: #367fa9;
 }
@@ -247,6 +273,10 @@ form .outline input::placeholder {
   color: #06075ed2 !important;
 }
 
+#search::placeholder {
+  color: #222;
+}
+
 form .input-box input::placeholder {
   color: #fff;
 }
@@ -269,6 +299,11 @@ form .outline input:active {
 .btn-outline:hover {
   background-color: rgba(252, 238, 52, 0.699);
   color: #181414;
+}
+
+.btn-success {
+  color: #000;
+  background: #008000;
 }
 
 .input-box span {
@@ -499,11 +534,16 @@ form .input-box input.has-content {
 }
 
 .bg-modal-color {
-  background: #0e008f60 !important;
+  background: rgba(51, 51, 51, 0.808) !important;
 }
 
 .text-white {
   color: #fff !important;
+}
+
+.sr-only,
+.visually-hidden {
+  color: #000000;
 }
 
 .fa-close {
@@ -561,7 +601,7 @@ form .input-box input.has-content {
 }
 
 .breadcrumb > .active {
-  color: #777;
+  color: #333;
 }
 .main-content {
   background-color: #ecf0f5;
@@ -640,11 +680,12 @@ form .input-box input.has-content {
   display: block;
   margin-bottom: 20px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  color: #000;
+  height: 180.6px;
 }
 
 .small-box h3 {
-  font-size: 38px;
+  font-size: 48px;
   font-weight: bold;
   margin: 0 0 10px 0;
   white-space: nowrap;
@@ -652,7 +693,9 @@ form .input-box input.has-content {
 }
 
 .small-box p {
-  font-size: 15px;
+  font-size: 16px;
+  word-wrap: wrap;
+  padding-top: 1.5rem;
 }
 
 .small-box .icon {
@@ -664,7 +707,7 @@ form .input-box input.has-content {
   right: 10px;
   z-index: 0;
   font-size: 90px;
-  color: rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.726);
 }
 
 .small-box:hover .icon {
@@ -675,11 +718,10 @@ form .input-box input.has-content {
   position: relative;
   text-align: center;
   padding: 3px 0;
-  color: #fff;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(0, 0, 0);
   display: block;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.226);
   text-decoration: none;
 }
 
@@ -693,7 +735,7 @@ form .input-box input.has-content {
 
 .breadcrumb > li + li::before {
   padding: 0 5px;
-  color: #ccc;
+  color: #111;
   content: '>\00a0';
 }
 
@@ -754,11 +796,15 @@ form .input-box input.has-content {
   .hamburger {
     display: block;
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 50px;
     cursor: pointer;
     z-index: 100;
-    width: 50px;
+    padding: 5px;
+  }
+
+  .hamburger:focus, .hamburger:focus-visible {
+    border: 2px dotted #fff;
   }
 
   .hamburger .bar {
@@ -842,7 +888,6 @@ form .input-box input.has-content {
 }
 
 .accordion {
-  padding: 10px 0;
   border: none !important;
   outline: none !important;
 }
@@ -859,8 +904,8 @@ form .input-box input.has-content {
 .accordion-header h3 {
   width: 100%;
   margin: 0;
-  font-size: 0.9rem;
-  padding: 0 15px;
+  font-size: 0.9rem;  
+  padding: 8px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -876,6 +921,7 @@ form .input-box input.has-content {
   transition: all 0.4s ease-in-out;
   background: #272727;
   padding-left: 4px;
+  padding-top: 4px;
   font-size: 0.8rem;
 }
 

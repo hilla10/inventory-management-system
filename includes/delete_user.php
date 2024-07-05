@@ -1,101 +1,98 @@
 <?php
-
-
 session_start();
 
 // Include database connection and authentication check
 include('dbcon.php');
-include("auth.php");
+include('auth.php'); // Assuming this file handles authentication
 
 // Access the stored current page URL
 $currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
 
-// Set the desired current page URL
-$_SESSION['currentPage'] = 'admin/index.php'; // Update this to the desired URL
+// Set the desired current page URL (adjust as needed)
+$_SESSION['currentPage'] = 'admin/index.php';
 
 if (isset($_POST['delete_user'])) {
-    $emailToDelete = $_POST['email'];
+    $emailOrUsername = $_POST['email_or_username'];
     $passwordToDelete = $_POST['password'];
 
-    // Query to fetch hashed password from database based on email
-    $sqlFetchUser = "SELECT `email`, `password` FROM users WHERE email = ?";
+    // Determine if the input is an email or username
+    if (filter_var($emailOrUsername, FILTER_VALIDATE_EMAIL)) {
+        $identifierField = 'email';
+    } else {
+        $identifierField = 'username';
+    }
+
+    // Query to fetch hashed password from database based on email or username
+    $sqlFetchUser = "SELECT `email`, `password` FROM users WHERE $identifierField = ?";
     $stmtFetchUser = mysqli_prepare($connection, $sqlFetchUser);
 
     if ($stmtFetchUser) {
         // Bind parameter and execute statement
-        mysqli_stmt_bind_param($stmtFetchUser, 's', $emailToDelete);
+        mysqli_stmt_bind_param($stmtFetchUser, 's', $emailOrUsername);
         mysqli_stmt_execute($stmtFetchUser);
-        
+
         // Bind result variables
         mysqli_stmt_bind_result($stmtFetchUser, $fetchedEmail, $hashedPassword);
-        
+
         // Fetch the result
         mysqli_stmt_fetch($stmtFetchUser);
-        
-        // Close statement and free result set
+
+        // Close statement after fetching results
         mysqli_stmt_close($stmtFetchUser);
-        
-        // Check if email exists
+
+        // Check if email or username exists
         if (!empty($fetchedEmail)) {
             // Verify password
             if (password_verify($passwordToDelete, $hashedPassword)) {
                 // Passwords match, proceed with deletion
-                $sqlUsers = "DELETE FROM users WHERE email = ?";
-                // Use prepared statements to prevent SQL injection
-                $stmtUsers = mysqli_prepare($connection, $sqlUsers);
+                $sqlDeleteUser = "DELETE FROM users WHERE $identifierField = ?";
+                $stmtDeleteUser = mysqli_prepare($connection, $sqlDeleteUser);
 
-                if ($stmtUsers) {
-                    // Bind parameters and execute the statements
-                    mysqli_stmt_bind_param($stmtUsers, 's', $emailToDelete);
+                if ($stmtDeleteUser) {
+                    // Bind parameters and execute the statement
+                    mysqli_stmt_bind_param($stmtDeleteUser, 's', $emailOrUsername);
+                    $resultDeleteUser = mysqli_stmt_execute($stmtDeleteUser);
 
-                    // Execute delete statements
-                    $resultUsers = mysqli_stmt_execute($stmtUsers);
-                    // Check deletion results
-                    if ($resultUsers) {
+                    if ($resultDeleteUser) {
                         // Successful deletion
-                        $delete_msg = 'You have deleted the record with email: ' . $emailToDelete;
-                        $redirectUrl = '../' . $_SESSION['currentPage'] . '?delete_msg=' . urlencode($delete_msg);
-                        header('Location: ' . $redirectUrl);
-                        exit;
+                        $delete_msg = 'You have deleted the record with ' . $identifierField . ': ' . $emailOrUsername;
+                        redirectWithMessage($delete_msg, 'delete_msg');
                     } else {
                         // Deletion failed, handle error
                         $error_msg = 'Deletion failed: ' . mysqli_error($connection);
-                        $redirectUrl = '../' . $_SESSION['currentPage'] . '?error_msg=' . urlencode($error_msg);
-                        header('Location: ' . $redirectUrl);
-                        exit;
+                        redirectWithMessage($error_msg, 'error_msg');
                     }
+
+                    // Close statement
+                    mysqli_stmt_close($stmtDeleteUser);
                 } else {
                     // Query preparation failed, handle error
                     $error_msg = 'Query preparation failed: ' . mysqli_error($connection);
-                    $redirectUrl = '../' . $_SESSION['currentPage'] . '?error_msg=' . urlencode($error_msg);
-                    header('Location: ' . $redirectUrl);
-                    exit;
+                    redirectWithMessage($error_msg, 'error_msg');
                 }
             } else {
                 // Passwords do not match, redirect back with error message
-                $redirectUrl = '../' . $_SESSION['currentPage'] . '?error_msg=Incorrect email or password.';
-                header('Location: ' . $redirectUrl);
-                exit;
+                redirectWithMessage('Incorrect password for ' . $identifierField, 'error_msg');
             }
         } else {
-            // Email not found, redirect back with error message
-            $redirectUrl = '../' . $_SESSION['currentPage'] . '?error_msg=Incorrect email or password.' ;
-            header('Location: ' . $redirectUrl);
-            exit;
+            // Email or username not found, redirect back with error message
+            redirectWithMessage('User with ' . $identifierField . ' not found', 'error_msg');
         }
     } else {
         // Fetch users query preparation failed, handle error
         $error_msg = 'User fetch query preparation failed: ' . mysqli_error($connection);
-        $redirectUrl = '../' . $_SESSION['currentPage'] . '?error_msg=' . urlencode($error_msg);
-        header('Location: ' . $redirectUrl);
-        exit;
+        redirectWithMessage($error_msg, 'error_msg');
     }
 } else {
-    // Delete confirmation not set, redirect back
-    $redirectUrl = '../' . $_SESSION['currentPage'] . '?error_msg=Delete confirmation not set.';
+    // Delete confirmation not set, redirect back with error message
+    redirectWithMessage('Delete confirmation not set.', 'error_msg');
+}
+
+// Function to redirect with message
+function redirectWithMessage($message, $messageType) {
+    global $currentPage;
+    $redirectUrl = '../' . $currentPage . '?' . $messageType . '=' . urlencode($message);
     header('Location: ' . $redirectUrl);
     exit;
 }
 ?>
-
-

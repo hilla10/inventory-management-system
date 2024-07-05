@@ -50,47 +50,66 @@
     <div class="container mt-5 w-50">
         <form action="update.php?id_new=<?php echo urlencode($ordinary_number); ?>&department=<?php echo urlencode($department); ?>" method="post" class="update insert-app-form shake-content">
            
-             <form action="../includes/insert_app.php" method="post" class="insert-app-form">
-                    <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control inventory_list" id="inventory_list" name="inventory_list"placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory_list'] ?>">
-                    </div>
-                   <div class="form-group mb-2 input-box">
-                <input type="text" class="form-control" id="department" name="department" placeholder="ዲፖርትመንት" value="<?php echo $row['department'] ?>" disabled>
-                </div>
-                      <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control item_type" id="item_type" name="item_type" placeholder="የእቃው አይነት" value="<?php echo $row['item_type'] ?>">
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <label for="item_category" class="py-2">Enter item category</label>
-                        <select name="item_category" class="select-option">
-                            <option value="consumable">አላቂ እቃ</option>
-                            <option value="non-consumable">የማያልቅ እቃ</option>
-                        </select>
-                    </div>  
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control description" id="description" name="description" placeholder="መግለጫ" value="<?php echo $row['description'] ?>">
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control measure" id="measure" name="measure" value="<?php echo $row['measure'] ?>" placeholder="መለኪያ">
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control quantity" id="quantity" name="quantity" placeholder="ብዛት" value="<?php echo $row['quantity'] ?>">
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control price" id="price" name="price" step="0.1"placeholder="የአንዱ ዋጋ" value="<?php echo $row['price'] ?>">
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" disabled>
-                    </div>
-                    <div class="form-group input-box mb-2">
-                        <input type="text" class="form-control examination" id="examination" name="examination"placeholder="ምርመራ" value="<?php echo $row['examination'] ?>">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                         <input type="hidden" name="update_items" value="1"></input>
-                        <button type="submit" class="btn btn-success">Update</button>
-                    </div>
+            <h2 class="fs-3 text-center py-3">የግዥ መጠየቂያ ፎርም</h2>
+
+    <div class="form-group input-box mb-2">
+        <label for="inventory_list">Inventory List:</label>
+        <input tabindex="0" aria-label="Inventory List" type="text" class="form-control inventory_list" id="inventory_list" name="inventory_list" placeholder="የእቃው ዝርዝር" value="<?php echo $row['inventory_list'] ?>">
+    </div>
+
+    <div class="form-group mb-2 input-box">
+        <label for="department">Department:</label>
+        <input tabindex="0" aria-label="Department" type="text" class="form-control" id="department" name="department" placeholder="ዲፖርትመንት" value="<?php echo $row['department'] ?>" disabled>
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="item_type">Item Type:</label>
+        <input tabindex="0" aria-label="Item Type" type="text" class="form-control item_type" id="item_type" name="item_type" placeholder="የእቃው አይነት" value="<?php echo $row['item_type'] ?>">
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="item_category">Item Category:</label>
+        <select name="item_category" id="item_category" class="select-option">
+            <option value="consumable">አላቂ እቃ</option>
+            <option value="non-consumable">የማያልቅ እቃ</option>
+        </select>
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="description">Description:</label>
+        <input tabindex="0" aria-label="Description" type="text" class="form-control description" id="description" name="description" placeholder="መግለጫ" value="<?php echo $row['description'] ?>">
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="measure">Measure:</label>
+        <input tabindex="0" aria-label="Measure" type="text" class="form-control measure" id="measure" name="measure" value="<?php echo $row['measure'] ?>" placeholder="መለኪያ">
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="quantity">Quantity:</label>
+        <input tabindex="0" aria-label="Quantity" type="text" class="form-control quantity" id="quantity" name="quantity" placeholder="ብዛት" value="<?php echo $row['quantity'] ?>">
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="price">Price:</label>
+        <input tabindex="0" aria-label="Price" type="text" class="form-control price" id="price" name="price" step="0.1" placeholder="የአንዱ ዋጋ" value="<?php echo $row['price'] ?>">
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="total_price">Total Price:</label>
+        <input tabindex="0" aria-label="Total Price" type="text" class="form-control" id="total_price" name="total_price" placeholder="ጠቅላላ ዋጋ" value="<?php echo $row['total_price'] ?>" disabled>
+    </div>
+
+    <div class="form-group input-box mb-2">
+        <label for="examination">Examination:</label>
+        <input tabindex="0" aria-label="Examination" type="text" class="form-control examination" id="examination" name="examination" placeholder="ምርመራ" value="<?php echo $row['examination'] ?>">
+    </div>
+
+    <div class="modal-footer">
+        <button tabindex="0" type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+        <input type="hidden" name="update_items" value="1" aria-hidden="true">
+        <button tabindex="0" type="submit" class="btn btn-success">Update</button>
+    </div>
         </form>
     </div>
     

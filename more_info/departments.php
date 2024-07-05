@@ -29,7 +29,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
 <header class="main-header">
    <div>
       <?php if ($userRole == 'admin') {
-          echo "<a href=\"../admin/index.php\" class=\"logo\" aria-current=\"page\">";
+          echo "<a tabindex=\"0\" href=\"../admin/index.php\" class=\"logo\" aria-current=\"page\">";
           echo "<img src=\"../img/EPTC_logo\" alt=\"logo\">";
           echo "</a>";
       } ?>
@@ -42,7 +42,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
    </div>
 
    <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-      <div class="hamburger">
+      <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
           <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
@@ -54,7 +54,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li>
                       <div class="dropdown nav-item">
-                          <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <a tabindex="0" class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               <?php
                                   if ($userRole == 'admin') {
                                       echo 'Admin';
@@ -62,7 +62,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                               ?>
                           </a>
                           <ul class="dropdown-menu">
-                              <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                              <li><a tabindex="0" class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                           </ul>
                       </div>
                   </li>
@@ -88,10 +88,11 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                         </select>
                      </div>
                      <div class="form-group mb-2">
+                                <label for="search" class="sr-only">Search item by inventory list</label>
                         <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                      </div>
                   </div>
-                  <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
+                  <button tabindex="0" type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                </div>
             </form>
          </div>
@@ -133,8 +134,8 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                   <tr>
                      <td><?php echo $row['id']?></td>
                      <td><?php echo $row['name']?></td>
-                     <td><a href="../includes/update.php?id=<?php echo $row['id']?>" class="btn btn-success">Update</a></td>
-                     <td><a href="../includes/delete.php?id=<?php echo $row['id']; ?>&name=<?php echo $row['name']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['id']; ?>', '<?php echo htmlspecialchars($row['name']); ?>')">Delete</a></td>
+                     <td><a tabindex="0" href="../includes/update.php?id=<?php echo $row['id']?>" class="btn btn-success">Update</a></td>
+                     <td><a tabindex="0" href="../includes/delete.php?id=<?php echo $row['id']; ?>&name=<?php echo $row['name']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['id']; ?>', '<?php echo htmlspecialchars($row['name']); ?>')">Delete</a></td>
                   </tr>
                   <?php } ?>
                   <?php } ?>

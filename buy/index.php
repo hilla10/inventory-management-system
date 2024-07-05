@@ -3,6 +3,7 @@
 include('../includes/dbcon.php');
 include("../includes/auth.php");
 include('../includes/header.php');
+include('../includes/check_time.php'); // Include time out for security
 
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
@@ -20,27 +21,26 @@ $_SESSION['currentPage'] = $currentPage;
 
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
-echo $_SESSION['currentPage'];
 ?>
 
 <header class="main-header">
     <div>
         <?php
         if ($userRole == 'admin') {
-            echo "<a href=\"../admin/index.php\" class=\"logo\" aria-current=\"page\">";
+            echo "<a tabindex=\"0\" href=\"../admin/index.php\" class=\"logo\" aria-current=\"page\">";
             echo " <img src=\"../img/EPTC_logo\" alt=\"logo\">";
             echo "</a>";
         }
         ?>
         <nav class="navbar navbar-static-top">
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <a tabindex="0" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <i class="fa-solid fa-bars-staggered"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
         </nav>
     </div>
     <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
+        <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -55,7 +55,7 @@ echo $_SESSION['currentPage'];
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li>
                             <div class="dropdown nav-item">
-                                <a class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a tabindex="0" class="btn btn-info dropdown-toggle me-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -63,7 +63,7 @@ echo $_SESSION['currentPage'];
                                     ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                    <li><a tabindex="0" class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -97,13 +97,14 @@ echo $_SESSION['currentPage'];
                                 </select>
                             </div>
                             <div class="form-group mb-2">
+                                <label for="search" class="sr-only">Search item by inventory list</label>
                                 <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
+                        <button tabindex="0" type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
-                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalItem">Add Items</button>
+                <button tabindex="0" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalItem">Add Items</button>
             </div>
 
             <?php
@@ -169,9 +170,9 @@ echo $_SESSION['currentPage'];
                             <td><?php echo $row['price']?></td>
                             <td><?php echo $row['total_price']?></td>
                             <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']?></td>
-                            <td><a href="../includes/update.php?ordinary_number=<?php echo $row['ordinary_number']?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
+                            <td><a tabindex="0" href="../includes/update.php?ordinary_number=<?php echo $row['ordinary_number']?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
                             <td>
-                                <a href="../includes/delete.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary_number']; ?>', '<?php echo htmlspecialchars($row['inventory_list']); ?>')">Delete</a>
+                                <a tabindex="0" href="../includes/delete.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary_number']; ?>', '<?php echo htmlspecialchars($row['inventory_list']); ?>')">Delete</a>
                             </td>
                         </tr>
                         <script>

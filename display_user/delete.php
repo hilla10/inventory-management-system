@@ -1,12 +1,12 @@
-
-
 <?php
 // Include database connection
 include('../includes/dbcon.php');
 include("../includes/auth.php");
 
+// Check if ID is provided via GET
 if(isset($_GET['id'])) {
-    $id = $_GET['id'];
+    // Sanitize and validate ID parameter
+    $id = intval($_GET['id']);
 
     // Fetch email before deleting
     $query_fetch_email = "SELECT email FROM users WHERE id = ?";
@@ -25,14 +25,14 @@ if(isset($_GET['id'])) {
     mysqli_stmt_close($stmt_delete);
 
     if (!$result_delete) {
-        die("Query Failed" . mysqli_error($connection));
+        die("Query Failed: " . mysqli_error($connection));
     } else {
         // Construct success message
         $delete_msg = "You have deleted the record with email: $deleted_email";
 
         // Redirect with message
-        header("location:index.php?delete_msg=" . urlencode($delete_msg));
-        exit;
+        header("Location: index.php?delete_msg=" . urlencode($delete_msg));
+        exit();
     }
 }
 ?>

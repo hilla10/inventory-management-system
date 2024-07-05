@@ -1,6 +1,11 @@
 <?php
+// Start the session (if not already started)
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Include database connection
 include("../includes/dbcon.php");
-session_start();
 
 if (isset($_POST['login'])) {
     $usernameOrEmail = mysqli_real_escape_string($connection, $_POST['username_or_email']);
@@ -33,6 +38,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['email'] = $row['email']; // It can be NULL
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['options'] = $row['options'];
+                $_SESSION['last_activity'] = time(); // Set last activity time
 
                 // Fetch the current time
                 $currentVisitTime = date("Y-m-d H:i:s");
@@ -65,7 +71,8 @@ if (isset($_POST['login'])) {
                         exit();
                     default:
                         // Redirect to a default page or handle as needed
-                        break;
+                        header("Location: ../index.php");
+                        exit();
                 }
             } else {
                 header('Location: ../index.php?error_msg=Sorry, your username/email or password is invalid');

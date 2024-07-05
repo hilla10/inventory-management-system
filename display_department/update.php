@@ -10,12 +10,13 @@ $currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';
 // Access user role from session
 $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
 
+// Function to validate phone number format
 function isValidPhone($phoneValue) {
     // Trim whitespace
     $phoneValue = trim($phoneValue);
 
     // Allow empty/null phone numbers or '+251'
-    if ($phoneValue === '+251') {
+    if ($phoneValue === '+251' || $phoneValue === '+251 ') {
         return true; // Allow '+251' as valid
     } else {
         // Define phone number regex
@@ -34,14 +35,19 @@ function isValidPhone($phoneValue) {
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $query = "SELECT * FROM `department_registration` WHERE `id` = '$id'";
-    $result = mysqli_query($connection, $query);
+    $query = "SELECT * FROM `department_registration` WHERE `id` = ?";
+    $stmt = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     if (!$result) {
         die("Query failed: " . mysqli_error($connection));
     } else {
         $row = mysqli_fetch_assoc($result);
     }
+
+    mysqli_stmt_close($stmt);
 }
 
 // Handle form submission for updating department registration
@@ -51,9 +57,12 @@ if (isset($_POST['update_department'])) {
     $username = isset($_POST['username']) ? mysqli_real_escape_string($connection, $_POST['username']) : '';
     $email = isset($_POST['email']) ? mysqli_real_escape_string($connection, $_POST['email']) : '';
     $gender = isset($_POST['gender']) ? mysqli_real_escape_string($connection, $_POST['gender']) : '';
-    $age = isset($_POST['age']) ? mysqli_real_escape_string($connection, $_POST['age']) : '';
+    $age = isset($_POST['age']) ? intval($_POST['age']) : 0;
     $phone = isset($_POST['phone']) ? mysqli_real_escape_string($connection, trim($_POST['phone'])) : '';
     $position = isset($_POST['position']) ? mysqli_real_escape_string($connection, $_POST['position']) : '';
+
+    // Array to store validation errors
+    $errors = [];
 
     // Validate email if provided
     if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -72,11 +81,9 @@ if (isset($_POST['update_department'])) {
 
     // Validate phone number format if provided
     if (!isValidPhone($phone)) {
-        $errors[] = "Phone number '$phone' is invalid.<br><br>";
-    } else if ($phone === '+251' || $phone === '+251 ' || $phone === '') {
-        $phoneValue = null; // Set to NULL if +251 or empty
-    } else {
-        $phoneValue = $phone;
+        $errors[] = "Phone number '$phone' is invalid.";
+    } else if ($phone === '+251' || $phone === '+251 ') {
+        $phone = null; // Set to NULL if +251 or empty
     }
 
     // Check if the updated email already exists (excluding current user)
@@ -93,14 +100,14 @@ if (isset($_POST['update_department'])) {
     }
 
     // Check if the updated phone number already exists (excluding current user)
-    if (!empty($phoneValue)) {
+    if (!empty($phone)) {
         $queryCheckPhone = "SELECT id FROM department_registration WHERE phone = ? AND id <> ?";
         $stmtCheckPhone = mysqli_prepare($connection, $queryCheckPhone);
-        mysqli_stmt_bind_param($stmtCheckPhone, 'si', $phoneValue, $new_number);
+        mysqli_stmt_bind_param($stmtCheckPhone, 'si', $phone, $new_number);
         mysqli_stmt_execute($stmtCheckPhone);
         mysqli_stmt_store_result($stmtCheckPhone);
         if (mysqli_stmt_num_rows($stmtCheckPhone) > 0) {
-            $errors[] = "Phone number '$phoneValue' is already registered.";
+            $errors[] = "Phone number '$phone' is already registered.";
         }
         mysqli_stmt_close($stmtCheckPhone);
     }
@@ -109,17 +116,14 @@ if (isset($_POST['update_department'])) {
     if (!empty($errors)) {
         foreach ($errors as $error) {
             echo "<p>Error: $error</p>";
-            $redirectUrl = '../' . $currentPage . '?update_msg= ' . $error ;
-             header('Location: ' . $redirectUrl);
         }
         exit;
     }
 
-   
     // Update department registration in database using prepared statement
     $queryUpdate = "UPDATE `department_registration` SET `username` = ?, `email` = ?, `age` = ?, `gender` = ?, `phone` = ?, `position` = ? WHERE `id` = ?";
     $stmtUpdate = mysqli_prepare($connection, $queryUpdate);
-    mysqli_stmt_bind_param($stmtUpdate, 'ssisssi', $username, $email, $age, $gender, $phoneValue, $position, $new_number);
+    mysqli_stmt_bind_param($stmtUpdate, 'ssisssi', $username, $email, $age, $gender, $phone, $position, $new_number);
 
     if (!mysqli_stmt_execute($stmtUpdate)) {
         die("Query failed: " . mysqli_error($connection));
@@ -132,6 +136,8 @@ if (isset($_POST['update_department'])) {
         header('Location: ' . $redirectUrl);
         exit;
     }
+
+    mysqli_stmt_close($stmtUpdate);
 }
 
 include('update_department.php');

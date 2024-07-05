@@ -6,7 +6,7 @@
         <div class="modal-content form-department-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="ModalDepartmentLabel">Add Department</h1>
-                <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
@@ -52,11 +52,11 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <!-- <input type="submit" class="btn btn-success" name="add_department" value="አስገባ"> -->
                         <input type="hidden" name="add_department" value="1">
                     <!-- other form fields -->
-                    <button type="submit" class="btn btn-success">አስገባ</button>
+                    <button tabindex="0" type="submit" class="btn btn-success">አስገባ</button>
                     </div>
                 </form>
             </div>
@@ -73,7 +73,7 @@
             <div class="modal-content form-user-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="ModalUserLabel">Add User</h1>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="../includes/user_register.php" method="post" class="userForm">
@@ -141,7 +141,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
                     </div>
                     </form>
@@ -159,7 +159,7 @@
             <div class="modal-content form-user-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="ModalUserLoginLabel">Add User</h1>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <!-- signInForm -->
                 <div class="modal-body">
@@ -229,7 +229,7 @@
                      
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <input  type="submit" class="btn btn-success" name="add_user" value="አስገባ"></input>
                     </div>
                     </form>

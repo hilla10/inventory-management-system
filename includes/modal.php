@@ -56,23 +56,25 @@
           <div class="modal-content">
               <div class="modal-header">
                   <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button tabindex="0" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <form action="../includes/delete_user.php" method="post">
-                      <div class="form-group input-box my-2">
-                          <input type="text" class="form-control email" name="email">
-                          <span>Enter your email to delete</span>
-                      </div>
+                    <div class="form-group input-box my-2">
+                        <input type="text" class="form-control" name="email_or_username">
+                        <span>Enter your username or email to delete</span>
+                    </div>
+
+
                       <div class="form-group input-box my-2">
                           <input type="password" class="form-control validPassword" name="password">
                           <i class="fa-solid fa-eye-slash showHideBtn"></i>
                           <span>Enter your password</span>
                       </div>
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <input type="hidden" name="delete_user" value="1"></input>
-                        <button type="submit"  class="btn btn-danger">Delete User</button>
+                        <button tabindex="0" type="submit"  class="btn btn-danger">Delete User</button>
                       </div>
 
                   </form>
@@ -89,7 +91,7 @@
             <div class="modal-content shake-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="ModalItemLabel">Add Item</h1>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                 <form action="../includes/insert_app.php" method="post" class="insert-app-form">
@@ -201,9 +203,9 @@
                         <span>ምርመራ</span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                          <input type="hidden" name="add_item" value="1"></input>
-                        <button type="submit"  class="btn btn-success">አስገባ</button>
+                        <button tabindex="0" type="submit"  class="btn btn-success">አስገባ</button>
                     </div>
                 </form>
             </div>
@@ -218,7 +220,7 @@
         <div class="modal-content shake-bin-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="ModalBinCardLabel">Add Bin Card</h1>
-                <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="insert_app.php" method="post" class="insert-binCard-form">
@@ -244,8 +246,8 @@
                         <span>አጭር ፈር</span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <input type="hidden" name="add_bin" value="1"></input>
-                        <button type="submit"  class="btn btn-success">አስገባ</button>
+                        <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <input type="hidden" name="add_bin" value="1"></input>
+                        <button tabindex="0" type="submit"  class="btn btn-success">አስገባ</button>
                     </div>
                 </form>
             </div>
@@ -261,7 +263,7 @@
          <div class="modal-content shake-model19-content">
              <div class="modal-header">
                  <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 19</h1>
-                 <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                 <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
              <div class="modal-body">
                  <form action="insert_app.php" method="post" class="insert-model19-app-form">
@@ -306,9 +308,9 @@
                          <span>ጠቅላላ ዋጋ</span>
                      </div>
                      <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                         <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                          <!-- <input type="hidden" name="add_model" value="1"></input>
-                         <button type="submit" class="btn btn-success">አስገባ</button> -->
+                         <button tabindex="0" type="submit" class="btn btn-success">አስገባ</button> -->
                          <input type="submit" class="btn btn-success" name="add_model" value="አስገባ"></input>
                      </div>
                  </form>
@@ -324,7 +326,7 @@
         <div class="modal-content shake-model20-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model 20</h1>
-                <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button tabindex="0" type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="insert_app.php" method="post" class="insert-model20-app-form">
@@ -356,9 +358,9 @@
                         <span>ማሻሻያ አምድ</span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+                        <button tabindex="0" type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
                         <input type="hidden" name="add_model" value="1"></input>
-                        <button type="submit" class="btn btn-success">አስገባ</button>
+                        <button tabindex="0" type="submit" class="btn btn-success">አስገባ</button>
                     </div>
                 </form>
             </div>

@@ -70,29 +70,29 @@ include ('../includes/header.php');
     <div>
         <?php 
         if ($userRole == 'admin') {
-            echo '<a href="../admin/index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="../admin/index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         } else if ($userRole === 'it head'){
-            echo '<a href="../it/index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="../it/index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         } else if ($userRole === 'art head'){
-            echo '<a href="../art/index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="../art/index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         } else if ($userRole === 'auto head'){
-            echo '<a href="../auto/index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="../auto/index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         } else if ($userRole === 'business head'){
-            echo '<a href="../business/index.php" class="logo" aria-current="page">';
+            echo '<a tabindex=\"0\" href="../business/index.php" class="logo" aria-current="page">';
             echo '<img src="../img/EPTC_logo" alt="logo">';
             echo '</a>';
         }
         ?>
         <nav class="navbar navbar-static-top">
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <a tabindex="0" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <i class="fa-solid fa-bars-staggered"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
@@ -100,7 +100,7 @@ include ('../includes/header.php');
     </div>
 
     <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
+        <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -114,7 +114,7 @@ include ('../includes/header.php');
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                          <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                <button  tabindex="0" class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                           <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -132,12 +132,12 @@ include ('../includes/header.php');
                                  <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                     <!-- Display user information -->
                                    <li>
-                                        <a class="dropdown-item" href="../profile/">
+                                        <a tabindex="0" class="dropdown-item" href="../profile/">
                                             <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
                                             <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
                                         </a>
                                     </li>
-                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                    <li><a tabindex="0" class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -162,41 +162,42 @@ if (isset($title) && !empty($title)) {
                         <small>Control panel</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a tabindex="0" href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">profile</li>
                     </ol>
                     </section>
   <div class="card profile-card shadow-sm">
     
     <div class="card-body">
-      <table class="table table-hover">
+    <table class="table table-hover">
         <tbody>
-          <tr>
-            <th scope="row">Email</th>
-            <td><?php echo htmlspecialchars($displayEmail); ?></td>
-          </tr>
-          <tr>
-            <th scope="row">Name</th>
-            <td><?php echo htmlspecialchars($displayName); ?></td>
-          </tr>
-          <tr>
-            <th scope="row">Role</th>
-            <td><?php echo htmlspecialchars($displayRole); ?></td>
-          </tr>
-          <tr>
-            <th scope="row">Phone</th>
-            <td><?php echo htmlspecialchars($displayPhone); ?></td>
-          </tr>
-          <tr>
-            <th scope="row">ID</th>
-            <td><?php echo htmlspecialchars($displayId); ?></td>
-          </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td><?php echo isset($displayEmail) ? htmlspecialchars($displayEmail) : 'Email not available'; ?></td>
+            </tr>
+            <tr>
+                <th scope="row">Name</th>
+                <td><?php echo isset($displayName) ? htmlspecialchars($displayName) : 'Name not available'; ?></td>
+            </tr>
+            <tr>
+                <th scope="row">Role</th>
+                <td><?php echo isset($displayRole) ? htmlspecialchars($displayRole) : 'Role not available'; ?></td>
+            </tr>
+            <tr>
+                <th scope="row">Phone</th>
+                <td><?php echo isset($displayPhone) ? htmlspecialchars($displayPhone) : 'Phone not available'; ?></td>
+            </tr>
+            <tr>
+                <th scope="row">ID</th>
+                <td><?php echo isset($displayId) ? htmlspecialchars($displayId) : 'ID not available'; ?></td>
+            </tr>
         </tbody>
-      </table>
-      <div class="d-flex justify-content-end mt-4">
-        <a href="../includes/user_update.php?id=<?php echo htmlspecialchars($user['id']); ?>" class="btn btn-success">Update</a>
-      </div>
+    </table>
+    <div class="d-flex justify-content-end mt-4">
+        <a tabindex="0" href="../includes/user_update.php?id=<?php echo isset($user['id']) ? htmlspecialchars($user['id']) : ''; ?>" class="btn btn-success">Update</a>
     </div>
+</div>
+
   </div>
 </div>
 </div>

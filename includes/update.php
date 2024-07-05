@@ -1,6 +1,7 @@
 <?php
 include('dbcon.php');
 // include('auth.php'); // Assuming you have an auth file for user authentication
+include('../includes/check_time.php'); // Include time out for security
 
 // Start the session if not already started
 if (session_status() == PHP_SESSION_NONE) {

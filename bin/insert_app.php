@@ -1,17 +1,18 @@
 <?php
 include('../includes/dbcon.php');
 
+// Check if form is submitted
 if(isset($_POST['add_bin'])) {
     // Sanitize and validate input
-    $date = htmlspecialchars($_POST['date']);
+    $date = htmlspecialchars(trim($_POST['date']));
     $income = intval($_POST['income']);
     $cost = intval($_POST['cost']);
-    $short = htmlspecialchars($_POST['short']);
+    $short = htmlspecialchars(trim($_POST['short']));
     
     // Validate that required fields are not empty
     if(empty($date) || empty($income) || empty($cost) || empty($short)) {
-        header('location: index.php?error_msg=Some fields are empty.');
-        exit;
+        header('Location: index.php?error_msg=Some fields are empty.');
+        exit();
     }
     
     // Prepare the SQL statement using a prepared statement
@@ -28,8 +29,8 @@ if(isset($_POST['add_bin'])) {
         // Execute the statement
         if(mysqli_stmt_execute($stmt)) {
             // Success: Redirect with success message
-            header('location: index.php?insert_msg=Your data has been added successfully');
-            exit;
+            header('Location: index.php?insert_msg=Your data has been added successfully');
+            exit();
         } else {
             // Error handling for database execution failure
             die("Query execution failed: " . mysqli_stmt_error($stmt));

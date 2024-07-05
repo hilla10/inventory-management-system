@@ -1,6 +1,10 @@
 <?php
 include('../includes/dbcon.php');
-session_start();
+include('../includes/check_time.php'); // Include time out for security
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 
 // Access the stored current page URL
 $currentPage = isset($_SESSION['currentPage']) ? $_SESSION['currentPage'] : '';

@@ -3,6 +3,7 @@
 include ('../includes/dbcon.php');
 include('../includes/header.php');
 include('../includes/auth.php'); // Include auth for security
+include('../includes/check_time.php'); // Include time out for security
 
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
@@ -47,7 +48,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
     </div>
 
     <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
+        <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -66,7 +67,7 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                <button tabindex="0" class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -122,20 +123,22 @@ $userRole = isset($_SESSION['options']) ? $_SESSION['options'] : '';
                     <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-md-end  gap-3">
                         <div class="d-flex gap-3">
                             <div class="form-group mb-2">
-                                <select name="order" id="order" class="form-select" onchange="this.form.submit()">
+                                <label for="order" class="sr-only">Sort options by</label>
+                                <select name="order" id="order" class="form-select" onchange="this.form.submit()" aria-label="Sort options by">
                                     <option value="asc" <?php if (isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
                                     <option value="desc" <?php if (isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
                                 </select>
                             </div>
 
                             <div class="form-group mb-2">
+                                <label for="search" class="sr-only">Search item by inventory list</label>
                                 <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
+                        <button tabindex="0" type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
-                <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalItem">Add Items</button>
+                <button tabindex="0" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalItem">Add Items</button>
             </div>
 
             <?php

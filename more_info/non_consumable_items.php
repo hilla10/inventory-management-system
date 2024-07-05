@@ -3,6 +3,7 @@
 include('../includes/dbcon.php');
 include("../includes/auth.php");
 include('../includes/header.php');
+include('../includes/check_time.php'); // Include time out for security
 
 
 // Start the session (if not already started in included files)
@@ -31,12 +32,12 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
 <header class="main-header">
    <div>
       <?php if ($userRole == 'admin') {
-          echo "<a href=\"../admin/index.php\" class=\"logo\" aria-current=\"page\">";
+          echo "<a tabindex=\"0\" href=\"../admin/index.php\" class=\"logo\" aria-current=\"page\">";
           echo "<img src=\"../img/EPTC_logo\" alt=\"logo\">";
           echo "</a>";
       } ?>
       <nav class="navbar navbar-static-top">
-          <a href="" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <a tabindex="0" href="" class="sidebar-toggle" data-toggle="push-menu" role="button">
               <i class="fa-solid fa-bars-staggered"></i>
               <span class="sr-only">Toggle navigation</span>
           </a>
@@ -44,7 +45,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
    </div>
 
    <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-      <div class="hamburger">
+      <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
           <div class="bar"></div>
           <div class="bar"></div>
           <div class="bar"></div>
@@ -56,7 +57,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                <button  tabindex="0" class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -66,12 +67,12 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                                   <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                     <!-- Display user information -->
                                    <li>
-                                        <a class="dropdown-item" href="../profile/">
+                                        <a tabindex="0" class="dropdown-item" href="../profile/">
                                             <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
                                             <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
                                         </a>
                                     </li>
-                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                    <li><a tabindex="0" class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -98,7 +99,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                         <small>Control panel</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a tabindex="0" href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">more_info</li>
                         <li class="active">none_consumable_items</li>
                     </ol>
@@ -108,17 +109,19 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                     <div class="d-flex flex-sm-row flex-column align-items-center justify-content-center align-items-md-end  gap-3">
                         <div class="d-flex gap-3">
                             <div class="form-group mb-2">
-                                <select name="order" id="order" class="form-select" onchange="this.form.submit()">
+                                <label for="order" class="sr-only">Sort options by</label>
+                                <select name="order" id="order" class="form-select" onchange="this.form.submit()" aria-label="Sort options by">
                                     <option value="asc" <?php if (isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
                                     <option value="desc" <?php if (isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
                                 </select>
                             </div>
 
                             <div class="form-group mb-2">
+                                <label for="search" class="sr-only">Search item by inventory list</label>
                                 <input type="text" name="search" id="search" placeholder="Search item by inventory list" class="form-control">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
+                        <button  tabindex="0" type="submit" class="btn btn-primary mb-2 ms-1">Search</button>
                     </div>
                 </form>
             </div>
@@ -208,9 +211,9 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                                         <td><?php echo $row['price']; ?></td>
                                         <td><?php echo $row['total_price']; ?></td>
                                         <td class="text-wrap" style="max-width: 12rem;"><?php echo $row['examination']; ?></td>
-                                        <td><a href="../includes/update.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
+                                        <td><a tabindex="0" href="../includes/update.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-success">Update</a></td>
                                         <td>
-                                            <a href="../includes/delete.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary_number']; ?>', '<?php echo htmlspecialchars($row['inventory_list']); ?>')">Delete</a>
+                                            <a tabindex="0" href="../includes/delete.php?ordinary_number=<?php echo $row['ordinary_number']; ?>&department=<?php echo $row['department']; ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['ordinary_number']; ?>', '<?php echo htmlspecialchars($row['inventory_list']); ?>')">Delete</a>
                                         </td>
                                         <script>
                                             function confirmDelete(ordinaryNumber, inventoryList) {
@@ -252,7 +255,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
 
                             // Previous page link
                             if ($currentPage > 1) {
-                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage - 1);
+                                echo "<li class='page-item'><a tabindex=\"0\" class='page-link' href='?page=".($currentPage - 1);
                                 if (isset($_GET['order'])) {
                                     echo "&order={$_GET['order']}";
                                 }
@@ -268,7 +271,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
                                 if ($i == $currentPage) {
                                     echo " active";
                                 }
-                                echo "'><a class='page-link' href='?page=$i";
+                                echo "'><a tabindex=\"0\" class='page-link' href='?page=$i";
                                 if (isset($_GET['order'])) {
                                     echo "&order={$_GET['order']}";
                                 }
@@ -280,7 +283,7 @@ $resultAllItems = mysqli_query($connection, $queryAllItems);
 
                             // Next page link
                             if ($currentPage < $totalPages) {
-                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage + 1);
+                                echo "<li class='page-item'><a tabindex=\"0\" class='page-link' href='?page=".($currentPage + 1);
                                 if (isset($_GET['order'])) {
                                     echo "&order={$_GET['order']}";
                                 }

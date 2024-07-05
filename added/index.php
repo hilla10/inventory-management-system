@@ -2,6 +2,7 @@
 include('../includes/dbcon.php');  // Ensure database connection
 include('../includes/header.php'); // Include header for consistency
 include('../includes/auth.php'); // Include auth for security
+include('../includes/check_time.php'); // Include time out for security
 
 // Start session if not already started
 if (session_status() == PHP_SESSION_NONE) {
@@ -96,7 +97,7 @@ function updateItemStatus($itemId, $status) {
             <img src="../img/EPTC_logo" alt="logo">
         </a>
         <nav class="navbar navbar-static-top">
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" tabindex="0">
                 <i class="fa-solid fa-bars-staggered"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
@@ -105,7 +106,7 @@ function updateItemStatus($itemId, $status) {
 
     <!-- Dropdown Menu -->
     <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
+        <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -121,7 +122,7 @@ function updateItemStatus($itemId, $status) {
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li>
                                 <div class="dropdown nav-item">
-                                    <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                    <button tabindex="0" class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                         Admin
                                     </button>
                                      <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
@@ -190,19 +191,21 @@ function updateItemStatus($itemId, $status) {
         </select>
     </div>
      <div class="form-group mb-2">
-        <select name="order" id="order" class="form-select" onchange="this.form.submit()">
+        <label for="order" class="sr-only">Sort options by</label>
+        <select name="order" id="order" class="form-select" onchange="this.form.submit()"  aria-label="Sort options by">
             <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
             <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
         </select>
     </div>
     </div>
-  <div class="form-group input-box outline">
-                        <input type="text" name="search" id="search" placeholder="Search user" class="form-control search">
-                    </div>
-   
+                <div class="form-group input-box outline">
+                    <label for="search" class="sr-only">Search User</label>
+                    <input type="text" name="search" id="search" placeholder="Search user" class="form-control search">
+                </div>
+                
 </div>
 
-        <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
+        <button tabindex="0" type="submit" class="btn btn-primary my-3 ms-1">Search</button>
 </div>
 
 </form>

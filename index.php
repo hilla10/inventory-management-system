@@ -43,7 +43,7 @@
             </form>
 
             <div>
-                <button id="usersBtn" class="px-5 btn-outline my-2">Sign Up</button>
+                <button id="usersBtn" class="px-5 btn-outline my-2" tabindex="0">Sign Up</button>
             </div>
         </div>
     </div>

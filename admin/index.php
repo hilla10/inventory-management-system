@@ -1,6 +1,7 @@
 <?php
 // Include necessary files
 include('../includes/dbcon.php');
+include('../includes/check_time.php'); // Include time out for security
 include("../includes/auth.php");
 include('../includes/header.php');
 
@@ -143,12 +144,12 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
 
             <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <i class="fa-solid fa-bars-staggered"></i>
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only ">Toggle navigation</span>
             </a>
         </nav>
     </div>
     <nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-        <div class="hamburger">
+        <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -169,14 +170,14 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <button type="button" class="btn mb-3 mb-lg-0 me-3 position-relative"
-                                data-bs-toggle="modal" data-bs-target="#notificationModal">
+                                data-bs-toggle="modal" data-bs-target="#notificationModal" tabindex="0">
                                 <i class="fa-solid fa-bell fs-4 text-light"></i>
                                 <span class="message_count"><?php echo $totalNotifications; ?></span>
                             </button>
 
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="btn btn-danger mb-3 mb-lg-0  me-3" data-bs-toggle="modal"
+                            <button tabindex="0" type="button" class="btn btn-danger mb-3 mb-lg-0  me-3" data-bs-toggle="modal"
                                 data-bs-target="#ModalDelete">
                                 Delete User
                             </button>
@@ -184,7 +185,7 @@ $totalNotifications = $pendingCount + $totalLowStockCount + $pendingAddedCount;
 
                         <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button"
+                                <button tabindex="0"n class="btn btn-info dropdown-toggle me-5 mb-1" type="button"
                                     id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {

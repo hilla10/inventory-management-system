@@ -2,6 +2,7 @@
 <?php
 include('../includes/dbcon.php');
 include('../includes/header.php'); 
+include('../includes/check_time.php'); // Include time out for security
 
 // Start the session (if not already started in included files)
 if (session_status() == PHP_SESSION_NONE) {
@@ -45,12 +46,12 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
 
     <div>
         <?php   if ($userRole == 'admin') {
-                echo "<a href=\"../admin/index.php\" class=\"logo";
+                echo "<a tabindex=\"0\" href=\"../admin/index.php\" class=\"logo";
                 echo "\" aria-current=\"page\">";
                 echo " <img src=\"../img/EPTC_logo\" alt=\"logo\">";
                 echo "</a>";
             } else {
-                echo "<a href=\"index.php\" class=\"logo";
+                echo "<a tabindex=\"0\" href=\"index.php\" class=\"logo";
                 echo "\" aria-current=\"page\">";
                 echo " <img src=\"../img/EPTC_logo\" alt=\"logo\">";
                 echo "</a>";
@@ -58,15 +59,15 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
         ?>
         <nav class="navbar navbar-static-top">
 
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <a tabindex="0" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                 <i class="fa-solid fa-bars-staggered"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
         </nav>
     </div>
     
-<nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle">
-     <div class="hamburger">
+<nav class="navbar navbar-expand-lg d-flex align-items-center bg-dark-blue navbar-toggle tabindex="0">
+     <div class="hamburger"  tabindex="0" role="button" aria-label="Toggle menu">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -80,7 +81,7 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
        
                          <li>
                             <div class="dropdown nav-item">
-                                <button class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
+                                <button tabindex="0" class="btn btn-info dropdown-toggle me-5 mb-1" type="button" id="dropdownMenuButton" aria-expanded="false">
                                     <?php
                                     if ($userRole == 'admin') {
                                         echo 'Admin';
@@ -90,12 +91,12 @@ if (!isset($_SESSION['username']) || $_SESSION['options'] !== 'admin') {
                                  <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton">
                                     <!-- Display user information -->
                                    <li>
-                                        <a class="dropdown-item" href="../profile/">
+                                        <a tabindex="0"class="dropdown-item" href="../profile/">
                                             <i class="fas fa-user me-1 fs-5"></i> <!-- Font Awesome icon for user -->
                                             <?php echo $_SESSION['username']; ?> <!-- Display user's email or other info -->
                                         </a>
                                     </li>
-                                    <li><a class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
+                                    <li><a tabindex="0" tabindex="0" class="dropdown-item text-danger fw-bold" href="../login/logout_process.php">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -128,7 +129,7 @@ if (isset($title) && !empty($title)) {
                         <small>Control panel</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a tabindex="0" href="index.php"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">display_user</li>
                     </ol>
     </section>
@@ -139,8 +140,9 @@ if (isset($title) && !empty($title)) {
 <div class="d-flex gap-3">
                 <div class="d-flex gap-4">
                     <div class="form-group mb-2">
-                        <select name="field" class="form-select" >
-                            <option value="select field">Select field</option>
+                        <label for="field" class="sr-only" id="field-label">Select a field</label>
+                         <select name="field" class="form-select" aria-labelledby="field-label">
+                            <option value="select field" selected disabled>Select field</option>
                             <option value="username" <?php if(isset($_GET['field']) && $_GET['field'] == 'username') echo 'selected'; ?>>Username</option>
                             <option value="gender" <?php if(isset($_GET['field']) && $_GET['field'] == 'gender') echo 'selected'; ?>>Gender</option>
                             <option value="age" <?php if(isset($_GET['field']) && $_GET['field'] == 'age') echo 'selected'; ?>>Age</option>
@@ -151,20 +153,22 @@ if (isset($title) && !empty($title)) {
                     </div>
 
                     <div class="form-group mb-2">
-                            <select name="order" id="order" class="form-select " onchange="this.form.submit()">
+                                <label for="order" class="sr-only">Sort options by</label>
+                            <select name="order" id="order" class="form-select " onchange="this.form.submit()" aria-label="Sort options by">
                                 <option value="asc" <?php if(isset($_GET['order']) && $_GET['order'] == 'asc') echo 'selected'; ?>>Ascending</option>
                                 <option value="desc" <?php if(isset($_GET['order']) && $_GET['order'] == 'desc') echo 'selected'; ?>>Descending</option>
                             </select>
                         </div>
                 </div>
                         <div class="form-group input-box outline">
+                                <label for="search" class="sr-only">Search User</label>
                         <input type="text" name="search" id="search" placeholder="Search user" class="form-control search">
                     </div>
                 </div>
-        <button type="submit" class="btn btn-primary my-3 ms-1">Search</button>
+        <button tabindex="0" type="submit" class="btn btn-primary my-3 ms-1">Search</button>
     </div>
         </form>
-        <button class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalUser">Add User</button>
+        <button tabindex="0" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#ModalUser">Add User</button>
     </div>
     
 
@@ -295,7 +299,7 @@ if (!empty($field) && $field != 'select field') {
                         <td><?php echo $row['options'] ?></td>
                         <td><a href="../includes/user_update.php?id=<?php echo $row['id'] ?>" class="btn btn-success">Update</a></td>
                          <td>
-                                  <a  href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['id']; ?>','<?php echo $row['email']; ?>' )">Delete</a>
+                                  <a tabindex="0"  href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger" onclick="return confirmDelete('<?php echo $row['id']; ?>','<?php echo $row['email']; ?>' )">Delete</a>
                                 </td>
 
                                 <script>
@@ -343,7 +347,7 @@ if (!empty($field) && $field != 'select field') {
 
                             // Previous page link
                             if ($currentPage > 1) {
-                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage - 1);
+                                echo "<li class='page-item'><a tabindex=\"0\" class='page-link' href='?page=".($currentPage - 1);
                                 if (isset($_GET['order'])) {
                                     echo "&order={$_GET['order']}";
                                 }
@@ -371,7 +375,7 @@ if (!empty($field) && $field != 'select field') {
 
                             // Next page link
                             if ($currentPage < $totalPages) {
-                                echo "<li class='page-item'><a class='page-link' href='?page=".($currentPage + 1);
+                                echo "<li class='page-item'><a tabindex=\"0\" class='page-link' href='?page=".($currentPage + 1);
                                 if (isset($_GET['order'])) {
                                     echo "&order={$_GET['order']}";
                                 }
