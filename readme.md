@@ -1,19 +1,19 @@
-Inventory Management System
+## Inventory Management System
 
 This Inventory Management System is built using HTML, CSS, Bootstrap, PHP, and MySQL. It enables users to manage inventory, departments, and perform operations such as login, registration, updating, and deleting records.
 Table of Contents
 
-    Setup
-    Database
-    Directory Structure
-    Running the System
-    Login
-    Functionalities
-    Troubleshooting
-    Usage
-    Security
+-[Setup](#Setup)
+-[Database](#Database)
+-[Directory Structure](#Directory-Structure)
+-[Running the System](#Running-the-System)
+-[Login](#Login)
+-[Functionalities](#Functionalities)
+-[Troubleshooting](#Troubleshooting)
+-[Usage](#Usage)
+-[Security](#Security)
 
-Setup
+## Setup
 
 Before running the system, ensure you have the following prerequisites installed:
 
@@ -22,12 +22,12 @@ Before running the system, ensure you have the following prerequisites installed
     MySQL
     You can use WAMP, LAMP, MAMP, or XAMP servers.
 
-Database
+## Database
 
-    Create Database: Create a new database named inventory.
-    Import Schema: Import inventory.sql located at localhost/group-project/database/inventory.sql to set up tables and initial data.
+1. Create a new database named `inventory`.
+2. Import the `inventory.sql` from localhost/group-project/database/inventory.sql file into the `inventory` database to create the necessary tables and data.
 
-Directory Structure
+## Directory-Structure
 
     css/: CSS stylesheets.
     img/: Image assets.
@@ -37,12 +37,12 @@ Directory Structure
     delete.php: Handles deletion of records.
     update.php: Handles updating of records.
 
-Running the System
+## Running-the-System
 
     Deployment: Deploy the system on a web server.
     Access: Open the system using the appropriate URL or file path in a web browser.
 
-Login
+## Login
 
 To access the system:
 
@@ -64,7 +64,7 @@ The system includes the following functionalities:
     Managing different departments.
     Generating reports on inventory status.
 
-Troubleshooting
+## Troubleshooting
 
 If you encounter issues:
 
@@ -72,7 +72,7 @@ If you encounter issues:
     Double-check database connection settings in PHP files.
     Review server logs for error messages or warnings.
 
-Usage
+## Usage
 
 To use the system:
 
@@ -81,12 +81,10 @@ To use the system:
     Add or update inventory items, manage departments, and generate reports.
     Always log out after usage for security.
 
-Security
+## Security
 
 When using the system, observe these security guidelines:
 
     Use strong, unique passwords for user accounts.
-    
     Regularly update system components to address security vulnerabilities.
-
     Grant system access only to authorized personnel and enforce role-based user privileges.
