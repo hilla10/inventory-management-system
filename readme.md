@@ -30,6 +30,9 @@ Before running the system, ensure you have the following prerequisites installed
     MySQL
     You can use WAMP, LAMP, MAMP, or XAMP servers.
 
+    download the project file from github after that extract the file 
+    and change the folder name to inventory-management-system.
+
 ## Database
 
 1. Create a new database named `inventory`.
