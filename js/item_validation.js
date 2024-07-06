@@ -167,6 +167,7 @@ export const itemValidation = () => {
   });
 };
 
+/* ********************  */
 // validation for bin card
 export const binCardValidation = () => {
   const insertBinCardAppForms = document.querySelectorAll(
@@ -504,7 +505,6 @@ export  const validationModel20 = () => {
       const names = insertModel20AppForm.querySelectorAll('.requested-by');
       const itemTypes = insertModel20AppForm.querySelectorAll('.item_type');
       const models = insertModel20AppForm.querySelectorAll('.model');
-      const updates = insertModel20AppForm.querySelectorAll('.update');
       const inputQuantities =
         insertModel20AppForm.querySelectorAll('.quantity');
 
@@ -577,12 +577,8 @@ export  const validationModel20 = () => {
           }
         });
 
-        // Validate update input
-        updates.forEach((update) => {
-          if (!validateInput(update)) {
-            isValid = false;
-          }
-        });
+       
+      
 
         // Validate quantity input
         inputQuantities.forEach((inputQuantity) => {
@@ -620,12 +616,6 @@ export  const validationModel20 = () => {
       models.forEach((model) => {
         model.addEventListener('input', () => {
           validateInput(model);
-        });
-      });
-
-      updates.forEach((update) => {
-        update.addEventListener('input', () => {
-          validateInput(update);
         });
       });
 
