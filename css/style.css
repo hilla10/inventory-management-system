@@ -344,13 +344,17 @@ form .outline input:active {
 form .input-box input:focus,
 form .input-box input:focus-visible,
 form .input-box button:focus-visible,
-button:focus,
-button:focus-visible,
 form .input-box input:active,
 form .input-box input.has-content {
   border: 1px groove #00dfc4;
   box-shadow: 0 0 0.5rem 0.15rem rgba(220, 210, 248, 0.945);
   background: transparent;
+  color: #fff;
+}
+button:focus,
+button:focus-visible {
+   border: 1px groove #00dfc4;
+  box-shadow: 0 0 0.5rem 0.15rem rgba(220, 210, 248, 0.945);
   color: #fff;
 }
 
