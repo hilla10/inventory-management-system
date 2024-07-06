@@ -1,8 +1,6 @@
 // validate user form
 
-export 
-
-  const userValidation = () => {
+export const userValidation = () => {
     // Select all user forms
     const forms = document.querySelectorAll('.userForm');
 
@@ -261,20 +259,19 @@ export
   };
 
 
-export const DepartmentValidation = () => {
+export  const DepartmentValidation = () => {
   // Select all user forms
   const formDepartment = document.querySelectorAll('.departmentForm');
 
   // Validation functions
   const isValidEmail = (emailValue) => {
     if (emailValue.trim() === '') {
-      
       return true;
     } else {
       const emailRegex =
         /^(?!.*?[.]{2})[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const isValid = emailRegex.test(emailValue);
-     
+
       return isValid;
     }
   };
@@ -287,7 +284,6 @@ export const DepartmentValidation = () => {
   const isValidPhone = (phoneValue) => {
     // Allow empty/null phone numbers
     if (phoneValue.trim() === '+251' || phoneValue.trim() === '') {
-    
       return true;
     } else {
       // Replace all non-digit characters with empty string
@@ -295,7 +291,7 @@ export const DepartmentValidation = () => {
       const isValid =
         phoneRegex.test(phoneValue) &&
         (numericPhoneValue.length === 12 || numericPhoneValue.length === 13);
-    
+
       return isValid;
     }
   };
@@ -303,14 +299,14 @@ export const DepartmentValidation = () => {
   const isValidAge = (ageValue) => {
     const ageRegex = /^\d+$/;
     const isValid = ageRegex.test(ageValue);
-  
+
     return isValid;
   };
 
   const isValidName = (nameValue) => {
     const nameRegex = /^[A-Za-z][A-Za-z\s'-]+$/;
     const isValid = nameRegex.test(nameValue);
-  
+
     return isValid;
   };
 
@@ -320,7 +316,6 @@ export const DepartmentValidation = () => {
     successClass = 'success-input',
     errorClass = 'error-input'
   ) => {
-  
     if (isValid(field.value)) {
       field.classList.remove(errorClass);
       field.classList.add(successClass);
@@ -340,7 +335,7 @@ export const DepartmentValidation = () => {
 
     email.addEventListener('input', () => validateField(email, isValidEmail));
     // Initialize phone input with the prefix +251 and validate/format input
-    if(phone) {
+    if (phone) {
       phone.value = '+251 ';
       phone.addEventListener('input', () => {
         let value = phone.value.trim(); // Remove leading/trailing whitespace
@@ -380,67 +375,71 @@ export const DepartmentValidation = () => {
       });
     }
 
-    
-      if (updatePhone) {
-        updatePhone.addEventListener('input', () => {
-          let value = updatePhone.value.trim(); // Remove leading/trailing whitespace
-          // Check if the input starts with +251
-          if (!value.startsWith('+251 ')) {
-            // If not, reset to +251
-            value = '+251 ';
-          }
-          updatePhone.value = value.replace(/[^+\d\s()-]/g, '');
-          validateField(updatePhone, isValidPhone);
-        });
+    if (updatePhone) {
+      updatePhone.addEventListener('input', () => {
+        let value = updatePhone.value.trim(); // Remove leading/trailing whitespace
+        // Check if the input starts with +251
+        if (!value.startsWith('+251 ')) {
+          // If not, reset to +251
+          value = '+251 ';
+        }
+        updatePhone.value = value.replace(/[^+\d\s()-]/g, '');
+        validateField(updatePhone, isValidPhone);
+      });
 
-        updatePhone.addEventListener('keydown', (event) => {
-          const value = updatePhone.value.trim();
-          const numericValue = value.replace(/[^\d]/g, '');
-          if (
-            [
-              'ArrowLeft',
-              'ArrowRight',
-              'Backspace',
-              'Delete',
-              'Tab',
-              'Enter',
-              ' ',
-              '-',
-              '(',
-              ')',
-            ].includes(event.key)
-          )
-            return;
-          if (
-            updatePhone.selectionStart < 4 ||
-            numericValue.length >= 13 ||
-            !/^\d$/.test(event.key)
-          ) {
-            event.preventDefault();
-          }
-        });
-      }
+      updatePhone.addEventListener('keydown', (event) => {
+        const value = updatePhone.value.trim();
+        const numericValue = value.replace(/[^\d]/g, '');
+        if (
+          [
+            'ArrowLeft',
+            'ArrowRight',
+            'Backspace',
+            'Delete',
+            'Tab',
+            'Enter',
+            ' ',
+            '-',
+            '(',
+            ')',
+          ].includes(event.key)
+        )
+          return;
+        if (
+          updatePhone.selectionStart < 4 ||
+          numericValue.length >= 13 ||
+          !/^\d$/.test(event.key)
+        ) {
+          event.preventDefault();
+        }
+      });
+    }
 
-    age.addEventListener('input', () => validateField(age, isValidAge));
-    name.addEventListener('input', () => validateField(name, isValidName));
+    if (age) {
+      age.addEventListener('input', () => validateField(age, isValidAge));
+    }
+
+    if (name) {
+      name.addEventListener('input', () => validateField(name, isValidName));
+    }
 
     form.addEventListener('submit', (event) => {
-
       let isFormValid = true;
-      [email, phone, age, name].forEach((field) => {
-        
-        if (
-          (field.classList.contains('email') && !isValidEmail(field.value)) ||
-          (field.classList.contains('phone') && !isValidPhone(field.value)) ||
-          (field.classList.contains('update_phone') &&
-            !isValidPhone(field.value)) ||
-          (field.classList.contains('age') && !isValidAge(field.value)) ||
-          (field.classList.contains('name') && !isValidName(field.value))
-        ) {
-          isFormValid = false;
-          field.classList.add('error-input');
-        } else {
-          field.classList.remove('error-input');
+      [email, phone, updatePhone, age, name].forEach((field) => {
+        if (field) {
+          if (
+            (field.classList.contains('email') && !isValidEmail(field.value)) ||
+            (field.classList.contains('phone') && !isValidPhone(field.value)) ||
+            (field.classList.contains('update_phone') &&
+              !isValidPhone(field.value)) ||
+            (field.classList.contains('age') && !isValidAge(field.value)) ||
+            (field.classList.contains('name') && !isValidName(field.value))
+          ) {
+            isFormValid = false;
+            field.classList.add('error-input');
+          } else {
+            field.classList.remove('error-input');
+          }
         }
       });
 
